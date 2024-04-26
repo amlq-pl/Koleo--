@@ -1,2 +1,2 @@
-drop database koleo;
-drop user koleo;
+drop database koleo_db;
+drop user koleo_user;
