@@ -2,7 +2,8 @@ create table rabaty(
     id_rabatu integer primary key,
     nazwa varchar(50) not null,
     znizka numeric(2) not null,
-    data_waznosci date
+    data_wprowadzenia date not null,
+    data_waznosci date check ( data_waznosci<data_waznosci )
 );
 
 create table ulgi(
