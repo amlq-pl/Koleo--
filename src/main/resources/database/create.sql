@@ -3,7 +3,7 @@ create table rabaty(
     nazwa varchar(50) not null,
     znizka numeric(2) not null,
     data_wprowadzenia date not null,
-    data_waznosci date check ( data_waznosci<data_waznosci )
+    data_waznosci date check ( rabaty.data_wprowadzenia<data_waznosci )
 );
 
 create table ulgi(
@@ -91,7 +91,7 @@ create table przejazdy(
     id_trasy_przewoznika integer not null references trasy_przewoznicy,
     data_przejazdu date not null,
     ile_wagonow smallint not null,
-    koszt_bazowy numeric(3,2) not null,
+    koszt_bazowy numeric(5,2) not null,
     czy_rezerwacja_miejsc boolean not null,
     nazwa varchar(30)
 );
