@@ -1,4 +1,7 @@
 #!/bin/bash
+sudo -u postgres psql -c "drop database if exists koleo_db;"
+sudo -u postgres psql -c "drop user if exists koleo_user;"
+
 sudo -u postgres psql -c "create user koleo_user with password 'koleo';"
 sudo -u postgres psql -c "alter user koleo_user with superuser;"
 sudo -u postgres psql -c "grant pg_read_server_files to koleo_user with admin option;"

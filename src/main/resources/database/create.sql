@@ -11,8 +11,8 @@ create table ulgi(
     znizka numeric(2)
 );
 
-create table uzytkownicy(
-    id_uzytkownika integer primary key,
+create table klienci(
+    id_klienta integer primary key,
     imie varchar(20) not null,
     nazwisko varchar(40) not null,
     data_urodzenia date not null,
@@ -24,16 +24,12 @@ create table konto(
     id_konta integer primary key ,
     login varchar(30) not null,
     haslo integer not null,
-    id_uzytkownika integer references uzytkownicy
+    id_klienta integer references klienci
 );
 
 create table zamowienia(
     id_zamowienia integer primary key,
-    id_uzytkownika integer not null references uzytkownicy,
-    data_kupna date not null,
-    data_zwrotu date check ( data_kupna<data_zwrotu ),
-    id_ulgi integer references ulgi,
-    id_rabatu integer references rabaty
+    id_klienta integer not null references klienci
 );
 
 create table przewoznicy(
@@ -49,16 +45,21 @@ create table stacje(
 
 create table trasy(
     id_trasy integer primary key,
-    ile_stacji numeric(2) not null,
-    id_przewoznika integer references przewoznicy
+    ile_stacji smallint not null
 );
 
 create table stacje_posrednie(
     id_trasy integer not null references trasy,
-    numer_stacji numeric(2) not null,
+    numer_stacji smallint not null,
     id_stacji integer not null references stacje,
     czas_postoju interval,
     czas_przejazdu interval
+);
+
+create table trasy_przewoznicy(
+    id_trasy_przewoznika integer primary key,
+    id_trasy integer references trasy,
+    id_przewoznika integer references przewoznicy
 );
 
 create table cennik_biletow_okresowych(
@@ -70,14 +71,25 @@ create table cennik_biletow_okresowych(
 );
 
 create table bilety_okresowe_zamowienia(
+    id_bilety_okresowe_zamowienia integer primary key,
     id_zamowienia integer not null references zamowienia,
+    data_kupna date not null,
+    data_zwrotu date check ( data_kupna<data_zwrotu ),
+    id_ulgi integer references ulgi,
+    id_rabatu integer references rabaty
+);
+
+create table bilety_okresowe(
+    id_bilety_okresowe_zamowienia integer references bilety_okresowe_zamowienia,
     data_od date not null,
     id_typ_biletu integer not null references cennik_biletow_okresowych
 );
 
 create table przejazdy(
     id_przejazdu integer primary key,
-    id_trasy integer not null references trasy,
+    id_trasy_przewoznika integer not null references trasy_przewoznicy,
+    data_przejazdu date not null,
+    ile_wagonow smallint not null,
     koszt_bazowy numeric(3,2) not null,
     czy_rezerwacja_miejsc boolean not null,
     nazwa varchar(30)
@@ -86,39 +98,46 @@ create table przejazdy(
 create table wagony(
     id_wagonu integer primary key,
     typ_wagonu varchar(20) not null,
-    klasa numeric(1) not null,
-    liczba_miejsc numeric(3) not null
+    klasa smallint not null,
+    liczba_miejsc smallint not null
 );
 
 create table wagony_typy_miejsc(
     id_wagonu integer references wagony,
-    miejsce_mod integer not null,
+    miejsce_mod smallint not null,
     typ_miejsca varchar(20) not null
 );
 
 create table szczegoly_biletu(
-    id_szczegolow integer primary key,
+    id_szczegolow smallint primary key,
     rower boolean not null,
     dodatkowy_bagaz boolean not null,
     zwierze boolean not null
 );
 
-create table przejazdy_wagony(
-    id_przejazdu_wagonu integer primary key,
+create table przejazdy_sklad(
+    id_przejazdu_skladu integer,
     id_przejazdu integer not null references przejazdy,
-    odcinek_trasy integer not null,
     id_wagonu integer not null references wagony,
-    nr_wagonu numeric(2) not null,
-    nr_miejsca numeric(3) not null,
-    unique (id_przejazdu,nr_wagonu,nr_miejsca)
+    nr_wagonu smallint not null,
+    unique (id_przejazdu,id_wagonu,nr_wagonu)
 );
 
 create table bilety_jednorazowe_zamowienia(
-    id_zamowienia integer not null references zamowienia,
-    id_przejazdu integer not null references przejazdy_wagony,
-    od_stacji integer not null,
-    do_stacji integer not null check ( od_stacji<do_stacji ),
-    nr_wagonu integer not null references przejazdy_wagony,
-    nr_miejsca integer not null references przejazdy_wagony,
-    id_szczegolow integer not null references szczegoly_biletu
+    id_zamowienia integer references zamowienia,
+    id_bilety_jednorazowe_zamowienia integer primary key,
+    data_kupna date not null,
+    data_zwrotu date check ( data_kupna<data_zwrotu ),
+    id_ulgi integer references ulgi,
+    id_rabatu integer references rabaty
 );
+
+create table bilety_jednorazowe(
+    id_bilety_jednorazowe_zamowienia integer not null references bilety_jednorazowe_zamowienia,
+    id_przejazdu integer not null references przejazdy,
+    od_stacji smallint not null,
+    do_stacji smallint not null check ( od_stacji<do_stacji ),
+    nr_wagonu smallint not null,
+    nr_miejsca smallint not null,
+    id_szczegolow smallint not null references szczegoly_biletu
+)
