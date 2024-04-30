@@ -50,7 +50,11 @@ użytkownikach zostanie wykorzystany Python.
 -   Interfejs programowania bazy danych: pgJDBC
 
 -   Generacja danych do bazy: Python
+    
+# 5. Schemat bazy danych:
 
-# 5. Link do repozytorium:
+![Schemat bazy danych](diagram.jpg "Schemat bazy danych")
+
+# 6. Link do repozytorium:
 
 <https://github.com/amlq-pl/Koleo-->
