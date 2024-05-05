@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="koleo_db@localhost" uuid="017d531b-b095-43e7-b7b6-007c8b95a153">
+    <data-source source="LOCAL" name="koleo_user@localhost" uuid="546340ec-6c85-41bf-9ac5-ee556dde168f">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
