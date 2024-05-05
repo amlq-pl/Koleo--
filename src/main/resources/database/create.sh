@@ -1,4 +1,8 @@
 #!/bin/bash
+sudo -u postgres psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid)
+FROM pg_stat_activity
+WHERE pg_stat_activity.datname = 'koleo_db'
+  AND pid <> pg_backend_pid();"
 sudo -u postgres psql -c "drop database if exists koleo_db;"
 sudo -u postgres psql -c "drop user if exists koleo_user;"
 sudo -u postgres psql -c "create user koleo_user with password 'koleo';"
