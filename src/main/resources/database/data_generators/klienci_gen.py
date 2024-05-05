@@ -1,5 +1,7 @@
 import os
 import random
+import unicodedata
+
 import params
 
 
@@ -51,6 +53,15 @@ def fetch_random_phone_number():
         phone += f"""{random.randint(0, 9)}"""
     return phone
 
+def remove_polish_letters(input_string):
+    polish_letters = {
+        'ą': 'a', 'ć': 'c', 'ę': 'e',
+        'ł': 'l', 'ń': 'n', 'ó': 'o',
+        'ś': 's', 'ź': 'z', 'ż': 'z',
+    }
+    modified_string = ''.join(polish_letters.get(char, char) for char in input_string)
+    return modified_string
+
 
 script_path = os.path.dirname(__file__)
 script_path = script_path[:-16]
@@ -61,7 +72,7 @@ file.write("copy klienci(id_klienta,imie,nazwisko,data_urodzenia,email,nr_telefo
 for i in range(round(params.general_size / 100)):
     name = fetch_random_polish_name()
     surname = fetch_random_polish_surname()
-    str = f"""{i},{name},{surname},{fetch_random_date()},{name + surname + "@" + fetch_random_domain()},{fetch_random_phone_number()}\n"""
+    str = f"""{i},{name},{surname},{fetch_random_date()},{remove_polish_letters((name + surname + "@" + fetch_random_domain()).lower())},{fetch_random_phone_number()}\n"""
 
     file.write(str)
 file.close()
