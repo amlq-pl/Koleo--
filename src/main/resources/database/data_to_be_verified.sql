@@ -74,11 +74,7 @@ values (0, 1, 3, null, '1 hour 6 minutes'),
        (3, 8, 12, '2 minutes', '9 minutes'),
        (3, 9, 20, null, null);
 
-insert into przewoznicy
-values (0, 'PKP', 'Polskie Koleje Państowe'),
-       (1, 'KM', 'Koleje Małopolskie'),
-       (2, 'REGIO', 'Koleje regionalne'),
-       (3, 'KŚ', 'Koleje Śląskie');
+
 
 insert into trasy_przewoznicy
 values (0, 0, 0),

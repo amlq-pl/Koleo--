@@ -1,0 +1,1 @@
+copy wagony_typy_miejsc(id_wagony_typy_miejsc, id_wagonu, miejsce_mod, typ_miejsca)  from stdin delimiter ',';

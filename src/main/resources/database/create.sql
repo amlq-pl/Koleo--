@@ -3,7 +3,7 @@ create table rabaty(
     nazwa varchar(50) not null,
     znizka numeric(2) not null,
     data_wprowadzenia date not null,
-    data_waznosci date check ( rabaty.data_wprowadzenia<data_waznosci )
+    data_waznosci date check ( data_wprowadzenia<=data_waznosci )
 );
 
 create table ulgi(
@@ -18,7 +18,7 @@ create table klienci(
     nazwisko varchar(40) not null,
     data_urodzenia date not null,
     email varchar(50) not null,
-    nr_telefonu char(9)
+    nr_telefonu varchar(13)
 );
 
 create table konto(
@@ -34,7 +34,7 @@ create table zamowienia(
 );
 
 create table przewoznicy(
-    id_przewoznika integer primary key,
+    id_przewoznika smallint primary key,
     nazwa_skrocona varchar(5) not null,
     nazwa varchar(50) not null
 );
@@ -50,6 +50,7 @@ create table trasy(
 );
 
 create table stacje_posrednie(
+    id_stacji_posrednich integer primary key,
     id_trasy integer not null references trasy,
     numer_stacji smallint not null,
     id_stacji integer not null references stacje,
@@ -60,7 +61,7 @@ create table stacje_posrednie(
 create table trasy_przewoznicy(
     id_trasy_przewoznika integer primary key,
     id_trasy integer references trasy,
-    id_przewoznika integer references przewoznicy
+    id_przewoznika smallint references przewoznicy
 );
 
 create table cennik_biletow_okresowych(
@@ -74,13 +75,14 @@ create table cennik_biletow_okresowych(
 create table bilety_okresowe_zamowienia(
     id_bilety_okresowe_zamowienia integer primary key,
     id_zamowienia integer not null references zamowienia,
-    data_kupna date not null,
-    data_zwrotu date check ( data_kupna<data_zwrotu ),
-    id_ulgi integer references ulgi,
+    timestamp_kupna timestamp not null,
+    timestamp_zwrotu timestamp check ( timestamp_kupna<timestamp_zwrotu ),
+    id_ulgi integer not null references ulgi,
     id_rabatu integer references rabaty
 );
 
 create table bilety_okresowe(
+    id_biletu_okresowego integer primary key,
     id_bilety_okresowe_zamowienia integer references bilety_okresowe_zamowienia,
     data_od date not null,
     id_typ_biletu integer not null references cennik_biletow_okresowych
@@ -89,8 +91,7 @@ create table bilety_okresowe(
 create table przejazdy(
     id_przejazdu integer primary key,
     id_trasy_przewoznika integer not null references trasy_przewoznicy,
-    data_przejazdu date not null,
-    ile_wagonow smallint not null,
+    timestamp_przejazdu timestamp not null,
     koszt_bazowy numeric(5,2) not null,
     czy_rezerwacja_miejsc boolean not null,
     nazwa varchar(30)
@@ -104,6 +105,7 @@ create table wagony(
 );
 
 create table wagony_typy_miejsc(
+    id_wagony_typy_miejsc integer primary key,
     id_wagonu integer references wagony,
     miejsce_mod smallint not null,
     typ_miejsca varchar(20) not null
@@ -117,7 +119,7 @@ create table szczegoly_biletu(
 );
 
 create table przejazdy_sklad(
-    id_przejazdu_skladu integer,
+    id_przejazdu_skladu integer primary key,
     id_przejazdu integer not null references przejazdy,
     id_wagonu integer not null references wagony,
     nr_wagonu smallint not null,
@@ -125,15 +127,16 @@ create table przejazdy_sklad(
 );
 
 create table bilety_jednorazowe_zamowienia(
-    id_zamowienia integer references zamowienia,
     id_bilety_jednorazowe_zamowienia integer primary key,
-    data_kupna date not null,
-    data_zwrotu date check ( data_kupna<data_zwrotu ),
-    id_ulgi integer references ulgi,
+    id_zamowienia integer references zamowienia,
+    timestamp_kupna date not null,
+    timestamp_zwrotu date check ( timestamp_kupna<timestamp_zwrotu ),
+    id_ulgi integer not null references ulgi,
     id_rabatu integer references rabaty
 );
 
 create table bilety_jednorazowe(
+    id_biletu_jednorazowego integer primary key,
     id_bilety_jednorazowe_zamowienia integer not null references bilety_jednorazowe_zamowienia,
     id_przejazdu integer not null references przejazdy,
     od_stacji smallint not null,

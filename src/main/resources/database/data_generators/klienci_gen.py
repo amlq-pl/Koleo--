@@ -1,9 +1,6 @@
 import os
 import random
-import unicodedata
-
 import params
-
 
 def fetch_random_polish_name():
     polish_names = [
@@ -14,7 +11,6 @@ def fetch_random_polish_name():
         "Tomasz", "Urszula", "Wojciech", "Wioletta", "Zbigniew", "Zofia"
     ]
     return random.choice(polish_names)
-
 
 def fetch_random_polish_surname():
     polish_surnames = [
@@ -34,19 +30,16 @@ def fetch_random_polish_surname():
     ]
     return random.choice(polish_surnames)
 
-
 def fetch_random_domain():
     domains = ["gmail.com", "o2.pl", "wp.pl", "onet.pl", "interia.pl", "yahoo.com", "poczta.fm", "gazeta.pl",
                "outlook.com"]
     return random.choice(domains)
 
-
 def fetch_random_date():
-    return f"""{random.randrange(1940, 2005)}""" + "-" + f"""{random.randrange(1, 12)}""" + "-" + f"""{random.randrange(1, 30)}"""
-
+    return f"""{random.randint(1940, 2005)}""" + "-" + f"""{random.randrange(1, 12)}""" + "-" + f"""{random.randrange(1, 30)}"""
 
 def fetch_random_phone_number():
-    if 4 < random.randrange(0, 6):
+    if 4 < random.randint(1, 5):
         return ""
     phone = ""
     for i in range(9):
