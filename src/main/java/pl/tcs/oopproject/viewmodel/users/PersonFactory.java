@@ -3,6 +3,7 @@ package pl.tcs.oopproject.viewmodel.users;
 import pl.tcs.oopproject.model.AuthenticateLogin;
 import pl.tcs.oopproject.viewmodel.exception.*;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.regex.Pattern;
@@ -31,8 +32,7 @@ public class PersonFactory {
 	
 	public Person logIn(String login, String password) throws KoleoException {
 		try {
-			Person person = AuthenticateLogin.authenticate(login, password);
-			return person;
+			return AuthenticateLogin.authenticate(login, password);
 		}
 		catch (SQLException e) {
 			throw new InvalidUsernameOrPasswordException();
