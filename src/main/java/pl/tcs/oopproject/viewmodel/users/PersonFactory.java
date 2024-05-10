@@ -1,6 +1,8 @@
 package pl.tcs.oopproject.viewmodel.users;
 
 import pl.tcs.oopproject.model.AuthenticateLogin;
+import pl.tcs.oopproject.model.Checkers;
+import pl.tcs.oopproject.model.InsertNewPersonToDatabase;
 import pl.tcs.oopproject.viewmodel.exception.*;
 
 import java.sql.SQLException;
@@ -52,13 +54,18 @@ public class PersonFactory {
 		return create(name, surname, dateOfBirth, email);
 	} //buy without signing up nor logging in
 
-	public Person create(String name, String surname, LocalDate dateOfBirth, String email,String login, String password) throws KoleoException{
-		//CODE HERE: CHECK IF USER EXISTS IN DATABASE - SOME KIND OF STATIC METHOD
-		
+	public Person create(String name, String surname, LocalDate dateOfBirth, String email,String login, String password) throws Exception {
 		Person person = create(name, surname, dateOfBirth, email);
-		//CODE HERE: SAVE IN DATABASE
-		
-		return person;
-		
-	} //sign up without phonenumber
+		try {
+			if (Checkers.checkIfUserExists(login)) throw new ExistingUserException();
+			if(!InsertNewPersonToDatabase.insert(person, login, password)) throw new SQLException();
+			return person;
+		}
+		catch (SQLException e) {
+			throw new Exception("Internal database exception");
+		}
+		catch (ExistingUserException e) {
+			throw new ExistingUserException();
+		}
+	} //sign up without phoneNumber
 }
