@@ -25,13 +25,5 @@ public class AuthenticateLogin {
                 resultSet.getString(5)
         );
 
-
-
-
-
-
-
-
-
     }
 }
