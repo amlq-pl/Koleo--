@@ -62,7 +62,7 @@ script_path += "/data/klienci.sql"
 
 file = open(script_path, 'w')
 file.write("copy klienci(id_klienta,imie,nazwisko,data_urodzenia,email,nr_telefonu) from stdin delimiter ',';\n")
-for i in range(round(params.general_size / 100)):
+for i in range(params.liczba_klientow):
     name = fetch_random_polish_name()
     surname = fetch_random_polish_surname()
     str = f"""{i},{name},{surname},{fetch_random_date()},{remove_polish_letters((name + surname + "@" + fetch_random_domain()).lower())},{fetch_random_phone_number()}\n"""
