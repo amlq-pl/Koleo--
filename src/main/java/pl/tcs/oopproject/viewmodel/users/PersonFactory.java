@@ -30,9 +30,14 @@ public class PersonFactory {
 	} //format : +48123456789, +48 123 456 789, the important stuff : international prefix if necessary
 	
 	public Person logIn(String login, String password) throws KoleoException {
-		Person person = AuthenticateLogin.authenticate(login, password);
-		if (person == null) throw new InvalidUsernameOrPasswordException();
-		return person;
+		try {
+			Person person = AuthenticateLogin.authenticate(login, password);
+			return person;
+		}
+		catch (SQLException e) {
+			throw new InvalidUsernameOrPasswordException();
+		}
+		
 	} //log in
 	
 	public Person create(String name, String surname, LocalDate dateOfBirth, String email) throws KoleoException {
