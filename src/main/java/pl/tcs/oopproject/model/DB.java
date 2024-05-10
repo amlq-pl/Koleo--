@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.database;
+package pl.tcs.oopproject.model;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;

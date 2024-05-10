@@ -1,12 +1,10 @@
 package pl.tcs.oopproject.viewmodel.users;
 
-import pl.tcs.oopproject.database.AuthenticateLogin;
+import pl.tcs.oopproject.model.AuthenticateLogin;
 import pl.tcs.oopproject.viewmodel.exception.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.Date;
 import java.util.regex.Pattern;
 
 public class PersonFactory {

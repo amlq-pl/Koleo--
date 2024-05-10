@@ -18,12 +18,12 @@ create table klienci(
     nazwisko varchar(40) not null,
     data_urodzenia date not null,
     email varchar(50) not null,
-    nr_telefonu varchar(13)
+    nr_telefonu varchar(18)
 );
 
 create table konto(
     id_konta integer primary key ,
-    login varchar(30) not null,
+    login varchar(30) not null unique ,
     haslo integer not null,
     id_klienta integer references klienci
 );

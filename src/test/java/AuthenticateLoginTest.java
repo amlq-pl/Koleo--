@@ -1,5 +1,5 @@
 import org.junit.Test;
-import pl.tcs.oopproject.database.AuthenticateLogin;
+import pl.tcs.oopproject.model.AuthenticateLogin;
 import pl.tcs.oopproject.viewmodel.users.Person;
 import java.sql.SQLException;
 import static org.junit.Assert.assertEquals;

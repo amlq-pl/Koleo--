@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.database;
+package pl.tcs.oopproject.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ public class Checkers {
         Statement statement=DB.connection;
 
         String query="select * "+
-                "from konto ko  "+
+                "from konto ko "+
                 "where ko.login=\'"+login+"\'";
 
         ResultSet resultSet=statement.executeQuery(query);

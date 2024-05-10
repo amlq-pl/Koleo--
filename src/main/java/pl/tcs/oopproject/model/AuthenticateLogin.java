@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.database;
+package pl.tcs.oopproject.model;
 
 import pl.tcs.oopproject.viewmodel.users.*;
 
