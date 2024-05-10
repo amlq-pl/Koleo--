@@ -1,4 +1,4 @@
 package pl.tcs.oopproject.viewmodel.exception;
 
-public class ExistingEmailException {
+public class ExistingEmailException extends KoleoException {
 }

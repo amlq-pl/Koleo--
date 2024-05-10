@@ -8,6 +8,6 @@ import java.sql.Statement;
 public class AuthenticateLogin {
     public static Person authenticate(String login, String password){
         Statement statement=DB.connection;
-        statement.execute()
+       return null;
     }
 }
