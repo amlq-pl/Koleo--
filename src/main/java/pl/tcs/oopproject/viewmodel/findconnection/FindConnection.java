@@ -1,7 +1,5 @@
 package pl.tcs.oopproject.viewmodel.findconnection;
 
-import pl.tcs.oopproject.viewmodel.findconnection.Connection;
-
 import java.util.List;
 
 public interface FindConnection {
