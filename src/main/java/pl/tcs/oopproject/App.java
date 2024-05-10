@@ -1,21 +1,18 @@
 package pl.tcs.oopproject;
 
 import javafx.application.Application;
-import javafx.geometry.Pos;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class App extends Application {
 
     @Override
-    public void start(Stage stage) {
-        VBox root = new VBox();
-        root.setAlignment(Pos.CENTER);
-        Label label = new Label("Main");
-        root.getChildren().add(label);
-        Scene scene = new Scene(root, 350, 300);
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("scenes/landing-scene.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 480, 320);
         stage.setTitle("Main app");
         stage.setScene(scene);
         stage.show();

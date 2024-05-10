@@ -8,5 +8,6 @@ module Koleo {
     exports pl.tcs.oopproject.database;
 	exports pl.tcs.oopproject.viewmodel.users;
 	exports pl.tcs.oopproject.viewmodel.exception;
+    opens pl.tcs.oopproject.view.sceneControllers to javafx.fxml;
     opens pl.tcs.oopproject.database to javafx.fxml;
 }
