@@ -4,7 +4,7 @@ import pl.tcs.oopproject.viewmodel.findconnection.KoleoException;
 
 import java.time.LocalDate;
 
-public abstract class Person extends User {
+public class Person extends User {
 	String name;
 	String surname;
 	LocalDate dateOfBirth;

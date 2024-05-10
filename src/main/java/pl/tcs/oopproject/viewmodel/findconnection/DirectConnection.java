@@ -11,11 +11,11 @@ public abstract class DirectConnection {
 	}
 	
 	public Station getFirstStation() {
-		return trail.getFirst();
+		return trail.get(0);
 	}
 	
 	public Station getLastStation() {
-		return trail.getLast();
+		return trail.get(trail.size() - 1);
 	}
 	
 	public Station getStationAt(int index) throws IndexOutOfBoundsException {

@@ -15,11 +15,11 @@ public abstract class Connection {
 	}
 	
 	public LocalDateTime getDepartureTime() {
-		return trail.getFirst().getFirstStation().getDepartureDate();
+		return trail.get(0).getFirstStation().getDepartureDate();
 	}
 	
 	public LocalDateTime getArrivalTime() {
-		return  trail.getLast().getStationAt(transferStations.getLast()).getArrivalDate();
+		return  trail.get(trail.size() - 1).getStationAt(transferStations.get(trail.size() - 1)).getArrivalDate();
 	}
 
 	public List<String> getCompanies() {
