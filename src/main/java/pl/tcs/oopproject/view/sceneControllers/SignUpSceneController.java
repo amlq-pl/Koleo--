@@ -95,7 +95,9 @@ public class SignUpSceneController implements Initializable {
                         SurnameTextField.getText(),
                         BirthDatePicker.getValue(),
                         EmailTextField.getText(),
-                        PhoneNumberTextField.getText());
+                        PhoneNumberTextField.getText(),
+                        LoginTextField.getText(),
+                        PasswordInputField.getText());
 
                 System.out.println("User created");
                 newPerson.display();
@@ -113,6 +115,8 @@ public class SignUpSceneController implements Initializable {
                 System.out.println("Subway surfers");
             } catch (ExistingUserException e) {
                 System.out.println("eo");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         } else {
             ErrorLabel.setText("Insert correct values");
