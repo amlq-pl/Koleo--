@@ -28,6 +28,12 @@ public class LandingSceneController {
     }
 
     @FXML
-    protected void LogInClicked() {
+    protected void LogInClicked() throws IOException{
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/login-scene.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(root, 500, 500);
+        stage.setScene(scene);
+        stage.show();
     }
 }
