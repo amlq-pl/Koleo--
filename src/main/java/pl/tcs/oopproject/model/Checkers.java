@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 public class Checkers {
     public static boolean checkIfUserExists(String login) throws SQLException {
-        Statement statement=DB.connection;
+        Statement statement=DB.statement;
 
         String query="select * "+
                 "from konto ko "+
