@@ -18,12 +18,10 @@ script_path = script_path[:-16]
 script_path += "/data/konto.sql"
 
 file = open(script_path, 'w')
-file.write("copy konto(id_konta, login, haslo, id_klienta) from stdin delimiter ',';\n")
-counter = 0
+file.write("copy konto(login, haslo, id_klienta) from stdin delimiter ',';\n")
 for i in range(params.liczba_klientow):
     if (params.liczba_klientow*params.procent_osob_z_kontami <= random.randint(1, 100)):
         continue
-    str = f"""{counter},{fetch_random_login()},{-1480617004},{i}\n"""
+    str = f"""{fetch_random_login()},{-1480617004},{i+1}\n"""
     file.write(str)
-    counter += 1
 file.close()
