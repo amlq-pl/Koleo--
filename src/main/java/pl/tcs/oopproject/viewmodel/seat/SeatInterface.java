@@ -6,4 +6,6 @@ public interface SeatInterface {
 	public int getNumber();
 	
 	public int getCarriageNumber();
+	
+	public void display();
 }
