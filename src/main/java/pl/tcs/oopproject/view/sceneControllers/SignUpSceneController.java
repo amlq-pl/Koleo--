@@ -1,5 +1,7 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
@@ -7,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import net.synedra.validatorfx.Validator;
+import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.viewmodel.exception.*;
 import pl.tcs.oopproject.viewmodel.users.PersonFactory;
 import pl.tcs.oopproject.viewmodel.users.Person;
@@ -101,6 +104,7 @@ public class SignUpSceneController implements Initializable {
 
                 System.out.println("User created");
                 newPerson.display();
+                App.mainStage.setScene(App.mainScene);
             } catch(InvalidNameOrSurnameException e) {
                 System.out.println("Invalid name");
             } catch (InvalidEmailException e) {
