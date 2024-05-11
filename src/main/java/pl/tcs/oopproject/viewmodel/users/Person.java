@@ -61,4 +61,12 @@ public class Person {
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
+
+	public void display() {
+		System.out.println("Name and Surname: " + name + " " + surname);
+		System.out.println("Date of Birth: " + dateOfBirth);
+		System.out.println("Email Address: " + emailAddress);
+		if(telephoneNumber != null)
+			System.out.println("Phone Number: " + telephoneNumber);
+	}
 }

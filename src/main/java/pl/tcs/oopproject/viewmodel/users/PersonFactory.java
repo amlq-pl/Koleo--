@@ -47,7 +47,7 @@ public class PersonFactory {
 		if(Objects.equals(phoneNumber, ""))  phoneNumber = null;
 		if (!correctTelephoneNumber(phoneNumber)) throw new InvalidTelephoneNumberException();
 		if (name.length() > 20 || name.length() < 2) throw new InvalidNameOrSurnameException();
-		if (Period.between(dateOfBirth, LocalDate.now()).getYears() < 12) throw new InvalidNameOrSurnameException();
+		if (Period.between(dateOfBirth, LocalDate.now()).getYears() < 12) throw new InvalidDateOfBirthException();
 		if (!correctEmail(email)) throw new InvalidEmailException();
 		return new Person(name, surname, dateOfBirth, email, phoneNumber);
 	} //buy without signing up nor logging in
