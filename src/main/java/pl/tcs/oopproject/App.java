@@ -18,8 +18,9 @@ public class App extends Application {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("scenes/landing-scene.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 480);
+
+        FXMLLoader mainLoader = new FXMLLoader(App.class.getResource("scenes/landing-scene.fxml"));
+        Scene scene = new Scene(mainLoader.load(), 1000, 1000);
         stage.setTitle("Main app");
         stage.setScene(scene);
         stage.show();
