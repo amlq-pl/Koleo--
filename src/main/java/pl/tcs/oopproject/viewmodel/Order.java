@@ -1,8 +1,8 @@
 package pl.tcs.oopproject.viewmodel;
 
-import pl.tcs.oopproject.viewmodel.carriage.Carriage;
+import pl.tcs.oopproject.viewmodel.carriage.CarriageInterface;
 import pl.tcs.oopproject.viewmodel.findconnection.Connection;
-import pl.tcs.oopproject.viewmodel.seat.Seat;
+import pl.tcs.oopproject.viewmodel.seat.SeatInterface;
 
 public abstract class Order {
 	Connection connection;
@@ -13,9 +13,9 @@ public abstract class Order {
 		this.discount = discount;
 	}
 	
-	abstract Carriage getCarriage(); //might be null
+	abstract CarriageInterface getCarriage(); //might be null
 	
-	abstract Seat getSeat(); //might be null
+	abstract SeatInterface getSeat(); //might be null
 	
 	abstract String TicketType(); //czy miesięczny, czy jako
 	
