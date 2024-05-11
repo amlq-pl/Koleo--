@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>-->
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="360.0" prefWidth="365.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.SignUpSceneController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label fx:id="welcomeText" text="Zarejestruj się" />
+   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <children>
+         <Label text="Imię" />
+         <TextField fx:id="NameTextField" />
+      </children>
+   </HBox>
+   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <children>
+         <Label text="Nazwisko" />
+         <TextField fx:id="SurnameTextField" />
+      </children>
+   </HBox>
+   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <children>
+         <Label text="Login" />
+         <TextField fx:id="LoginTextField"/>
+      </children>
+   </HBox>
+   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <children>
+         <Label text="Hasło" />
+         <PasswordField fx:id="PasswordInputField"/>
+      </children>
+   </HBox>
+   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <children>
+         <Label text="Data urodzenia" />
+         <DatePicker fx:id="BirthDatePicker" />
+      </children>
+   </HBox>
+   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <children>
+         <Label text="Adres e-mail" />
+         <TextField fx:id="EmailTextField" prefHeight="24.0" prefWidth="216.0" />
+      </children>
+   </HBox>
+   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <children>
+         <Label text="Nr telefonu" />
+         <TextField fx:id="PhoneNumberTextField" />
+      </children>
+   </HBox>
+    <Button onAction="#onHelloButtonClick" text="Gotowe">
+      <graphic>
+         <FontAwesomeIconView glyphName="HOME" />
+      </graphic></Button>
+   <Label fx:id="EroorLabel" />
+</VBox>
