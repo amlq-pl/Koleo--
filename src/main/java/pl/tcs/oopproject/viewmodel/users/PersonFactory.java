@@ -8,6 +8,7 @@ import pl.tcs.oopproject.viewmodel.exception.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class PersonFactory {
@@ -42,20 +43,18 @@ public class PersonFactory {
 		
 	} //log in
 	
-	public Person create(String name, String surname, LocalDate dateOfBirth, String email) throws KoleoException {
+	public Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber) throws KoleoException {
+		if(Objects.equals(phoneNumber, ""))  phoneNumber = null;
+		if (!correctTelephoneNumber(phoneNumber)) throw new InvalidTelephoneNumberException();
 		if (name.length() > 20 || name.length() < 2) throw new InvalidNameOrSurnameException();
 		if (Period.between(dateOfBirth, LocalDate.now()).getYears() < 12) throw new InvalidNameOrSurnameException();
 		if (!correctEmail(email)) throw new InvalidEmailException();
-		return new Person(name, surname, dateOfBirth, email, null);
-	} //buy without signing up nor logging in and without phone number
-	
-	public Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber) throws KoleoException {
-		if (!correctTelephoneNumber(phoneNumber)) throw new InvalidTelephoneNumberException();
-		return create(name, surname, dateOfBirth, email);
+		return new Person(name, surname, dateOfBirth, email, phoneNumber);
 	} //buy without signing up nor logging in
 
-	public Person create(String name, String surname, LocalDate dateOfBirth, String email,String login, String password) throws Exception {
-		Person person = create(name, surname, dateOfBirth, email);
+	
+	public Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber,String login, String password) throws Exception {
+		Person person = create(name, surname, dateOfBirth, email, phoneNumber);
 		try {
 			if (Checkers.checkIfUserExists(login)) throw new ExistingUserException();
 			if(!InsertNewPersonToDatabase.insert(person, login, password)) throw new SQLException();

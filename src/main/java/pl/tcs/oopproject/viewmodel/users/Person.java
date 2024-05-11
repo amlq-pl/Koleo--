@@ -21,10 +21,12 @@ public class Person {
 	}
 	
 	public String getName() {
+		if(name == null) return "";
 		return name;
 	}
 	
 	public String getSurname() {
+		if(surname == null) return "";
 		return surname;
 	}
 	
