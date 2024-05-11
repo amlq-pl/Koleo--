@@ -18,10 +18,10 @@ public class PersonFactory {
 				"[a-zA-Z0-9_+&*-]+)*@" +
 				"(?:[a-zA-Z0-9-]+\\.)+[a-z" +
 				"A-Z]{2,7}$";
-		Pattern patern = Pattern.compile(emailRegex);
+		Pattern pattern = Pattern.compile(emailRegex);
 		if (email == null)
 			return false;
-		return patern.matcher(email).matches();
+		return pattern.matcher(email).matches();
 	}
 	
 	private static boolean correctTelephoneNumber(String number) {
@@ -35,7 +35,9 @@ public class PersonFactory {
 	
 	public Person logIn(String login, String password) throws KoleoException {
 		try {
-			return AuthenticateLogin.authenticate(login, password);
+			Person person =  AuthenticateLogin.authenticate(login, password);
+			ActiveUser.setActiveUser(person);
+			return person;
 		}
 		catch (SQLException e) {
 			throw new InvalidUsernameOrPasswordException();
@@ -53,18 +55,16 @@ public class PersonFactory {
 	} //buy without signing up nor logging in
 
 	
-	public Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber,String login, String password) throws Exception {
+	public Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber,String login, String password) throws KoleoException {
 		Person person = create(name, surname, dateOfBirth, email, phoneNumber);
 		try {
 			if (Checkers.checkIfUserExists(login)) throw new ExistingUserException();
 			if(!InsertNewPersonToDatabase.insert(person, login, password)) throw new SQLException();
+			ActiveUser.setActiveUser(person);
 			return person;
 		}
 		catch (SQLException e) {
-			throw new Exception("Internal database exception");
-		}
-		catch (ExistingUserException e) {
-			throw new ExistingUserException();
+			throw new InternalDatabaseException();
 		}
 	} //sign up without phoneNumber
 }
