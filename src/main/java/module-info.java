@@ -1,4 +1,5 @@
 module Koleo {
+    requires net.synedra.validatorfx;
 	requires javafx.graphics;
 	requires javafx.controls;
     requires javafx.fxml;

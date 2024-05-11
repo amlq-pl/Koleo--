@@ -20,13 +20,13 @@
    <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
       <children>
          <Label text="Imię" />
-         <TextField fx:id="NameTextField" onMouseClicked="#onNameClicked" />
+         <TextField fx:id="NameTextField"  />
       </children>
    </HBox>
    <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
       <children>
          <Label text="Nazwisko" />
-         <TextField fx:id="SurnameTextField" onMouseClicked="#onSurnameClicked" />
+         <TextField fx:id="SurnameTextField"  />
       </children>
    </HBox>
    <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
@@ -51,5 +51,5 @@
       <graphic>
          <FontAwesomeIconView glyphName="HOME" />
       </graphic></Button>
-   <Label />
+   <Label fx:id="EroorLabel" />
 </VBox>
