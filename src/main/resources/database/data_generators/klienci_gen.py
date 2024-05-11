@@ -2,6 +2,7 @@ import os
 import random
 import params
 
+
 def fetch_random_polish_name():
     polish_names = [
         "Adam", "Agnieszka", "Aleksander", "Alicja", "Andrzej", "Aneta", "Barbara", "Bartosz", "Beata", "Czesław",
@@ -11,6 +12,7 @@ def fetch_random_polish_name():
         "Tomasz", "Urszula", "Wojciech", "Wioletta", "Zbigniew", "Zofia"
     ]
     return random.choice(polish_names)
+
 
 def fetch_random_polish_surname():
     polish_surnames = [
@@ -30,10 +32,12 @@ def fetch_random_polish_surname():
     ]
     return random.choice(polish_surnames)
 
+
 def fetch_random_domain():
     domains = ["gmail.com", "o2.pl", "wp.pl", "onet.pl", "interia.pl", "yahoo.com", "poczta.fm", "gazeta.pl",
                "outlook.com"]
     return random.choice(domains)
+
 
 def fetch_random_date():
     start_year = 1945
@@ -52,6 +56,8 @@ def fetch_random_date():
             day = random.randint(1, 28)
 
     return f"""{year}-{month}-{day}"""
+
+
 def fetch_random_phone_number():
     if 4 < random.randint(1, 5):
         return ""
@@ -59,6 +65,7 @@ def fetch_random_phone_number():
     for i in range(9):
         phone += f"""{random.randint(0, 9)}"""
     return phone
+
 
 def remove_polish_letters(input_string):
     polish_letters = {
@@ -79,7 +86,7 @@ file.write("copy klienci(imie,nazwisko,data_urodzenia,email,nr_telefonu) from st
 for i in range(params.liczba_klientow):
     name = fetch_random_polish_name()
     surname = fetch_random_polish_surname()
-    str = f"""{name},{surname},{fetch_random_date()},{remove_polish_letters((name + surname + "@" + fetch_random_domain()).lower())},{"+48 "+fetch_random_phone_number()}\n"""
+    str = f"""{name},{surname},{fetch_random_date()},{remove_polish_letters((name + surname + "@" + fetch_random_domain()).lower())},{"+48 " + fetch_random_phone_number()}\n"""
 
     file.write(str)
 file.close()

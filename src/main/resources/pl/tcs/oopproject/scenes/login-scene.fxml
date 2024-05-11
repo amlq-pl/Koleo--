@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="300.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.LogInSceneController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="342.0" prefWidth="326.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label text="login" />
+                  <TextField fx:id="LogInInputField"/>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label text="hasło" />
+                  <PasswordField fx:id="PasswordInputField"/>
+               </children>
+            </HBox>
+            <Button fx:id="LogInButton" mnemonicParsing="false" onAction="#LogInAction" text="Zaloguj się" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <Label fx:id="ErrorLabel" />
+      </VBox>
+   </children>
+</AnchorPane>

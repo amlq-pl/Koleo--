@@ -7,19 +7,18 @@ import javafx.stage.Stage;
 import pl.tcs.oopproject.model.DB;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class App extends Application {
+    private Connection connection;
 
     @Override
     public void start(Stage stage) throws IOException {
-        try {
-            DB.connect();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("scenes/landing-scene.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 480);
+        connection = DB.connection;
+
+        FXMLLoader mainLoader = new FXMLLoader(App.class.getResource("scenes/landing-scene.fxml"));
+        Scene scene = new Scene(mainLoader.load(), 1000, 1000);
         stage.setTitle("Main app");
         stage.setScene(scene);
         stage.show();

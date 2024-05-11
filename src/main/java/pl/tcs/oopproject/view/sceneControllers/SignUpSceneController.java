@@ -22,7 +22,7 @@ public class SignUpSceneController implements Initializable {
     public DatePicker BirthDatePicker;
     public TextField EmailTextField;
     public TextField PhoneNumberTextField;
-    public Label EroorLabel;
+    public Label ErrorLabel;
     public TextField LoginTextField;
     public PasswordField PasswordInputField;
 
@@ -88,17 +88,19 @@ public class SignUpSceneController implements Initializable {
     @FXML
     protected void onHelloButtonClick() {
         if (validator.validate()) {
-            if (!EroorLabel.getText().isEmpty()) EroorLabel.setText("");
+            if (!ErrorLabel.getText().isEmpty()) ErrorLabel.setText("");
             try {
                 PersonFactory personFactory = new PersonFactory();
                 Person newPerson = personFactory.create(NameTextField.getText(),
                         SurnameTextField.getText(),
                         BirthDatePicker.getValue(),
                         EmailTextField.getText(),
-                        PhoneNumberTextField.getText());
+                        PhoneNumberTextField.getText(),
+                        LoginTextField.getText(),
+                        PasswordInputField.getText());
 
                 System.out.println("User created");
-                System.out.println(newPerson.toString());
+                newPerson.display();
             } catch(InvalidNameOrSurnameException e) {
                 System.out.println("Invalid name");
             } catch (InvalidEmailException e) {
@@ -113,9 +115,11 @@ public class SignUpSceneController implements Initializable {
                 System.out.println("Subway surfers");
             } catch (ExistingUserException e) {
                 System.out.println("eo");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         } else {
-            EroorLabel.setText("Insert correct values");
+            ErrorLabel.setText("Insert correct values");
         }
     }
 }
