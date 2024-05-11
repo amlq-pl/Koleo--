@@ -1,2 +1,0 @@
-drop table rabaty,ulgi,klienci,konto,zamowienia,przewoznicy,stacje,trasy,trasy_przewoznicy,stacje_posrednie,cennik_biletow_okresowych,bilety_okresowe_zamowienia,przejazdy,wagony,wagony_typy_miejsc,przejazdy_sklad,szczegoly_biletu,bilety_jednorazowe_zamowienia,bilety_jednorazowe,bilety_okresowe cascade ;
-

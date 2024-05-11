@@ -8,6 +8,8 @@ psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "rabaty.sql"
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "szczegoly_biletu.sql"
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "wagony.sql"
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "wagony_typy_miejsc.sql"
+psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "stacje.sql"
+psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "trasy.sql"
 
 unset PGPASSWORD
 

@@ -13,6 +13,6 @@ public class Checkers {
                 "where ko.login=\'"+login+"\'";
 
         ResultSet resultSet=statement.executeQuery(query);
-        return !resultSet.next();
+        return resultSet.next();
     }
 }
