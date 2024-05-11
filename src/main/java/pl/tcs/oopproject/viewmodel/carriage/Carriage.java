@@ -1,9 +1,10 @@
 package pl.tcs.oopproject.viewmodel.carriage;
 
+import pl.tcs.oopproject.viewmodel.exception.IllegalOperationException;
 import pl.tcs.oopproject.viewmodel.seat.Seat;
 import pl.tcs.oopproject.viewmodel.seat.SeatInterface;
 
-import java.util.List;
+import java.util.HashSet;
 
 public class Carriage implements CarriageInterface{
 	private final CarriageClassType carriageClassType;
@@ -11,7 +12,7 @@ public class Carriage implements CarriageInterface{
 	private final int number;
 	private final int numberOfSeats;
 	
-	List<SeatInterface> seats;
+	HashSet<SeatInterface> seats;
 	
 	public Carriage(CarriageClassType carriageClassType, CarriageType carriageType, int number, int numberOfSeats) {
 		this.carriageClassType = carriageClassType;
@@ -21,7 +22,25 @@ public class Carriage implements CarriageInterface{
 	}
 	
 	public void addSeat(Seat seat) {
+		if(seats == null) seats = new HashSet<>();
+		if(seats.size() >= numberOfSeats && !seats.contains(seat)) throw new IllegalOperationException();
+		if(seat.getCarriage() != null) return;
+		seat.setCarriage(this);
+		seats.add(seat);
+	}
 	
+	public void addSeat(Seat... seat) {
+		if(seats == null) seats = new HashSet<>();
+		int x = 0;
+		for(Seat s : seat)
+			if(!seats.contains(s))
+				++x;
+		if(x + seats.size() > numberOfSeats)
+			throw new IllegalOperationException();
+		
+		for(Seat s : seat) {
+			addSeat(s);
+		}
 	}
 	
 	@Override
@@ -49,5 +68,13 @@ public class Carriage implements CarriageInterface{
 		carriageClassType.display();
 		System.out.println("Carriage Number: " + number);
 		System.out.println("Number of Seats: " + numberOfSeats);
+	}
+	
+	public void displaySeats() {
+		System.out.println("Carriage " + number);
+		for(SeatInterface s : seats) {
+			s.display();
+		}
+		
 	}
 }

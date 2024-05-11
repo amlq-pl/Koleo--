@@ -1,12 +1,14 @@
 package pl.tcs.oopproject.viewmodel.seat;
 
 import pl.tcs.oopproject.viewmodel.carriage.CarriageInterface;
-import pl.tcs.oopproject.viewmodel.carriage.CarriageType;
+import pl.tcs.oopproject.viewmodel.exception.IllegalOperationException;
 
 public class Seat implements SeatInterface{
 	private final SeatType seatType;
 	private final int number;
 	private CarriageInterface carriage;
+	
+	boolean available = false;
 	
 	public Seat(SeatType seatType, int number) {
 		this.seatType = seatType;
@@ -14,8 +16,13 @@ public class Seat implements SeatInterface{
 		carriage = null;
 	}
 	
+	public void setAvailable(boolean available) {this.available = available;}
+	
 	public void setCarriage(CarriageInterface carriage) {
-		this.carriage = carriage;
+		if(this.carriage == null)
+			this.carriage = carriage;
+		else
+			throw new IllegalOperationException();
 	}
 	
 	@Override
@@ -33,6 +40,11 @@ public class Seat implements SeatInterface{
 		return carriage.getNumber();
 	}
 	
+	public CarriageInterface getCarriage() {
+		return carriage;
+	}
+	
+	@Override
 	public void display() {
 		seatType.display();
 		System.out.println("Seat Number: " + number);

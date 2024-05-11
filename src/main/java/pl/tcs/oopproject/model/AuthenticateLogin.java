@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class AuthenticateLogin {
     public static Person authenticate(String login, String password) throws SQLException {
-        Statement statement=DB.connection;
+        Statement statement=DB.statement;
 
         String query="select k.imie,k.nazwisko,k.data_urodzenia,k.email,k.nr_telefonu "+
                 "from konto ko join klienci k on k.id_klienta=ko.id_klienta "+

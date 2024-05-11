@@ -36,8 +36,22 @@ def fetch_random_domain():
     return random.choice(domains)
 
 def fetch_random_date():
-    return f"""{random.randint(1940, 2005)}""" + "-" + f"""{random.randrange(1, 12)}""" + "-" + f"""{random.randrange(1, 30)}"""
+    start_year = 1945
+    end_year = 2000
+    year = random.randint(start_year, end_year)
+    month = random.randint(1, 12)
 
+    if month in [1, 3, 5, 7, 8, 10, 12]:
+        day = random.randint(1, 31)
+    elif month in [4, 6, 9, 11]:
+        day = random.randint(1, 30)
+    else:
+        if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):
+            day = random.randint(1, 29)
+        else:
+            day = random.randint(1, 28)
+
+    return f"""{year}-{month}-{day}"""
 def fetch_random_phone_number():
     if 4 < random.randint(1, 5):
         return ""
@@ -61,11 +75,11 @@ script_path = script_path[:-16]
 script_path += "/data/klienci.sql"
 
 file = open(script_path, 'w')
-file.write("copy klienci(id_klienta,imie,nazwisko,data_urodzenia,email,nr_telefonu) from stdin delimiter ',';\n")
+file.write("copy klienci(imie,nazwisko,data_urodzenia,email,nr_telefonu) from stdin delimiter ',';\n")
 for i in range(params.liczba_klientow):
     name = fetch_random_polish_name()
     surname = fetch_random_polish_surname()
-    str = f"""{i},{name},{surname},{fetch_random_date()},{remove_polish_letters((name + surname + "@" + fetch_random_domain()).lower())},{fetch_random_phone_number()}\n"""
+    str = f"""{name},{surname},{fetch_random_date()},{remove_polish_letters((name + surname + "@" + fetch_random_domain()).lower())},{"+48 "+fetch_random_phone_number()}\n"""
 
     file.write(str)
 file.close()
