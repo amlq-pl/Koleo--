@@ -22,7 +22,7 @@ public class LandingSceneController {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/signup-scene.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) SignUpButton.getScene().getWindow();
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 690, 498);
         stage.setScene(scene);
     }
 
