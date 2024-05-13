@@ -5,17 +5,19 @@ import pl.tcs.oopproject.viewmodel.station.StationInterface;
 import java.util.Iterator;
 import java.util.List;
 
-public class DirectConnection implements Railway{ //some kind of decorator to Connection
+public class DirectConnection implements RailwayInterface { //some kind of decorator to Connection
 	private final String company;
 	private final Connection connection;
-	private final int number; //number of a directConnection
+	private final int number; //number of a train
 	private final int cost;
+	private final TrainType trainType;
 	
-	DirectConnection(String company, int number, int cost, Connection connection) {
+	DirectConnection(String company, int number, int cost, Connection connection, TrainType trainType) {
 		this.company = company;
 		this.connection = connection;
 		this.number = number;
 		this.cost = cost;
+		this.trainType = trainType;
 	}
 	
 	public int getNumber() {
@@ -24,6 +26,11 @@ public class DirectConnection implements Railway{ //some kind of decorator to Co
 	
 	public String getCompany() {
 		return company;
+	}
+	
+	@Override
+	public TrainType getTrainType() {
+		return trainType;
 	}
 	
 	@Override
@@ -54,6 +61,11 @@ public class DirectConnection implements Railway{ //some kind of decorator to Co
 	@Override
 	public List<StationInterface> getStations() {
 		return connection.getStations();
+	}
+	
+	@Override
+	public int getCost() {
+		return cost;
 	}
 	
 }

@@ -9,6 +9,11 @@ module Koleo {
     exports pl.tcs.oopproject.model;
 	exports pl.tcs.oopproject.viewmodel.users;
 	exports pl.tcs.oopproject.viewmodel.exception;
+	exports pl.tcs.oopproject.viewmodel.carriage;
+	exports pl.tcs.oopproject.viewmodel.seat;
+	exports pl.tcs.oopproject.viewmodel.connection;
+	exports pl.tcs.oopproject.viewmodel.place;
     opens pl.tcs.oopproject.view.sceneControllers to javafx.fxml;
     opens pl.tcs.oopproject.model to javafx.fxml;
+	exports pl.tcs.oopproject.viewmodel.station;
 }

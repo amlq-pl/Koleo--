@@ -5,11 +5,20 @@ import pl.tcs.oopproject.viewmodel.station.StationInterface;
 import java.util.Iterator;
 import java.util.List;
 
-public class Connection implements Railway{
+public class Connection implements RailwayInterface {
 	List<StationInterface> train;
+	int cost;
+	TrainType trainType;
 	
-	Connection(List<StationInterface> train) {
+	Connection(List<StationInterface> train, TrainType trainType, int cost) {
 		this.train = train;
+		this.trainType = trainType;
+		this.cost = cost;
+	}
+	
+	@Override
+	public TrainType getTrainType() {
+		return trainType;
 	}
 	
 	@Override
@@ -41,6 +50,11 @@ public class Connection implements Railway{
 	@Override
 	public List<StationInterface> getStations() {
 		return train;
+	}
+	
+	@Override
+	public int getCost() {
+		return cost;
 	}
 	
 }

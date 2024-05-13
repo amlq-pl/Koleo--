@@ -5,7 +5,9 @@ import pl.tcs.oopproject.viewmodel.station.StationInterface;
 import java.util.Iterator;
 import java.util.List;
 
-public interface Railway {
+public interface RailwayInterface {
+	
+	public TrainType getTrainType();
 	
 	public StationInterface getFirstStation();
 	
@@ -18,4 +20,7 @@ public interface Railway {
 	public Iterator<StationInterface> getIterator();
 	
 	public List<StationInterface> getStations();
+	
+	public int getCost();
 }
+
