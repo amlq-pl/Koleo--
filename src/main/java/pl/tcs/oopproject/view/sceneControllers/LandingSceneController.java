@@ -5,15 +5,12 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.view.ViewController;
 
-import java.io.IOException;
-
-
 public class LandingSceneController {
     public Button SignUpButton;
     public Button LogInButton;
 
     @FXML
-    protected void SignUpClicked() throws IOException {
+    protected void SignUpClicked() {
         Stage thisStage = (Stage) SignUpButton.getScene().getWindow();
         thisStage.close();
         Stage newStage = new Stage();
@@ -22,7 +19,7 @@ public class LandingSceneController {
     }
 
     @FXML
-    protected void LogInClicked() throws IOException {
+    protected void LogInClicked() {
         Stage thisStage = (Stage) LogInButton.getScene().getWindow();
         thisStage.close();
         Stage newStage = new Stage();

@@ -1,12 +1,13 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.synedra.validatorfx.Validator;
+import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.viewmodel.users.Person;
 import pl.tcs.oopproject.viewmodel.users.PersonFactory;
 
@@ -25,6 +26,7 @@ public class LogInSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ErrorLabel.setWrapText(true);
         validator.createCheck()
                 .dependsOn("login", LogInInputField.textProperty())
                 .withMethod(c-> {
@@ -49,13 +51,21 @@ public class LogInSceneController implements Initializable {
     }
 
 
-    public void LogInAction(ActionEvent actionEvent) {
+    public void LogInAction() {
         if (validator.validate()) {
             try {
                 Person newPerson = PersonFactory.logIn(LogInInputField.getText(), PasswordInputField.getText());
                 newPerson.display();
+                LogInInputField.setText("");
+                PasswordInputField.setText("");
+                Stage thisStage = (Stage) BackButton.getScene().getWindow();
+                thisStage.close();
+                Stage newStage = new Stage();
+                newStage.setScene(ViewController.getLandingScene());
+                newStage.show();
             } catch (Exception e) {
                 System.out.println("wrong username or passwd");
+                ErrorLabel.setText("Nieprawidłowa nazwa użykownika lub hasło");
             }
         } else  {
             ErrorLabel.setText("Spróbuj raz jeszcze");
@@ -63,8 +73,15 @@ public class LogInSceneController implements Initializable {
     }
 
     public void BackButtonClick() {
+        Stage thisStage = (Stage) BackButton.getScene().getWindow();
+        thisStage.close();
+        Stage newStage = new Stage();
+        newStage.setScene(ViewController.getLandingScene());
+        newStage.show();
     }
 
     public void ExitButtonClick() {
+        Stage thisStage = (Stage) CloseButton.getScene().getWindow();
+        thisStage.close();
     }
 }
