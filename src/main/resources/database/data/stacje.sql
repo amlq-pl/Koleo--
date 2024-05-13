@@ -17,5 +17,25 @@ Sosnowiec
 Toruń
 Kielce
 Rzeszów
+Gliwice
+Zabrze
 Olsztyn
+Bielsko-Biała
+Bytom
 Zielona Góra
+Rybnik
+Ruda Śląska
+Tychy
+Opole
+Gorzów Wielkopolski
+Dąbrowa Górnicza
+Elbląg
+Płock
+Wałbrzych
+Tarnów
+Chorzów
+Koszalin
+Kalisz
+Legnica
+Grudziądz
+Jaworzno
