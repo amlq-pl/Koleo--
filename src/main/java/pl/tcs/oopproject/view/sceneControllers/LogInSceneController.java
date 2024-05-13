@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.synedra.validatorfx.Validator;
 import pl.tcs.oopproject.viewmodel.users.Person;
 import pl.tcs.oopproject.viewmodel.users.PersonFactory;
@@ -18,6 +19,9 @@ public class LogInSceneController implements Initializable {
     public TextField LogInInputField;
     public PasswordField PasswordInputField;
     public Label ErrorLabel;
+    public Label welcomeText;
+    public Button BackButton;
+    public Button CloseButton;
     Validator validator = new Validator();
     public Button LogInButton;
 
@@ -59,5 +63,11 @@ public class LogInSceneController implements Initializable {
         } else  {
             ErrorLabel.setText("Spróbuj raz jeszcze");
         }
+    }
+
+    public void BackButtonClick() {
+    }
+
+    public void ExitButtonClick() {
     }
 }

@@ -1,20 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="480.0" prefWidth="800.0" stylesheets="@../styles/landing-scene.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.LandingSceneController">
+<AnchorPane prefHeight="480.0" prefWidth="747.0" styleClass="main-anchor-pane" stylesheets="@../styles/landing-scene.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.LandingSceneController">
    <children>
-      <VBox id="button-vbox" alignment="TOP_RIGHT" prefHeight="400.0" prefWidth="190.0" spacing="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <VBox id="button-vbox" alignment="TOP_RIGHT" prefHeight="480.0" prefWidth="293.0" spacing="10.0" styleClass="button-vbox" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="SignUpButton" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#SignUpClicked" prefHeight="24.0" prefWidth="131.0" text="Zarejestruj się" />
-            <Button fx:id="LogInButton" mnemonicParsing="false" onMouseClicked="#LogInClicked" text="Zaloguj się" />
+            <AnchorPane prefHeight="95.0" prefWidth="283.0">
+               <children>
+                  <Button fx:id="SignUpButton" layoutX="153.0" layoutY="14.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#SignUpClicked" prefHeight="28.0" prefWidth="144.0" text="Zarejestruj się" textFill="WHITE" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
+                     <font>
+                        <Font name="C059-Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="LogInButton" mnemonicParsing="false" onMouseClicked="#LogInClicked" text="Zaloguj się" textFill="WHITE" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+                     <font>
+                        <Font name="C059-Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="357.0" prefWidth="283.0" />
          </children>
          <padding>
             <Insets bottom="20.0" left="10.0" />
          </padding>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="480.0" prefWidth="508.0" spacing="10.0" style="-fx-background-color: #0B132B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="KOLEO--">
+               <font>
+                  <Font name="C059-Bold" size="52.0" />
+               </font>
+            </Text>
+            <FontAwesomeIconView fill="WHITE" glyphName="TRAIN" size="100" wrappingWidth="86.1428575515747" />
+         </children>
+         <effect>
+            <Blend />
+         </effect>
       </VBox>
    </children>
 </AnchorPane>

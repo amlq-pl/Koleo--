@@ -1,15 +1,12 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import net.synedra.validatorfx.Validator;
-import pl.tcs.oopproject.App;
+import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.viewmodel.exception.*;
 import pl.tcs.oopproject.viewmodel.users.PersonFactory;
 import pl.tcs.oopproject.viewmodel.users.Person;
@@ -28,6 +25,9 @@ public class SignUpSceneController implements Initializable {
     public Label ErrorLabel;
     public TextField LoginTextField;
     public PasswordField PasswordInputField;
+    public Button BackButton;
+    public Button CloseButton;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,6 +88,7 @@ public class SignUpSceneController implements Initializable {
                 .decorates(PasswordInputField)
                 .immediate();
     }
+
     @FXML
     protected void onHelloButtonClick() {
         if (validator.validate()) {
@@ -104,26 +105,47 @@ public class SignUpSceneController implements Initializable {
 
                 System.out.println("User created");
                 newPerson.display();
-                App.mainStage.setScene(App.mainScene);
+                ErrorLabel.setStyle("-fx-text-fill: green");
+                ErrorLabel.setText("Użytkownik utworzony pomyślnie");
             } catch(InvalidNameOrSurnameException e) {
                 System.out.println("Invalid name");
+                ErrorLabel.setText("Podaj porawne imię");
             } catch (InvalidEmailException e) {
                 System.out.println("Invalid email");
+                ErrorLabel.setText("Taki email nie istnieje");
             } catch (InvalidTelephoneNumberException e) {
                 System.out.println("Invalid phone number");
+                ErrorLabel.setText("Taki numer telefonu nie istnieje");
             } catch (InvalidUsernameOrPasswordException e) {
-                System.out.println("Funny cats");
+                System.out.println("Invalid username or password");
+                ErrorLabel.setText("Nazwa użytkownika lub hasło są niepoprawne");
             } catch (InvalidPasswordException e) {
-                System.out.println("chairChallenge");
+                System.out.println("Niepoprawne hasło");
+                ErrorLabel.setText("Niepoprawne hasło");
             } catch (InvalidDateOfBirthException e) {
-                System.out.println("Subway surfers");
+                System.out.println("Niepoprawna data urodzenia");
+                ErrorLabel.setText("Niepoprawna data urodzenia");
             } catch (ExistingUserException e) {
-                System.out.println("eo");
+                System.out.println("Taki użytkownik jest już w bazie");
+                ErrorLabel.setText("Taki użytkownik jest już w bazie");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {
-            ErrorLabel.setText("Insert correct values");
+            ErrorLabel.setText("Zaznaczone pola nie mogą być puste");
         }
+    }
+
+    public void BackButtonClick(ActionEvent e) {
+        Stage thisStage = (Stage) BackButton.getScene().getWindow();
+        thisStage.close();
+        Stage prevStage = new Stage();
+        prevStage.setScene(ViewController.getLandingScene());
+        prevStage.show();
+    }
+
+    public void ExitButtonClick() {
+        Stage thisStage = (Stage) CloseButton.getScene().getWindow();
+        thisStage.close();
     }
 }
