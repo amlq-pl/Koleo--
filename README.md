@@ -53,7 +53,7 @@ użytkownikach zostanie wykorzystany Python.
     
 # 5. Schemat bazy danych:
 
-![Schemat bazy danych](diagram.jpg "Schemat bazy danych")
+![Schemat bazy danych](diagram_updated.jpg "Schemat bazy danych")
 
 # 6. Link do repozytorium:
 
