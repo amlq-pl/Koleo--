@@ -6,13 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import net.synedra.validatorfx.Validator;
 import pl.tcs.oopproject.viewmodel.users.Person;
 import pl.tcs.oopproject.viewmodel.users.PersonFactory;
 
 import java.net.URL;
-import java.util.PropertyPermission;
 import java.util.ResourceBundle;
 
 public class LogInSceneController implements Initializable {
@@ -54,8 +52,7 @@ public class LogInSceneController implements Initializable {
     public void LogInAction(ActionEvent actionEvent) {
         if (validator.validate()) {
             try {
-                PersonFactory factory = new PersonFactory();
-                Person newPerson = factory.logIn(LogInInputField.getText(), PasswordInputField.getText());
+                Person newPerson = PersonFactory.logIn(LogInInputField.getText(), PasswordInputField.getText());
                 newPerson.display();
             } catch (Exception e) {
                 System.out.println("wrong username or passwd");

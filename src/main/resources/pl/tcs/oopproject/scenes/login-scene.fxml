@@ -12,7 +12,7 @@
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="280.0" style="-fx-background-color: #0B132B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <FontAwesomeIconView fill="WHITE" glyphName="TRAIN" style="-fx-font-size: 120;" wrappingWidth="100.0">
+            <FontAwesomeIconView fill="WHITE" glyphName="TRAIN" style="-fx-font-size: 120;" wrappingWidth="107.0">
                <font>
                   <Font size="96.0" />
                </font>
