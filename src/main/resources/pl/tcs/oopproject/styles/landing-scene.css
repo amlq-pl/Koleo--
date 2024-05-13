@@ -1,0 +1,7 @@
+.button-vbox Button {
+    -fx-pref-width: 120;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-border-color: red;
+    -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 6);
+}

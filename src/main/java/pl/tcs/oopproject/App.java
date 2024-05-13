@@ -11,16 +11,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class App extends Application {
-    private Connection connection;
-
+    public static Scene mainScene;
+    public static Stage mainStage;
     @Override
     public void start(Stage stage) throws IOException {
-        connection = DB.connection;
-
         FXMLLoader mainLoader = new FXMLLoader(App.class.getResource("scenes/landing-scene.fxml"));
-        Scene scene = new Scene(mainLoader.load(), 1000, 1000);
+        mainScene = new Scene(mainLoader.load(), 1000, 1000);
+        mainStage = stage;
         stage.setTitle("Main app");
-        stage.setScene(scene);
+        stage.setScene(mainScene);
         stage.show();
     }
 

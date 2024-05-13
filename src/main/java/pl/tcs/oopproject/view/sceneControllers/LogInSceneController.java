@@ -54,7 +54,7 @@ public class LogInSceneController implements Initializable {
                 Person newPerson = factory.logIn(LogInInputField.getText(), PasswordInputField.getText());
                 newPerson.display();
             } catch (Exception e) {
-                System.out.println(e.toString());
+                System.out.println("wrong username or passwd");
             }
         } else  {
             ErrorLabel.setText("Spróbuj raz jeszcze");
