@@ -16,6 +16,6 @@ public interface ConnectionInterface {
 	
 	public List<StationInterface> getTransferStations();
 	
-	public int cost();
+	public int getCost();
 	
 }

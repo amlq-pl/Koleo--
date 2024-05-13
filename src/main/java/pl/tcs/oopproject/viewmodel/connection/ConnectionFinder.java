@@ -1,7 +1,6 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
 import pl.tcs.oopproject.viewmodel.station.Station;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	private void setTrains() {
-		//TO DO : get information from the database and save them
+		//TO DO : get information from the database, find connections and save them to trains
 	}
 	
 	@Override

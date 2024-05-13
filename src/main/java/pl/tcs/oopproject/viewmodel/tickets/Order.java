@@ -1,15 +1,15 @@
-package pl.tcs.oopproject.viewmodel;
+package pl.tcs.oopproject.viewmodel.tickets;
 
 import pl.tcs.oopproject.viewmodel.carriage.CarriageInterface;
 import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
 import pl.tcs.oopproject.viewmodel.seat.SeatInterface;
 
 public abstract class Order {
-	ConnectionWithTransfers connectionAbstract;
+	ConnectionWithTransfers connection;
 	int discount;
 	
-	Order(ConnectionWithTransfers connectionAbstract, int discount) {
-		this.connectionAbstract = connectionAbstract;
+	Order(ConnectionWithTransfers connection, int discount) {
+		this.connection = connection;
 		this.discount = discount;
 	}
 	

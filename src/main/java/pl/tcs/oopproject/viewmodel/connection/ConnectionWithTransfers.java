@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ConnectionWithTransfers implements Railway, ConnectionInterface{
+public class ConnectionWithTransfers implements RailwayInterface, ConnectionInterface{
 	Station stationA;
 	Station stationB;
 	List<DirectConnection> trains; //trains that general connection consists of
@@ -19,9 +19,21 @@ public class ConnectionWithTransfers implements Railway, ConnectionInterface{
 		this.stationB = B;
 	}
 	
-	private int NumberOfStations(){
+	public int NumberOfStations(){
 		//CODE HERE
 		return 0;
+	}
+	
+	public List<DirectConnection> getTrains() {
+		return trains;
+	}
+	
+	@Override
+	public TrainType getTrainType() {
+		if(trains.size() != 1)
+			return null;
+		else
+			return trains.get(0).getTrainType();
 	}
 	
 	@Override
@@ -91,7 +103,7 @@ public class ConnectionWithTransfers implements Railway, ConnectionInterface{
 	
 	
 	@Override
-	public int cost() {
+	public int getCost() {
 		//CODE HERE
 		return 0;
 	}

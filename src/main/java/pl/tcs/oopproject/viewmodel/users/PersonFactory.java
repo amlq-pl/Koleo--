@@ -33,7 +33,7 @@ public class PersonFactory {
 		
 	} //format : +48123456789, +48 123 456 789, the important stuff : international prefix if necessary
 	
-	public Person logIn(String login, String password) throws KoleoException {
+	public static Person logIn(String login, String password) throws KoleoException {
 		try {
 			Person person =  AuthenticateLogin.authenticate(login, password);
 			ActiveUser.setActiveUser(person);
@@ -45,7 +45,7 @@ public class PersonFactory {
 		
 	} //log in
 	
-	public Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber) throws KoleoException {
+	public static Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber) throws KoleoException {
 		if(Objects.equals(phoneNumber, ""))  phoneNumber = null;
 		if (!correctTelephoneNumber(phoneNumber)) throw new InvalidTelephoneNumberException();
 		if (name.length() > 20 || name.length() < 2) throw new InvalidNameOrSurnameException();
@@ -55,7 +55,7 @@ public class PersonFactory {
 	} //buy without signing up nor logging in
 
 	
-	public Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber,String login, String password) throws KoleoException {
+	public static Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber,String login, String password) throws KoleoException {
 		Person person = create(name, surname, dateOfBirth, email, phoneNumber);
 		try {
 			if (Checkers.checkIfUserExists(login)) throw new ExistingUserException();
