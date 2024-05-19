@@ -3,6 +3,7 @@ package pl.tcs.oopproject.viewmodel.carriage;
 import pl.tcs.oopproject.viewmodel.exception.IllegalOperationException;
 import pl.tcs.oopproject.viewmodel.seat.Seat;
 import pl.tcs.oopproject.viewmodel.seat.SeatInterface;
+import pl.tcs.oopproject.viewmodel.seat.SeatType;
 
 import java.util.HashSet;
 
@@ -22,6 +23,12 @@ public class Carriage implements CarriageInterface{
 	}
 	
 	public void addSeat(Seat seat) {
+		if(carriageType.equals(CarriageType.WARS)) throw new IllegalArgumentException();
+		if(carriageType.equals(CarriageType.SLEEPER) && !seat.getSeatType().equals(SeatType.BERTH))
+			throw new IllegalArgumentException();
+		if(!carriageType.equals(CarriageType.SLEEPER) && seat.getSeatType().equals(SeatType.BERTH))
+			throw new IllegalArgumentException();
+
 		if(seats == null) seats = new HashSet<>();
 		if(seats.size() >= numberOfSeats && !seats.contains(seat)) throw new IllegalOperationException();
 		if(seat.getCarriage() != null) return;

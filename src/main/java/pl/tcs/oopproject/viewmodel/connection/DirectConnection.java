@@ -49,8 +49,8 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	}
 	
 	@Override
-	public int IndexOfStation(String town) throws IllegalArgumentException {
-		return connection.IndexOfStation(town);
+	public int getIndexOfStation(String town) throws IllegalArgumentException {
+		return connection.getIndexOfStation(town);
 	}
 	
 	@Override
@@ -66,6 +66,19 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	@Override
 	public int getCost() {
 		return cost;
+	}
+	
+	@Override
+	public int getSize() {
+		return connection.getSize();
+	}
+	
+	public boolean contains(String town) {
+		return connection.contains(town);
+	}
+	
+	public boolean contains(String town, int after) {
+		return connection.contains(town, after);
 	}
 	
 }

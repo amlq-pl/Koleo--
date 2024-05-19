@@ -7,20 +7,22 @@ import java.util.List;
 
 public interface RailwayInterface {
 	
-	public TrainType getTrainType();
+	TrainType getTrainType();
 	
-	public StationInterface getFirstStation();
+	StationInterface getFirstStation();
 	
-	public StationInterface getLastStation();
+	StationInterface getLastStation();
 	
-	public StationInterface getStationAt(int index) throws IndexOutOfBoundsException;
+	StationInterface getStationAt(int index) throws IndexOutOfBoundsException;
 	
-	public int IndexOfStation(String town) throws IllegalArgumentException;
+	int getIndexOfStation(String town) throws IllegalArgumentException;
 	
-	public Iterator<StationInterface> getIterator();
+	Iterator<StationInterface> getIterator();
 	
-	public List<StationInterface> getStations();
+	List<StationInterface> getStations();
 	
-	public int getCost();
+	int getCost();
+	
+	int getSize();
 }
 
