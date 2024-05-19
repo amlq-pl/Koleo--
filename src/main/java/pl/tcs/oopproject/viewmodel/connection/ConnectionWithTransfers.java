@@ -19,11 +19,6 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 		this.stationB = B;
 	}
 	
-	public int numberOfStations(){
-		//CODE HERE
-		return 0;
-	}
-	
 	public List<DirectConnection> getTrains() {
 		return trains;
 	}
