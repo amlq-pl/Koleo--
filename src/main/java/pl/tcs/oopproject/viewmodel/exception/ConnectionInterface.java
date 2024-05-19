@@ -5,13 +5,13 @@ import java.util.Iterator;
 
 public interface ConnectionInterface {
 	
-	public StationInterface getFirstStation();
+	StationInterface getFirstStation();
 	
-	public StationInterface getLastStation();
+	StationInterface getLastStation();
 	
-	public StationInterface getStationAt(int index) throws IndexOutOfBoundsException;
+	StationInterface getStationAt(int index) throws IndexOutOfBoundsException;
 	
-	public int IndexOfStation(String town) throws IllegalArgumentException;
+	int IndexOfStation(String town) throws IllegalArgumentException;
 	
-	public Iterator<StationInterface> getIterator();
+	Iterator<StationInterface> getIterator();
 }

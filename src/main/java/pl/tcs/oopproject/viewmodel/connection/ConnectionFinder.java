@@ -21,28 +21,32 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	
-	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack) {
+	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack) {
 		for(int i = 0; i < allTrains.size(); ++i) {
 			if(allTrains.get(i).contains(temp)) {
 				stack.add(allTrains.get(i));
+				transfersStack.add(temp);
 				if(allTrains.get(i).contains(stationB.getTown())) {
-					trains.add(new ConnectionWithTransfers(stationA, stationB, stack));
+					trains.add(new ConnectionWithTransfers(stationA, stationB, stack, transfersStack));
 					stack.remove(stack.size() - 1);
+					transfersStack.remove(transfersStack.size() - 1);
 					return;
 				} //good
 				
 				if(stack.size() >= 4) {
 					stack.remove(stack.size() - 1);
+					transfersStack.remove(transfersStack.size() - 1);
 					return;
 				}
 				
-				int index = allTrains.get(i).IndexOfStation(temp);
+				int index = allTrains.get(i).getIndexOfStation(temp);
 				DirectConnection connection = allTrains.get(i);
 				
 				for(int j = index + 1; j < connection.getSize(); ++j) {
-					findConnection(allTrains, connection.getStationAt(j).getTown(), stack);
+					findConnection(allTrains, connection.getStationAt(j).getTown(), stack, transfersStack);
 				}
 				stack.remove(stack.size() - 1);
+				transfersStack.remove(transfersStack.size() - 1);
 			}
 		}
 	}
@@ -54,7 +58,8 @@ public class ConnectionFinder implements FindConnectionInterface{
 		//all trains should be a return value from a function connected to the database
 		
 		ArrayList<DirectConnection> stack = new ArrayList<>();
-		findConnection(allTrains, stationA.getTown(), stack);
+		ArrayList<String> transferStack = new ArrayList<>();
+		findConnection(allTrains, stationA.getTown(), stack, transferStack);
 		active = false;
 	}
 	

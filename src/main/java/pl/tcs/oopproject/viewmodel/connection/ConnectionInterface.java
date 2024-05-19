@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface ConnectionInterface {
 
-	public int getNumberOfTransfers();
+	int getNumberOfTransfers();
 	
-	public LocalDateTime getDepartureTime();
-	public LocalDateTime getArrivalTime();
+	LocalDateTime getDepartureTime();
+	LocalDateTime getArrivalTime();
 
-	public List<String> getCompanies();
+	List<String> getCompanies();
 	
-	public List<StationInterface> getTransferStations();
+	List<StationInterface> getTransferStations();
 	
-	public int getCost();
+	int getCost();
 	
 }

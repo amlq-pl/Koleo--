@@ -1,5 +1,6 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
+import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.station.Station;
 import pl.tcs.oopproject.viewmodel.station.StationInterface;
 
@@ -12,11 +13,13 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 	Station stationA;
 	Station stationB;
 	List<DirectConnection> trains; //trains that general connection consists of
+	ArrayList<String> transferStations; //stations when customer should get into
 	
-	ConnectionWithTransfers(Station A, Station B, List<DirectConnection> directConnections) {
+	ConnectionWithTransfers(Station A, Station B, List<DirectConnection> directConnections, ArrayList<String> transferStations) {
 		this.trains = directConnections;
 		this.stationA = A;
 		this.stationB = B;
+		this.transferStations = transferStations;
 	}
 	
 	public List<DirectConnection> getTrains() {
@@ -43,14 +46,22 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 	
 	@Override
 	public StationInterface getStationAt(int index) throws IndexOutOfBoundsException {
-		//CODE HERE
-		return null;
+		if (trains.isEmpty()) throw new NoRouteFoundException();
+		int maxSize;
+		int c;
+		for (int i = 0; i < trains.size(); ++i) {
+			maxSize = trains.get(i).getSize() - trains.get(i).getIndexOfStation(transferStations.get(i));
+			c = trains.get(i).getIndexOfStation(transferStations.get(i));
+			if (maxSize <= index) return trains.get(i).getStationAt(c + index);
+			index -= maxSize;
+		} //TO CHECK IT!!!
+
+
+		throw new IndexOutOfBoundsException();
 	}
-	//Trains store direct connections, but as a whole, so eq A - B - C - D - E,
-	//when actually needed is B - E
 	
 	@Override
-	public int IndexOfStation(String town) throws IllegalArgumentException {
+	public int getIndexOfStation(String town) throws IllegalArgumentException {
 		//CODE HERE
 		return 0;
 	}
@@ -92,8 +103,14 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 	
 	@Override
 	public List<StationInterface> getTransferStations() {
-		//CODE HERE
-		return null;
+		if(transferStations.isEmpty()) throw new NoRouteFoundException();
+		List<StationInterface> stations = new ArrayList<>();
+
+		for(int i = 1; i < transferStations.size(); ++i) {
+			int index = trains.get(i).getIndexOfStation(transferStations.get(i));
+			stations.add(trains.get(i).getStationAt(index));
+		}
+		return stations;
 	}
 	
 	
@@ -109,7 +126,6 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 	}
 	
 	@Override
-	
 	public int compareTo(ConnectionWithTransfers o) {
 		return getDepartureTime().compareTo(((ConnectionWithTransfers) o).getDepartureTime());
 	}

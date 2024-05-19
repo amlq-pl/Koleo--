@@ -1,11 +1,11 @@
 package pl.tcs.oopproject.viewmodel.seat;
 
 public interface SeatInterface {
-	public SeatType getSeatType(); //return seat type - window, middle, corridor, sleeper
+	SeatType getSeatType(); //return seat type - window, middle, corridor, sleeper
 	
-	public int getNumber();
+	int getNumber();
 	
-	public int getCarriageNumber();
+	int getCarriageNumber();
 	
-	public void display();
+	void display();
 }

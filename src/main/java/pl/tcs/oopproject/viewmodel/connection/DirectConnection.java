@@ -49,8 +49,8 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	}
 	
 	@Override
-	public int IndexOfStation(String town) throws IllegalArgumentException {
-		return connection.IndexOfStation(town);
+	public int getIndexOfStation(String town) throws IllegalArgumentException {
+		return connection.getIndexOfStation(town);
 	}
 	
 	@Override

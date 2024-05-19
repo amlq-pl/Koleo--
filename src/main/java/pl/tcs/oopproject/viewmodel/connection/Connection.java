@@ -52,7 +52,7 @@ public class Connection implements RailwayInterface {
 		return train.get(index);
 	}
 	@Override
-	public int IndexOfStation(String town) throws IllegalArgumentException {
+	public int getIndexOfStation(String town) throws IllegalArgumentException {
 		for (int i = 0; i < train.size(); ++i)
 			if (town.equals(train.get(i).getTown()))
 				return i;
