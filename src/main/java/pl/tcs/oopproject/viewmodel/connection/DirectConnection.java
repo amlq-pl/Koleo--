@@ -28,6 +28,7 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 		return company;
 	}
 	
+	@Override
 	public TrainType getTrainType() {
 		return trainType;
 	}
@@ -62,6 +63,7 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 		return connection.getStations();
 	}
 	
+	@Override
 	public int getCost() {
 		return cost;
 	}

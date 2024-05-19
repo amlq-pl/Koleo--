@@ -18,5 +18,4 @@ public interface ConnectionInterface {
 	
 	public int getCost();
 	
-	
 }
