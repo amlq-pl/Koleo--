@@ -29,6 +29,14 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 	}
 	
 	@Override
+	public TrainType getTrainType() {
+		if(trains.size() != 1)
+			return null;
+		else
+			return trains.get(0).getTrainType();
+	}
+	
+	@Override
 	public StationInterface getFirstStation() {
 		return stationA;
 	}
