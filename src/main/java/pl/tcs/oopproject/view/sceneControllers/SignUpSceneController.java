@@ -1,6 +1,5 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -27,7 +26,6 @@ public class SignUpSceneController implements Initializable {
     public PasswordField PasswordInputField;
     public Button BackButton;
     public Button CloseButton;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -89,13 +87,24 @@ public class SignUpSceneController implements Initializable {
                 .immediate();
     }
 
+    private void resetToInitial() {
+        NameTextField.setText("");
+        SurnameTextField.setText("");
+        BirthDatePicker.setValue(LocalDate.now());
+        EmailTextField.setText("");
+        PhoneNumberTextField.setText("");
+        LoginTextField.setText("");
+        PasswordInputField.setText("");
+        ErrorLabel.setText("");
+        ErrorLabel.setStyle("-fx-text-fill: red");
+    }
+
     @FXML
     protected void onHelloButtonClick() {
         if (validator.validate()) {
             if (!ErrorLabel.getText().isEmpty()) ErrorLabel.setText("");
             try {
-                PersonFactory personFactory = new PersonFactory();
-                Person newPerson = personFactory.create(NameTextField.getText(),
+                Person newPerson = PersonFactory.create(NameTextField.getText(),
                         SurnameTextField.getText(),
                         BirthDatePicker.getValue(),
                         EmailTextField.getText(),
@@ -107,26 +116,25 @@ public class SignUpSceneController implements Initializable {
                 newPerson.display();
                 ErrorLabel.setStyle("-fx-text-fill: green");
                 ErrorLabel.setText("Użytkownik utworzony pomyślnie");
+                resetToInitial();
+                Stage thisStage = (Stage) NameTextField.getScene().getWindow();
+                thisStage.close();
+                Stage newStage = new Stage();
+                newStage.setScene(ViewController.getLandingScene());
+                newStage.show();
             } catch(InvalidNameOrSurnameException e) {
-                System.out.println("Invalid name");
                 ErrorLabel.setText("Podaj porawne imię");
             } catch (InvalidEmailException e) {
-                System.out.println("Invalid email");
                 ErrorLabel.setText("Taki email nie istnieje");
             } catch (InvalidTelephoneNumberException e) {
-                System.out.println("Invalid phone number");
                 ErrorLabel.setText("Taki numer telefonu nie istnieje");
             } catch (InvalidUsernameOrPasswordException e) {
-                System.out.println("Invalid username or password");
                 ErrorLabel.setText("Nazwa użytkownika lub hasło są niepoprawne");
             } catch (InvalidPasswordException e) {
-                System.out.println("Niepoprawne hasło");
                 ErrorLabel.setText("Niepoprawne hasło");
             } catch (InvalidDateOfBirthException e) {
-                System.out.println("Niepoprawna data urodzenia");
                 ErrorLabel.setText("Niepoprawna data urodzenia");
             } catch (ExistingUserException e) {
-                System.out.println("Taki użytkownik jest już w bazie");
                 ErrorLabel.setText("Taki użytkownik jest już w bazie");
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -136,7 +144,7 @@ public class SignUpSceneController implements Initializable {
         }
     }
 
-    public void BackButtonClick(ActionEvent e) {
+    public void BackButtonClick() {
         Stage thisStage = (Stage) BackButton.getScene().getWindow();
         thisStage.close();
         Stage prevStage = new Stage();

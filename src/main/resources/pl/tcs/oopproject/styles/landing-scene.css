@@ -1,7 +1,6 @@
 .button-vbox Button {
     -fx-pref-width: 130;
     -fx-background-color: #3A506B;
-    /*-fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 6);*/
 }
 
 .main-anchor-pane {

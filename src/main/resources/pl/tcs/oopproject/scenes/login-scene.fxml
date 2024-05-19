@@ -2,24 +2,25 @@
 
 <!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>-->
 
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.0" prefWidth="582.0" style="-fx-background-color: #AEC5EB;" stylesheets="@../styles/login-scene.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.LogInSceneController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.0" prefWidth="673.0" style="-fx-background-color: #AEC5EB;" stylesheets="@../styles/login-scene.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.LogInSceneController">
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="280.0" style="-fx-background-color: #0B132B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <FontAwesomeIconView fill="WHITE" glyphName="TRAIN" style="-fx-font-size: 120;" wrappingWidth="100.0">
-               <font>
-                  <Font size="96.0" />
-               </font>
-            </FontAwesomeIconView>
+            <FontAwesomeIconView fill="WHITE" glyphName="TRAIN" size="120" />
          </children>
       </VBox>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="261.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="235.0" prefWidth="374.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
@@ -31,13 +32,13 @@
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
             <children>
                <Label text="Login" />
-               <TextField fx:id="LogInInputField" styleClass="shadow-effect" />
+               <TextField fx:id="LogInInputField" prefHeight="24.0" prefWidth="262.0" styleClass="shadow-effect" />
             </children>
          </HBox>
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
             <children>
                <Label text="Hasło" />
-               <PasswordField fx:id="PasswordInputField" styleClass="shadow-effect" />
+               <PasswordField fx:id="PasswordInputField" prefHeight="24.0" prefWidth="261.0" styleClass="shadow-effect" />
             </children>
          </HBox>
          <Button fx:id="LogInButton" onAction="#LogInAction" styleClass="shadow-effect" text="Gotowe">
@@ -45,7 +46,7 @@
                <FontAwesomeIconView glyphName="TRAIN" />
             </graphic>
          </Button>
-         <Label fx:id="ErrorLabel" styleClass="error-label" />
+         <Label fx:id="ErrorLabel" styleClass="error-label" wrapText="true" />
       </VBox>
       <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
          <children>
