@@ -22,5 +22,7 @@ public interface RailwayInterface {
 	public List<StationInterface> getStations();
 	
 	public int getCost();
+	
+	int getSize();
 }
 

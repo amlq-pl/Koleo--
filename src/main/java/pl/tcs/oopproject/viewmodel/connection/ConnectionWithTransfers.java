@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ConnectionWithTransfers implements RailwayInterface, ConnectionInterface{
+public class ConnectionWithTransfers implements RailwayInterface, ConnectionInterface, Comparable<ConnectionWithTransfers> {
 	Station stationA;
 	Station stationB;
 	List<DirectConnection> trains; //trains that general connection consists of
@@ -19,7 +19,7 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 		this.stationB = B;
 	}
 	
-	public int NumberOfStations(){
+	public int numberOfStations(){
 		//CODE HERE
 		return 0;
 	}
@@ -108,4 +108,14 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 		return 0;
 	}
 	
+	@Override
+	public int getSize() {
+		return 0;
+	}
+	
+	@Override
+	
+	public int compareTo(ConnectionWithTransfers o) {
+		return getDepartureTime().compareTo(((ConnectionWithTransfers) o).getDepartureTime());
+	}
 }

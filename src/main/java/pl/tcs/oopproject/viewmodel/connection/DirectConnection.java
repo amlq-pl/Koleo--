@@ -68,4 +68,17 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 		return cost;
 	}
 	
+	@Override
+	public int getSize() {
+		return connection.getSize();
+	}
+	
+	public boolean contains(String town) {
+		return connection.contains(town);
+	}
+	
+	public boolean contains(String town, int after) {
+		return connection.contains(town, after);
+	}
+	
 }
