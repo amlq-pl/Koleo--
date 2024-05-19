@@ -17,11 +17,6 @@ public class Connection implements RailwayInterface {
 	}
 	
 	@Override
-	public TrainType getTrainType() {
-		return trainType;
-	}
-	
-	@Override
 	public StationInterface getFirstStation() {
 		return train.get(0);
 	}
@@ -50,11 +45,6 @@ public class Connection implements RailwayInterface {
 	@Override
 	public List<StationInterface> getStations() {
 		return train;
-	}
-	
-	@Override
-	public int getCost() {
-		return cost;
 	}
 	
 }

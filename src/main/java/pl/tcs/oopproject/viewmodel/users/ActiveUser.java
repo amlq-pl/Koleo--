@@ -1,6 +1,7 @@
 package pl.tcs.oopproject.viewmodel.users;
 
 
+import pl.tcs.oopproject.viewmodel.exception.IllegalOperationException;
 import pl.tcs.oopproject.viewmodel.place.Place;
 
 public class ActiveUser {
@@ -8,7 +9,12 @@ public class ActiveUser {
 	private static Place place; //temporarily viewed place
 	
 	public static void setActiveUser(Person person) {
+		if(activeUser != null) throw new IllegalOperationException();
 		activeUser = person;
+	}
+	
+	public static void logOut() {
+		activeUser = null;
 	}
 	
 	public static Person getActiveUser() {

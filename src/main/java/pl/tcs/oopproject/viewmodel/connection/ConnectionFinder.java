@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConnectionFinder implements FindConnectionInterface{
-	ArrayList<DirectConnection> trains;
-	Station stationA;
-	Station stationB;
-	LocalDateTime departureDate;
-	LocalDateTime arrivalDate;
+	private ArrayList<DirectConnection> trains;
+	private Station stationA;
+	private Station stationB;
+	private LocalDateTime departureDate;
+	private LocalDateTime arrivalDate;
 	
 	ConnectionFinder(Station stationA, Station stationB, LocalDateTime departureDate, LocalDateTime arrivalDate) {
 		this.stationA = stationA;
