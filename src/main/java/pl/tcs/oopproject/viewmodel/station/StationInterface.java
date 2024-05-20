@@ -5,11 +5,11 @@ import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
 import java.time.LocalDateTime;
 
 public interface StationInterface {
-	public String getTown();
-	public LocalDateTime getArrivalTime();
-	public LocalDateTime getDepartureTime();
+	String getTown();
+	LocalDateTime getArrivalTime();
+	LocalDateTime getDepartureTime();
 	
-	public DirectConnection getTrain();
+	DirectConnection getTrain();
 	
-	public void display();
+	void display();
 }

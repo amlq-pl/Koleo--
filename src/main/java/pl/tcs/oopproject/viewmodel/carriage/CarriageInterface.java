@@ -1,13 +1,13 @@
 package pl.tcs.oopproject.viewmodel.carriage;
 
 public interface CarriageInterface {
-	public CarriageClassType getClassType(); //first or second
+	CarriageClassType getClassType(); //first or second
 	
-	public CarriageType getCarriageType(); //single compartment or compartment
+	CarriageType getCarriageType(); //single compartment or compartment
 	
-	public int getNumber();
+	int getNumber();
 	
-	public void display();
+	void display();
 	
 	
 	

@@ -1,7 +1,7 @@
 package pl.tcs.oopproject.viewmodel.discount;
 
 public interface DiscountInterface {
-	public String getDiscount();
+	String getDiscount();
 	
-	public int getValue();
+	int getValue();
 }

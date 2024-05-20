@@ -26,6 +26,8 @@ public class PersonFactory {
 	
 	private static boolean correctTelephoneNumber(String number) {
 		if(number == null) return true;
+		if(number.length() == 9)
+			number = "+48" + number;
 		number = number.replaceAll("\\s", "");
 		String numberRegex = "^\\+\\d{10,12}$";
 		Pattern pattern = Pattern.compile(numberRegex);
