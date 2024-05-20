@@ -10,6 +10,7 @@ public class ViewController {
     private static final Scene landingScene;
     private static final Scene signUpScene;
     private static final Scene logInScene;
+    private static final Scene trainSearchScene;
 
     private static Scene createScene(String name) {
         try {
@@ -33,6 +34,10 @@ public class ViewController {
         logInScene = createScene("scenes/login-scene.fxml");
     }
 
+    static {
+        trainSearchScene = createScene("scenes/train-search-scene.fxml");
+    }
+
     public static Scene getLandingScene() {
         return landingScene;
     }
@@ -43,5 +48,9 @@ public class ViewController {
 
     public static Scene getLogInScene() {
         return logInScene;
+    }
+
+    public static Scene getTrainSearchScene() {
+        return trainSearchScene;
     }
 }
