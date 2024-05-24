@@ -76,6 +76,6 @@ for i in range(params.liczba_przejazdow):
     id_trasy_przewoznika = random.randint(1, params.liczba_tras_przewoznikow)
     koszt = (float(trasyToLiczba[tpToTrasy[id_trasy_przewoznika]]) * 23 *
              random.uniform(0.8, 1.2) * params.wagi_przewoznikow[tpToPrzewoznicy[id_trasy_przewoznika] - 1])
-    file.write(f"""{id_trasy_przewoznika},{fetch_random_date()},{koszt},{'true'},{fetch_random_name()}\n""")
+    file.write(f"""{id_trasy_przewoznika},{fetch_random_date()},{round(koszt,2)},{'true'},{fetch_random_name()}\n""")
 
 file.close()
