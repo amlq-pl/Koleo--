@@ -6,7 +6,6 @@ module Koleo {
     requires java.sql;
     opens pl.tcs.oopproject to javafx.fxml;
     exports pl.tcs.oopproject;
-    exports pl.tcs.oopproject.model;
 	exports pl.tcs.oopproject.viewmodel.users;
 	exports pl.tcs.oopproject.viewmodel.exception;
 	exports pl.tcs.oopproject.viewmodel.carriage;
@@ -16,4 +15,8 @@ module Koleo {
     opens pl.tcs.oopproject.view.sceneControllers to javafx.fxml;
     opens pl.tcs.oopproject.model to javafx.fxml;
 	exports pl.tcs.oopproject.viewmodel.station;
+    exports pl.tcs.oopproject.postgresDatabase;
+    opens pl.tcs.oopproject.postgresDatabase to javafx.fxml;
+    exports pl.tcs.oopproject.model.databaseIntegration;
+    opens pl.tcs.oopproject.model.databaseIntegration to javafx.fxml;
 }

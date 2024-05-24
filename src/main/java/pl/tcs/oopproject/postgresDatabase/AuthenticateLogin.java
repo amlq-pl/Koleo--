@@ -1,5 +1,6 @@
-package pl.tcs.oopproject.model;
+package pl.tcs.oopproject.postgresDatabase;
 
+import pl.tcs.oopproject.model.databaseIntegration.AuthenticateLoginInterface;
 import pl.tcs.oopproject.viewmodel.users.*;
 
 import java.sql.ResultSet;
@@ -7,9 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class AuthenticateLogin {
-    public static Person authenticate(String login, String password) throws SQLException {
-        Statement statement=DB.statement;
+public class AuthenticateLogin implements AuthenticateLoginInterface {
+    @Override
+    public Person authenticate(String login, String password) throws SQLException {
+        Statement statement= DB.statement;
 
         String query="select k.imie,k.nazwisko,k.data_urodzenia,k.email,k.nr_telefonu "+
                 "from konto ko join klienci k on k.id_klienta=ko.id_klienta "+
@@ -24,6 +26,5 @@ public class AuthenticateLogin {
                 resultSet.getString(4),
                 resultSet.getString(5)
         );
-
     }
 }

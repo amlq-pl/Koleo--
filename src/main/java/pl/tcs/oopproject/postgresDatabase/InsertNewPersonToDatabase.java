@@ -1,21 +1,23 @@
-package pl.tcs.oopproject.model;
+package pl.tcs.oopproject.postgresDatabase;
+import pl.tcs.oopproject.model.databaseIntegration.InsertNewPersonToDatabaseInterface;
 import pl.tcs.oopproject.viewmodel.users.Person;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class InsertNewPersonToDatabase {
+public class InsertNewPersonToDatabase implements InsertNewPersonToDatabaseInterface {
     private static int getMaxIdKlienci() throws SQLException {
         String query;
         query = "select max(k.id_klienta) " +
                 "from klienci k";
-        ResultSet resultSet=DB.statement.executeQuery(query);
+        ResultSet resultSet= DB.statement.executeQuery(query);
         resultSet.next();
         return resultSet.getInt(1);
     }
 
-    public static boolean insertWithoutAccount(Person p) throws SQLException {
+    @Override
+    public boolean insertWithoutAccount(Person p) throws SQLException {
 
         PreparedStatement updateKlienci=DB.connection.prepareStatement("insert into klienci(imie,nazwisko,data_urodzenia,email,nr_telefonu)" +
                 " values(?, ?, ?, ?, ?);");
@@ -31,9 +33,10 @@ public class InsertNewPersonToDatabase {
 
     }
 
-    public static boolean insert( Person p, String login, String password) throws SQLException {
+    @Override
+    public boolean insert( Person p, String login, String password) throws SQLException {
 
-        boolean updateKlientResult=insertWithoutAccount(p);
+        boolean updateKlientResult=this.insertWithoutAccount(p);
         if(!updateKlientResult) return false;
 
         PreparedStatement updateKonto=DB.connection.prepareStatement("insert into konto(login,haslo,id_klienta)" +
@@ -51,7 +54,6 @@ public class InsertNewPersonToDatabase {
             if (!res) throw new RuntimeException("data discrepancy"); //new exception when reversion failed
             return false;
         }
-
         return true;
     }
 }

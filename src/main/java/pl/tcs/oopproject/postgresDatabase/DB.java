@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.model;
+package pl.tcs.oopproject.postgresDatabase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
