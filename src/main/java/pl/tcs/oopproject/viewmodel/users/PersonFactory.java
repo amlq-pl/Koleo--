@@ -1,8 +1,8 @@
 package pl.tcs.oopproject.viewmodel.users;
 
-import pl.tcs.oopproject.postgresDatabase.AuthenticateLogin;
-import pl.tcs.oopproject.postgresDatabase.Checkers;
-import pl.tcs.oopproject.postgresDatabase.InsertNewPersonToDatabase;
+import pl.tcs.oopproject.postgresDatabaseIntegration.AuthenticateLogin;
+import pl.tcs.oopproject.postgresDatabaseIntegration.Checkers;
+import pl.tcs.oopproject.postgresDatabaseIntegration.InsertNewPersonToDatabase;
 import pl.tcs.oopproject.viewmodel.exception.*;
 
 import java.sql.SQLException;

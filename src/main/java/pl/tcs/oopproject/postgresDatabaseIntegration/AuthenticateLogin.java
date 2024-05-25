@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.postgresDatabase;
+package pl.tcs.oopproject.postgresDatabaseIntegration;
 
 import pl.tcs.oopproject.model.databaseIntegration.AuthenticateLoginInterface;
 import pl.tcs.oopproject.viewmodel.users.*;

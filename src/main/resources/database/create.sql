@@ -171,4 +171,62 @@ create table bilety_jednorazowe
     nr_wagonu                        smallint not null,
     nr_miejsca                       smallint not null,
     id_szczegolow                    smallint not null references szczegoly_biletu
-)
+);
+
+create or replace function getIDTrasy(id_przejazduu int) returns int as
+$$
+begin
+    return (select t.id_trasy
+            from przejazdy p
+                     join trasy_przewoznicy tp on p.id_trasy_przewoznika = tp.id_trasy_przewoznika
+                     join trasy t on tp.id_trasy = t.id_trasy
+            where p.id_przejazdu = id_przejazduu);
+end;
+$$ language plpgsql;
+
+create or replace function getDirectConnection(id int)
+    returns table
+            (
+                numer_stacji   int,
+                nazwa          varchar(30),
+                czas_przyjazdu timestamp,
+                czas_odjazdu   timestamp
+            )
+as
+$$
+declare
+    idTrasy int;
+    currTimestamp timestamp;
+    x record;
+begin
+    create temporary table toReturn
+    (
+        numer_stacji   int,
+        nazwa          varchar(30),
+        czas_przyjazdu timestamp,
+        czas_odjazdu   timestamp
+    );
+    select p.timestamp_przejazdu
+    into currTimestamp
+    from przejazdy p
+    where p.id_przejazdu = id;
+    select getIDTrasy(id) into idTrasy;
+    for x in select * from stacje_posrednie where id_trasy=idTrasy order by numer_stacji loop
+        currTimestamp:=currTimestamp+coalesce(x.czas_przejazdu,interval '0 minutes');
+        insert into toReturn values (
+            x.numer_stacji,
+                (select s.nazwa from stacje s
+                join stacje_posrednie sp on s.id_stacji = sp.id_stacji
+                where sp.id_stacji_posrednich=x.id_stacji_posrednich),
+            currTimestamp,
+            currTimestamp+coalesce(x.czas_postoju,interval '0 minutes'));
+        end loop;
+    return query select * from toReturn;
+    drop table toReturn;
+end;
+$$ language plpgsql;
+
+create view stations as
+select p.id_przejazdu, c.nazwa, c.numer_stacji, c.czas_przyjazdu, czas_odjazdu
+from przejazdy p,
+     getDirectConnection(p.id_przejazdu) c;
