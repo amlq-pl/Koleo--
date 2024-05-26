@@ -17,8 +17,8 @@ public class GetDirectConnectionsFunctionTest {
         LocalDateTime endDate = LocalDateTime.parse("2024-06-02 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         GetDirectConnectionsInTimeframe dc = new GetDirectConnectionsInTimeframe();
         ArrayList<DirectConnection> directConnections = dc.getDirectConnectionsInTimeframe(startDate, endDate);
-        for (int i = 0; i < 10; i++) {
-            directConnections.get(i).display();
+        for (DirectConnection directConnection : directConnections) {
+            directConnection.display();
         }
     }
 }

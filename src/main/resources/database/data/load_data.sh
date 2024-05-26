@@ -16,6 +16,5 @@ psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "przejazdy.sql"
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "przejazdy_sklad.sql"
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "przejazdy_sklad_czesci.sql"
 
-
 unset PGPASSWORD
 

@@ -9,8 +9,7 @@ public class Station{
 	private final String town;
 	private final LocalDateTime departureTime;
 	private final LocalDateTime arrivalTime;
-	
-	DirectConnection directConnection; //which departs and arrives at given time
+	private DirectConnection directConnection; //which departs and arrives at given time
 	
 	public Station(String town, LocalDateTime departureTime, LocalDateTime arrivalDate) {
 		this.town = town;
@@ -42,7 +41,7 @@ public class Station{
 	
 	public void display() {
 		System.out.println("station: " + town);
-		System.out.println("DirectConnection " + directConnection.getNumber() + " arrives at " + departureTime + " departs at " + arrivalTime);
+		//System.out.println("DirectConnection " + directConnection.getNumber() + " arrives at " + departureTime + " departs at " + arrivalTime);
 		
 	}
 }

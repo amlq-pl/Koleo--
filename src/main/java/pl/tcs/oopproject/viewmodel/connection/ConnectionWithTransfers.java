@@ -129,4 +129,9 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	public int compareTo(@NotNull ConnectionWithTransfers o) {
 		return o.getDepartureTime().compareTo(getDepartureTime());
 	}
+	
+	public void display() {
+		for(DirectConnection d : trains)
+			d.display();
+	}
 }
