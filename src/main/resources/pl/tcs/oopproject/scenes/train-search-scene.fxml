@@ -3,11 +3,13 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/train-search-scene.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.TrainSearchSceneController">
@@ -34,9 +36,14 @@
          <children>
             <HBox alignment="CENTER_LEFT" layoutX="27.0" layoutY="14.0" prefHeight="70.0" prefWidth="200.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextField promptText="OD" />
-                  <TextField promptText="DO" />
-                  <DatePicker promptText="DATA" />
+                  <TextField fx:id="DepStation" prefHeight="24.0" prefWidth="120.0" promptText="OD" />
+                  <TextField fx:id="ArrStation" prefHeight="24.0" prefWidth="120.0" promptText="DO" />
+                  <DatePicker fx:id="ConnectionDate" prefHeight="24.0" prefWidth="140.0" promptText="DATA" />
+                  <TilePane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="115.0">
+                     <children>
+                        <ComboBox fx:id="HourPicker" prefHeight="24.0" prefWidth="115.0" promptText="GODZINA" />
+                     </children>
+                  </TilePane>
                   <Button fx:id="ConfirmButton" mnemonicParsing="false" onAction="#ConfirmButtonClick" text="GOTOWE" />
                </children>
                <opaqueInsets>
