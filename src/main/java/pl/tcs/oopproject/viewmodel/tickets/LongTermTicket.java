@@ -3,6 +3,7 @@ package pl.tcs.oopproject.viewmodel.tickets;
 import pl.tcs.oopproject.viewmodel.discount.Discount;
 import pl.tcs.oopproject.viewmodel.discount.DiscountInterface;
 import pl.tcs.oopproject.viewmodel.discount.OneTimeDiscount;
+import pl.tcs.oopproject.viewmodel.discount.PriceInterface;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class LongTermTicket implements TicketInterface {
 	}
 	
 	@Override
-	public int getCost() {
+	public PriceInterface getCost() {
 		return longTermTicketType.getCost();
 	}
 	

@@ -8,7 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
-import pl.tcs.oopproject.viewmodel.discount.Price;
 import java.io.IOException;
 import java.time.LocalDateTime;
 

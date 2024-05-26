@@ -79,7 +79,9 @@ public class TrainSearchSceneController implements Initializable {
         DirectConnection directConnection = new DirectConnection("PKP", 12, 21.37, TrainIsReservation.WITH_RESERVATION, trainConnection);
         ArrayList<String> arrayList = new ArrayList<>(); arrayList.add(start.getTown());
         ConnectionWithTransfers temp;
-        temp = new ConnectionWithTransfers(start, end, List.of(directConnection), arrayList);
+        ArrayList<DirectConnection> d = new ArrayList<>();
+        d.add(directConnection);
+        temp = new ConnectionWithTransfers(start, end, d, arrayList);
         TrainPane tempPane = TrainPaneFactory.createTrainPane(temp);
         ConnectionList.add(tempPane);
         // ----->

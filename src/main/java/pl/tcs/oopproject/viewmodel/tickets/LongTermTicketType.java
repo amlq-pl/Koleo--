@@ -1,5 +1,7 @@
 package pl.tcs.oopproject.viewmodel.tickets;
 
+import pl.tcs.oopproject.viewmodel.discount.PriceInterface;
+
 import java.time.Period;
 
 public enum LongTermTicketType {
@@ -15,8 +17,8 @@ public enum LongTermTicketType {
 		}
 		
 		@Override
-		int getCost() {
-			return 0;
+		PriceInterface getCost() {
+			return null;
 		}
 	},
 	THREE_DAYS {
@@ -31,8 +33,8 @@ public enum LongTermTicketType {
 		}
 		
 		@Override
-		int getCost() {
-			return 0;
+		PriceInterface getCost() {
+			return null;
 		}
 	},
 	WEEK {
@@ -47,8 +49,8 @@ public enum LongTermTicketType {
 		}
 		
 		@Override
-		int getCost() {
-			return 0;
+		PriceInterface getCost() {
+			return null;
 		}
 	},
 	ONE_MONTH {
@@ -63,8 +65,8 @@ public enum LongTermTicketType {
 		}
 		
 		@Override
-		int getCost() {
-			return 0;
+		PriceInterface getCost() {
+			return null;
 		}
 	},
 	THREE_MONTHS {
@@ -79,8 +81,8 @@ public enum LongTermTicketType {
 		}
 		
 		@Override
-		int getCost() {
-			return 0;
+		PriceInterface getCost() {
+			return null;
 		}
 	},
 	SIX_MONTHS {
@@ -95,8 +97,8 @@ public enum LongTermTicketType {
 		}
 		
 		@Override
-		int getCost() {
-			return 0;
+		PriceInterface getCost() {
+			return null;
 		}
 	},
 	ONE_YEAR {
@@ -111,12 +113,12 @@ public enum LongTermTicketType {
 		}
 		
 		@Override
-		int getCost() {
-			return 0;
+		PriceInterface getCost() {
+			return null;
 		}
 	};
 	
 	abstract void display();
 	abstract Period period();
-	abstract int getCost(); //TO CODE
+	abstract PriceInterface getCost(); //TO CODE
 }
