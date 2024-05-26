@@ -59,7 +59,7 @@
          <children>
             <ScrollPane id="ScrollContainer" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
-                  <VBox fx:id="ScrollablePane" prefHeight="500.0" prefWidth="800.0" spacing="10.0" />
+                  <VBox fx:id="ScrollablePane" alignment="TOP_CENTER" prefHeight="500.0" prefWidth="800.0" spacing="10.0" />
                </content></ScrollPane>
          </children>
       </AnchorPane>
