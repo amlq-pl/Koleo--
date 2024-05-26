@@ -9,10 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ConnectionWithTransfers implements ConnectionInterface, ConnectionWithTransfersInterface, Comparable<ConnectionWithTransfers> {
-	Station stationA;
-	Station stationB;
-	List<DirectConnection> trains; //trains that general connection consists of
-	ArrayList<String> transferStations; //stations when customer should get into
+	private final Station stationA;
+	private final Station stationB;
+	private final List<DirectConnection> trains; //trains that general connection consists of
+	private final ArrayList<String> transferStations; //stations when customer should get into
 	
 	public ConnectionWithTransfers(Station A, Station B, List<DirectConnection> directConnections, ArrayList<String> transferStations) {
 		this.trains = directConnections;

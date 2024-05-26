@@ -12,7 +12,7 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 	private final double cost;
 	private final TrainType trainType;
 	
-	public DirectConnection(String company, int number, int cost, TrainType trainType, TrainConnection connection) {
+	public DirectConnection(String company, int number, double cost, TrainType trainType, TrainConnection connection) {
 		this.company = company;
 		this.connection = connection;
 		this.number = number;

@@ -22,9 +22,9 @@ public class ConnectionFinder implements FindConnectionInterface {
 		this.departureDate = departureDate;
 	}
 	
-	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack) {
+	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack, ArrayList<Boolean> visited) {
 		for (int i = 0; i < allTrains.size(); ++i) {
-			if (allTrains.get(i).contains(temp)) {
+			if (allTrains.get(i).contains(temp) ) {
 				stack.add(allTrains.get(i));
 				transfersStack.add(temp);
 				if (allTrains.get(i).contains(stationB)) {
@@ -44,7 +44,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 				DirectConnection connection = allTrains.get(i);
 				
 				for (int j = index + 1; j < connection.getSize(); ++j) {
-					findConnection(allTrains, connection.getStationAt(j).getTown(), stack, transfersStack);
+					findConnection(allTrains, connection.getStationAt(j).getTown(), stack, transfersStack, visited);
 				}
 				stack.remove(stack.size() - 1);
 				transfersStack.remove(transfersStack.size() - 1);
@@ -56,7 +56,8 @@ public class ConnectionFinder implements FindConnectionInterface {
 		ArrayList<DirectConnection> allTrains = new GetDirectConnectionsInTimeframe().getDirectConnectionsInTimeframe(departureDate, departureDate.plusHours(hours));
 		ArrayList<DirectConnection> stack = new ArrayList<>();
 		ArrayList<String> transferStack = new ArrayList<>();
-		findConnection(allTrains, stationA, stack, transferStack);
+		ArrayList<Boolean> visited = new ArrayList<>();
+		findConnection(allTrains, stationA, stack, transferStack, visited);
 		active = false;
 	}
 	
