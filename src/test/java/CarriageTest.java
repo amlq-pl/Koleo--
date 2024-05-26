@@ -2,13 +2,10 @@ import org.junit.Test;
 import pl.tcs.oopproject.viewmodel.carriage.Carriage;
 import pl.tcs.oopproject.viewmodel.carriage.CarriageClassType;
 import pl.tcs.oopproject.viewmodel.carriage.CarriageType;
-import pl.tcs.oopproject.viewmodel.exception.ExistingUserException;
-import pl.tcs.oopproject.viewmodel.exception.IllegalOperationException;
 import pl.tcs.oopproject.viewmodel.seat.Seat;
 import pl.tcs.oopproject.viewmodel.seat.SeatType;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
 public class CarriageTest {
 	@Test

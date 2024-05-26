@@ -9,8 +9,8 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	private final String company;
 	private final Connection connection;
 	private final int number; //number of a train
-	int cost;
-	TrainType trainType;
+	private final double cost;
+	private final TrainType trainType;
 	
 	DirectConnection(String company, int number, int cost, TrainType trainType, Connection connection) {
 		this.company = company;
@@ -62,7 +62,7 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 		return connection.getStations();
 	}
 	
-	public int getCost() {
+	public double getCost() {
 		return cost;
 	}
 	

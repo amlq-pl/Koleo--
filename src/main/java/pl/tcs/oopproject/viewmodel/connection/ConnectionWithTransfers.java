@@ -25,7 +25,6 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 		return trains;
 	}
 	
-	@Override
 	public TrainType getTrainType() {
 		if(trains.size() != 1)
 			return null;
@@ -126,6 +125,6 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 	
 	@Override
 	public int compareTo(ConnectionWithTransfers o) {
-		return getDepartureTime().compareTo(((ConnectionWithTransfers) o).getDepartureTime());
+		return ((ConnectionWithTransfers) o).getDepartureTime().compareTo(getDepartureTime());
 	}
 }
