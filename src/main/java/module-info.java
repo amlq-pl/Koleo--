@@ -13,7 +13,7 @@ module Koleo {
 	exports pl.tcs.oopproject.viewmodel.connection;
 	exports pl.tcs.oopproject.viewmodel.place;
     opens pl.tcs.oopproject.view.sceneControllers to javafx.fxml;
-    opens pl.tcs.oopproject.model to javafx.fxml;
+	opens pl.tcs.oopproject.view.componentControllers to javafx.fxml;
 	exports pl.tcs.oopproject.viewmodel.station;
     exports pl.tcs.oopproject.postgresDatabaseIntegration;
     opens pl.tcs.oopproject.postgresDatabaseIntegration to javafx.fxml;

@@ -1,27 +1,24 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
-import pl.tcs.oopproject.viewmodel.station.StationInterface;
+import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.util.Iterator;
 import java.util.List;
 
 public interface RailwayInterface {
 	
-	TrainType getTrainType();
 	
-	StationInterface getFirstStation();
+	Station getFirstStation();
 	
-	StationInterface getLastStation();
+	Station getLastStation();
 	
-	StationInterface getStationAt(int index) throws IndexOutOfBoundsException;
+	Station getStationAt(int index) throws IndexOutOfBoundsException;
 	
 	int getIndexOfStation(String town) throws IllegalArgumentException;
 	
-	Iterator<StationInterface> getIterator();
+	Iterator<Station> getIterator();
 	
-	List<StationInterface> getStations();
-	
-	int getCost();
+	List<Station> getStations();
 	
 	int getSize();
 }

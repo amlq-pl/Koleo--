@@ -1,6 +1,6 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
-import pl.tcs.oopproject.viewmodel.station.StationInterface;
+import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.util.Iterator;
 import java.util.List;
@@ -9,15 +9,15 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	private final String company;
 	private final Connection connection;
 	private final int number; //number of a train
-	private final int cost;
+	private final double cost;
 	private final TrainType trainType;
 	
-	DirectConnection(String company, int number, int cost, Connection connection, TrainType trainType) {
+	DirectConnection(String company, int number, int cost, TrainType trainType, Connection connection) {
 		this.company = company;
 		this.connection = connection;
 		this.number = number;
-		this.cost = cost;
 		this.trainType = trainType;
+		this.cost = cost;
 	}
 	
 	public int getNumber() {
@@ -28,23 +28,22 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 		return company;
 	}
 	
-	@Override
 	public TrainType getTrainType() {
 		return trainType;
 	}
 	
 	@Override
-	public StationInterface getFirstStation() {
+	public Station getFirstStation() {
 		return connection.getFirstStation();
 	}
 	
 	@Override
-	public StationInterface getLastStation() {
+	public Station getLastStation() {
 		return connection.getLastStation();
 	}
 	
 	@Override
-	public StationInterface getStationAt(int index) throws IndexOutOfBoundsException {
+	public Station getStationAt(int index) throws IndexOutOfBoundsException {
 		return connection.getStationAt(index);
 	}
 	
@@ -54,17 +53,16 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	}
 	
 	@Override
-	public Iterator<StationInterface> getIterator() {
+	public Iterator<Station> getIterator() {
 		return connection.getIterator();
 	}
 	
 	@Override
-	public List<StationInterface> getStations() {
+	public List<Station> getStations() {
 		return connection.getStations();
 	}
 	
-	@Override
-	public int getCost() {
+	public double getCost() {
 		return cost;
 	}
 	
@@ -75,10 +73,6 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	
 	public boolean contains(String town) {
 		return connection.contains(town);
-	}
-	
-	public boolean contains(String town, int after) {
-		return connection.contains(town, after);
 	}
 	
 }

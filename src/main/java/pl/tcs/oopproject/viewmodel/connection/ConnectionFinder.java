@@ -1,33 +1,37 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
+import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimeframe;
+import pl.tcs.oopproject.viewmodel.exception.InternalDatabaseException;
 import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.station.Station;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class ConnectionFinder implements FindConnectionInterface{
-	ArrayList<ConnectionWithTransfers> trains = new ArrayList<>();
-	Station stationA;
-	Station stationB;
-	LocalDateTime departureDate;
-	LocalDateTime arrivalDate;
-	boolean active = true;
+	private static int hours = 8;
+	private final ArrayList<ConnectionWithTransfers> trains = new ArrayList<>();
+	private final String stationA;
+	private final String stationB;
+	private  final LocalDateTime departureDate;
+	private boolean active = true;
 	
-	ConnectionFinder(Station stationA, Station stationB, LocalDateTime departureDate, LocalDateTime arrivalDate) {
+	public ConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) {
 		this.stationA = stationA;
 		this.stationB = stationB;
-		this.arrivalDate = arrivalDate;
 		this.departureDate = departureDate;
 	}
-	
 	
 	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack) {
 		for(int i = 0; i < allTrains.size(); ++i) {
 			if(allTrains.get(i).contains(temp)) {
 				stack.add(allTrains.get(i));
 				transfersStack.add(temp);
-				if(allTrains.get(i).contains(stationB.getTown())) {
-					trains.add(new ConnectionWithTransfers(stationA, stationB, stack, transfersStack));
+				if(allTrains.get(i).contains(stationB)) {
+					LocalDateTime time12 = stack.get(0).getStationAt(stack.get(0).getIndexOfStation(stationA)).getArrivalTime();
+					LocalDateTime time11 = stack.get(0).getStationAt(stack.get(0).getIndexOfStation(stationA)).getDepartureTime();
+					LocalDateTime time22 = stack.get(stack.size() - 1).getStationAt(stack.get(stack.size() - 1).getIndexOfStation(stationB)).getArrivalTime();
+					LocalDateTime time21 = stack.get(stack.size() - 1).getStationAt(stack.get(stack.size() - 1).getIndexOfStation(stationB)).getDepartureTime();
+					trains.add(new ConnectionWithTransfers(new Station(stationA, time11, time12), new Station(stationB, time21, time22), stack, transfersStack));
 					stack.remove(stack.size() - 1);
 					transfersStack.remove(transfersStack.size() - 1);
 					return;
@@ -51,21 +55,16 @@ public class ConnectionFinder implements FindConnectionInterface{
 		}
 	}
 	
-	private void setTrains() {
-		//TO DO : get information from the database, find connections and save them to trains
-		//handle exception and call findConnections
-		ArrayList<DirectConnection> allTrains = new ArrayList<>();
-		//all trains should be a return value from a function connected to the database
-		
+	private void setTrains() throws InternalDatabaseException {
+		ArrayList<DirectConnection> allTrains = new GetDirectConnectionsInTimeframe().getDirectConnectionsInTimeframe(departureDate, departureDate.plusHours(hours));
 		ArrayList<DirectConnection> stack = new ArrayList<>();
 		ArrayList<String> transferStack = new ArrayList<>();
-		findConnection(allTrains, stationA.getTown(), stack, transferStack);
+		findConnection(allTrains, stationA, stack, transferStack);
 		active = false;
 	}
 	
-	
 	@Override
-	public List<ConnectionWithTransfers> getRoutes() {
+	public List<ConnectionWithTransfers> getRoutes() throws InternalDatabaseException{
 		if(!active) setTrains();
 		if(trains == null) throw new NoRouteFoundException();
 		Collections.sort(trains);
@@ -78,7 +77,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	@Override
-	public List<ConnectionWithTransfers> getCheapRoutes() {
+	public List<ConnectionWithTransfers> getCheapRoutes() throws InternalDatabaseException {
 		if(!active) setTrains();
 		if(trains == null) throw new NoRouteFoundException();
 		ArrayList<ConnectionWithTransfers> connections = new ArrayList<>();
@@ -100,7 +99,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	@Override
-	public List<ConnectionWithTransfers> getRoutesWithoutTransfers() {
+	public List<ConnectionWithTransfers> getRoutesWithoutTransfers() throws InternalDatabaseException {
 		if(!active) setTrains();
 		if(trains == null) throw new NoRouteFoundException();
 		
