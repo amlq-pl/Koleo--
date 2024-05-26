@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-public class Connection implements RailwayInterface {
+public class Connection implements ConnectionInterface {
 	private final ArrayList<Station> train;
 	
 	Connection(ArrayList<Station> train) {
@@ -17,13 +17,6 @@ public class Connection implements RailwayInterface {
 	public boolean contains(String town) {
 		for(Station s : train)
 			if(s.getTown().equals(town))
-				return true;
-		return false;
-	}
-	
-	public boolean contains(String town, int after) {
-		for(int i = after; i < train.size(); ++i)
-			if(Objects.equals(train.get(i).getTown(), town))
 				return true;
 		return false;
 	}
@@ -62,6 +55,11 @@ public class Connection implements RailwayInterface {
 	@Override
 	public int getSize() {
 		return train.size();
+	}
+	
+	public Station getStation(String station) {
+		if(!contains(station)) return null;
+		return train.get(getIndexOfStation(station));
 	}
 	
 }
