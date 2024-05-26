@@ -1,14 +1,15 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
 import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimeframe;
-import pl.tcs.oopproject.viewmodel.exception.InternalDatabaseException;
 import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.station.Station;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class ConnectionFinder implements FindConnectionInterface{
-	private static int hours = 8;
+	private static final int hours = 8;
 	private final ArrayList<ConnectionWithTransfers> trains = new ArrayList<>();
 	private final String stationA;
 	private final String stationB;
@@ -27,11 +28,10 @@ public class ConnectionFinder implements FindConnectionInterface{
 				stack.add(allTrains.get(i));
 				transfersStack.add(temp);
 				if(allTrains.get(i).contains(stationB)) {
-					LocalDateTime time12 = stack.get(0).getStationAt(stack.get(0).getIndexOfStation(stationA)).getArrivalTime();
-					LocalDateTime time11 = stack.get(0).getStationAt(stack.get(0).getIndexOfStation(stationA)).getDepartureTime();
-					LocalDateTime time22 = stack.get(stack.size() - 1).getStationAt(stack.get(stack.size() - 1).getIndexOfStation(stationB)).getArrivalTime();
-					LocalDateTime time21 = stack.get(stack.size() - 1).getStationAt(stack.get(stack.size() - 1).getIndexOfStation(stationB)).getDepartureTime();
-					trains.add(new ConnectionWithTransfers(new Station(stationA, time11, time12), new Station(stationB, time21, time22), stack, transfersStack));
+					trains.add(new ConnectionWithTransfers(
+							new Station(stationA, stack.get(0).getStation(stationA).getDepartureTime(),  stack.get(0).getStation(stationA).getArrivalTime()),
+							new Station(stationB,  stack.get(stack.size() - 1).getStation(stationB).getDepartureTime(), stack.get(stack.size() - 1).getStation(stationB).getArrivalTime()),
+							stack, transfersStack));
 					stack.remove(stack.size() - 1);
 					transfersStack.remove(transfersStack.size() - 1);
 					return;
@@ -55,7 +55,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 		}
 	}
 	
-	private void setTrains() throws InternalDatabaseException {
+	private void setTrains() throws SQLException {
 		ArrayList<DirectConnection> allTrains = new GetDirectConnectionsInTimeframe().getDirectConnectionsInTimeframe(departureDate, departureDate.plusHours(hours));
 		ArrayList<DirectConnection> stack = new ArrayList<>();
 		ArrayList<String> transferStack = new ArrayList<>();
@@ -64,9 +64,8 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	@Override
-	public List<ConnectionWithTransfers> getRoutes() throws InternalDatabaseException{
+	public List<ConnectionWithTransfers> getRoutes() throws SQLException {
 		if(!active) setTrains();
-		if(trains == null) throw new NoRouteFoundException();
 		Collections.sort(trains);
 		ArrayList<ConnectionWithTransfers> connections = new ArrayList<>();
 		int size = Math.min(5, trains.size());
@@ -77,9 +76,8 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	@Override
-	public List<ConnectionWithTransfers> getCheapRoutes() throws InternalDatabaseException {
+	public List<ConnectionWithTransfers> getCheapRoutes() throws SQLException {
 		if(!active) setTrains();
-		if(trains == null) throw new NoRouteFoundException();
 		ArrayList<ConnectionWithTransfers> connections = new ArrayList<>();
 		int size = Math.min(5, trains.size());
 		for(int i = 0 ; i < size; ++i) {
@@ -99,9 +97,8 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	@Override
-	public List<ConnectionWithTransfers> getRoutesWithoutTransfers() throws InternalDatabaseException {
+	public List<ConnectionWithTransfers> getRoutesWithoutTransfers() throws SQLException {
 		if(!active) setTrains();
-		if(trains == null) throw new NoRouteFoundException();
 		
 		ArrayList<ConnectionWithTransfers> connection = new ArrayList<>();
 		for(ConnectionWithTransfers train : trains)

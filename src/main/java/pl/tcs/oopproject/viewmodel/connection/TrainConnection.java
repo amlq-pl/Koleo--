@@ -5,25 +5,17 @@ import pl.tcs.oopproject.viewmodel.station.Station;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
-public class Connection implements RailwayInterface {
+public class TrainConnection implements ConnectionInterface {
 	private final ArrayList<Station> train;
 	
-	Connection(ArrayList<Station> train) {
+	TrainConnection(ArrayList<Station> train) {
 		this.train = train;
 	}
 	
 	public boolean contains(String town) {
 		for(Station s : train)
 			if(s.getTown().equals(town))
-				return true;
-		return false;
-	}
-	
-	public boolean contains(String town, int after) {
-		for(int i = after; i < train.size(); ++i)
-			if(Objects.equals(train.get(i).getTown(), town))
 				return true;
 		return false;
 	}
@@ -62,6 +54,11 @@ public class Connection implements RailwayInterface {
 	@Override
 	public int getSize() {
 		return train.size();
+	}
+	
+	public Station getStation(String station) {
+		if(!contains(station)) return null;
+		return train.get(getIndexOfStation(station));
 	}
 	
 }

@@ -2,21 +2,23 @@ package pl.tcs.oopproject.viewmodel.connection;
 
 import pl.tcs.oopproject.viewmodel.station.Station;
 
-import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 
 public interface ConnectionInterface {
-
-	int getNumberOfTransfers();
+	Station getFirstStation();
 	
-	LocalDateTime getDepartureTime();
-
-	LocalDateTime getArrivalTime();
-
-	List<String> getCompanies();
+	Station getLastStation();
 	
-	List<Station> getTransferStations();
+	Station getStationAt(int index) throws IndexOutOfBoundsException;
 	
-	int getCost();
+	int getIndexOfStation(String town) throws IllegalArgumentException;
+	
+	Iterator<Station> getIterator();
+	
+	List<Station> getStations();
+	
+	int getSize();
 	
 }
+
