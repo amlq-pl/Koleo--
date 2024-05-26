@@ -5,14 +5,14 @@ import pl.tcs.oopproject.viewmodel.station.Station;
 import java.util.Iterator;
 import java.util.List;
 
-public class DirectConnection implements ConnectionInterface { //some kind of decorator to Connection
+public class DirectConnection implements ConnectionInterface { //some kind of decorator to TrainConnection
 	private final String company;
-	private final Connection connection;
+	private final TrainConnection connection;
 	private final int number; //number of a train
 	private final double cost;
 	private final TrainType trainType;
 	
-	public DirectConnection(String company, int number, int cost, TrainType trainType, Connection connection) {
+	public DirectConnection(String company, int number, int cost, TrainType trainType, TrainConnection connection) {
 		this.company = company;
 		this.connection = connection;
 		this.number = number;

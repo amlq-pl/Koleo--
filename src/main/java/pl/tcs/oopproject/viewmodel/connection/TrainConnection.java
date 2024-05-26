@@ -5,12 +5,11 @@ import pl.tcs.oopproject.viewmodel.station.Station;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
-public class Connection implements ConnectionInterface {
+public class TrainConnection implements ConnectionInterface {
 	private final ArrayList<Station> train;
 	
-	Connection(ArrayList<Station> train) {
+	TrainConnection(ArrayList<Station> train) {
 		this.train = train;
 	}
 	
