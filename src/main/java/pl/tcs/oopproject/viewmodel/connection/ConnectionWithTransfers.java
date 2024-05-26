@@ -1,5 +1,6 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
+import org.jetbrains.annotations.NotNull;
 import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.station.Station;
 
@@ -25,7 +26,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 		return trains;
 	}
 	
-	public TrainType getTrainType() {
+	public TrainIsReservation getTrainType() {
 		if(trains.size() != 1)
 			return null;
 		else
@@ -124,7 +125,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	}
 	
 	@Override
-	public int compareTo(ConnectionWithTransfers o) {
-		return ((ConnectionWithTransfers) o).getDepartureTime().compareTo(getDepartureTime());
+	public int compareTo(@NotNull ConnectionWithTransfers o) {
+		return o.getDepartureTime().compareTo(getDepartureTime());
 	}
 }
