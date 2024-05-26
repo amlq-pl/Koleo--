@@ -4,7 +4,7 @@ import pl.tcs.oopproject.model.databaseIntegration.FindPlacesForConnectionWithTr
 import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
 import pl.tcs.oopproject.viewmodel.place.Place;
 
-public class FindPlacesForConnectionWithTranfers implements FindPlacesForConnectionWithTransfersInterface {
+public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnectionWithTransfersInterface {
     @Override
     public Place findPlacesForConnectionWithTransfers(ConnectionWithTransfers connectionWithTransfers) {
         return null;
