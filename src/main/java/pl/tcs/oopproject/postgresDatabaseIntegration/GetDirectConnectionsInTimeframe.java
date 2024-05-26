@@ -41,7 +41,8 @@ public class GetDirectConnectionsInTimeframe implements GetDirectConnectionsInTi
             currIdPrzejazdu = rs.getInt("id_przejazdu");
 
             if (currIdPrzejazdu != prevIdPrzejazdu) {
-                if (trainConnection != null) {
+                if (trainConnection != null && trainConnection.getSize() > 1) {
+                    builder.addCost(-przejazdyResult.getDouble("koszt_bazowy") / (liczbaStacji - 1));
                     builder.setConnection(trainConnection);
                     connections.add(builder.getTrainConnection());
                 }
@@ -63,17 +64,20 @@ public class GetDirectConnectionsInTimeframe implements GetDirectConnectionsInTi
                 liczbaStacji = przejazdyResult.getInt("ile_stacji");
             }
 
-            builder.addCost(przejazdyResult.getDouble("koszt_bazowy") / (liczbaStacji-1));
+            builder.addCost(przejazdyResult.getDouble("koszt_bazowy") / (liczbaStacji - 1));
 
 
             trainConnection.add(new Station(rs.getString("nazwa_stacji"),
                     rs.getTimestamp("czas_odjazdu").toLocalDateTime(),
                     rs.getTimestamp("czas_przyjazdu").toLocalDateTime()));
 
-            prevIdPrzejazdu=currIdPrzejazdu;
+            prevIdPrzejazdu = currIdPrzejazdu;
         }
-        builder.setConnection(trainConnection);
-        connections.add(builder.getTrainConnection());
+        if (trainConnection.getSize() > 1) {
+            builder.addCost(-przejazdyResult.getDouble("koszt_bazowy") / (liczbaStacji - 1));
+            builder.setConnection(trainConnection);
+            connections.add(builder.getTrainConnection());
+        }
 
         return connections;
     }
