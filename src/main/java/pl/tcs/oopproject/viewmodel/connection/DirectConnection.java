@@ -1,6 +1,6 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
-import pl.tcs.oopproject.viewmodel.station.StationInterface;
+import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.util.Iterator;
 import java.util.List;
@@ -34,17 +34,17 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	}
 	
 	@Override
-	public StationInterface getFirstStation() {
+	public Station getFirstStation() {
 		return connection.getFirstStation();
 	}
 	
 	@Override
-	public StationInterface getLastStation() {
+	public Station getLastStation() {
 		return connection.getLastStation();
 	}
 	
 	@Override
-	public StationInterface getStationAt(int index) throws IndexOutOfBoundsException {
+	public Station getStationAt(int index) throws IndexOutOfBoundsException {
 		return connection.getStationAt(index);
 	}
 	
@@ -54,12 +54,12 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	}
 	
 	@Override
-	public Iterator<StationInterface> getIterator() {
+	public Iterator<Station> getIterator() {
 		return connection.getIterator();
 	}
 	
 	@Override
-	public List<StationInterface> getStations() {
+	public List<Station> getStations() {
 		return connection.getStations();
 	}
 	
@@ -75,10 +75,6 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	
 	public boolean contains(String town) {
 		return connection.contains(town);
-	}
-	
-	public boolean contains(String town, int after) {
-		return connection.contains(town, after);
 	}
 	
 }

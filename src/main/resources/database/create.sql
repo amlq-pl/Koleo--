@@ -171,4 +171,7 @@ create table bilety_jednorazowe
     nr_wagonu                        smallint not null,
     nr_miejsca                       smallint not null,
     id_szczegolow                    smallint not null references szczegoly_biletu
-)
+);
+create index on stacje_posrednie using hash(id_trasy);
+
+create index on stacje_posrednie using btree(numer_stacji);
