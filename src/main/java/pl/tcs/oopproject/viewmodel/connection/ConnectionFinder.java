@@ -1,17 +1,20 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
+import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimeframe;
 import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.station.Station;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class ConnectionFinder implements FindConnectionInterface{
-	ArrayList<ConnectionWithTransfers> trains = new ArrayList<>();
-	Station stationA;
-	Station stationB;
-	LocalDateTime departureDate;
-	LocalDateTime arrivalDate;
-	boolean active = true;
+	private final ArrayList<ConnectionWithTransfers> trains = new ArrayList<>();
+	private final Station stationA;
+	private final Station stationB;
+	private  final LocalDateTime departureDate;
+	private final LocalDateTime arrivalDate;
+	private boolean active = true;
 	
 	public ConnectionFinder(Station stationA, Station stationB, LocalDateTime departureDate, LocalDateTime arrivalDate) {
 		this.stationA = stationA;
@@ -19,7 +22,6 @@ public class ConnectionFinder implements FindConnectionInterface{
 		this.arrivalDate = arrivalDate;
 		this.departureDate = departureDate;
 	}
-	
 	
 	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack) {
 		for(int i = 0; i < allTrains.size(); ++i) {
@@ -51,21 +53,16 @@ public class ConnectionFinder implements FindConnectionInterface{
 		}
 	}
 	
-	private void setTrains() {
-		//TO DO : get information from the database, find connections and save them to trains
-		//handle exception and call findConnections
-		ArrayList<DirectConnection> allTrains = new ArrayList<>();
-		//all trains should be a return value from a function connected to the database
-		
+	private void setTrains() throws SQLException {
+		ArrayList<DirectConnection> allTrains = new GetDirectConnectionsInTimeframe().getDirectConnectionsInTimeframe(departureDate, arrivalDate);
 		ArrayList<DirectConnection> stack = new ArrayList<>();
 		ArrayList<String> transferStack = new ArrayList<>();
 		findConnection(allTrains, stationA.getTown(), stack, transferStack);
 		active = false;
 	}
 	
-	
 	@Override
-	public List<ConnectionWithTransfers> getRoutes() {
+	public List<ConnectionWithTransfers> getRoutes() throws SQLException {
 		if(!active) setTrains();
 		if(trains == null) throw new NoRouteFoundException();
 		Collections.sort(trains);
@@ -78,7 +75,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	@Override
-	public List<ConnectionWithTransfers> getCheapRoutes() {
+	public List<ConnectionWithTransfers> getCheapRoutes() throws SQLException {
 		if(!active) setTrains();
 		if(trains == null) throw new NoRouteFoundException();
 		ArrayList<ConnectionWithTransfers> connections = new ArrayList<>();
@@ -100,7 +97,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	@Override
-	public List<ConnectionWithTransfers> getRoutesWithoutTransfers() {
+	public List<ConnectionWithTransfers> getRoutesWithoutTransfers() throws SQLException {
 		if(!active) setTrains();
 		if(trains == null) throw new NoRouteFoundException();
 		

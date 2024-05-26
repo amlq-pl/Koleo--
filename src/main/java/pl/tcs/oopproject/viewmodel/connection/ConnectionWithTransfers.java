@@ -2,7 +2,6 @@ package pl.tcs.oopproject.viewmodel.connection;
 
 import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.station.Station;
-import pl.tcs.oopproject.viewmodel.station.StationInterface;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,17 +34,17 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 	}
 	
 	@Override
-	public StationInterface getFirstStation() {
+	public Station getFirstStation() {
 		return stationA;
 	}
 	
 	@Override
-	public StationInterface getLastStation() {
+	public Station getLastStation() {
 		return stationB;
 	}
 	
 	@Override
-	public StationInterface getStationAt(int index) throws IndexOutOfBoundsException {
+	public Station getStationAt(int index) throws IndexOutOfBoundsException {
 		if (trains.isEmpty()) throw new NoRouteFoundException();
 		int maxSize;
 		int c;
@@ -69,13 +68,13 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 	//when actually needed is B - E
 	
 	@Override
-	public Iterator<StationInterface> getIterator() {
+	public Iterator<Station> getIterator() {
 		//CODE HERE
 		return null;
 	}
 	
 	@Override
-	public List<StationInterface> getStations() {
+	public List<Station> getStations() {
 		return null;
 	}
 	
@@ -102,9 +101,9 @@ public class ConnectionWithTransfers implements RailwayInterface, ConnectionInte
 	}
 	
 	@Override
-	public List<StationInterface> getTransferStations() {
+	public List<Station> getTransferStations() {
 		if(transferStations.isEmpty()) throw new NoRouteFoundException();
-		List<StationInterface> stations = new ArrayList<>();
+		List<Station> stations = new ArrayList<>();
 
 		for(int i = 1; i < transferStations.size(); ++i) {
 			int index = trains.get(i).getIndexOfStation(transferStations.get(i));

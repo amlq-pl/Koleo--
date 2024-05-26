@@ -1,6 +1,6 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
-import pl.tcs.oopproject.viewmodel.station.StationInterface;
+import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,18 +8,18 @@ import java.util.List;
 import java.util.Objects;
 
 public class Connection implements RailwayInterface {
-	ArrayList<StationInterface> train;
-	int cost;
-	TrainType trainType;
+	private final ArrayList<Station> train;
+	private final int cost;
+	private final TrainType trainType;
 	
-	Connection(ArrayList<StationInterface> train, TrainType trainType, int cost) {
+	Connection(ArrayList<Station> train, TrainType trainType, int cost) {
 		this.train = train;
 		this.trainType = trainType;
 		this.cost = cost;
 	}
 	
 	public boolean contains(String town) {
-		for(StationInterface s : train)
+		for(Station s : train)
 			if(s.getTown().equals(town))
 				return true;
 		return false;
@@ -38,17 +38,17 @@ public class Connection implements RailwayInterface {
 	}
 	
 	@Override
-	public StationInterface getFirstStation() {
+	public Station getFirstStation() {
 		return train.get(0);
 	}
 	
 	@Override
-	public StationInterface getLastStation() {
+	public Station getLastStation() {
 		return train.get(train.size() - 1);
 	}
 	
 	@Override
-	public StationInterface getStationAt(int index) throws IndexOutOfBoundsException {
+	public Station getStationAt(int index) throws IndexOutOfBoundsException {
 		return train.get(index);
 	}
 	@Override
@@ -59,12 +59,12 @@ public class Connection implements RailwayInterface {
 		throw new IllegalArgumentException();
 	}
 	@Override
-	public Iterator<StationInterface> getIterator() {
+	public Iterator<Station> getIterator() {
 		return train.listIterator();
 	}
 	
 	@Override
-	public List<StationInterface> getStations() {
+	public List<Station> getStations() {
 		return train;
 	}
 	
