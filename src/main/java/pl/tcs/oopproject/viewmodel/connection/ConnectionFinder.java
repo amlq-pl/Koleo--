@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class ConnectionFinder implements FindConnectionInterface {
+	private static final int maxTransferNumber = 4;
 	private static final int hours = 8;
 	private final ArrayList<ConnectionWithTransfers> trains = new ArrayList<>();
 	private final String stationA;
@@ -22,31 +24,49 @@ public class ConnectionFinder implements FindConnectionInterface {
 		this.departureDate = departureDate;
 	}
 	
-	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack, ArrayList<Boolean> visited) {
+	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack, HashSet<DirectConnection> visitedConnections, HashSet<String> visitedStations) {
 		for (int i = 0; i < allTrains.size(); ++i) {
-			if (allTrains.get(i).contains(temp) ) {
-				stack.add(allTrains.get(i));
+			DirectConnection tempConnection = allTrains.get(i);
+			if (tempConnection.contains(temp) && !visitedConnections.contains(tempConnection)) {
+				stack.add(tempConnection);
+				visitedConnections.add(tempConnection);
 				transfersStack.add(temp);
-				if (allTrains.get(i).contains(stationB)) {
-					trains.add(new ConnectionWithTransfers(new Station(stationA, stack.get(0).getStation(stationA).getDepartureTime(), stack.get(0).getStation(stationA).getArrivalTime()), new Station(stationB, stack.get(stack.size() - 1).getStation(stationB).getDepartureTime(), stack.get(stack.size() - 1).getStation(stationB).getArrivalTime()), stack, transfersStack));
+				if (tempConnection.contains(stationB) && tempConnection.getIndexOfStation(stationB) > tempConnection.getIndexOfStation(temp)) {
+					Station sA = new Station(stationA,
+							stack.get(0).getStation(stationA).getDepartureTime(),
+							stack.get(0).getStation(stationA).getArrivalTime());
+					Station sB = new Station(stationB,
+							stack.get(stack.size() - 1).getStation(stationB).getDepartureTime(),
+							stack.get(stack.size() - 1).getStation(stationB).getArrivalTime());
+					trains.add(new ConnectionWithTransfers(sA, sB, stack, transfersStack));
 					stack.remove(stack.size() - 1);
+					visitedConnections.remove(tempConnection);
 					transfersStack.remove(transfersStack.size() - 1);
 					return;
 				} //good
 				
-				if (stack.size() >= 4) {
+				if (stack.size() >= maxTransferNumber) {
 					stack.remove(stack.size() - 1);
 					transfersStack.remove(transfersStack.size() - 1);
+					visitedConnections.remove(tempConnection);
 					return;
 				}
 				
-				int index = allTrains.get(i).getIndexOfStation(temp);
-				DirectConnection connection = allTrains.get(i);
+				int index = tempConnection.getIndexOfStation(temp);
 				
-				for (int j = index + 1; j < connection.getSize(); ++j) {
-					findConnection(allTrains, connection.getStationAt(j).getTown(), stack, transfersStack, visited);
+				for (int j = index + 1; j < tempConnection.getSize(); ++j) {
+					visitedStations.add(tempConnection.getStationAt(j).getTown());
+					if(!visitedStations.contains(tempConnection.getStationAt(j).getTown())) {
+						findConnection(allTrains, tempConnection.getStationAt(j).getTown(), stack, transfersStack, visitedConnections, visitedStations);
+					}
+					else break;
+				}
+				
+				for (int j = index + 1; j < tempConnection.getSize(); ++j) {
+					visitedStations.remove(tempConnection.getStationAt(j).getTown());
 				}
 				stack.remove(stack.size() - 1);
+				visitedConnections.remove(tempConnection);
 				transfersStack.remove(transfersStack.size() - 1);
 			}
 		}
@@ -56,8 +76,9 @@ public class ConnectionFinder implements FindConnectionInterface {
 		ArrayList<DirectConnection> allTrains = new GetDirectConnectionsInTimeframe().getDirectConnectionsInTimeframe(departureDate, departureDate.plusHours(hours));
 		ArrayList<DirectConnection> stack = new ArrayList<>();
 		ArrayList<String> transferStack = new ArrayList<>();
-		ArrayList<Boolean> visited = new ArrayList<>();
-		findConnection(allTrains, stationA, stack, transferStack, visited);
+		HashSet<DirectConnection> visitedDirectConnection = new HashSet<>();
+		HashSet<String> visitedStation = new HashSet<>();
+		findConnection(allTrains, stationA, stack, transferStack, visitedDirectConnection, visitedStation);
 		active = false;
 	}
 	
