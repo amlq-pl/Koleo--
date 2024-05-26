@@ -7,7 +7,7 @@ public class Place {
 	private ConnectionWithTransfers connection;
 	private List<SpecificSeat> seats;
 	
-	Place(ConnectionWithTransfers connection, List<SpecificSeat> seats) {
+	public Place(ConnectionWithTransfers connection, List<SpecificSeat> seats) {
 		this.connection = connection;
 		this.seats = seats;
 	}
