@@ -41,7 +41,7 @@
                   <DatePicker fx:id="ConnectionDate" prefHeight="24.0" prefWidth="140.0" promptText="DATA" />
                   <TilePane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="115.0">
                      <children>
-                        <ComboBox fx:id="HourPicker" prefHeight="24.0" prefWidth="115.0" promptText="GODZINA" />
+                        <ComboBox fx:id="HourPicker" editable="true" prefHeight="24.0" prefWidth="115.0" promptText="GODZINA" />
                      </children>
                   </TilePane>
                   <Button fx:id="ConfirmButton" mnemonicParsing="false" onAction="#ConfirmButtonClick" text="GOTOWE" />
