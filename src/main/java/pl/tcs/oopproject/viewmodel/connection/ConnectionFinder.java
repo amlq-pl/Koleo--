@@ -13,7 +13,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 	LocalDateTime arrivalDate;
 	boolean active = true;
 	
-	ConnectionFinder(Station stationA, Station stationB, LocalDateTime departureDate, LocalDateTime arrivalDate) {
+	public ConnectionFinder(Station stationA, Station stationB, LocalDateTime departureDate, LocalDateTime arrivalDate) {
 		this.stationA = stationA;
 		this.stationB = stationB;
 		this.arrivalDate = arrivalDate;
