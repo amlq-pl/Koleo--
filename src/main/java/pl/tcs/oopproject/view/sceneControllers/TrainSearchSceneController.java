@@ -16,6 +16,7 @@ import pl.tcs.oopproject.view.componentControllers.TrainPaneFactory;
 import pl.tcs.oopproject.viewmodel.connection.ConnectionFinder;
 import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,7 +49,12 @@ public class TrainSearchSceneController implements Initializable {
     }
 
     private void addAllPanes(ConnectionFinder finder) {
-        List<ConnectionWithTransfers> connections = finder.getRoutes();
+        try {
+            List<ConnectionWithTransfers> connections = finder.getRoutes();
+        } catch (SQLException e) {
+            Stage stage = (Stage) ArrStation.getScene().getWindow();
+            stage.close();
+        }
 
 //        Stream<ConnectionWithTransfers> connectionWithTransfersStream = connections.stream();
 //        connectionWithTransfersStream.map(x -> {
