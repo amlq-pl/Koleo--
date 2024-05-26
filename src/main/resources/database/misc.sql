@@ -1,7 +1,9 @@
-create view stations as
-select c.id_przejazdu, c.nazwa, c.numer_stacji, c.czas_przyjazdu, czas_odjazdu
+create materialized view stations as
+select c.id_przejazdu,c.koszt_bazowy, c.nazwa_skrocona_przewoznika, c.nazwa_stacji, c.numer_stacji, c.czas_przyjazdu, c.czas_odjazdu
 from (select p.id_przejazdu,
-             s.nazwa,
+             p.koszt_bazowy,
+             pr.nazwa_skrocona as nazwa_skrocona_przewoznika,
+             s.nazwa as nazwa_stacji,
              sp.numer_stacji,
              p.timestamp_przejazdu + coalesce((select sum(coalesce(sp2.czas_przejazdu, '0 minutes')) +
                                                       sum(coalesce(sp2.czas_postoju, '0 minutes'))
@@ -21,7 +23,8 @@ from (select p.id_przejazdu,
                join trasy_przewoznicy tp on tp.id_trasy_przewoznika = p.id_trasy_przewoznika
                join trasy t on tp.id_trasy = t.id_trasy
                join stacje_posrednie sp on t.id_trasy = sp.id_trasy
-               join stacje s on sp.id_stacji = s.id_stacji) as c
+               join stacje s on sp.id_stacji = s.id_stacji
+               join przewoznicy pr on pr.id_przewoznika = tp.id_przewoznika) as c
 order by c.id_przejazdu, c.numer_stacji;
 
 
@@ -36,46 +39,3 @@ begin
 end;
 $$ language plpgsql;
 
-create or replace function getDirectConnection(id int)
-    returns table
-            (
-                numer_stacji   int,
-                nazwa          varchar(30),
-                czas_przyjazdu timestamp,
-                czas_odjazdu   timestamp
-            )
-as
-$$
-declare
-    idTrasy       int;
-    currTimestamp timestamp;
-    x             record;
-begin
-    create temporary table toReturn
-    (
-        numer_stacji   int,
-        nazwa          varchar(30),
-        czas_przyjazdu timestamp,
-        czas_odjazdu   timestamp
-    );
-    select p.timestamp_przejazdu
-    into currTimestamp
-    from przejazdy p
-    where p.id_przejazdu = id;
-    select getIDTrasy(id) into idTrasy;
-    for x in select * from stacje_posrednie where id_trasy = idTrasy order by numer_stacji
-        loop
-            currTimestamp := currTimestamp + coalesce(x.czas_przejazdu, interval '0 minutes');
-            insert into toReturn
-            values (x.numer_stacji,
-                    (select s.nazwa
-                     from stacje s
-                              join stacje_posrednie sp on s.id_stacji = sp.id_stacji
-                     where sp.id_stacji_posrednich = x.id_stacji_posrednich),
-                    currTimestamp,
-                    currTimestamp + coalesce(x.czas_postoju, interval '0 minutes'));
-        end loop;
-    return query select * from toReturn;
-    drop table toReturn;
-end;
-$$ language plpgsql;
