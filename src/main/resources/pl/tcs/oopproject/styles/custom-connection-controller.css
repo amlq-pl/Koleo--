@@ -1,0 +1,7 @@
+.mainContainer {
+    -fx-background-color: lightgray;
+    -fx-border-width: 5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 20px;
+}

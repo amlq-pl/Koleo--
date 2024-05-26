@@ -8,20 +8,20 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/train-search-scene.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/train-search-scene.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.TrainSearchSceneController">
    <children>
       <AnchorPane prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
-                  <Button mnemonicParsing="false">
+                  <Button fx:id="GoBackButton" mnemonicParsing="false" onAction="#GoBackButtonClick">
                      <graphic>
                         <FontAwesomeIconView glyphName="ARROW_LEFT" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false">
+                  <Button fx:id="ExitButton" mnemonicParsing="false" onAction="#ExitButtonClick">
                      <graphic>
                         <FontAwesomeIconView glyphName="REMOVE" />
                      </graphic>
@@ -37,7 +37,7 @@
                   <TextField promptText="OD" />
                   <TextField promptText="DO" />
                   <DatePicker promptText="DATA" />
-                  <Button mnemonicParsing="false" text="GOTOWE" />
+                  <Button fx:id="ConfirmButton" mnemonicParsing="false" onAction="#ConfirmButtonClick" text="GOTOWE" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -48,9 +48,12 @@
             </HBox>
          </children>
       </AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="160.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ScrollPane id="ScrollContainer" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ScrollPane id="ScrollContainer" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <VBox fx:id="ScrollablePane" prefHeight="500.0" prefWidth="800.0" spacing="10.0" />
+               </content></ScrollPane>
          </children>
       </AnchorPane>
    </children>
