@@ -9,14 +9,13 @@ import java.util.List;
 public class TrainConnection implements ConnectionInterface {
 	private final ArrayList<Station> train;
 	
-	TrainConnection(ArrayList<Station> train) {
+	public TrainConnection(ArrayList<Station> train) {
 		this.train = train;
 	}
 	
 	public boolean contains(String town) {
-		for(Station s : train)
-			if(s.getTown().equals(town))
-				return true;
+		for (Station s : train)
+			if (s.getTown().equals(town)) return true;
 		return false;
 	}
 	
@@ -34,13 +33,14 @@ public class TrainConnection implements ConnectionInterface {
 	public Station getStationAt(int index) throws IndexOutOfBoundsException {
 		return train.get(index);
 	}
+	
 	@Override
 	public int getIndexOfStation(String town) throws IllegalArgumentException {
 		for (int i = 0; i < train.size(); ++i)
-			if (town.equals(train.get(i).getTown()))
-				return i;
+			if (town.equals(train.get(i).getTown())) return i;
 		throw new IllegalArgumentException();
 	}
+	
 	@Override
 	public Iterator<Station> getIterator() {
 		return train.listIterator();
@@ -57,7 +57,7 @@ public class TrainConnection implements ConnectionInterface {
 	}
 	
 	public Station getStation(String station) {
-		if(!contains(station)) return null;
+		if (!contains(station)) return null;
 		return train.get(getIndexOfStation(station));
 	}
 	
