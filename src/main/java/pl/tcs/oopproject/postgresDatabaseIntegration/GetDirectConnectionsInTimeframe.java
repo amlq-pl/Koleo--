@@ -4,7 +4,7 @@ import pl.tcs.oopproject.model.databaseIntegration.GetDirectConnectionsInTimefra
 import pl.tcs.oopproject.viewmodel.DirectConnectionBuilder;
 import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
 import pl.tcs.oopproject.viewmodel.connection.TrainConnection;
-import pl.tcs.oopproject.viewmodel.connection.TrainType;
+import pl.tcs.oopproject.viewmodel.connection.TrainIsReservation;
 import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.sql.*;
@@ -22,7 +22,7 @@ public class GetDirectConnectionsInTimeframe implements GetDirectConnectionsInTi
                 "join trasy_przewoznicy tp on p.id_trasy_przewoznika = tp.id_trasy_przewoznika " +
                 "join przewoznicy on tp.id_przewoznika = przewoznicy.id_przewoznika " +
                 "join trasy on tp.id_trasy = trasy.id_trasy where p.id_przejazdu=?");
-        ResultSet przejazdyResult;
+        ResultSet przejazdyResult = null;
 
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -39,28 +39,31 @@ public class GetDirectConnectionsInTimeframe implements GetDirectConnectionsInTi
         int liczbaStacji = 1;
         while (rs.next()) {
             currIdPrzejazdu = rs.getInt("id_przejazdu");
-            przejazdy.setInt(1, currIdPrzejazdu);
-            przejazdyResult = przejazdy.executeQuery();
 
             if (currIdPrzejazdu != prevIdPrzejazdu) {
                 if (trainConnection != null) {
                     builder.setConnection(trainConnection);
                     connections.add(builder.getTrainConnection());
                 }
+
+                przejazdy.setInt(1, currIdPrzejazdu);
+                przejazdyResult = przejazdy.executeQuery();
+                przejazdyResult.next();
+
                 trainConnection = new TrainConnection(new ArrayList<>());
                 builder = new DirectConnectionBuilder();
 
                 builder.setNumber(currIdPrzejazdu);
 
                 builder.setTrainType(przejazdyResult.getBoolean("czy_rezerwacja_miejsc") ?
-                        TrainType.WITH_RESERVATION : TrainType.WITHOUT_RESERVATION);
+                        TrainIsReservation.WITH_RESERVATION : TrainIsReservation.WITHOUT_RESERVATION);
 
                 builder.setCompany(przejazdyResult.getString("nazwa_skrocona"));
 
                 liczbaStacji = przejazdyResult.getInt("ile_stacji");
             }
 
-            builder.addCost(przejazdyResult.getDouble("koszt_bazowy") / liczbaStacji);
+            builder.addCost(przejazdyResult.getDouble("koszt_bazowy") / (liczbaStacji-1));
 
 
             trainConnection.add(new Station(rs.getString("nazwa_stacji"),
