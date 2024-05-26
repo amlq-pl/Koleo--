@@ -101,7 +101,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 		int size = Math.min(5, trains.size());
 		for (int i = 0; i < size; ++i) {
 			for (int j = 1; j < trains.size(); ++j) {
-				if (trains.get(i).getCost() > trains.get(j).getCost()) {
+				if (trains.get(i).getCost().getPriceValue() > trains.get(j).getCost().getPriceValue()) {
 					ConnectionWithTransfers temp = trains.get(i);
 					trains.set(i, trains.get(j));
 					trains.set(j, temp);

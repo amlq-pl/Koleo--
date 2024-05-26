@@ -1,5 +1,5 @@
 package pl.tcs.oopproject.viewmodel.discount;
 
-public interface Price {
+public interface PriceInterface {
     Double getPriceValue();
 }

@@ -1,8 +1,8 @@
 package pl.tcs.oopproject.viewmodel.discount;
 
-public class PricePLN implements Price {
+public class PricePLN implements PriceInterface {
     private final Double price;
-
+    
     public PricePLN(Double val) {
         this.price = val;
     }

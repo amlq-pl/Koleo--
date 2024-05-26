@@ -24,9 +24,9 @@
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                <children>
                   <Label text="GODZINA ODJAZDU" />
-                  <Label id="DepHour" />
+                  <Label fx:id="DepHour" />
                   <Label text="GODZINA PRZYJAZDU" />
-                  <Label id="ArrHour" />
+                  <Label fx:id="ArrHour" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -35,8 +35,8 @@
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                <children>
                   <Label text="CENA" />
-                  <Label text="Label" />
-                  <Button mnemonicParsing="false" text="Szczegóły" />
+                  <Label fx:id="PriceLabel" text="Label" />
+                  <Button fx:id="ExtraButton" onAction="#ExtraButtonClick" mnemonicParsing="false" text="Szczegóły" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />

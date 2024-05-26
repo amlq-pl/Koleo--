@@ -13,13 +13,16 @@ import javafx.stage.Stage;
 import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.view.componentControllers.TrainPane;
 import pl.tcs.oopproject.view.componentControllers.TrainPaneFactory;
-import pl.tcs.oopproject.viewmodel.connection.ConnectionFinder;
-import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.viewmodel.connection.*;
+import pl.tcs.oopproject.viewmodel.discount.PricePLN;
+import pl.tcs.oopproject.viewmodel.station.Station;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -49,21 +52,37 @@ public class TrainSearchSceneController implements Initializable {
     }
 
     private void addAllPanes(ConnectionFinder finder) {
-        try {
-            List<ConnectionWithTransfers> connections = finder.getRoutes();
-        } catch (SQLException e) {
-            Stage stage = (Stage) ArrStation.getScene().getWindow();
-            stage.close();
-        }
-
-//        Stream<ConnectionWithTransfers> connectionWithTransfersStream = connections.stream();
-//        connectionWithTransfersStream.map(x -> {
-//            TrainPane = TrainPaneFactory.createTrainPane(x.getDepartureTime(), x.getArrivalTime());
-//        })
+        // TODO: UNCOMMENT WHEN ConnectionFinder finished
+//        List<ConnectionWithTransfers> connections = null;
+//        try {
+//            connections = finder.getRoutes();
+//        } catch (SQLException e) {
+//            Stage stage = (Stage) ArrStation.getScene().getWindow();
+//            stage.close();
+//        } catch (NullPointerException e) {
+//            System.out.println("Null pointer");
+//            return;
+//        }
 //
-//        TrainPane pane = TrainPaneFactory.createTrainPane();
-//        pane.setId(String.valueOf(cnt++));
-//        ConnectionList.add(pane);
+//        assert connections != null;
+//        for (ConnectionWithTransfers con : connections) {
+//            TrainPane pane = TrainPaneFactory.createTrainPane(con.getDepartureTime(), con.getArrivalTime());
+//            ConnectionList.add(pane);
+//        }
+
+        // TODO: ten kod jest tylko na czas testowania
+        Station start = new Station("Kraków", LocalDateTime.now(), LocalDateTime.now());
+        Station end = new Station("Warszawa", LocalDateTime.now(), LocalDateTime.now());
+        ArrayList<Station> list = new ArrayList<>();
+        list.add(start); list.add(end);
+        TrainConnection trainConnection = new TrainConnection(list);
+        DirectConnection directConnection = new DirectConnection("PKP", 12, 21.37, TrainIsReservation.WITH_RESERVATION, trainConnection);
+        ArrayList<String> arrayList = new ArrayList<>(); arrayList.add(start.getTown());
+        ConnectionWithTransfers temp;
+        temp = new ConnectionWithTransfers(start, end, List.of(directConnection), arrayList);
+        TrainPane tempPane = TrainPaneFactory.createTrainPane(temp);
+        ConnectionList.add(tempPane);
+        // ----->
     }
 
     public void ConfirmButtonClick()  {
