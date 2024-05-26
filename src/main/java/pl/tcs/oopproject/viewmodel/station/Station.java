@@ -12,7 +12,7 @@ public class Station{
 	
 	DirectConnection directConnection; //which departs and arrives at given time
 	
-	Station(String town, LocalDateTime departureTime, LocalDateTime arrivalDate) {
+	public Station(String town, LocalDateTime departureTime, LocalDateTime arrivalDate) {
 		this.town = town;
 		this.arrivalTime = arrivalDate;
 		this.departureTime = departureTime;
