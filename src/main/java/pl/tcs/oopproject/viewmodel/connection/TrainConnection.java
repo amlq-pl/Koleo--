@@ -19,6 +19,11 @@ public class TrainConnection implements ConnectionInterface {
 		return false;
 	}
 	
+	public void add(Station station) {
+		if(contains(station.getTown())) throw new IllegalArgumentException();
+		train.add(station);
+	}
+	
 	@Override
 	public Station getFirstStation() {
 		return train.get(0);
