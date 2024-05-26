@@ -13,6 +13,7 @@ module Koleo {
 	exports pl.tcs.oopproject.viewmodel.seat;
 	exports pl.tcs.oopproject.viewmodel.connection;
 	exports pl.tcs.oopproject.viewmodel.place;
+	exports pl.tcs.oopproject.viewmodel.discount;
     opens pl.tcs.oopproject.view.sceneControllers to javafx.fxml;
 	opens pl.tcs.oopproject.view.componentControllers to javafx.fxml;
 	exports pl.tcs.oopproject.viewmodel.station;

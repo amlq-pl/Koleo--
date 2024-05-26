@@ -1,5 +1,7 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
+import pl.tcs.oopproject.viewmodel.discount.PriceInterface;
+import pl.tcs.oopproject.viewmodel.discount.PricePLN;
 import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.util.Iterator;
@@ -9,7 +11,7 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 	private final String company;
 	private final TrainConnection connection;
 	private final int number; //number of a train
-	private final double cost;
+	private final PriceInterface cost;
 	private final TrainIsReservation trainType;
 	
 	public DirectConnection(String company, int number, double cost, TrainIsReservation trainType, TrainConnection connection) {
@@ -17,7 +19,7 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 		this.connection = connection;
 		this.number = number;
 		this.trainType = trainType;
-		this.cost = cost;
+		this.cost = new PricePLN(cost);
 	}
 	
 	public int getNumber() {
@@ -62,9 +64,7 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 		return connection.getStations();
 	}
 	
-	public double getCost() {
-		return cost;
-	}
+	public PriceInterface getCost() { return cost; }
 	
 	@Override
 	public int getSize() {

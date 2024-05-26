@@ -1,5 +1,6 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
+import pl.tcs.oopproject.viewmodel.discount.PriceInterface;
 import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,6 @@ public interface ConnectionWithTransfersInterface {
 	
 	List<Station> getTransferStations();
 	
-	int getCost();
+	PriceInterface getCost();
 	
 }
