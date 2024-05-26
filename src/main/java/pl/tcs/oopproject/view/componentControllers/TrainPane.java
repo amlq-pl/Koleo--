@@ -10,6 +10,7 @@ import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class TrainPane extends AnchorPane {
     @FXML
@@ -20,17 +21,17 @@ public class TrainPane extends AnchorPane {
     private Label PriceLabel;
     @FXML
     private Button ExtraButton;
-    private ConnectionWithTransfers connection;
+    private final ConnectionWithTransfers privConnection;
 
     public TrainPane (ConnectionWithTransfers connection) {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/train-pane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
+        privConnection = connection;
         try {
             loader.load();
-            this.connection = connection;
-            this.DepHour.textProperty().setValue(String.valueOf(connection.getDepartureTime()));
-            this.ArrHour.textProperty().setValue(String.valueOf(connection.getArrivalTime()));
+            this.DepHour.textProperty().setValue(connection.getDepartureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+            this.ArrHour.textProperty().setValue(connection.getArrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
             this.PriceLabel.textProperty().setValue(String.valueOf(connection.getCost()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,6 +48,10 @@ public class TrainPane extends AnchorPane {
     @FXML
     protected void doSomething() {
         System.out.println("hello");
+    }
+
+    public ConnectionWithTransfers getConnection() {
+        return privConnection;
     }
 
 }

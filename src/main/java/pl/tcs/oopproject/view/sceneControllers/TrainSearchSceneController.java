@@ -39,7 +39,6 @@ public class TrainSearchSceneController implements Initializable {
     public TextField ArrStation;
     public DatePicker ConnectionDate;
     public ComboBox<String> HourPicker = new ComboBox<>();
-    private int cnt = 0;
 
     private LocalDateTime getLocalDateTime() {
         LocalDate tempLocalDate = ConnectionDate.getValue();
@@ -72,18 +71,27 @@ public class TrainSearchSceneController implements Initializable {
 
         // TODO: ten kod jest tylko na czas testowania
         Station start = new Station("Kraków", LocalDateTime.now(), LocalDateTime.now());
+        Station middle = new Station("Szczecinek", LocalDateTime.now(), LocalDateTime.now());
         Station end = new Station("Warszawa", LocalDateTime.now(), LocalDateTime.now());
+
         ArrayList<Station> list = new ArrayList<>();
-        list.add(start); list.add(end);
-        TrainConnection trainConnection = new TrainConnection(list);
-        DirectConnection directConnection = new DirectConnection("PKP", 12, 21.37, TrainIsReservation.WITH_RESERVATION, trainConnection);
-        ArrayList<String> arrayList = new ArrayList<>(); arrayList.add(start.getTown());
+        list.add(start); list.add(middle);
+        TrainConnection trainConnection1 = new TrainConnection(list);
+        DirectConnection directConnection = new DirectConnection("PKP", 12, 21.37, TrainIsReservation.WITH_RESERVATION, trainConnection1);
+
+        ArrayList<Station> list2 = new ArrayList<>();
+        list2.add(middle); list2.add(end);
+        TrainConnection trainConnection2 = new TrainConnection(list2);
+        DirectConnection directConnection2 = new DirectConnection("PKP", 12, 21.37, TrainIsReservation.WITH_RESERVATION, trainConnection2);
+
+        ArrayList<String> arrayList = new ArrayList<>(); arrayList.add(start.getTown()); arrayList.add(middle.getTown());
         ConnectionWithTransfers temp;
         ArrayList<DirectConnection> d = new ArrayList<>();
         d.add(directConnection);
+        d.add(directConnection2);
         temp = new ConnectionWithTransfers(start, end, d, arrayList);
         TrainPane tempPane = TrainPaneFactory.createTrainPane(temp);
-        ConnectionList.add(tempPane);
+        ConnectionList.addAll(tempPane);
         // ----->
     }
 
