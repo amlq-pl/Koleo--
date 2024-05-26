@@ -1,5 +1,6 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
+import org.jetbrains.annotations.NotNull;
 import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.station.Station;
 
@@ -9,10 +10,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ConnectionWithTransfers implements ConnectionInterface, ConnectionWithTransfersInterface, Comparable<ConnectionWithTransfers> {
-	Station stationA;
-	Station stationB;
-	List<DirectConnection> trains; //trains that general connection consists of
-	ArrayList<String> transferStations; //stations when customer should get into
+	private final Station stationA;
+	private final Station stationB;
+	private final List<DirectConnection> trains; //trains that general connection consists of
+	private final ArrayList<String> transferStations; //stations when customer should get into
 	
 	public ConnectionWithTransfers(Station A, Station B, List<DirectConnection> directConnections, ArrayList<String> transferStations) {
 		this.trains = directConnections;
@@ -25,7 +26,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 		return trains;
 	}
 	
-	public TrainType getTrainType() {
+	public TrainIsReservation getTrainType() {
 		if(trains.size() != 1)
 			return null;
 		else
@@ -124,7 +125,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	}
 	
 	@Override
-	public int compareTo(ConnectionWithTransfers o) {
-		return ((ConnectionWithTransfers) o).getDepartureTime().compareTo(getDepartureTime());
+	public int compareTo(@NotNull ConnectionWithTransfers o) {
+		return o.getDepartureTime().compareTo(getDepartureTime());
 	}
 }

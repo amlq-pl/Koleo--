@@ -10,9 +10,9 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 	private final TrainConnection connection;
 	private final int number; //number of a train
 	private final double cost;
-	private final TrainType trainType;
+	private final TrainIsReservation trainType;
 	
-	public DirectConnection(String company, int number, int cost, TrainType trainType, TrainConnection connection) {
+	public DirectConnection(String company, int number, double cost, TrainIsReservation trainType, TrainConnection connection) {
 		this.company = company;
 		this.connection = connection;
 		this.number = number;
@@ -28,7 +28,7 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 		return company;
 	}
 	
-	public TrainType getTrainType() {
+	public TrainIsReservation getTrainType() {
 		return trainType;
 	}
 	
@@ -79,4 +79,14 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 		return connection.getStation(station);
 	}
 	
+	public void display() {
+		System.out.println("Company: " + company);
+		System.out.println("Number: " + number);
+		System.out.println("Cost: " + cost);
+		System.out.println("Train Type: "  + trainType.name());
+		System.out.println("Stations:");
+		for(Station station : connection.getStations()) {
+			station.display();
+		}
+	}
 }
