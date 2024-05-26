@@ -4,8 +4,8 @@ import pl.tcs.oopproject.viewmodel.carriage.Carriage;
 import pl.tcs.oopproject.viewmodel.seat.Seat;
 
 public class SpecificSeat {
-	Carriage carriage;
-	Seat seat;
+	private Carriage carriage;
+	private Seat seat;
 
 	SpecificSeat(Carriage carriage, Seat seat) {
 		this.carriage = carriage;

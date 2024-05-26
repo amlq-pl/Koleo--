@@ -72,6 +72,17 @@ public class ConnectionFinder implements FindConnectionInterface {
 		}
 	}
 	
+	public void setTrains(List<DirectConnection> l) {
+		ArrayList<DirectConnection> allTrains = new ArrayList<>();
+		allTrains.addAll(l);
+		ArrayList<DirectConnection> stack = new ArrayList<>();
+		ArrayList<String> transferStack = new ArrayList<>();
+		HashSet<DirectConnection> visitedDirectConnection = new HashSet<>();
+		HashSet<String> visitedStation = new HashSet<>();
+		findConnection(allTrains, stationA, stack, transferStack, visitedDirectConnection, visitedStation);
+		active = false;
+	}
+	
 	private void setTrains() throws SQLException {
 		ArrayList<DirectConnection> allTrains = new GetDirectConnectionsInTimeframe().getDirectConnectionsInTimeframe(departureDate, departureDate.plusHours(hours));
 		ArrayList<DirectConnection> stack = new ArrayList<>();
