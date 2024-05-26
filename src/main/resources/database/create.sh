@@ -13,3 +13,4 @@ sudo -u postgres psql -c "grant all privileges on database koleo_db to koleo_use
 export PGPASSWORD="koleo"
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "create.sql"
 unset PGPASSWORD
+
