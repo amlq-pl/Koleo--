@@ -10,6 +10,7 @@ public interface ConnectionInterface {
 	int getNumberOfTransfers();
 	
 	LocalDateTime getDepartureTime();
+
 	LocalDateTime getArrivalTime();
 
 	List<String> getCompanies();

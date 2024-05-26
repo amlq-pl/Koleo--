@@ -2,18 +2,17 @@ package pl.tcs.oopproject.viewmodel.carriage;
 
 import pl.tcs.oopproject.viewmodel.exception.IllegalOperationException;
 import pl.tcs.oopproject.viewmodel.seat.Seat;
-import pl.tcs.oopproject.viewmodel.seat.SeatInterface;
 import pl.tcs.oopproject.viewmodel.seat.SeatType;
 
 import java.util.HashSet;
 
-public class Carriage implements CarriageInterface{
+public class Carriage{
 	private final CarriageClassType carriageClassType;
 	private final CarriageType carriageType;
 	private final int number;
 	private final int numberOfSeats;
 	
-	HashSet<SeatInterface> seats;
+	HashSet<Seat> seats;
 	
 	public Carriage(CarriageClassType carriageClassType, CarriageType carriageType, int number, int numberOfSeats) {
 		this.carriageClassType = carriageClassType;
@@ -50,17 +49,14 @@ public class Carriage implements CarriageInterface{
 		}
 	}
 	
-	@Override
 	public CarriageClassType getClassType() {
 		return carriageClassType;
 	}
 	
-	@Override
 	public CarriageType getCarriageType() {
 		return carriageType;
 	}
 	
-	@Override
 	public int getNumber() {
 		return number;
 	}
@@ -68,8 +64,7 @@ public class Carriage implements CarriageInterface{
 	public int getNumberOfSeats() {
 		return numberOfSeats;
 	}
-
-	@Override
+	
 	public void display() {
 		carriageType.display();
 		carriageClassType.display();
@@ -79,7 +74,7 @@ public class Carriage implements CarriageInterface{
 	
 	public void displaySeats() {
 		System.out.println("Carriage " + number);
-		for(SeatInterface s : seats) {
+		for(Seat s : seats) {
 			s.display();
 		}
 		

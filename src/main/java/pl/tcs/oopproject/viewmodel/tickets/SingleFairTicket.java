@@ -1,20 +1,12 @@
 package pl.tcs.oopproject.viewmodel.tickets;
 
-import pl.tcs.oopproject.viewmodel.carriage.CarriageClassType;
-import pl.tcs.oopproject.viewmodel.carriage.CarriageInterface;
-import pl.tcs.oopproject.viewmodel.carriage.CarriageType;
-import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
 import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
 import pl.tcs.oopproject.viewmodel.discount.Discount;
 import pl.tcs.oopproject.viewmodel.discount.OneTimeDiscount;
 import pl.tcs.oopproject.viewmodel.place.Place;
 import pl.tcs.oopproject.viewmodel.place.SpecificSeat;
-import pl.tcs.oopproject.viewmodel.seat.SeatInterface;
-import pl.tcs.oopproject.viewmodel.seat.SeatType;
 import pl.tcs.oopproject.viewmodel.station.Station;
-import pl.tcs.oopproject.viewmodel.station.StationInterface;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +47,11 @@ public class SingleFairTicket implements TicketInterface{
 	public LocalDateTime getPurchaseDate() {
 		return purchaseDate;
 	}
-	public StationInterface getDepartureStation() {
+	public Station getDepartureStation() {
 		return place.getConnection().getFirstStation();
 	}
 	
-	public StationInterface getArrivalStation() {
+	public Station getArrivalStation() {
 		return place.getConnection().getLastStation();
 	}
 	

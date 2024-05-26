@@ -12,6 +12,9 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class PersonFactory {
+	static int minNameLength = 2;
+	static int maxNameLength = 20;
+	static int minAge = 12;
 	
 	private static boolean correctEmail(String email) {
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
@@ -51,8 +54,8 @@ public class PersonFactory {
 	public static Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber) throws KoleoException {
 		if(Objects.equals(phoneNumber, ""))  phoneNumber = null;
 		if (!correctTelephoneNumber(phoneNumber)) throw new InvalidTelephoneNumberException();
-		if (name.length() > 20 || name.length() < 2) throw new InvalidNameOrSurnameException();
-		if (Period.between(dateOfBirth, LocalDate.now()).getYears() < 12) throw new InvalidDateOfBirthException();
+		if (name.length() > maxNameLength || name.length() < minNameLength) throw new InvalidNameOrSurnameException();
+		if (Period.between(dateOfBirth, LocalDate.now()).getYears() < minAge) throw new InvalidDateOfBirthException();
 		if (!correctEmail(email)) throw new InvalidEmailException();
 		return new Person(name, surname, dateOfBirth, email, phoneNumber);
 	} //buy without signing up nor logging in
