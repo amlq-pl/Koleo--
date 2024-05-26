@@ -1,5 +1,7 @@
 #!/bin/bash
+
 export PGPASSWORD="koleo"
+
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "klienci.sql"
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "konto.sql"
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "przewoznicy.sql"
