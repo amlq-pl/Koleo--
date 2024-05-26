@@ -9,13 +9,9 @@ import java.util.Objects;
 
 public class Connection implements RailwayInterface {
 	private final ArrayList<Station> train;
-	private final int cost;
-	private final TrainType trainType;
 	
-	Connection(ArrayList<Station> train, TrainType trainType, int cost) {
+	Connection(ArrayList<Station> train) {
 		this.train = train;
-		this.trainType = trainType;
-		this.cost = cost;
 	}
 	
 	public boolean contains(String town) {
@@ -30,11 +26,6 @@ public class Connection implements RailwayInterface {
 			if(Objects.equals(train.get(i).getTown(), town))
 				return true;
 		return false;
-	}
-	
-	@Override
-	public TrainType getTrainType() {
-		return trainType;
 	}
 	
 	@Override
@@ -66,11 +57,6 @@ public class Connection implements RailwayInterface {
 	@Override
 	public List<Station> getStations() {
 		return train;
-	}
-	
-	@Override
-	public int getCost() {
-		return cost;
 	}
 	
 	@Override

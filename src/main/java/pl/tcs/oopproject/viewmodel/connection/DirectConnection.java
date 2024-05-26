@@ -9,15 +9,15 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 	private final String company;
 	private final Connection connection;
 	private final int number; //number of a train
-	private final int cost;
-	private final TrainType trainType;
+	int cost;
+	TrainType trainType;
 	
-	DirectConnection(String company, int number, int cost, Connection connection, TrainType trainType) {
+	DirectConnection(String company, int number, int cost, TrainType trainType, Connection connection) {
 		this.company = company;
 		this.connection = connection;
 		this.number = number;
-		this.cost = cost;
 		this.trainType = trainType;
+		this.cost = cost;
 	}
 	
 	public int getNumber() {
@@ -28,7 +28,6 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 		return company;
 	}
 	
-	@Override
 	public TrainType getTrainType() {
 		return trainType;
 	}
@@ -63,7 +62,6 @@ public class DirectConnection implements RailwayInterface { //some kind of decor
 		return connection.getStations();
 	}
 	
-	@Override
 	public int getCost() {
 		return cost;
 	}

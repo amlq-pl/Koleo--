@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface RailwayInterface {
 	
-	TrainType getTrainType();
 	
 	Station getFirstStation();
 	
@@ -20,8 +19,6 @@ public interface RailwayInterface {
 	Iterator<Station> getIterator();
 	
 	List<Station> getStations();
-	
-	int getCost();
 	
 	int getSize();
 }
