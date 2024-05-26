@@ -4,6 +4,8 @@ import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimef
 import pl.tcs.oopproject.viewmodel.exception.InternalDatabaseException;
 import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.station.Station;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -55,7 +57,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 		}
 	}
 	
-	private void setTrains() throws InternalDatabaseException {
+	private void setTrains() throws SQLException {
 		ArrayList<DirectConnection> allTrains = new GetDirectConnectionsInTimeframe().getDirectConnectionsInTimeframe(departureDate, departureDate.plusHours(hours));
 		ArrayList<DirectConnection> stack = new ArrayList<>();
 		ArrayList<String> transferStack = new ArrayList<>();
@@ -64,7 +66,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	@Override
-	public List<ConnectionWithTransfers> getRoutes() throws InternalDatabaseException{
+	public List<ConnectionWithTransfers> getRoutes() throws SQLException {
 		if(!active) setTrains();
 		if(trains == null) throw new NoRouteFoundException();
 		Collections.sort(trains);
@@ -77,7 +79,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	@Override
-	public List<ConnectionWithTransfers> getCheapRoutes() throws InternalDatabaseException {
+	public List<ConnectionWithTransfers> getCheapRoutes() throws SQLException {
 		if(!active) setTrains();
 		if(trains == null) throw new NoRouteFoundException();
 		ArrayList<ConnectionWithTransfers> connections = new ArrayList<>();
@@ -99,7 +101,7 @@ public class ConnectionFinder implements FindConnectionInterface{
 	}
 	
 	@Override
-	public List<ConnectionWithTransfers> getRoutesWithoutTransfers() throws InternalDatabaseException {
+	public List<ConnectionWithTransfers> getRoutesWithoutTransfers() throws SQLException {
 		if(!active) setTrains();
 		if(trains == null) throw new NoRouteFoundException();
 		
