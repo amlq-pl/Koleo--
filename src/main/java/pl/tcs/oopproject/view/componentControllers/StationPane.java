@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
@@ -24,7 +25,7 @@ public class StationPane extends AnchorPane {
     @FXML
     private VBox StationsView;
     @FXML
-    private ObservableList<String> observableList = FXCollections.observableArrayList();
+    private ObservableList<Station> observableList = FXCollections.observableArrayList();
     private StationPane (ArrayList<Station> list, DirectConnection train) {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/station-pane.fxml"));
         loader.setRoot(this);
@@ -33,19 +34,29 @@ public class StationPane extends AnchorPane {
             loader.load();
             TrainInfo.textProperty().setValue(train.getCompany() + " " + train.getNumber());
 
-            observableList.addListener((ListChangeListener<? super String>) change -> {
+            observableList.addListener((ListChangeListener<? super Station>) change -> {
                 while (change.next()) {
                     if (change.wasAdded()) {
-                        List<Label> labels = new ArrayList<>();
-                        for (String a : change.getAddedSubList()) {
-                            labels.add(new Label(a));
+                        List<AnchorPane> tempList = new ArrayList<>();
+                        for (Station s : change.getAddedSubList()) {
+                            s.display();
+                            AnchorPane anchorPane = new AnchorPane();
+                            anchorPane.setMaxWidth(300);
+                            anchorPane.setMaxHeight(100);
+                            Label nameLabel = new Label(s.getTown());
+                            Label arrival = new Label(s.getArrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+                            Label departure = new Label(s.getDepartureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+                            HBox layout = new HBox();
+                            anchorPane.getChildren().add(layout);
+                            layout.setSpacing(10.0);
+                            layout.getChildren().addAll(nameLabel, arrival, departure);
                         }
-                        StationsView.getChildren().addAll(labels);
+                        StationsView.getChildren().addAll(tempList);
                     }
                 }
             });
 
-            observableList.addAll(list.stream().map(Station::getTown).toList());
+            observableList.addAll(list);
 
         } catch (Exception e) {
             e.printStackTrace();
