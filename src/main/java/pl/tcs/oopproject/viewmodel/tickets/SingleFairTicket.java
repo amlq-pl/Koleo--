@@ -12,12 +12,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SingleFairTicket implements TicketInterface{
-	Place place;
-	Discount discount;
-	OneTimeDiscount oneTimeDiscount;
-	LocalDateTime purchaseDate;
-	SingleFairTicket(Place place, Discount discount, OneTimeDiscount oneTimeDiscount) {
+public class SingleFairTicket implements TicketInterface {
+	private final Place place;
+	private final Discount discount;
+	private final OneTimeDiscount oneTimeDiscount;
+	private final LocalDateTime purchaseDate;
+	
+	public SingleFairTicket(Place place, Discount discount, OneTimeDiscount oneTimeDiscount) {
 		this.place = place;
 		this.discount = discount;
 		this.oneTimeDiscount = oneTimeDiscount;
@@ -48,6 +49,7 @@ public class SingleFairTicket implements TicketInterface{
 	public LocalDateTime getPurchaseDate() {
 		return purchaseDate;
 	}
+	
 	public Station getDepartureStation() {
 		return place.getConnection().getFirstStation();
 	}
@@ -70,7 +72,7 @@ public class SingleFairTicket implements TicketInterface{
 	
 	public List<Integer> getTrainNumber() {
 		List<Integer> trains = new ArrayList<>();
-		for(DirectConnection connection : place.getConnection().getTrains()) {
+		for (DirectConnection connection : place.getConnection().getTrains()) {
 			trains.add(connection.getNumber());
 		}
 		return trains;

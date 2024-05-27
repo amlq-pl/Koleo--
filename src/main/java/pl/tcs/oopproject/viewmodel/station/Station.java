@@ -1,11 +1,11 @@
 package pl.tcs.oopproject.viewmodel.station;
 
-import pl.tcs.oopproject.viewmodel.exception.IllegalOperationException;
 import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
+import pl.tcs.oopproject.viewmodel.exception.IllegalOperationException;
 
 import java.time.LocalDateTime;
 
-public class Station{
+public class Station {
 	private final String town;
 	private final LocalDateTime departureTime;
 	private final LocalDateTime arrivalTime;
@@ -16,11 +16,6 @@ public class Station{
 		this.arrivalTime = arrivalDate;
 		this.departureTime = departureTime;
 		directConnection = null;
-	}
-	
-	public void setTrain(DirectConnection directConnection) {
-		if(this.directConnection == null) throw new IllegalOperationException();
-		this.directConnection = directConnection;
 	}
 	
 	public String getTown() {
@@ -37,6 +32,11 @@ public class Station{
 	
 	public DirectConnection getTrain() {
 		return this.directConnection;
+	}
+	
+	public void setTrain(DirectConnection directConnection) {
+		if (this.directConnection == null) throw new IllegalOperationException();
+		this.directConnection = directConnection;
 	}
 	
 	public void display() {

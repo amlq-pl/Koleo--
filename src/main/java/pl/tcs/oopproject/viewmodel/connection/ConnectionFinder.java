@@ -1,7 +1,10 @@
 package pl.tcs.oopproject.viewmodel.connection;
+
+import org.jetbrains.annotations.NotNull;
 import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimeframe;
 import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.station.Station;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,16 +28,16 @@ public class ConnectionFinder implements FindConnectionInterface {
 	}
 	
 	private boolean contains(ArrayList<DirectConnection> stack) {
-		for(ConnectionWithTransfers connection : trains) {
-			if(connection.getNumberOfTransfers() + 1 != stack.size()) continue;
+		for (ConnectionWithTransfers connection : trains) {
+			if (connection.getNumberOfTransfers() + 1 != stack.size()) continue;
 			boolean equal = true;
-			for(int i = 0; i < stack.size(); ++i){
-				if(stack.get(i) != connection.getTrains().get(i)){
+			for (int i = 0; i < stack.size(); ++i) {
+				if (stack.get(i) != connection.getTrains().get(i)) {
 					equal = false;
 					break;
 				}
 			}
-			if(equal) return true;
+			if (equal) return true;
 		}
 		return false;
 	}
@@ -43,29 +46,24 @@ public class ConnectionFinder implements FindConnectionInterface {
 		for (int i = 0; i < allTrains.size(); ++i) {
 			DirectConnection tempConnection = allTrains.get(i);
 			if (tempConnection.contains(temp) && !visitedConnections.contains(tempConnection)) {
-				if(!stack.isEmpty()) {
+				if (!stack.isEmpty()) {
 					LocalDateTime departureTime = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
-					if (tempConnection.getStation(temp).getArrivalTime().isBefore(departureTime))
-						continue;
+					if (tempConnection.getStation(temp).getArrivalTime().isBefore(departureTime)) continue;
 				}
 				stack.add(tempConnection);
 				visitedConnections.add(tempConnection);
 				transfersStack.add(temp);
 				if (tempConnection.contains(stationB) && tempConnection.getIndexOfStation(stationB) > tempConnection.getIndexOfStation(temp)) {
-					Station sA = new Station(stationA,
-							stack.get(0).getStation(stationA).getDepartureTime(),
-							stack.get(0).getStation(stationA).getArrivalTime());
-					Station sB = new Station(stationB,
-							stack.get(stack.size() - 1).getStation(stationB).getDepartureTime(),
-							stack.get(stack.size() - 1).getStation(stationB).getArrivalTime());
-					if(!contains(stack))
+					Station sA = new Station(stationA, stack.get(0).getStation(stationA).getDepartureTime(), stack.get(0).getStation(stationA).getArrivalTime());
+					Station sB = new Station(stationB, stack.get(stack.size() - 1).getStation(stationB).getDepartureTime(), stack.get(stack.size() - 1).getStation(stationB).getArrivalTime());
+					if (!contains(stack))
 						trains.add(new ConnectionWithTransfers(sA, sB, new ArrayList<>(stack), new ArrayList<>(transfersStack)));
 					
 					stack.remove(stack.size() - 1);
 					visitedConnections.remove(tempConnection);
 					transfersStack.remove(transfersStack.size() - 1);
 					continue;
-				} //good
+				}
 				
 				if (stack.size() >= maxTransferNumber) {
 					stack.remove(stack.size() - 1);
@@ -106,6 +104,11 @@ public class ConnectionFinder implements FindConnectionInterface {
 	@Override
 	public List<ConnectionWithTransfers> getRoutes() throws SQLException {
 		if (!active) setTrains();
+		return getConnectionWithTransfers(trains);
+	}
+	
+	@NotNull
+	private List<ConnectionWithTransfers> getConnectionWithTransfers(ArrayList<ConnectionWithTransfers> trains) {
 		Collections.sort(trains);
 		ArrayList<ConnectionWithTransfers> connections = new ArrayList<>();
 		int size = Math.min(5, trains.size());
@@ -143,12 +146,6 @@ public class ConnectionFinder implements FindConnectionInterface {
 			if (train.getNumberOfTransfers() == 0) connection.add(train);
 		
 		if (connection.isEmpty()) throw new NoRouteFoundException();
-		Collections.sort(connection);
-		ArrayList<ConnectionWithTransfers> connection2 = new ArrayList<>();
-		int size = Math.min(5, connection.size());
-		for (int i = 0; i < size; ++i)
-			connection2.add(connection.get(i));
-		
-		return connection2;
+		return getConnectionWithTransfers(connection);
 	}
 }

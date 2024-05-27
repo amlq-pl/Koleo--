@@ -4,7 +4,6 @@ import pl.tcs.oopproject.viewmodel.discount.PriceInterface;
 import pl.tcs.oopproject.viewmodel.discount.PricePLN;
 import pl.tcs.oopproject.viewmodel.station.Station;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class DirectConnection implements ConnectionInterface { //some kind of decorator to TrainConnection
@@ -49,14 +48,8 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 		return connection.getStationAt(index);
 	}
 	
-	@Override
 	public int getIndexOfStation(String town) throws IllegalArgumentException {
 		return connection.getIndexOfStation(town);
-	}
-	
-	@Override
-	public Iterator<Station> getIterator() {
-		return connection.getIterator();
 	}
 	
 	@Override
@@ -64,7 +57,9 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 		return connection.getStations();
 	}
 	
-	public PriceInterface getCost() { return cost; }
+	public PriceInterface getCost() {
+		return cost;
+	}
 	
 	@Override
 	public int getSize() {
@@ -83,9 +78,9 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 		System.out.println("Company: " + company);
 		System.out.println("Number: " + number);
 		System.out.println("Cost: " + cost);
-		System.out.println("Train Type: "  + trainType.name());
+		System.out.println("Train Type: " + trainType.name());
 		System.out.println("Stations:");
-		for(Station station : connection.getStations()) {
+		for (Station station : connection.getStations()) {
 			station.display();
 		}
 	}

@@ -6,7 +6,7 @@ import pl.tcs.oopproject.viewmodel.seat.Seat;
 public class SpecificSeat {
 	private Carriage carriage;
 	private Seat seat;
-
+	
 	public SpecificSeat(Carriage carriage, Seat seat) {
 		this.carriage = carriage;
 		this.seat = seat;

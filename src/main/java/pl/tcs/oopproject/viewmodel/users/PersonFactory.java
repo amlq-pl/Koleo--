@@ -17,20 +17,15 @@ public class PersonFactory {
 	static int minAge = 12;
 	
 	private static boolean correctEmail(String email) {
-		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-				"[a-zA-Z0-9_+&*-]+)*@" +
-				"(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-				"A-Z]{2,7}$";
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$";
 		Pattern pattern = Pattern.compile(emailRegex);
-		if (email == null)
-			return false;
+		if (email == null) return false;
 		return pattern.matcher(email).matches();
 	}
 	
 	private static boolean correctTelephoneNumber(String number) {
-		if(number == null) return true;
-		if(number.length() == 9)
-			number = "+48" + number;
+		if (number == null) return true;
+		if (number.length() == 9) number = "+48" + number;
 		number = number.replaceAll("\\s", "");
 		String numberRegex = "^\\+\\d{10,12}$";
 		Pattern pattern = Pattern.compile(numberRegex);
@@ -41,37 +36,35 @@ public class PersonFactory {
 	public static Person logIn(String login, String password) throws KoleoException {
 		try {
 			AuthenticateLogin authenticator = new AuthenticateLogin();
-			Person person =  authenticator.authenticate(login, password);
+			Person person = authenticator.authenticate(login, password);
 			ActiveUser.setActiveUser(person);
 			return person;
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new InvalidUsernameOrPasswordException();
 		}
 		
 	} //log in
 	
 	public static Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber) throws KoleoException {
-		if(Objects.equals(phoneNumber, ""))  phoneNumber = null;
+		if (Objects.equals(phoneNumber, "")) phoneNumber = null;
 		if (!correctTelephoneNumber(phoneNumber)) throw new InvalidTelephoneNumberException();
 		if (name.length() > maxNameLength || name.length() < minNameLength) throw new InvalidNameOrSurnameException();
 		if (Period.between(dateOfBirth, LocalDate.now()).getYears() < minAge) throw new InvalidDateOfBirthException();
 		if (!correctEmail(email)) throw new InvalidEmailException();
 		return new Person(name, surname, dateOfBirth, email, phoneNumber);
 	} //buy without signing up nor logging in
-
 	
-	public static Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber,String login, String password) throws KoleoException {
-		InsertNewPersonToDatabase inserter=new InsertNewPersonToDatabase();
+	
+	public static Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber, String login, String password) throws KoleoException {
+		InsertNewPersonToDatabase inserter = new InsertNewPersonToDatabase();
 		Person person = create(name, surname, dateOfBirth, email, phoneNumber);
 		try {
 			Checkers checker = new Checkers();
 			if (checker.checkIfUserExists(login)) throw new ExistingUserException();
-			if(!inserter.insert(person, login, password)) throw new SQLException();
+			if (!inserter.insert(person, login, password)) throw new SQLException();
 			ActiveUser.setActiveUser(person);
 			return person;
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new InternalDatabaseException();
 		}
 	} //sign up without phoneNumber

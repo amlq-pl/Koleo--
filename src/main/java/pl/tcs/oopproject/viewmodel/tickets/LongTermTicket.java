@@ -9,14 +9,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class LongTermTicket implements TicketInterface {
-	LocalDate startDate;
-	LocalDateTime purchaseDate;
-	LongTermTicketType longTermTicketType;
-	Discount discount;
-	OneTimeDiscount oneTimeDiscount;
-	String id;
+	private final LocalDate startDate;
+	private final LocalDateTime purchaseDate;
+	private final LongTermTicketType longTermTicketType;
+	private final Discount discount;
+	private final OneTimeDiscount oneTimeDiscount;
+	private final String id;
 	
-	LongTermTicket(LocalDate startDate, LongTermTicketType longTermTicketType, Discount discount, OneTimeDiscount oneTimeDiscount, String id) {
+	public LongTermTicket(LocalDate startDate, LongTermTicketType longTermTicketType, Discount discount, OneTimeDiscount oneTimeDiscount, String id) {
 		this.startDate = startDate;
 		purchaseDate = LocalDateTime.now();
 		this.longTermTicketType = longTermTicketType;

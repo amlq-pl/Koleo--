@@ -11,5 +11,5 @@ public enum OneTimeDiscount implements DiscountInterface{
 		public int getValue() {
 			return 0;
 		}
-	};
+	}
 }

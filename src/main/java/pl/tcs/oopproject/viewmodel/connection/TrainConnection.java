@@ -3,7 +3,6 @@ package pl.tcs.oopproject.viewmodel.connection;
 import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class TrainConnection implements ConnectionInterface {
@@ -20,7 +19,7 @@ public class TrainConnection implements ConnectionInterface {
 	}
 	
 	public void add(Station station) {
-		if(contains(station.getTown())) throw new IllegalArgumentException();
+		if (contains(station.getTown())) throw new IllegalArgumentException();
 		train.add(station);
 	}
 	
@@ -39,16 +38,10 @@ public class TrainConnection implements ConnectionInterface {
 		return train.get(index);
 	}
 	
-	@Override
 	public int getIndexOfStation(String town) throws IllegalArgumentException {
 		for (int i = 0; i < train.size(); ++i)
 			if (town.equals(train.get(i).getTown())) return i;
 		throw new IllegalArgumentException();
-	}
-	
-	@Override
-	public Iterator<Station> getIterator() {
-		return train.listIterator();
 	}
 	
 	@Override
