@@ -83,9 +83,9 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 		for(int i = 0; i < size - 1; ++i) {
 			int j = trains.get(i).getIndexOfStation(transferStations.get(i));
 			int k = trains.get(i).getIndexOfStation(transferStations.get(i + 1));
-			for(int t = j; t < k; ++t)
+			for(int t = j; t <= k; ++t)
 				list.add(trains.get(i).getStationAt(t));
-		}
+			}
 		
 		int j = trains.get(size - 1).getIndexOfStation(transferStations.get(size - 1));
 		int k = trains.get(size - 1).getIndexOfStation(stationB.getTown());
