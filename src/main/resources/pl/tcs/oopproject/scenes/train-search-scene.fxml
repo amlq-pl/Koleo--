@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
@@ -36,12 +35,12 @@
          <children>
             <HBox alignment="CENTER_LEFT" layoutX="27.0" layoutY="14.0" prefHeight="70.0" prefWidth="200.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextField fx:id="DepStation" prefHeight="24.0" prefWidth="120.0" promptText="OD" />
-                  <TextField fx:id="ArrStation" prefHeight="24.0" prefWidth="120.0" promptText="DO" />
+                  <ComboBox fx:id="DepStation" prefWidth="150.0" promptText="OD" />
+                  <ComboBox fx:id="ArrStation" prefWidth="150.0" promptText="DO" />
                   <DatePicker fx:id="ConnectionDate" prefHeight="24.0" prefWidth="140.0" promptText="DATA" />
                   <TilePane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="115.0">
                      <children>
-                        <ComboBox fx:id="HourPicker" editable="true" prefHeight="24.0" prefWidth="115.0" promptText="GODZINA" />
+                        <ComboBox fx:id="HourPicker" prefHeight="24.0" prefWidth="115.0" promptText="GODZINA" />
                      </children>
                   </TilePane>
                   <Button fx:id="ConfirmButton" mnemonicParsing="false" onAction="#ConfirmButtonClick" text="GOTOWE" />
