@@ -21,10 +21,12 @@ import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
 import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -51,7 +53,7 @@ public class ExtraScene extends AnchorPane implements Initializable {
         thisBasket = basket;
         try {
             loader.load();
-            addAllStations(trainPane);
+            addAllStations();
             Scene scene = new Scene(this);
             Stage stage = new Stage();
             BegStation.textProperty().setValue(trainPane.getConnection()
@@ -118,7 +120,12 @@ public class ExtraScene extends AnchorPane implements Initializable {
 //        StationPane temp = StationPane.createStationPane(station);
 //        stationPanes.addAll(temp);
 //    }
-    private void addAllStations(TrainPane pane) {
-
+    private void addAllStations() {
+        ArrayList<ArrayList<Station>> routes = thisConnection.getRoute();
+        System.out.println(thisConnection.getRoute());
+        ArrayList<DirectConnection> trains = (ArrayList<DirectConnection>) thisConnection.getTrains();
+        for (int i = 0; i < routes.size(); i++) {
+            stationPanes.addAll(StationPane.createStationPane(routes.get(i), trains.get(i)));
+        }
     }
 }

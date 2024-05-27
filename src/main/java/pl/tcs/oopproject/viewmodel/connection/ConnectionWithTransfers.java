@@ -24,10 +24,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	
 	public ArrayList<ArrayList<Station>> getRoute() {
 		ArrayList<ArrayList<Station>> list = new ArrayList<>();
-		
-		transferStations.add(0, stationA.getTown());
 		transferStations.add(stationB.getTown());
-		
 		for (int i = 0; i < trains.size(); ++i) {
 			int j = trains.get(i).getIndexOfStation(transferStations.get(i));
 			int k = trains.get(i).getIndexOfStation(transferStations.get(i + 1));
@@ -36,8 +33,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 				list.get(i).add(trains.get(i).getStationAt(t));
 			}
 		}
-		
-		transferStations.remove(stationA.getTown());
+
 		transferStations.remove(stationB.getTown());
 		
 		return list;
