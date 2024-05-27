@@ -10,6 +10,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.view.componentControllers.TrainPane;
 import pl.tcs.oopproject.view.componentControllers.TrainPaneFactory;
@@ -35,8 +36,9 @@ public class TrainSearchSceneController implements Initializable {
     public Button ConfirmButton;
     public VBox ScrollablePane;
     private final ObservableList<TrainPane> ConnectionList = FXCollections.observableArrayList();
-    public TextField DepStation;
-    public TextField ArrStation;
+    private final ObservableList<String> StationObservable = FXCollections.observableArrayList(App.Stations);
+    public ComboBox<String> DepStation;
+    public ComboBox<String> ArrStation;
     public DatePicker ConnectionDate;
     public ComboBox<String> HourPicker = new ComboBox<>();
 
@@ -99,7 +101,7 @@ public class TrainSearchSceneController implements Initializable {
         // TODO: add validation using validator FX or something like this
 
         LocalDateTime tempLocalDateTime = getLocalDateTime();
-        ConnectionFinder finder =  new ConnectionFinder(DepStation.textProperty().get(), ArrStation.textProperty().get(), tempLocalDateTime);
+        ConnectionFinder finder =  new ConnectionFinder(DepStation.getValue(), ArrStation.getValue(), tempLocalDateTime);
 
         addAllPanes(finder);
     }
@@ -127,6 +129,9 @@ public class TrainSearchSceneController implements Initializable {
                 .collect(Collectors.toCollection(ArrayList::new));
 
         HourPicker.getItems().setAll(hours);
+        DepStation.getItems().setAll(StationObservable);
+        ArrStation.getItems().setAll(StationObservable);
+        ConnectionDate.setValue(LocalDate.now());
 
         ConnectionList.addListener((ListChangeListener<? super TrainPane>) change -> {
             while (change.next()) {
