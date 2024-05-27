@@ -162,10 +162,10 @@ public class TrainTest {
 	Station station11 = new Station("Jastrzębia Góra", LocalDateTime.of(2024, 5, 27, 8, 50), LocalDateTime.of(2024, 5, 27, 8, 55));
 	
 	
-	DirectConnection dC11= new DirectConnection("TCS", 12, 21.37, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station1, station2, station3, station4))));
-	DirectConnection dC12 = new DirectConnection("TCS", 12, 21.37, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station3, station4, station5))));
-	DirectConnection dC1= new DirectConnection("TCS", 12, 21.37, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station1, station2))));
-	DirectConnection dC2 = new DirectConnection("UJ", 13, 12.34, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station2, station3))));
+	DirectConnection dC11= new DirectConnection("TCS", 12, 21, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station1, station2, station3, station4))));
+	DirectConnection dC12 = new DirectConnection("TCS", 12, 21.10, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station3, station4, station5))));
+	DirectConnection dC1= new DirectConnection("TCS", 12, 21.1, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station1, station2))));
+	DirectConnection dC2 = new DirectConnection("UJ", 13, 12.1, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station2, station3))));
 	DirectConnection dC3 = new DirectConnection("pierdole To", 123, 34.56, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station1, station4, station2))));
 	DirectConnection dC4 = new DirectConnection("AverageCompanyName", 13, 34.56, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station3, station5))));
 	DirectConnection dC5 = new DirectConnection("ChujoweCompanyName", 34, 67.67, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station5, station2))));

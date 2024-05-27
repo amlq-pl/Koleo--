@@ -14,6 +14,8 @@ public class PricePLN implements PriceInterface {
 
     @Override
     public String toString() {
-        return price + " zł";
+        String s = price.toString();
+        
+        return String.format("%.2f", price) + " zł";
     }
 }
