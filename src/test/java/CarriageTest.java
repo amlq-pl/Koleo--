@@ -24,9 +24,7 @@ public class CarriageTest {
 		Seat s2 = new Seat(SeatType.CORRIDOR, 34);
 		
 		Carriage carriage = new Carriage(CarriageClassType.FIRST_CLASS, CarriageType.SLEEPER, 23, 233);
-		carriage.addSeat(s,s1, s2);
 		carriage.displaySeats();
-		carriage.addSeat(s);
 		carriage.displaySeats();
 		
 	}
