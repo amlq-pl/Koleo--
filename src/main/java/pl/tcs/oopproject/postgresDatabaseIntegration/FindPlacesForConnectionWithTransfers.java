@@ -1,15 +1,15 @@
 package pl.tcs.oopproject.postgresDatabaseIntegration;
 
+import pl.tcs.oopproject.model.carriage.Carriage;
+import pl.tcs.oopproject.model.carriage.CarriageClassType;
+import pl.tcs.oopproject.model.carriage.CarriageType;
+import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.connection.DirectConnection;
 import pl.tcs.oopproject.model.databaseIntegration.FindPlacesForConnectionWithTransfersInterface;
-import pl.tcs.oopproject.viewmodel.carriage.Carriage;
-import pl.tcs.oopproject.viewmodel.carriage.CarriageClassType;
-import pl.tcs.oopproject.viewmodel.carriage.CarriageType;
-import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
-import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
-import pl.tcs.oopproject.viewmodel.place.Place;
-import pl.tcs.oopproject.viewmodel.place.SpecificSeat;
-import pl.tcs.oopproject.viewmodel.seat.Seat;
-import pl.tcs.oopproject.viewmodel.seat.SeatType;
+import pl.tcs.oopproject.model.place.Place;
+import pl.tcs.oopproject.model.place.SpecificSeat;
+import pl.tcs.oopproject.model.seat.Seat;
+import pl.tcs.oopproject.model.seat.SeatType;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,148 +17,148 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnectionWithTransfersInterface {
-    @Override
-    public Place findPlacesForConnectionWithTransfers(ConnectionWithTransfers connectionWithTransfers) throws SQLException {
-        ArrayList<SpecificSeat> places = new ArrayList<>();
-        for (DirectConnection directConnection : connectionWithTransfers.getTrains()) {
-            places.add(findSpecificSeat(directConnection));
-        }
-        return new Place(connectionWithTransfers, places);
-    }
-
-    private SpecificSeat findSpecificSeat(DirectConnection directConnection) throws SQLException {
-        int startStation = getNumOfStation(directConnection.getNumber(), directConnection.getFirstStation().getTown()),
-                endStation = getNumOfStation(directConnection.getNumber(), directConnection.getLastStation().getTown());
-
-        int carriageSeats;
-        int numOfNeededDifferentCarriageConfigurationsInConnection = getNumOfIntersectingCarriageChangesInConnection(directConnection.getNumber(), startStation, endStation);
-        for (int inspectedCarriage = 1; inspectedCarriage <= getNumOfMaxCarriages(directConnection.getNumber()); inspectedCarriage++) {
-            if (!isCarriageCorrect(directConnection.getNumber(), inspectedCarriage, numOfNeededDifferentCarriageConfigurationsInConnection))
-                continue;
-            carriageSeats = getNumOfSeatsInCarriage(directConnection.getNumber(), inspectedCarriage);
-            for (int inspectedSeat = 1; inspectedSeat <= carriageSeats; inspectedSeat++) {
-                if (!checkSeatAvailability(directConnection.getNumber(), inspectedCarriage, inspectedSeat, startStation, endStation))
-                    continue;
-                return getSpecificSeat(directConnection.getNumber(), inspectedCarriage, inspectedSeat);
-            }
-        }
-        return null;
-    }
-
-    private int getNumOfStation(int idConnection, String stationName) throws SQLException {
-        PreparedStatement ps = DB.connection.prepareStatement("select getnumofstation(?,?)");
-        ps.setInt(1, idConnection);
-        ps.setString(2, stationName);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt(1);
-    }
-
-    private int getNumOfMaxCarriages(int idConnection) throws SQLException {
-        PreparedStatement ps = DB.connection.prepareStatement("select max(psc.nr_wagonu) from przejazdy p " +
-                "join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
-                "join przejazdy_sklad_czesci psc on psc.id_przejazdu_skladu = ps.id_przejazdu_skladu " +
-                "where p.id_przejazdu = ?");
-        ps.setInt(1, idConnection);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt(1);
-    }
-
-
-    private int getNumOfIntersectingCarriageChangesInConnection(int idConnection, int startStation, int endStation) throws SQLException {
-        PreparedStatement ps = DB.connection.prepareStatement("select count(*) from przejazdy p join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
-                "where p.id_przejazdu = ? and  greatest(ps.od_stacji,?) <  least(ps.do_stacji,?)  ");
-        ps.setInt(1, idConnection);
-        ps.setInt(2, startStation);
-        ps.setInt(3, endStation);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt(1);
-    }
-
-    private boolean isCarriageCorrect(int connectionId, int carriageNum, int needed) throws SQLException {
-        PreparedStatement ps = DB.connection.prepareStatement("select count(*) from przejazdy p " +
-                "join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
-                "join przejazdy_sklad_czesci psc on ps.id_przejazdu_skladu = psc.id_przejazdu_skladu " +
-                "where p.id_przejazdu = ? and psc.nr_wagonu = ? ");
-        ps.setInt(1, connectionId);
-        ps.setInt(2, carriageNum);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt(1) >= needed;
-    }
-
-    private int getNumOfSeatsInCarriage(int connectionId, int carriageNum) throws SQLException {
-        PreparedStatement ps = DB.connection.prepareStatement("select w.liczba_miejsc,w.id_wagonu " +
-                "from przejazdy p join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
-                "join przejazdy_sklad_czesci psc on ps.id_przejazdu_skladu = psc.id_przejazdu_skladu " +
-                "join wagony w on psc.id_wagonu = w.id_wagonu " +
-                "where p.id_przejazdu = ? and psc.nr_wagonu = ? " +
-                "limit 1");
-        ps.setInt(1, connectionId);
-        ps.setInt(2, carriageNum);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt(1);
-    }
-
-    private boolean checkSeatAvailability(int connectionId, int carriageNum, int seatNum, int startStation, int endStation) throws SQLException {
-        PreparedStatement ps = DB.connection.prepareStatement("select exists (select * from przejazdy p " +
-                "join bilety_jednorazowe bj on p.id_przejazdu = bj.id_przejazdu " +
-                "where p.id_przejazdu=? and bj.nr_wagonu=? and bj.nr_miejsca=? and " +
-                "greatest(bj.od_stacji,?) <  least(bj.do_stacji,?))");
-        ps.setInt(1, connectionId);
-        ps.setInt(2, carriageNum);
-        ps.setInt(3, seatNum);
-        ps.setInt(4, startStation);
-        ps.setInt(5, endStation);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return !rs.getBoolean(1);
-    }
-
-    private SpecificSeat getSpecificSeat(int connectionId, int carriageNum, int seatNum) throws SQLException {
-        PreparedStatement ps = DB.connection.prepareStatement("select w.typ_wagonu,w.klasa,w.liczba_miejsc,wtm.miejsce_mod,wtm.typ_miejsca " +
-                "from przejazdy p join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
-                "join przejazdy_sklad_czesci psc on ps.id_przejazdu_skladu = psc.id_przejazdu_skladu " +
-                "join wagony w on psc.id_wagonu = w.id_wagonu " +
-                "join wagony_typy_miejsc wtm on w.id_wagonu = wtm.id_wagonu " +
-                "where p.id_przejazdu=? and psc.nr_wagonu=?");
-        ps.setInt(1, connectionId);
-        ps.setInt(2, carriageNum);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        CarriageType ct;
-        String carriageType = rs.getString("typ_wagonu");
-        if(carriageType.startsWith("Bezprzedziałowy")) {
-            ct=CarriageType.SINGLE_COMPARTMENT_CARRIAGE;
-        } else if (carriageType.startsWith("Przedziałowy")) {
-            ct=CarriageType.COMPARTMENT_CARRIAGE;
-        } else if (carriageType.startsWith("Sypialny")) {
-            ct=CarriageType.SLEEPER;
-        } else ct=CarriageType.WARS;
-        Carriage c=new Carriage(rs.getInt("klasa")==2 ? CarriageClassType.SECOND_CLASS : CarriageClassType.FIRST_CLASS,
-                ct,carriageNum,rs.getInt("liczba_miejsc"));
-
-        //point for correct seat type
-        rs.last();
-        int rsSize=rs.getRow();
-        int relativeSeat=seatNum%rsSize;
-        if(relativeSeat==0) relativeSeat=rsSize;
-        rs.absolute(relativeSeat);
-
-        SeatType st=null;
-        String seatType = rs.getString("typ_miejsca");
-        if(seatType==null || seatType.isEmpty()) {
-            st=SeatType.BERTH;
-        } else if(seatType.equals("Okno")) {
-            st=SeatType.WINDOW;
-        } else if (seatType.equals("Środek")) {
-            st=SeatType.MIDDLE;
-        } else if (seatType.equals("Korytarz")) {
-            st=SeatType.CORRIDOR;
-        }
-        return new SpecificSeat(c,new Seat(st,seatNum));
-    }
+	@Override
+	public Place findPlacesForConnectionWithTransfers(ConnectionWithTransfers connectionWithTransfers) throws SQLException {
+		ArrayList<SpecificSeat> places = new ArrayList<>();
+		for (DirectConnection directConnection : connectionWithTransfers.getTrains()) {
+			places.add(findSpecificSeat(directConnection));
+		}
+		return new Place(connectionWithTransfers, places);
+	}
+	
+	private SpecificSeat findSpecificSeat(DirectConnection directConnection) throws SQLException {
+		int startStation = getNumOfStation(directConnection.getNumber(), directConnection.getFirstStation().getTown()),
+				endStation = getNumOfStation(directConnection.getNumber(), directConnection.getLastStation().getTown());
+		
+		int carriageSeats;
+		int numOfNeededDifferentCarriageConfigurationsInConnection = getNumOfIntersectingCarriageChangesInConnection(directConnection.getNumber(), startStation, endStation);
+		for (int inspectedCarriage = 1; inspectedCarriage <= getNumOfMaxCarriages(directConnection.getNumber()); inspectedCarriage++) {
+			if (!isCarriageCorrect(directConnection.getNumber(), inspectedCarriage, numOfNeededDifferentCarriageConfigurationsInConnection))
+				continue;
+			carriageSeats = getNumOfSeatsInCarriage(directConnection.getNumber(), inspectedCarriage);
+			for (int inspectedSeat = 1; inspectedSeat <= carriageSeats; inspectedSeat++) {
+				if (!checkSeatAvailability(directConnection.getNumber(), inspectedCarriage, inspectedSeat, startStation, endStation))
+					continue;
+				return getSpecificSeat(directConnection.getNumber(), inspectedCarriage, inspectedSeat);
+			}
+		}
+		return null;
+	}
+	
+	private int getNumOfStation(int idConnection, String stationName) throws SQLException {
+		PreparedStatement ps = DB.connection.prepareStatement("select getnumofstation(?,?)");
+		ps.setInt(1, idConnection);
+		ps.setString(2, stationName);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt(1);
+	}
+	
+	private int getNumOfMaxCarriages(int idConnection) throws SQLException {
+		PreparedStatement ps = DB.connection.prepareStatement("select max(psc.nr_wagonu) from przejazdy p " +
+				"join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
+				"join przejazdy_sklad_czesci psc on psc.id_przejazdu_skladu = ps.id_przejazdu_skladu " +
+				"where p.id_przejazdu = ?");
+		ps.setInt(1, idConnection);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt(1);
+	}
+	
+	
+	private int getNumOfIntersectingCarriageChangesInConnection(int idConnection, int startStation, int endStation) throws SQLException {
+		PreparedStatement ps = DB.connection.prepareStatement("select count(*) from przejazdy p join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
+				"where p.id_przejazdu = ? and  greatest(ps.od_stacji,?) <  least(ps.do_stacji,?)  ");
+		ps.setInt(1, idConnection);
+		ps.setInt(2, startStation);
+		ps.setInt(3, endStation);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt(1);
+	}
+	
+	private boolean isCarriageCorrect(int connectionId, int carriageNum, int needed) throws SQLException {
+		PreparedStatement ps = DB.connection.prepareStatement("select count(*) from przejazdy p " +
+				"join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
+				"join przejazdy_sklad_czesci psc on ps.id_przejazdu_skladu = psc.id_przejazdu_skladu " +
+				"where p.id_przejazdu = ? and psc.nr_wagonu = ? ");
+		ps.setInt(1, connectionId);
+		ps.setInt(2, carriageNum);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt(1) >= needed;
+	}
+	
+	private int getNumOfSeatsInCarriage(int connectionId, int carriageNum) throws SQLException {
+		PreparedStatement ps = DB.connection.prepareStatement("select w.liczba_miejsc,w.id_wagonu " +
+				"from przejazdy p join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
+				"join przejazdy_sklad_czesci psc on ps.id_przejazdu_skladu = psc.id_przejazdu_skladu " +
+				"join wagony w on psc.id_wagonu = w.id_wagonu " +
+				"where p.id_przejazdu = ? and psc.nr_wagonu = ? " +
+				"limit 1");
+		ps.setInt(1, connectionId);
+		ps.setInt(2, carriageNum);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt(1);
+	}
+	
+	private boolean checkSeatAvailability(int connectionId, int carriageNum, int seatNum, int startStation, int endStation) throws SQLException {
+		PreparedStatement ps = DB.connection.prepareStatement("select exists (select * from przejazdy p " +
+				"join bilety_jednorazowe bj on p.id_przejazdu = bj.id_przejazdu " +
+				"where p.id_przejazdu=? and bj.nr_wagonu=? and bj.nr_miejsca=? and " +
+				"greatest(bj.od_stacji,?) <  least(bj.do_stacji,?))");
+		ps.setInt(1, connectionId);
+		ps.setInt(2, carriageNum);
+		ps.setInt(3, seatNum);
+		ps.setInt(4, startStation);
+		ps.setInt(5, endStation);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return !rs.getBoolean(1);
+	}
+	
+	private SpecificSeat getSpecificSeat(int connectionId, int carriageNum, int seatNum) throws SQLException {
+		PreparedStatement ps = DB.connection.prepareStatement("select w.typ_wagonu,w.klasa,w.liczba_miejsc,wtm.miejsce_mod,wtm.typ_miejsca " +
+				"from przejazdy p join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
+				"join przejazdy_sklad_czesci psc on ps.id_przejazdu_skladu = psc.id_przejazdu_skladu " +
+				"join wagony w on psc.id_wagonu = w.id_wagonu " +
+				"join wagony_typy_miejsc wtm on w.id_wagonu = wtm.id_wagonu " +
+				"where p.id_przejazdu=? and psc.nr_wagonu=?");
+		ps.setInt(1, connectionId);
+		ps.setInt(2, carriageNum);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		CarriageType ct;
+		String carriageType = rs.getString("typ_wagonu");
+		if (carriageType.startsWith("Bezprzedziałowy")) {
+			ct = CarriageType.SINGLE_COMPARTMENT_CARRIAGE;
+		} else if (carriageType.startsWith("Przedziałowy")) {
+			ct = CarriageType.COMPARTMENT_CARRIAGE;
+		} else if (carriageType.startsWith("Sypialny")) {
+			ct = CarriageType.SLEEPER;
+		} else ct = CarriageType.WARS;
+		Carriage c = new Carriage(rs.getInt("klasa") == 2 ? CarriageClassType.SECOND_CLASS : CarriageClassType.FIRST_CLASS,
+				ct, carriageNum, rs.getInt("liczba_miejsc"));
+		
+		//point for correct seat type
+		rs.last();
+		int rsSize = rs.getRow();
+		int relativeSeat = seatNum % rsSize;
+		if (relativeSeat == 0) relativeSeat = rsSize;
+		rs.absolute(relativeSeat);
+		
+		SeatType st = null;
+		String seatType = rs.getString("typ_miejsca");
+		if (seatType == null || seatType.isEmpty()) {
+			st = SeatType.BERTH;
+		} else if (seatType.equals("Okno")) {
+			st = SeatType.WINDOW;
+		} else if (seatType.equals("Środek")) {
+			st = SeatType.MIDDLE;
+		} else if (seatType.equals("Korytarz")) {
+			st = SeatType.CORRIDOR;
+		}
+		return new SpecificSeat(c, new Seat(st, seatNum));
+	}
 }

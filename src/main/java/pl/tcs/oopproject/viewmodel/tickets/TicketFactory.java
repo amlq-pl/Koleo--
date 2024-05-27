@@ -1,7 +1,10 @@
 package pl.tcs.oopproject.viewmodel.tickets;
 
-import pl.tcs.oopproject.viewmodel.discount.Discount;
-import pl.tcs.oopproject.viewmodel.discount.OneTimeDiscount;
+import pl.tcs.oopproject.model.discount.Discount;
+import pl.tcs.oopproject.model.discount.OneTimeDiscount;
+import pl.tcs.oopproject.model.ticket.LongTermTicket;
+import pl.tcs.oopproject.model.ticket.LongTermTicketType;
+import pl.tcs.oopproject.model.ticket.SingleFairTicket;
 
 import java.time.LocalDate;
 

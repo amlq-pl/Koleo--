@@ -1,9 +1,11 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
 import org.jetbrains.annotations.NotNull;
+import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.connection.DirectConnection;
+import pl.tcs.oopproject.model.exception.NoRouteFoundException;
+import pl.tcs.oopproject.model.station.Station;
 import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimeframe;
-import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
-import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -15,10 +17,10 @@ import java.util.List;
 public class ConnectionFinder implements FindConnectionInterface {
 	private static final int maxTransferNumber = 4;
 	private static final int hours = 20;
-	private ArrayList<ConnectionWithTransfers> trains;
 	private final String stationA;
 	private final String stationB;
 	private final LocalDateTime departureDate;
+	private ArrayList<ConnectionWithTransfers> trains;
 	private boolean active = false;
 	
 	private ConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) {

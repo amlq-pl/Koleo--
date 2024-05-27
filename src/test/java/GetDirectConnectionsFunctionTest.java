@@ -1,7 +1,7 @@
 import org.junit.Test;
 
 import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimeframe;
-import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
+import pl.tcs.oopproject.model.connection.DirectConnection;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;

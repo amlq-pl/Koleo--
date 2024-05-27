@@ -1,9 +1,12 @@
 import org.junit.Test;
+import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.connection.DirectConnection;
+import pl.tcs.oopproject.model.connection.TrainConnection;
+import pl.tcs.oopproject.model.connection.TrainIsReservation;
 import pl.tcs.oopproject.viewmodel.connection.*;
-import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
-import pl.tcs.oopproject.viewmodel.station.Station;
+import pl.tcs.oopproject.model.exception.NoRouteFoundException;
+import pl.tcs.oopproject.model.station.Station;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 

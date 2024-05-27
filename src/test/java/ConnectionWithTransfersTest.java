@@ -1,9 +1,9 @@
 import org.junit.Test;
-import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
-import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
-import pl.tcs.oopproject.viewmodel.connection.TrainConnection;
-import pl.tcs.oopproject.viewmodel.connection.TrainIsReservation;
-import pl.tcs.oopproject.viewmodel.station.Station;
+import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.connection.DirectConnection;
+import pl.tcs.oopproject.model.connection.TrainConnection;
+import pl.tcs.oopproject.model.connection.TrainIsReservation;
+import pl.tcs.oopproject.model.station.Station;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

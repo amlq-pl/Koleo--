@@ -1,11 +1,7 @@
 import org.junit.Test;
-import pl.tcs.oopproject.viewmodel.exception.KoleoException;
-import pl.tcs.oopproject.viewmodel.users.Person;
-import pl.tcs.oopproject.viewmodel.users.PersonFactory;
+import pl.tcs.oopproject.model.users.Person;
 
 import java.time.LocalDate;
-
-import static org.junit.Assert.*;
 
 public class PersonTest {
 	@Test

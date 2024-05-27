@@ -1,9 +1,10 @@
 package pl.tcs.oopproject.viewmodel.users;
 
+import pl.tcs.oopproject.model.exception.*;
+import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.postgresDatabaseIntegration.AuthenticateLogin;
 import pl.tcs.oopproject.postgresDatabaseIntegration.Checkers;
 import pl.tcs.oopproject.postgresDatabaseIntegration.InsertNewPersonToDatabase;
-import pl.tcs.oopproject.viewmodel.exception.*;
 
 import java.sql.SQLException;
 import java.time.LocalDate;

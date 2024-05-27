@@ -1,6 +1,7 @@
 package pl.tcs.oopproject.viewmodel.place;
 
-import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.place.Place;
 
 public class PlaceFactory {
 	public static Place create(ConnectionWithTransfers connection) {

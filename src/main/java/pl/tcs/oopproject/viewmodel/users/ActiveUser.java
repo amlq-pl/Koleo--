@@ -1,7 +1,8 @@
 package pl.tcs.oopproject.viewmodel.users;
 
 
-import pl.tcs.oopproject.viewmodel.place.Place;
+import pl.tcs.oopproject.model.place.Place;
+import pl.tcs.oopproject.model.users.Person;
 
 public class ActiveUser {
 	private static Person activeUser; //active customer

@@ -1,9 +1,9 @@
 import org.junit.Test;
-import pl.tcs.oopproject.viewmodel.carriage.Carriage;
-import pl.tcs.oopproject.viewmodel.carriage.CarriageClassType;
-import pl.tcs.oopproject.viewmodel.carriage.CarriageType;
-import pl.tcs.oopproject.viewmodel.seat.Seat;
-import pl.tcs.oopproject.viewmodel.seat.SeatType;
+import pl.tcs.oopproject.model.carriage.Carriage;
+import pl.tcs.oopproject.model.carriage.CarriageClassType;
+import pl.tcs.oopproject.model.carriage.CarriageType;
+import pl.tcs.oopproject.model.seat.Seat;
+import pl.tcs.oopproject.model.seat.SeatType;
 
 import static org.junit.Assert.assertEquals;
 

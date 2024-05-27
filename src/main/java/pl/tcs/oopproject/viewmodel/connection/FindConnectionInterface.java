@@ -1,5 +1,7 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
+import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+
 import java.sql.SQLException;
 import java.util.List;
 
