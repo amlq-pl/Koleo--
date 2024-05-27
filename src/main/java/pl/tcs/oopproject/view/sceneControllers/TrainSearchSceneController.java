@@ -3,6 +3,8 @@ package pl.tcs.oopproject.view.sceneControllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -162,5 +164,9 @@ public class TrainSearchSceneController implements Initializable {
                 }
             }
         });
+    }
+
+    public void BasketButtonClick() {
+        System.out.println(basket.itemsList);
     }
 }
