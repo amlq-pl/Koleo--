@@ -43,7 +43,7 @@
                         <FontAwesomeIconView glyphName="" />
                      </graphic>
                   </Button>
-                  <Button layoutX="450.0" layoutY="18.0" mnemonicParsing="false" onAction="#BackButtonClick" AnchorPane.bottomAnchor="-12.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="18.0">
+                  <Button layoutX="450.0" layoutY="18.0" mnemonicParsing="false" onAction="#BackButtonClick" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="3.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="ARROW_LEFT" />
                      </graphic>

@@ -1,9 +1,9 @@
-package pl.tcs.oopproject.model.connection;
+package pl.tcs.oopproject.viewmodel.connection;
 
 import org.jetbrains.annotations.NotNull;
-import pl.tcs.oopproject.model.discount.PricePLN;
-import pl.tcs.oopproject.model.exception.NoRouteFoundException;
-import pl.tcs.oopproject.model.station.Station;
+import pl.tcs.oopproject.viewmodel.discount.PricePLN;
+import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
+import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 				list.get(i).add(trains.get(i).getStationAt(t));
 			}
 		}
-		
+
 		transferStations.remove(stationB.getTown());
 		
 		return list;
@@ -158,7 +158,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	@Override
 	public int compareTo(@NotNull ConnectionWithTransfers o) {
 		if (!o.getDepartureTime().isEqual(getDepartureTime()))
-			return getDepartureTime().isBefore(o.getDepartureTime()) ? 1 : -1;
+			return getDepartureTime().isBefore(o.getDepartureTime()) ? -1 : 1;
 		return getArrivalTime().compareTo(o.getArrivalTime());
 	}
 	
