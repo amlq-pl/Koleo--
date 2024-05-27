@@ -52,8 +52,9 @@ public class TrainSearchSceneController implements Initializable {
                 Integer.parseInt(HourPicker.getValue().substring(3, 5)));
     }
 
-    private void addAllPanes(ConnectionFinder finder) {
+    private void addAllPanes(ConnectionFinder finder) throws SQLException {
         // TODO: UNCOMMENT WHEN ConnectionFinder finished
+//        System.out.println(finder.getRoutes());
 //        List<ConnectionWithTransfers> connections = null;
 //        try {
 //            connections = finder.getRoutes();
@@ -67,7 +68,7 @@ public class TrainSearchSceneController implements Initializable {
 //
 //        assert connections != null;
 //        for (ConnectionWithTransfers con : connections) {
-//            TrainPane pane = TrainPaneFactory.createTrainPane(con.getDepartureTime(), con.getArrivalTime());
+//            TrainPane pane = TrainPaneFactory.createTrainPane(con);
 //            ConnectionList.add(pane);
 //        }
 
@@ -97,7 +98,8 @@ public class TrainSearchSceneController implements Initializable {
         // ----->
     }
 
-    public void ConfirmButtonClick()  {
+    public void ConfirmButtonClick() throws SQLException {
+        if (!ConnectionList.isEmpty()) ConnectionList.clear();
         // TODO: add validation using validator FX or something like this
 
         LocalDateTime tempLocalDateTime = getLocalDateTime();
@@ -137,6 +139,9 @@ public class TrainSearchSceneController implements Initializable {
             while (change.next()) {
                 if (change.wasAdded()) {
                     ScrollablePane.getChildren().addAll(change.getAddedSubList());
+                }
+                if (change.wasRemoved()) {
+                    ScrollablePane.getChildren().removeAll(change.getRemoved());
                 }
             }
         });
