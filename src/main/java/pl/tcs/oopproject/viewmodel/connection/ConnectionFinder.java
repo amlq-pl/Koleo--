@@ -42,10 +42,12 @@ public class ConnectionFinder implements FindConnectionInterface {
 	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack, HashSet<DirectConnection> visitedConnections, HashSet<String> visitedStations) {
 		for (int i = 0; i < allTrains.size(); ++i) {
 			DirectConnection tempConnection = allTrains.get(i);
-			LocalDateTime departureTime = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
 			if (tempConnection.contains(temp) && !visitedConnections.contains(tempConnection)) {
-				if(tempConnection.getStation(temp).getArrivalTime().isBefore(departureTime))
-					continue;
+				if(!stack.isEmpty()) {
+					LocalDateTime departureTime = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
+					if (tempConnection.getStation(temp).getArrivalTime().isBefore(departureTime))
+						continue;
+				}
 				stack.add(tempConnection);
 				visitedConnections.add(tempConnection);
 				transfersStack.add(temp);
@@ -58,6 +60,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 							stack.get(stack.size() - 1).getStation(stationB).getArrivalTime());
 					if(!contains(stack))
 						trains.add(new ConnectionWithTransfers(sA, sB, new ArrayList<>(stack), new ArrayList<>(transfersStack)));
+					
 					stack.remove(stack.size() - 1);
 					visitedConnections.remove(tempConnection);
 					transfersStack.remove(transfersStack.size() - 1);
