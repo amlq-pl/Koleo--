@@ -7,11 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
+import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
 import pl.tcs.oopproject.view.Basket;
-import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
+
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class TrainPane extends AnchorPane {

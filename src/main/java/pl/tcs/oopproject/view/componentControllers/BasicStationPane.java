@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import pl.tcs.oopproject.App;
-import pl.tcs.oopproject.viewmodel.station.Station;
+import pl.tcs.oopproject.model.station.Station;
 
 import java.time.format.DateTimeFormatter;
 

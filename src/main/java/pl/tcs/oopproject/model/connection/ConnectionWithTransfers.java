@@ -1,9 +1,9 @@
-package pl.tcs.oopproject.viewmodel.connection;
+package pl.tcs.oopproject.model.connection;
 
 import org.jetbrains.annotations.NotNull;
-import pl.tcs.oopproject.viewmodel.discount.PricePLN;
-import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
-import pl.tcs.oopproject.viewmodel.station.Station;
+import pl.tcs.oopproject.model.discount.PricePLN;
+import pl.tcs.oopproject.model.exception.NoRouteFoundException;
+import pl.tcs.oopproject.model.station.Station;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

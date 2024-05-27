@@ -6,16 +6,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
-import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
-import pl.tcs.oopproject.viewmodel.station.Station;
+import pl.tcs.oopproject.model.connection.DirectConnection;
+import pl.tcs.oopproject.model.station.Station;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
