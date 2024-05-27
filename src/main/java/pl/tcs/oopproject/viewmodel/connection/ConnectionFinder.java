@@ -27,7 +27,10 @@ public class ConnectionFinder implements FindConnectionInterface {
 	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack, HashSet<DirectConnection> visitedConnections, HashSet<String> visitedStations) {
 		for (int i = 0; i < allTrains.size(); ++i) {
 			DirectConnection tempConnection = allTrains.get(i);
+			LocalDateTime departureTime = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
 			if (tempConnection.contains(temp) && !visitedConnections.contains(tempConnection)) {
+				if(tempConnection.getStation(temp).getArrivalTime().isBefore(departureTime))
+					continue;
 				stack.add(tempConnection);
 				visitedConnections.add(tempConnection);
 				transfersStack.add(temp);
@@ -55,9 +58,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 				int index = tempConnection.getIndexOfStation(temp);
 				
 				for (int j = index + 1; j < tempConnection.getSize(); ++j) {
-					LocalDateTime arrivalTime = tempConnection.getStationAt(j).getArrivalTime();
-					LocalDateTime departureTime = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
-					if (!visitedStations.contains(tempConnection.getStationAt(j).getTown()) && !arrivalTime.isBefore(departureTime)) {
+					if (!visitedStations.contains(tempConnection.getStationAt(j).getTown())) {
 						visitedStations.add(tempConnection.getStationAt(j).getTown());
 						findConnection(allTrains, tempConnection.getStationAt(j).getTown(), stack, transfersStack, visitedConnections, visitedStations);
 					} else break;

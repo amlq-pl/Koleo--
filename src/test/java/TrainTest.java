@@ -28,9 +28,10 @@ public class TrainTest {
 			
 			for (int i = 0; i < allTrains.size(); ++i) {
 				DirectConnection tempConnection = allTrains.get(i);
-				//tempConnection.display();
-				
+				LocalDateTime departure = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
 				if (tempConnection.contains(temp) && !visitedConnections.contains(tempConnection)) {
+					if(tempConnection.getStation(temp).getArrivalTime().isBefore(departure))
+						continue;
 					stack.add(tempConnection);
 					visitedConnections.add(tempConnection);
 					transfersStack.add(temp);
