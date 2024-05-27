@@ -10,7 +10,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import pl.tcs.oopproject.App;
+import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.view.componentControllers.TrainPane;
 import pl.tcs.oopproject.view.componentControllers.TrainPaneFactory;
@@ -31,6 +33,9 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class TrainSearchSceneController implements Initializable {
+    private final Basket basket = new Basket();
+    public Button BasketButton;
+
     public Button GoBackButton;
     public Button ExitButton;
     public Button ConfirmButton;
@@ -68,7 +73,7 @@ public class TrainSearchSceneController implements Initializable {
 //
 //        assert connections != null;
 //        for (ConnectionWithTransfers con : connections) {
-//            TrainPane pane = TrainPaneFactory.createTrainPane(con);
+//            TrainPane pane = TrainPaneFactory.createTrainPane(con, basket);
 //            ConnectionList.add(pane);
 //        }
 
@@ -93,7 +98,7 @@ public class TrainSearchSceneController implements Initializable {
         d.add(directConnection);
         d.add(directConnection2);
         temp = new ConnectionWithTransfers(start, end, d, arrayList);
-        TrainPane tempPane = TrainPaneFactory.createTrainPane(temp);
+        TrainPane tempPane = TrainPaneFactory.createTrainPane(temp, basket);
         ConnectionList.addAll(tempPane);
         // ----->
     }
@@ -134,6 +139,18 @@ public class TrainSearchSceneController implements Initializable {
         DepStation.getItems().setAll(StationObservable);
         ArrStation.getItems().setAll(StationObservable);
         ConnectionDate.setValue(LocalDate.now());
+
+        BasketButton.textProperty().bindBidirectional(basket.size, new StringConverter<Number>() {
+            @Override
+            public String toString(Number number) {
+                return "KOSZYK (" + number + ")";
+            }
+
+            @Override
+            public Number fromString(String s) {
+                return null;
+            }
+        });
 
         ConnectionList.addListener((ListChangeListener<? super TrainPane>) change -> {
             while (change.next()) {

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/train-search-scene.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.TrainSearchSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/train-search-scene.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.TrainSearchSceneController">
    <children>
       <AnchorPane prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,6 +29,7 @@
                   </Button>
                </children>
             </HBox>
+            <Button fx:id="BasketButton" mnemonicParsing="false" text="KOSZYK (0)" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
          </children>
       </AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
@@ -43,6 +44,7 @@
                         <ComboBox fx:id="HourPicker" prefHeight="24.0" prefWidth="115.0" promptText="GODZINA" />
                      </children>
                   </TilePane>
+                  <ComboBox prefHeight="24.0" prefWidth="138.0" promptText="SORTUJ WG" />
                   <Button fx:id="ConfirmButton" mnemonicParsing="false" onAction="#ConfirmButtonClick" text="GOTOWE" />
                </children>
                <opaqueInsets>
@@ -58,7 +60,7 @@
          <children>
             <ScrollPane id="ScrollContainer" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
-                  <VBox fx:id="ScrollablePane" alignment="TOP_CENTER" prefHeight="500.0" prefWidth="800.0" spacing="10.0" />
+                  <VBox fx:id="ScrollablePane" alignment="TOP_CENTER" prefHeight="500.0" prefWidth="1000.0" spacing="10.0" />
                </content></ScrollPane>
          </children>
       </AnchorPane>

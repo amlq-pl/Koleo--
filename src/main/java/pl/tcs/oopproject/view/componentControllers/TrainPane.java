@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
+import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class TrainPane extends AnchorPane {
+    private Basket thisBasket;
     @FXML
     private Label DepHour;
     @FXML
@@ -24,11 +26,12 @@ public class TrainPane extends AnchorPane {
     private Button ExtraButton;
     private final ConnectionWithTransfers privConnection;
 
-    public TrainPane (ConnectionWithTransfers connection) {
+    public TrainPane (ConnectionWithTransfers connection, Basket basket) {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/train-pane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         privConnection = connection;
+        thisBasket = basket;
         try {
             loader.load();
             this.DepHour.textProperty().setValue(connection.getDepartureTime().toString());
@@ -44,7 +47,7 @@ public class TrainPane extends AnchorPane {
         System.out.println(ExtraButton.getParent());
         Stage thisStage = (Stage) ExtraButton.getScene().getWindow();
         thisStage.close();
-        ExtraScene scene = new ExtraScene(this);
+        ExtraScene scene = new ExtraScene(this, thisBasket);
     }
     @FXML
     protected void doSomething() {

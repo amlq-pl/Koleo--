@@ -3,6 +3,7 @@ package pl.tcs.oopproject.view.componentControllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,9 +14,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
+import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.ViewController;
+import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
 import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.net.URL;
@@ -24,6 +29,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class ExtraScene extends AnchorPane implements Initializable {
+    private Basket thisBasket;
     @FXML
     private Label BegStation;
     @FXML
@@ -34,12 +40,15 @@ public class ExtraScene extends AnchorPane implements Initializable {
     private Label ArrDate;
     @FXML
     private VBox ListOfStations;
+    private ConnectionWithTransfers thisConnection;
     private final ObservableList<StationPane> stationPanes = FXCollections.observableArrayList();
 
-    public ExtraScene(TrainPane trainPane) {
+    public ExtraScene(TrainPane trainPane, Basket basket) {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/extra-scene.fxml"));
         loader.setRoot(this);
         loader.setController(this);
+        thisConnection = trainPane.getConnection();
+        thisBasket = basket;
         try {
             loader.load();
             addAllStations(trainPane);
@@ -79,8 +88,19 @@ public class ExtraScene extends AnchorPane implements Initializable {
     }
     @FXML
     protected void AddToBasketClick() {
-        Stage thisStage = (Stage) BegStation.getScene().getWindow();
-        thisStage.close();
+//        Stage thisStage = (Stage) BegStation.getScene().getWindow();
+//        thisStage.close();
+        thisBasket.itemsList.addAll(thisConnection);
+        Popup popup = new Popup();
+        Label popupText = new Label("Dodano połączenie do koszyka");
+        popupText.setStyle("-fx-text-fill: green");
+        popup.getContent().addAll(popupText);
+        popup.setAutoHide(true);
+        if (!popup.isShowing()) {
+            popup.show(BegStation.getScene().getWindow());
+        } else {
+            popup.hide();
+        }
         // TODO: FINISH IMPLEMENTATION
     }
 
