@@ -1,12 +1,14 @@
 package pl.tcs.oopproject.view.componentControllers;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.viewmodel.connection.DirectConnection;
 import pl.tcs.oopproject.viewmodel.station.Station;
@@ -14,20 +16,13 @@ import pl.tcs.oopproject.viewmodel.station.Station;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+import java.util.List;
 
 public class StationPane extends AnchorPane {
     @FXML
     private Label TrainInfo;
     @FXML
-    private Label BegStation;
-    @FXML
-    private Label BegHour;
-    @FXML
-    private Label EndStation;
-    @FXML
-    private Label EndHour;
-    @FXML
-    private ListView<String> StationList;
+    private VBox StationsView;
     @FXML
     private ObservableList<String> observableList = FXCollections.observableArrayList();
     private StationPane (ArrayList<Station> list, DirectConnection train) {
@@ -37,14 +32,20 @@ public class StationPane extends AnchorPane {
         try {
             loader.load();
             TrainInfo.textProperty().setValue(train.getCompany() + " " + train.getNumber());
-            BegStation.textProperty().setValue(list.get(0).getTown());
-            BegHour.textProperty().setValue(list.get(0).getDepartureTime()
-                    .toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-            EndStation.textProperty().setValue(list.get(list.size()-1).getTown());
-            EndHour.textProperty().setValue(list.get(list.size()-1).getArrivalTime()
-                    .toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+
+            observableList.addListener((ListChangeListener<? super String>) change -> {
+                while (change.next()) {
+                    if (change.wasAdded()) {
+                        List<Label> labels = new ArrayList<>();
+                        for (String a : change.getAddedSubList()) {
+                            labels.add(new Label(a));
+                        }
+                        StationsView.getChildren().addAll(labels);
+                    }
+                }
+            });
+
             observableList.addAll(list.stream().map(Station::getTown).toList());
-            StationList.setItems(observableList);
 
         } catch (Exception e) {
             e.printStackTrace();
