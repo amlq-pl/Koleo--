@@ -29,7 +29,7 @@
                   </Button>
                </children>
             </HBox>
-            <Button fx:id="BasketButton" mnemonicParsing="false" text="KOSZYK (0)" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <Button fx:id="BasketButton" onAction="#BasketButtonClick" mnemonicParsing="false" text="KOSZYK (0)" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
          </children>
       </AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">

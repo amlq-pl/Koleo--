@@ -3,6 +3,7 @@ package pl.tcs.oopproject.view.sceneControllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -60,46 +61,46 @@ public class TrainSearchSceneController implements Initializable {
     private void addAllPanes(ConnectionFinder finder) throws SQLException {
         // TODO: UNCOMMENT WHEN ConnectionFinder finished
 //        System.out.println(finder.getRoutes());
-//        List<ConnectionWithTransfers> connections = null;
-//        try {
-//            connections = finder.getRoutes();
-//        } catch (SQLException e) {
-//            Stage stage = (Stage) ArrStation.getScene().getWindow();
-//            stage.close();
-//        } catch (NullPointerException e) {
-//            System.out.println("Null pointer");
-//            return;
-//        }
-//
-//        assert connections != null;
-//        for (ConnectionWithTransfers con : connections) {
-//            TrainPane pane = TrainPaneFactory.createTrainPane(con, basket);
-//            ConnectionList.add(pane);
-//        }
+        List<ConnectionWithTransfers> connections = null;
+        try {
+            connections = finder.getRoutes();
+        } catch (SQLException e) {
+            Stage stage = (Stage) ArrStation.getScene().getWindow();
+            stage.close();
+        } catch (NullPointerException e) {
+            System.out.println("Null pointer");
+            return;
+        }
+
+        assert connections != null;
+        for (ConnectionWithTransfers con : connections) {
+            TrainPane pane = TrainPaneFactory.createTrainPane(con, basket);
+            ConnectionList.add(pane);
+        }
 
         // TODO: ten kod jest tylko na czas testowania
-        Station start = new Station("Kraków", LocalDateTime.now(), LocalDateTime.now());
-        Station middle = new Station("Szczecinek", LocalDateTime.now(), LocalDateTime.now());
-        Station end = new Station("Warszawa", LocalDateTime.now(), LocalDateTime.now());
-
-        ArrayList<Station> list = new ArrayList<>();
-        list.add(start); list.add(middle);
-        TrainConnection trainConnection1 = new TrainConnection(list);
-        DirectConnection directConnection = new DirectConnection("PKP", 12, 21.37, TrainIsReservation.WITH_RESERVATION, trainConnection1);
-
-        ArrayList<Station> list2 = new ArrayList<>();
-        list2.add(middle); list2.add(end);
-        TrainConnection trainConnection2 = new TrainConnection(list2);
-        DirectConnection directConnection2 = new DirectConnection("PKP", 12, 21.37, TrainIsReservation.WITH_RESERVATION, trainConnection2);
-
-        ArrayList<String> arrayList = new ArrayList<>(); arrayList.add(start.getTown()); arrayList.add(middle.getTown());
-        ConnectionWithTransfers temp;
-        ArrayList<DirectConnection> d = new ArrayList<>();
-        d.add(directConnection);
-        d.add(directConnection2);
-        temp = new ConnectionWithTransfers(start, end, d, arrayList);
-        TrainPane tempPane = TrainPaneFactory.createTrainPane(temp, basket);
-        ConnectionList.addAll(tempPane);
+//        Station start = new Station("Kraków", LocalDateTime.now(), LocalDateTime.now());
+//        Station middle = new Station("Szczecinek", LocalDateTime.now(), LocalDateTime.now());
+//        Station end = new Station("Warszawa", LocalDateTime.now(), LocalDateTime.now());
+//
+//        ArrayList<Station> list = new ArrayList<>();
+//        list.add(start); list.add(middle);
+//        TrainConnection trainConnection1 = new TrainConnection(list);
+//        DirectConnection directConnection = new DirectConnection("PKP", 12, 21.37, TrainIsReservation.WITH_RESERVATION, trainConnection1);
+//
+//        ArrayList<Station> list2 = new ArrayList<>();
+//        list2.add(middle); list2.add(end);
+//        TrainConnection trainConnection2 = new TrainConnection(list2);
+//        DirectConnection directConnection2 = new DirectConnection("PKP", 12, 21.37, TrainIsReservation.WITH_RESERVATION, trainConnection2);
+//
+//        ArrayList<String> arrayList = new ArrayList<>(); arrayList.add(start.getTown()); arrayList.add(middle.getTown());
+//        ConnectionWithTransfers temp;
+//        ArrayList<DirectConnection> d = new ArrayList<>();
+//        d.add(directConnection);
+//        d.add(directConnection2);
+//        temp = new ConnectionWithTransfers(start, end, d, arrayList);
+//        TrainPane tempPane = TrainPaneFactory.createTrainPane(temp, basket);
+//        ConnectionList.addAll(tempPane);
         // ----->
     }
 
@@ -124,6 +125,7 @@ public class TrainSearchSceneController implements Initializable {
         Stage thisStage = (Stage) ExitButton.getScene().getWindow();
         thisStage.close();
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -162,5 +164,9 @@ public class TrainSearchSceneController implements Initializable {
                 }
             }
         });
+    }
+
+    public void BasketButtonClick() {
+
     }
 }
