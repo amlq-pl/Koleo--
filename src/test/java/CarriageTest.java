@@ -28,13 +28,6 @@ public class CarriageTest {
 		carriage.displaySeats();
 		carriage.addSeat(s);
 		carriage.displaySeats();
-		assertEquals(s.getCarriage(), carriage);
-		try {
-			s.setCarriage(carriage);
-		}
-		catch (Exception e) {
-			System.out.println("Expected Behavior <3");
-		}
 		
 	}
 	

@@ -20,8 +20,7 @@ public enum LongTermTicketType {
 		PriceInterface getCost() {
 			return null;
 		}
-	},
-	THREE_DAYS {
+	}, THREE_DAYS {
 		@Override
 		void display() {
 			System.out.println("Three days");
@@ -36,8 +35,7 @@ public enum LongTermTicketType {
 		PriceInterface getCost() {
 			return null;
 		}
-	},
-	WEEK {
+	}, WEEK {
 		@Override
 		void display() {
 			System.out.println("Week");
@@ -52,8 +50,7 @@ public enum LongTermTicketType {
 		PriceInterface getCost() {
 			return null;
 		}
-	},
-	ONE_MONTH {
+	}, ONE_MONTH {
 		@Override
 		void display() {
 			System.out.println("One month");
@@ -68,8 +65,7 @@ public enum LongTermTicketType {
 		PriceInterface getCost() {
 			return null;
 		}
-	},
-	THREE_MONTHS {
+	}, THREE_MONTHS {
 		@Override
 		void display() {
 			System.out.println("Three months");
@@ -84,8 +80,7 @@ public enum LongTermTicketType {
 		PriceInterface getCost() {
 			return null;
 		}
-	},
-	SIX_MONTHS {
+	}, SIX_MONTHS {
 		@Override
 		void display() {
 			System.out.println("Six months");
@@ -100,8 +95,7 @@ public enum LongTermTicketType {
 		PriceInterface getCost() {
 			return null;
 		}
-	},
-	ONE_YEAR {
+	}, ONE_YEAR {
 		@Override
 		void display() {
 			System.out.println("One year");
@@ -119,6 +113,8 @@ public enum LongTermTicketType {
 	};
 	
 	abstract void display();
+	
 	abstract Period period();
+	
 	abstract PriceInterface getCost(); //TO CODE
 }

@@ -7,7 +7,6 @@ import pl.tcs.oopproject.viewmodel.station.Station;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class ConnectionWithTransfers implements ConnectionInterface, ConnectionWithTransfersInterface, Comparable<ConnectionWithTransfers> {
@@ -28,10 +27,8 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	}
 	
 	public TrainIsReservation getTrainType() {
-		if(trains.size() != 1)
-			return null;
-		else
-			return trains.get(0).getTrainType();
+		if (trains.size() != 1) return null;
+		else return trains.get(0).getTrainType();
 	}
 	
 	@Override
@@ -55,23 +52,9 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 			if (maxSize <= index) return trains.get(i).getStationAt(c + index);
 			index -= maxSize;
 		} //TO CHECK IT!!!
-
-
+		
+		
 		throw new IndexOutOfBoundsException();
-	}
-	
-	@Override
-	public int getIndexOfStation(String town) throws IllegalArgumentException {
-		//CODE HERE
-		return 0;
-	}
-	//Trains store direct connections, but as a whole, so eq A - B - C - D - E,
-	//when actually needed is B - E
-	
-	@Override
-	public Iterator<Station> getIterator() {
-		//CODE HERE
-		return null;
 	}
 	
 	@Override
@@ -80,16 +63,16 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 		
 		int size = trains.size();
 		
-		for(int i = 0; i < size - 1; ++i) {
+		for (int i = 0; i < size - 1; ++i) {
 			int j = trains.get(i).getIndexOfStation(transferStations.get(i));
 			int k = trains.get(i).getIndexOfStation(transferStations.get(i + 1));
-			for(int t = j; t <= k; ++t)
+			for (int t = j; t <= k; ++t)
 				list.add(trains.get(i).getStationAt(t));
-			}
+		}
 		
 		int j = trains.get(size - 1).getIndexOfStation(transferStations.get(size - 1));
 		int k = trains.get(size - 1).getIndexOfStation(stationB.getTown());
-		for(int t = j; t <= k; ++t)
+		for (int t = j; t <= k; ++t)
 			list.add(trains.get(size - 1).getStationAt(t));
 		
 		return list;
@@ -112,17 +95,17 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	
 	public List<String> getCompanies() {
 		List<String> list = new ArrayList<>();
-		for(DirectConnection t : trains)
+		for (DirectConnection t : trains)
 			list.add(t.getCompany());
 		return list;
 	}
 	
 	@Override
 	public List<Station> getTransferStations() {
-		if(transferStations.isEmpty()) throw new NoRouteFoundException();
+		if (transferStations.isEmpty()) throw new NoRouteFoundException();
 		List<Station> stations = new ArrayList<>();
-
-		for(int i = 1; i < transferStations.size(); ++i) {
+		
+		for (int i = 1; i < transferStations.size(); ++i) {
 			int index = trains.get(i).getIndexOfStation(transferStations.get(i));
 			stations.add(trains.get(i).getStationAt(index));
 		}
@@ -138,7 +121,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 		
 		transferStations.add(stationB.getTown());
 		
-		for(int i = 0; i < size; ++i) {
+		for (int i = 0; i < size; ++i) {
 			double cost1 = trains.get(i).getCost().getPriceValue();
 			int j = trains.get(i).getIndexOfStation(transferStations.get(i));
 			int k = trains.get(i).getIndexOfStation(transferStations.get(i + 1));
@@ -156,7 +139,9 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	
 	@Override
 	public int compareTo(@NotNull ConnectionWithTransfers o) {
-		return o.getDepartureTime().compareTo(getDepartureTime());
+		if (!o.getDepartureTime().isEqual(getDepartureTime()))
+			return o.getDepartureTime().compareTo(getDepartureTime());
+		return o.getArrivalTime().compareTo(getArrivalTime());
 	}
 	
 	public void displayLess() {
@@ -165,9 +150,8 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 		System.out.println("Cost: " + getCost().toString());
 	}
 	
-	
 	public void display() {
-		for(DirectConnection d : trains)
+		for (DirectConnection d : trains)
 			d.display();
 	}
 }

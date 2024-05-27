@@ -6,8 +6,7 @@ public enum CarriageType {
 		void display() {
 			System.out.println("Carriage Type: Single Compartment Carriage");
 		}
-	},
-	COMPARTMENT_CARRIAGE {
+	}, COMPARTMENT_CARRIAGE {
 		@Override
 		void display() {
 			System.out.println("Carriage Type: Compartment Carriage");

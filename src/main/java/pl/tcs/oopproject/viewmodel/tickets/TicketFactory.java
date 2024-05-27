@@ -1,6 +1,5 @@
 package pl.tcs.oopproject.viewmodel.tickets;
 
-import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
 import pl.tcs.oopproject.viewmodel.discount.Discount;
 import pl.tcs.oopproject.viewmodel.discount.OneTimeDiscount;
 

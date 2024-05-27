@@ -6,8 +6,7 @@ public enum CarriageClassType {
 		void display() {
 			System.out.println("Carriage Class: First Class");
 		}
-	},
-	SECOND_CLASS {
+	}, SECOND_CLASS {
 		@Override
 		void display() {
 			System.out.println("Carriage Class: Second Class");
