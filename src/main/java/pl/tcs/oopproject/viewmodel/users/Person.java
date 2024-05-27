@@ -10,7 +10,7 @@ public class Person {
 	private String surname;
 	private LocalDate dateOfBirth;
 	private String emailAddress;
-	private String telephoneNumber = null;
+	private String telephoneNumber;
 	
 	public Person(String name, String surname, LocalDate dateOfBirth, String emailAddress, String telephoneNumber) throws KoleoException {
 		this.name = name;
