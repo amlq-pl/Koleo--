@@ -158,8 +158,8 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	@Override
 	public int compareTo(@NotNull ConnectionWithTransfers o) {
 		if (!o.getDepartureTime().isEqual(getDepartureTime()))
-			return o.getDepartureTime().compareTo(getDepartureTime());
-		return o.getArrivalTime().compareTo(getArrivalTime());
+			return getDepartureTime().isBefore(o.getDepartureTime()) ? 1 : -1;
+		return getArrivalTime().compareTo(o.getArrivalTime());
 	}
 	
 	public void displayLess() {
