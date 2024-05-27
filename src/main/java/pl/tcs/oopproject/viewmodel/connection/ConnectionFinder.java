@@ -15,16 +15,22 @@ import java.util.List;
 public class ConnectionFinder implements FindConnectionInterface {
 	private static final int maxTransferNumber = 4;
 	private static final int hours = 20;
-	private final ArrayList<ConnectionWithTransfers> trains = new ArrayList<>();
+	private ArrayList<ConnectionWithTransfers> trains;
 	private final String stationA;
 	private final String stationB;
 	private final LocalDateTime departureDate;
 	private boolean active = false;
 	
-	public ConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) {
+	private ConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) {
 		this.stationA = stationA;
 		this.stationB = stationB;
 		this.departureDate = departureDate;
+	}
+	
+	public ConnectionFinder getConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) throws SQLException {
+		ConnectionFinder finder = new ConnectionFinder(stationA, stationB, departureDate);
+		finder.setTrains();
+		return finder;
 	}
 	
 	private boolean contains(ArrayList<DirectConnection> stack) {
