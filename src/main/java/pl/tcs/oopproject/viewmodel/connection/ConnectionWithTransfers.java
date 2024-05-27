@@ -76,12 +76,28 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	
 	@Override
 	public List<Station> getStations() {
-		return null;
+		ArrayList<Station> list = new ArrayList<>();
+		
+		int size = trains.size();
+		
+		for(int i = 0; i < size - 1; ++i) {
+			int j = trains.get(i).getIndexOfStation(transferStations.get(i));
+			int k = trains.get(i).getIndexOfStation(transferStations.get(i + 1));
+			for(int t = j; t < k; ++t)
+				list.add(trains.get(i).getStationAt(t));
+		}
+		
+		int j = trains.get(size - 1).getIndexOfStation(transferStations.get(size - 1));
+		int k = trains.get(size - 1).getIndexOfStation(stationB.getTown());
+		for(int t = j; t <= k; ++t)
+			list.add(trains.get(size - 1).getStationAt(t));
+		
+		return list;
 	}
 	
 	@Override
 	public int getNumberOfTransfers() {
-		return trains.size();
+		return trains.size() - 1;
 	}
 	
 	@Override
@@ -116,19 +132,39 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	
 	@Override
 	public PricePLN getCost() {
-		//CODE HERE
-		return null;
+		double cost = 0;
+		
+		int size = trains.size();
+		
+		transferStations.add(stationB.getTown());
+		
+		for(int i = 0; i < size; ++i) {
+			double cost1 = trains.get(i).getCost().getPriceValue();
+			int j = trains.get(i).getIndexOfStation(transferStations.get(i));
+			int k = trains.get(i).getIndexOfStation(transferStations.get(i + 1));
+			cost += cost1 * (k - j + 1) / trains.get(i).getSize();
+		}
+		
+		transferStations.remove(stationB.getTown());
+		return new PricePLN(cost);
 	}
 	
 	@Override
 	public int getSize() {
-		return 0;
+		return getStations().size();
 	}
 	
 	@Override
 	public int compareTo(@NotNull ConnectionWithTransfers o) {
 		return o.getDepartureTime().compareTo(getDepartureTime());
 	}
+	
+	public void displayLess() {
+		System.out.println("Departure Station: " + getFirstStation().getTown() + " " + getFirstStation().getDepartureTime());
+		System.out.println("Arrival Station: " + getLastStation().getTown() + " " + getLastStation().getArrivalTime());
+		System.out.println("Cost: " + getCost().toString());
+	}
+	
 	
 	public void display() {
 		for(DirectConnection d : trains)
