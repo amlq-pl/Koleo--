@@ -34,8 +34,8 @@ public class TrainPane extends AnchorPane {
         thisBasket = basket;
         try {
             loader.load();
-            this.DepHour.textProperty().setValue(connection.getDepartureTime().toString());
-            this.ArrHour.textProperty().setValue(connection.getArrivalTime().toString());
+            this.DepHour.textProperty().setValue(connection.getDepartureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+            this.ArrHour.textProperty().setValue(connection.getArrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
             this.PriceLabel.textProperty().setValue(String.valueOf(connection.getCost()));
         } catch (IOException e) {
             e.printStackTrace();

@@ -28,7 +28,7 @@
             </HBox>
             <ScrollPane prefHeight="200.0" prefWidth="200.0">
                <content>
-                  <VBox fx:id="StationsView" prefHeight="150.0" prefWidth="479.0" />
+                  <VBox fx:id="StationsView" prefHeight="150.0" prefWidth="479.0" spacing="10.0" />
                </content>
             </ScrollPane>
          </children>

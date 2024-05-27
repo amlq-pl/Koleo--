@@ -39,17 +39,7 @@ public class StationPane extends AnchorPane {
                     if (change.wasAdded()) {
                         List<AnchorPane> tempList = new ArrayList<>();
                         for (Station s : change.getAddedSubList()) {
-                            s.display();
-                            AnchorPane anchorPane = new AnchorPane();
-                            anchorPane.setMaxWidth(300);
-                            anchorPane.setMaxHeight(100);
-                            Label nameLabel = new Label(s.getTown());
-                            Label arrival = new Label(s.getArrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-                            Label departure = new Label(s.getDepartureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-                            HBox layout = new HBox();
-                            anchorPane.getChildren().add(layout);
-                            layout.setSpacing(10.0);
-                            layout.getChildren().addAll(nameLabel, arrival, departure);
+                            tempList.add(new BasicStationPane(s));
                         }
                         StationsView.getChildren().addAll(tempList);
                     }

@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ConnectionFinder implements FindConnectionInterface {
 	private static final int maxTransferNumber = 4;
-	private static final int hours = 20;
-	private ArrayList<ConnectionWithTransfers> trains;
+	private static final int hours = 16;
+	private ArrayList<ConnectionWithTransfers> trains = new ArrayList<>();
 	private final String stationA;
 	private final String stationB;
 	private final LocalDateTime departureDate;
