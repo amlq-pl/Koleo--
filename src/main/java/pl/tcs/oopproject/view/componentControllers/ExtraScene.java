@@ -101,7 +101,6 @@ public class ExtraScene extends AnchorPane implements Initializable {
         } else {
             popup.hide();
         }
-        // TODO: FINISH IMPLEMENTATION
     }
 
     @Override
@@ -115,15 +114,11 @@ public class ExtraScene extends AnchorPane implements Initializable {
         });
     }
 
-    private void addToStationList(Station station) {
-        StationPane temp = StationPane.createStationPane(station);
-        stationPanes.addAll(temp);
-    }
+//    private void addToStationList() {
+//        StationPane temp = StationPane.createStationPane(station);
+//        stationPanes.addAll(temp);
+//    }
     private void addAllStations(TrainPane pane) {
-        addToStationList(pane.getConnection().getFirstStation());
-        for (Station s : pane.getConnection().getTransferStations()) {
-            addToStationList(s);
-        }
-        addToStationList(pane.getConnection().getLastStation());
+
     }
 }
