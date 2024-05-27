@@ -110,7 +110,8 @@ public class TrainSearchSceneController implements Initializable {
 
         LocalDateTime tempLocalDateTime = getLocalDateTime();
 
-        ConnectionFinder finder =  new ConnectionFinder(DepStation.getValue(), ArrStation.getValue(), tempLocalDateTime);
+        ConnectionFinder finder =  ConnectionFinder.getConnectionFinder(DepStation.getValue(), ArrStation.getValue(), tempLocalDateTime);
+
 
         addAllPanes(finder);
     }

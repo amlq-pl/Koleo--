@@ -27,7 +27,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 		this.departureDate = departureDate;
 	}
 	
-	static public ConnectionFinder getConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) throws SQLException {
+	 public static ConnectionFinder getConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) throws SQLException {
 		ConnectionFinder finder = new ConnectionFinder(stationA, stationB, departureDate);
 		finder.setTrains();
 		return finder;
