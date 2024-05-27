@@ -30,29 +30,28 @@ public class StationPane extends AnchorPane {
     private ListView<String> StationList;
     @FXML
     private ObservableList<String> observableList = FXCollections.observableArrayList();
-    private StationPane (ArrayList<DirectConnection> list, Station beg, Station last) {
+    private StationPane (ArrayList<Station> list, DirectConnection train) {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/station-pane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
             loader.load();
-            TrainInfo.textProperty().setValue(list.get(0).getCompany() + " " + list.get(0).getNumber());
-            BegStation.textProperty().setValue(list.get(0).getFirstStation().getTown());
-            BegHour.textProperty().setValue(list.get(0).getFirstStation().getDepartureTime()
+            TrainInfo.textProperty().setValue(train.getCompany() + " " + train.getNumber());
+            BegStation.textProperty().setValue(list.get(0).getTown());
+            BegHour.textProperty().setValue(list.get(0).getDepartureTime()
                     .toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-            EndStation.textProperty().setValue(list.get(list.size()-1).getLastStation().getTown());
-            EndHour.textProperty().setValue(list.get(list.size()-1).getLastStation().getArrivalTime()
+            EndStation.textProperty().setValue(list.get(list.size()-1).getTown());
+            EndHour.textProperty().setValue(list.get(list.size()-1).getArrivalTime()
                     .toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-//            StationList.setItems(observableList.addAll(list.stream().map(x -> {
-//                x.getStations().stream().
-//            })));
+            observableList.addAll(list.stream().map(Station::getTown).toList());
+            StationList.setItems(observableList);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static StationPane createStationPane(ArrayList<DirectConnection> list, Station begin, Station last) {
-        return new StationPane(list, begin, last);
+    public static StationPane createStationPane(ArrayList<Station> list, DirectConnection train) {
+        return new StationPane(list, train);
     }
 }

@@ -34,7 +34,7 @@
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </ListView>
-            <Label fx:id="ArrStation" text="Label" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+            <Label fx:id="EndStation" text="Label" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
