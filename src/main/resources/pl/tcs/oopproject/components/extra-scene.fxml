@@ -1,8 +1,64 @@
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml">
-    <TextField fx:id="textField"/>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" stylesheets="@../styles/extra-scene.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane prefHeight="585.0" prefWidth="580.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="80.0" prefWidth="80.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="202.0" />
+            <ColumnConstraints hgrow="NEVER" minWidth="80.0" prefWidth="80.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="0.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="0.0" valignment="CENTER" vgrow="NEVER" />
+          <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="0.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="30.0" vgrow="NEVER" />
+          <RowConstraints maxHeight="509.0" minHeight="10.0" prefHeight="509.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="STACJA POCZĄTKOWA" GridPane.rowIndex="1" />
+            <Label text="STACJA KOŃCOWA" GridPane.rowIndex="2" />
+            <Label fx:id="BegStation" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="EndStation" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="GODZINA ODJAZDU" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="GODZINA PRZYJAZDU" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="BegDate" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="ArrDate" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <AnchorPane prefHeight="40.0" prefWidth="590.0" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
+               <children>
+                  <Button layoutX="324.0" layoutY="3.0" mnemonicParsing="false" onAction="#ExitButtonClick" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="248.0" layoutY="2.0" mnemonicParsing="false" onAction="#BackButtonClick" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="3.0">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_LEFT" />
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <Label text="LISTA STACJI POŚREDNICH" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#AddToBasketClick" text="DODAJ DO KOSZYKA" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="4">
+               <content>
+                  <VBox fx:id="ListOfStations" prefHeight="334.0" prefWidth="579.0" spacing="10.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </GridPane>
+   </children>
 <!--    <Button text="Click Me" onAction="#doSomething"/>-->
 </fx:root>
