@@ -16,7 +16,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 	private final String stationA;
 	private final String stationB;
 	private final LocalDateTime departureDate;
-	private boolean active = true;
+	private boolean active = false;
 	
 	public ConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) {
 		this.stationA = stationA;

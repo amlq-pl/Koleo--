@@ -146,7 +146,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 		}
 		
 		transferStations.remove(stationB.getTown());
-		return new PricePLN(cost);
+		return new PricePLN((double) Math.round(cost * 100) / 100);
 	}
 	
 	@Override
