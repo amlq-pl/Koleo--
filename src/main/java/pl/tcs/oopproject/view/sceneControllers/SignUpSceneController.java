@@ -111,9 +111,6 @@ public class SignUpSceneController implements Initializable {
 						PhoneNumberTextField.getText(),
 						LoginTextField.getText(),
 						PasswordInputField.getText());
-				
-				System.out.println("User created");
-				newPerson.display();
 				ErrorLabel.setStyle("-fx-text-fill: green");
 				ErrorLabel.setText("Użytkownik utworzony pomyślnie");
 				resetToInitial();

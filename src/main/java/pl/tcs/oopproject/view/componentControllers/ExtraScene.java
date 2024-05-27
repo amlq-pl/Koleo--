@@ -87,8 +87,6 @@ public class ExtraScene extends AnchorPane implements Initializable {
 	
 	@FXML
 	protected void AddToBasketClick() {
-//        Stage thisStage = (Stage) BegStation.getScene().getWindow();
-//        thisStage.close();
 		thisBasket.itemsList.addAll(thisConnection);
 		Popup popup = new Popup();
 		Label popupText = new Label("Dodano połączenie do koszyka");
@@ -112,14 +110,9 @@ public class ExtraScene extends AnchorPane implements Initializable {
 			}
 		});
 	}
-	
-	//    private void addToStationList() {
-//        StationPane temp = StationPane.createStationPane(station);
-//        stationPanes.addAll(temp);
-//    }
+
 	private void addAllStations() {
 		ArrayList<ArrayList<Station>> routes = thisConnection.getRoute();
-		System.out.println(thisConnection.getRoute());
 		ArrayList<DirectConnection> trains = (ArrayList<DirectConnection>) thisConnection.getTrains();
 		for (int i = 0; i < routes.size(); i++) {
 			stationPanes.addAll(StationPane.createStationPane(routes.get(i), trains.get(i)));

@@ -8,12 +8,10 @@
 <?import javafx.scene.layout.HBox?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/basket-scene.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.BasketSceneController">
-   <children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/basket-scene.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.BasketSceneController">
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox alignment="CENTER_RIGHT" maxHeight="50.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
-               <children>
                   <Button mnemonicParsing="false">
                      <graphic>
                         <FontAwesomeIconView glyphName="ARROW_LEFT" />
@@ -24,7 +22,6 @@
                         <FontAwesomeIconView />
                      </graphic>
                   </Button>
-               </children>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -37,5 +34,4 @@
             </HBox>
          </top>
       </BorderPane>
-   </children>
 </AnchorPane>

@@ -6,17 +6,13 @@
 <?import javafx.scene.layout.HBox?>
 
 
-<fx:root prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: pink;" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
+<fx:root prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: pink;" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
       <HBox layoutX="50.0" layoutY="-25.0" prefHeight="100.0" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
             <Label fx:id="StationName" text="Label" />
             <Label fx:id="ArrDate" text="Label" />
             <Label fx:id="DepDate" text="Label" />
-         </children>
          <padding>
             <Insets bottom="20.0" left="10.0" top="20.0" />
          </padding>
       </HBox>
-   </children>
 </fx:root>

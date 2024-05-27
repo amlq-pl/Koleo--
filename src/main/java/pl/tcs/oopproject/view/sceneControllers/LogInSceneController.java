@@ -64,7 +64,6 @@ public class LogInSceneController implements Initializable {
 				newStage.setScene(ViewController.getLandingScene());
 				newStage.show();
 			} catch (Exception e) {
-				System.out.println("wrong username or passwd");
 				ErrorLabel.setText("Nieprawidłowa nazwa użykownika lub hasło");
 			}
 		} else {

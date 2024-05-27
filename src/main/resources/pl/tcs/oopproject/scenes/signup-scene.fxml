@@ -11,11 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="690.0" style="-fx-background-color: #AEC5EB;" stylesheets="@../styles/signup-scene.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.SignUpSceneController">
-   <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="280.0" style="-fx-background-color: #0B132B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
             <FontAwesomeIconView fill="WHITE" glyphName="TRAIN" size="120" />
-         </children>
       </VBox>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="365.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
           <padding>
@@ -24,46 +21,32 @@
       
           <Label text="Zarejestruj się" />
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-            <children>
                <Label text="Imię" />
                <TextField fx:id="NameTextField" styleClass="shadow-effect" />
-            </children>
          </HBox>
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-            <children>
                <Label text="Nazwisko" />
                <TextField fx:id="SurnameTextField" styleClass="shadow-effect" />
-            </children>
          </HBox>
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-            <children>
                <Label text="Login" />
                <TextField fx:id="LoginTextField" styleClass="shadow-effect" />
-            </children>
          </HBox>
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-            <children>
                <Label text="Hasło" />
                <PasswordField fx:id="PasswordInputField" styleClass="shadow-effect" />
-            </children>
          </HBox>
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-            <children>
                <Label text="Data urodzenia" />
                <DatePicker fx:id="BirthDatePicker" styleClass="shadow-effect" />
-            </children>
          </HBox>
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-            <children>
                <Label text="Adres e-mail" />
                <TextField fx:id="EmailTextField" prefHeight="24.0" prefWidth="216.0" styleClass="shadow-effect" />
-            </children>
          </HBox>
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-            <children>
                <Label text="Nr telefonu" />
                <TextField fx:id="PhoneNumberTextField" styleClass="shadow-effect" />
-            </children>
          </HBox>
           <Button onAction="#onHelloButtonClick" styleClass="shadow-effect" text="Gotowe">
             <graphic>
@@ -73,7 +56,6 @@
          <Label fx:id="ErrorLabel" styleClass="error-label" wrapText="true" />
       </VBox>
       <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
-         <children>
             <Button fx:id="BackButton" mnemonicParsing="false" onAction="#BackButtonClick" style="-fx-background-color: #3A506B;">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" />
@@ -84,7 +66,5 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" />
                </graphic>
             </Button>
-         </children>
       </HBox>
-   </children>
 </AnchorPane>

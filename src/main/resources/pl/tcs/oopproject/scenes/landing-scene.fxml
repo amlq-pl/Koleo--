@@ -9,12 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="480.0" prefWidth="747.0" styleClass="main-anchor-pane" stylesheets="@../styles/landing-scene.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.LandingSceneController">
-   <children>
+<AnchorPane prefHeight="480.0" prefWidth="747.0" styleClass="main-anchor-pane" stylesheets="@../styles/landing-scene.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.LandingSceneController">
       <VBox id="button-vbox" alignment="TOP_RIGHT" prefHeight="480.0" prefWidth="237.0" spacing="10.0" styleClass="button-vbox" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
             <AnchorPane prefHeight="95.0" prefWidth="283.0">
-               <children>
                   <Button fx:id="SignUpButton" layoutX="153.0" layoutY="14.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#SignUpClicked" prefHeight="28.0" prefWidth="144.0" text="ZAREJESTRUJ SIĘ" textFill="WHITE" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
                      <font>
                         <Font name="C059-Bold" size="14.0" />
@@ -25,33 +22,25 @@
                         <Font name="C059-Bold" size="14.0" />
                      </font>
                   </Button>
-               </children>
             </AnchorPane>
             <AnchorPane prefHeight="357.0" prefWidth="283.0">
-               <children>
                   <VBox alignment="TOP_CENTER" layoutX="-10.0" prefHeight="356.0" prefWidth="237.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
                         <Button fx:id="confirmButton" alignment="TOP_CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#confirmButtonClick" prefHeight="24.0" prefWidth="80.0" style="-fx-background-color: grey;" text="GOTOWE" VBox.vgrow="NEVER" />
-                     </children>
                   </VBox>
-               </children></AnchorPane>
-         </children>
+               </AnchorPane>
          <padding>
             <Insets bottom="20.0" left="10.0" />
          </padding>
       </VBox>
       <VBox alignment="CENTER" disable="true" prefHeight="480.0" prefWidth="508.0" spacing="10.0" style="-fx-background-color: #0B132B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="KOLEO--">
                <font>
                   <Font name="C059-Bold" size="52.0" />
                </font>
             </Text>
             <FontAwesomeIconView fill="WHITE" glyphName="TRAIN" size="100" wrappingWidth="86.1428575515747" />
-         </children>
          <effect>
             <Blend />
          </effect>
       </VBox>
-   </children>
 </AnchorPane>

@@ -55,8 +55,6 @@ public class TrainSearchSceneController implements Initializable {
     }
 
     private void addAllPanes(ConnectionFinder finder) throws SQLException {
-        // TODO: UNCOMMENT WHEN ConnectionFinder finished
-//        System.out.println(finder.getRoutes());
         List<ConnectionWithTransfers> connections = null;
         try {
             connections = finder.getRoutes();
@@ -83,7 +81,6 @@ public class TrainSearchSceneController implements Initializable {
         LocalDateTime tempLocalDateTime = getLocalDateTime();
 
         ConnectionFinder finder =  ConnectionFinder.getConnectionFinder(DepStation.getValue(), ArrStation.getValue(), tempLocalDateTime);
-
 
         addAllPanes(finder);
     }

@@ -42,15 +42,9 @@ public class TrainPane extends AnchorPane {
     }
     @FXML
     protected void ExtraButtonClick() {
-        System.out.println("hello");
-        System.out.println(ExtraButton.getParent());
         Stage thisStage = (Stage) ExtraButton.getScene().getWindow();
         thisStage.close();
         ExtraScene scene = new ExtraScene(this, thisBasket);
-    }
-    @FXML
-    protected void doSomething() {
-        System.out.println("hello");
     }
 
     public ConnectionWithTransfers getConnection() {

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class App extends Application {
 	public static ArrayList<String> Stations;
 	private final Checkers checkers = new Checkers();
-	
 	{
 		try {
 			Stations = checkers.getAllStations();
