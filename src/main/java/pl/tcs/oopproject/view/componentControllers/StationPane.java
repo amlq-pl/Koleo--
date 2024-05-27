@@ -24,8 +24,8 @@ public class StationPane extends AnchorPane {
         try {
             loader.load();
             StationName.textProperty().setValue(station.getTown());
-            ArrivalDate.textProperty().setValue(station.getArrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-            DepartureDate.textProperty().setValue(station.getDepartureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+            ArrivalDate.textProperty().setValue(station.getArrivalTime().toString());
+            DepartureDate.textProperty().setValue(station.getDepartureTime().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

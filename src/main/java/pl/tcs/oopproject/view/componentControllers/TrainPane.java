@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.viewmodel.connection.ConnectionWithTransfers;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -30,8 +31,8 @@ public class TrainPane extends AnchorPane {
         privConnection = connection;
         try {
             loader.load();
-            this.DepHour.textProperty().setValue(connection.getDepartureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-            this.ArrHour.textProperty().setValue(connection.getArrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+            this.DepHour.textProperty().setValue(connection.getDepartureTime().toString());
+            this.ArrHour.textProperty().setValue(connection.getArrivalTime().toString());
             this.PriceLabel.textProperty().setValue(String.valueOf(connection.getCost()));
         } catch (IOException e) {
             e.printStackTrace();
