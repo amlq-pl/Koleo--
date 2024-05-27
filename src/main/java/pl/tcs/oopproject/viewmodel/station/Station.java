@@ -40,8 +40,7 @@ public class Station{
 	}
 	
 	public void display() {
-		System.out.println("station: " + town);
-		//System.out.println("DirectConnection " + directConnection.getNumber() + " arrives at " + departureTime + " departs at " + arrivalTime);
+		System.out.println("station: " + town + " arrives at " + departureTime + " departs at " + arrivalTime);
 		
 	}
 }

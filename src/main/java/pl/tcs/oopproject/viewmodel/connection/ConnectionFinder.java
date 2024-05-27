@@ -24,6 +24,21 @@ public class ConnectionFinder implements FindConnectionInterface {
 		this.departureDate = departureDate;
 	}
 	
+	private boolean contains(ArrayList<DirectConnection> stack) {
+		for(ConnectionWithTransfers connection : trains) {
+			if(connection.getNumberOfTransfers() + 1 != stack.size()) continue;
+			boolean equal = true;
+			for(int i = 0; i < stack.size(); ++i){
+				if(stack.get(i) != connection.getTrains().get(i)){
+					equal = false;
+					break;
+				}
+			}
+			if(equal) return true;
+		}
+		return false;
+	}
+	
 	private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack, HashSet<DirectConnection> visitedConnections, HashSet<String> visitedStations) {
 		for (int i = 0; i < allTrains.size(); ++i) {
 			DirectConnection tempConnection = allTrains.get(i);
@@ -41,7 +56,8 @@ public class ConnectionFinder implements FindConnectionInterface {
 					Station sB = new Station(stationB,
 							stack.get(stack.size() - 1).getStation(stationB).getDepartureTime(),
 							stack.get(stack.size() - 1).getStation(stationB).getArrivalTime());
-					trains.add(new ConnectionWithTransfers(sA, sB, new ArrayList<>(stack), new ArrayList<>(transfersStack)));
+					if(!contains(stack))
+						trains.add(new ConnectionWithTransfers(sA, sB, new ArrayList<>(stack), new ArrayList<>(transfersStack)));
 					stack.remove(stack.size() - 1);
 					visitedConnections.remove(tempConnection);
 					transfersStack.remove(transfersStack.size() - 1);

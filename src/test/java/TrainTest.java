@@ -2,6 +2,8 @@ import org.junit.Test;
 import pl.tcs.oopproject.viewmodel.connection.*;
 import pl.tcs.oopproject.viewmodel.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.station.Station;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -21,17 +23,30 @@ public class TrainTest {
 			this.departureDate = departureDate;
 		}
 		
-		private void findConnection(
-				ArrayList<DirectConnection> allTrains, String temp,
-				ArrayList<DirectConnection> stack, ArrayList<String> transfersStack,
-				HashSet<DirectConnection> visitedConnections, HashSet<String> visitedStations) {
-			
+		private boolean contains(ArrayList<DirectConnection> stack) {
+			for(ConnectionWithTransfers connection : trains) {
+				if(connection.getNumberOfTransfers() + 1 != stack.size()) continue;
+				boolean equal = true;
+				for(int i = 0; i < stack.size(); ++i){
+					if(stack.get(i) != connection.getTrains().get(i)){
+						equal = false;
+						break;
+					}
+				}
+				if(equal) return true;
+			}
+			return false;
+		}
+		
+		private void findConnection(ArrayList<DirectConnection> allTrains, String temp, ArrayList<DirectConnection> stack, ArrayList<String> transfersStack, HashSet<DirectConnection> visitedConnections, HashSet<String> visitedStations) {
 			for (int i = 0; i < allTrains.size(); ++i) {
 				DirectConnection tempConnection = allTrains.get(i);
-				LocalDateTime departure = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
 				if (tempConnection.contains(temp) && !visitedConnections.contains(tempConnection)) {
-					if(tempConnection.getStation(temp).getArrivalTime().isBefore(departure))
-						continue;
+					if(!stack.isEmpty()) {
+						LocalDateTime departureTime = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
+						if (tempConnection.getStation(temp).getArrivalTime().isBefore(departureTime))
+							continue;
+					}
 					stack.add(tempConnection);
 					visitedConnections.add(tempConnection);
 					transfersStack.add(temp);
@@ -42,7 +57,9 @@ public class TrainTest {
 						Station sB = new Station(stationB,
 								stack.get(stack.size() - 1).getStation(stationB).getDepartureTime(),
 								stack.get(stack.size() - 1).getStation(stationB).getArrivalTime());
-						trains.add(new ConnectionWithTransfers(sA, sB, new ArrayList<>(stack), new ArrayList<>(transfersStack)));
+						if(!contains(stack))
+							trains.add(new ConnectionWithTransfers(sA, sB, new ArrayList<>(stack), new ArrayList<>(transfersStack)));
+						
 						stack.remove(stack.size() - 1);
 						visitedConnections.remove(tempConnection);
 						transfersStack.remove(transfersStack.size() - 1);
@@ -57,15 +74,12 @@ public class TrainTest {
 					}
 					
 					int index = tempConnection.getIndexOfStation(temp);
+					
 					for (int j = index + 1; j < tempConnection.getSize(); ++j) {
-						LocalDateTime arrivalTime = tempConnection.getStationAt(j).getArrivalTime();
-						LocalDateTime departureTime = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
-						if(!visitedStations.contains(tempConnection.getStationAt(j).getTown()) && !arrivalTime.isBefore(departureTime)) {
-							visitedStations.add(tempConnection.getStationAt(j).getTown());
+						if (!visitedStations.contains(tempConnection.getStationAt(j).getTown())) {
 							visitedStations.add(tempConnection.getStationAt(j).getTown());
 							findConnection(allTrains, tempConnection.getStationAt(j).getTown(), stack, transfersStack, visitedConnections, visitedStations);
-						}
-						else break;
+						} else break;
 					}
 					
 					for (int j = index + 1; j < tempConnection.getSize(); ++j) {
@@ -101,10 +115,8 @@ public class TrainTest {
 		}
 		
 		@Override
-		public List<ConnectionWithTransfers> getCheapRoutes(){
-			System.out.println("GET ROUTES");
+		public List<ConnectionWithTransfers> getCheapRoutes() {
 			ArrayList<ConnectionWithTransfers> connections = new ArrayList<>();
-			System.out.println("TO SORT");
 			int size = Math.min(5, trains.size());
 			for (int i = 0; i < size; ++i) {
 				for (int j = i + 1; j < trains.size(); ++j) {
@@ -114,7 +126,6 @@ public class TrainTest {
 				}
 			}
 			
-			
 			for (int i = 0; i < size; ++i)
 				connections.add(trains.get(i));
 			
@@ -122,7 +133,7 @@ public class TrainTest {
 		}
 		
 		@Override
-		public List<ConnectionWithTransfers> getRoutesWithoutTransfers() {
+		public List<ConnectionWithTransfers> getRoutesWithoutTransfers(){
 			ArrayList<ConnectionWithTransfers> connection = new ArrayList<>();
 			for (ConnectionWithTransfers train : trains)
 				if (train.getNumberOfTransfers() == 0) connection.add(train);
@@ -143,15 +154,32 @@ public class TrainTest {
 	Station station3 = new Station("Szczecin", LocalDateTime.now(), LocalDateTime.now());
 	Station station4 = new Station("Koszalin", LocalDateTime.now(), LocalDateTime.now());
 	Station station5 = new Station("Szczecinek", LocalDateTime.now(), LocalDateTime.now());
+	Station station6 = new Station("Kędzierzyn Koźle", LocalDateTime.of(2024, 5, 27, 4, 20), LocalDateTime.of(2024, 5, 27, 4, 22));
+	Station station7 = new Station("Katowice", LocalDateTime.of(2024, 5, 27, 4, 44), LocalDateTime.of(2024, 5, 27, 4, 48));
+	Station station8 = new Station("Katowice", LocalDateTime.of(2024, 5, 27, 3, 44), LocalDateTime.of(2024, 5, 27, 3, 48));
+	Station station9 = new Station("Jastrzębia Góra", LocalDateTime.of(2024, 5, 27, 3, 50), LocalDateTime.of(2024, 5, 27, 4, 55));
+	Station station10 = new Station("Katowice", LocalDateTime.of(2024, 5, 27, 7, 44), LocalDateTime.of(2024, 5, 27, 7, 48));
+	Station station11 = new Station("Jastrzębia Góra", LocalDateTime.of(2024, 5, 27, 8, 50), LocalDateTime.of(2024, 5, 27, 8, 55));
 	
 	
+	DirectConnection dC11= new DirectConnection("TCS", 12, 21.37, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station1, station2, station3, station4))));
+	DirectConnection dC12 = new DirectConnection("TCS", 12, 21.37, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station3, station4, station5))));
 	DirectConnection dC1= new DirectConnection("TCS", 12, 21.37, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station1, station2))));
 	DirectConnection dC2 = new DirectConnection("UJ", 13, 12.34, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station2, station3))));
 	DirectConnection dC3 = new DirectConnection("pierdole To", 123, 34.56, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station1, station4, station2))));
 	DirectConnection dC4 = new DirectConnection("AverageCompanyName", 13, 34.56, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station3, station5))));
 	DirectConnection dC5 = new DirectConnection("ChujoweCompanyName", 34, 67.67, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station5, station2))));
 	DirectConnection dC6 = new DirectConnection("XD", 67, 67.88, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station1, station3))));
+	DirectConnection dC7 = new DirectConnection("TroubleSomeCompanyName", 34, 67.89, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station6, station7))));
+	DirectConnection dC8 = new DirectConnection("TroubleSomeCompanyName", 5667, 789.88, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station8, station9))));
+	DirectConnection dC9 = new DirectConnection("TroubleSomeCompanyName", 5667, 789.88, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station10, station11))));
+	DirectConnection dC10 = new DirectConnection("XDcompanyName", 457, 78.08, TrainIsReservation.WITHOUT_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station10, station11, station4, station5))));
 	
+	
+	public void fillFinder(Finder finder) {
+		finder.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6, dC7, dC8, dC9, dC10, dC11, dC12));
+	}
+
 	@Test
 	public void BasicFunctionalityTest() {
 		Finder finder = new Finder("Kraków", "Warszawa", LocalDateTime.now());
@@ -203,8 +231,76 @@ public class TrainTest {
 	}
 	
 	@Test
-	public void TimeDifferencesTest() {
-		//CODE HERE
+	public void TimeDifferencesThatDoesNotWorkTest() {
+		Finder finder = new Finder("Kędzierzyn Koźle", "Jastrzębia Góra", LocalDateTime.now());
+		finder.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6, dC7, dC8));
+		List<ConnectionWithTransfers> connection = finder.getRoutes();
+		assert connection.isEmpty();
+	}
+	
+	@Test
+	public void TestTimeDifferencesThatWorkTest() {
+		Finder finder = new Finder("Kędzierzyn Koźle", "Jastrzębia Góra", LocalDateTime.now());
+		finder.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6, dC7, dC8, dC9));
+		List<ConnectionWithTransfers> connection = finder.getRoutes();
+		assert !connection.isEmpty();
+		
+		System.out.println("DISPLAY");
+		for(ConnectionWithTransfers c : connection)
+			c.display();
+	}
+	
+	@Test
+	public void NestStations() {
+		Finder finder = new Finder("Jastrzębia Góra", "Warszawa", LocalDateTime.now());
+		fillFinder(finder);
+		List<ConnectionWithTransfers> connection = finder.getRoutes();
+		assert !connection.isEmpty();
+		
+		System.out.println("DISPLAY");
+		for(ConnectionWithTransfers c : connection) {
+			System.out.println("CONNECTION");
+			c.display();
+			System.out.println("STATIONS");
+			for(Station s : c.getStations())
+				s.display();
+		}
+	}
+	
+	@Test
+	public void ParallelTracksTest() {
+		Finder finder = new Finder("Warszawa", "Szczecinek", LocalDateTime.now());
+		finder.setTrains(List.of(dC11, dC12));
+		List<ConnectionWithTransfers> connection = finder.getRoutes();
+		assert !connection.isEmpty();
+		assert connection.size() == 1;
+		
+		System.out.println("DISPLAY");
+		for(ConnectionWithTransfers c : connection) {
+			System.out.println("CONNECTION");
+			c.display();
+			System.out.println("STATIONS");
+			for(Station s : c.getStations())
+				s.display();
+		}
+	}
+	
+	@Test
+	public void TracksTest() {
+		Finder finder = new Finder("Warszawa", "Szczecinek", LocalDateTime.now());
+		fillFinder(finder);
+		List<ConnectionWithTransfers> connection = finder.getRoutes();
+		assert !connection.isEmpty();
+		System.out.println(connection.size());
+		
+		System.out.println("DISPLAY");
+		for(ConnectionWithTransfers c : connection) {
+			//System.out.println("CONNECTION");
+			//c.display();
+			System.out.println("STATIONS");
+			for(Station s : c.getStations())
+				s.display();
+		}
 	}
 	
 }
