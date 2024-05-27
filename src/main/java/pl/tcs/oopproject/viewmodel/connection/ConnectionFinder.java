@@ -38,11 +38,11 @@ public class ConnectionFinder implements FindConnectionInterface {
 					Station sB = new Station(stationB,
 							stack.get(stack.size() - 1).getStation(stationB).getDepartureTime(),
 							stack.get(stack.size() - 1).getStation(stationB).getArrivalTime());
-					trains.add(new ConnectionWithTransfers(sA, sB, stack, transfersStack));
+					trains.add(new ConnectionWithTransfers(sA, sB, new ArrayList<>(stack), new ArrayList<>(transfersStack)));
 					stack.remove(stack.size() - 1);
 					visitedConnections.remove(tempConnection);
 					transfersStack.remove(transfersStack.size() - 1);
-					return;
+					continue;
 				} //good
 				
 				if (stack.size() >= maxTransferNumber) {
@@ -55,11 +55,12 @@ public class ConnectionFinder implements FindConnectionInterface {
 				int index = tempConnection.getIndexOfStation(temp);
 				
 				for (int j = index + 1; j < tempConnection.getSize(); ++j) {
-					visitedStations.add(tempConnection.getStationAt(j).getTown());
-					if(!visitedStations.contains(tempConnection.getStationAt(j).getTown())) {
+					LocalDateTime arrivalTime = tempConnection.getStationAt(j).getArrivalTime();
+					LocalDateTime departureTime = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
+					if (!visitedStations.contains(tempConnection.getStationAt(j).getTown()) && !arrivalTime.isBefore(departureTime)) {
+						visitedStations.add(tempConnection.getStationAt(j).getTown());
 						findConnection(allTrains, tempConnection.getStationAt(j).getTown(), stack, transfersStack, visitedConnections, visitedStations);
-					}
-					else break;
+					} else break;
 				}
 				
 				for (int j = index + 1; j < tempConnection.getSize(); ++j) {
@@ -70,17 +71,6 @@ public class ConnectionFinder implements FindConnectionInterface {
 				transfersStack.remove(transfersStack.size() - 1);
 			}
 		}
-	}
-	
-	public void setTrains(List<DirectConnection> l) {
-		ArrayList<DirectConnection> allTrains = new ArrayList<>();
-		allTrains.addAll(l);
-		ArrayList<DirectConnection> stack = new ArrayList<>();
-		ArrayList<String> transferStack = new ArrayList<>();
-		HashSet<DirectConnection> visitedDirectConnection = new HashSet<>();
-		HashSet<String> visitedStation = new HashSet<>();
-		findConnection(allTrains, stationA, stack, transferStack, visitedDirectConnection, visitedStation);
-		active = false;
 	}
 	
 	private void setTrains() throws SQLException {
@@ -111,14 +101,12 @@ public class ConnectionFinder implements FindConnectionInterface {
 		ArrayList<ConnectionWithTransfers> connections = new ArrayList<>();
 		int size = Math.min(5, trains.size());
 		for (int i = 0; i < size; ++i) {
-			for (int j = 1; j < trains.size(); ++j) {
+			for (int j = i + 1; j < trains.size(); ++j) {
 				if (trains.get(i).getCost().getPriceValue() > trains.get(j).getCost().getPriceValue()) {
-					ConnectionWithTransfers temp = trains.get(i);
-					trains.set(i, trains.get(j));
-					trains.set(j, temp);
+					Collections.swap(trains, i, j);
 				}
 			}
-		} //TO DO: check it
+		}
 		
 		for (int i = 0; i < size; ++i)
 			connections.add(trains.get(i));
@@ -136,10 +124,11 @@ public class ConnectionFinder implements FindConnectionInterface {
 		
 		if (connection.isEmpty()) throw new NoRouteFoundException();
 		Collections.sort(connection);
-		int size = Math.min(5, trains.size());
+		ArrayList<ConnectionWithTransfers> connection2 = new ArrayList<>();
+		int size = Math.min(5, connection.size());
 		for (int i = 0; i < size; ++i)
-			connection.add(trains.get(i));
+			connection2.add(connection.get(i));
 		
-		return connection;
+		return connection2;
 	}
 }
