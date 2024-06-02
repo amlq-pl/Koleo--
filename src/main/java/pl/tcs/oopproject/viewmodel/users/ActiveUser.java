@@ -5,15 +5,16 @@ import pl.tcs.oopproject.model.place.Place;
 import pl.tcs.oopproject.model.users.Person;
 
 public class ActiveUser {
-	private static Person activeUser; //active customer
+	private static String activeUser; //active customer
+	private static String login;
 	private static Place place; //temporarily viewed place
 	
-	public static Person getActiveUser() {
+	public static String getActiveUser() {
 		return activeUser;
 	}
 	
-	public static void setActiveUser(Person person) {
-		activeUser = person;
+	public static void setActiveUser(String user) {
+		activeUser = user;
 	}
 	
 	public static Place getPlace() {

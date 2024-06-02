@@ -105,6 +105,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 		ArrayList<String> transferStack = new ArrayList<>();
 		HashSet<DirectConnection> visitedDirectConnection = new HashSet<>();
 		HashSet<String> visitedStation = new HashSet<>();
+		visitedStation.add(stationA);
 		findConnection(allTrains, stationA, stack, transferStack, visitedDirectConnection, visitedStation);
 		active = false;
 	}
