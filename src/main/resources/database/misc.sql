@@ -46,3 +46,9 @@ begin
 end;
 $$ language plpgsql;
 
+create or replace function duplikatyTras() returns trigger as $$
+    begin
+
+    end;
+    $$
+

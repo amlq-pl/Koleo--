@@ -77,7 +77,7 @@ create table trasy_przewoznicy
 create table cennik_biletow_okresowych
 (
     id_typ_biletu  serial primary key,
-    cena_bazowa    numeric(6    , 2) not null,
+    cena_bazowa    numeric(6, 2) not null,
     okres_waznosci interval      not null,
     id_przewoznika integer       not null references przewoznicy,
     nazwa          varchar(30)
@@ -97,8 +97,8 @@ create table bilety_okresowe
 (
     id_biletu_okresowego          serial primary key,
     id_bilety_okresowe_zamowienia integer references bilety_okresowe_zamowienia,
-    data_od                       date    not null,
-    id_typ_biletu                 integer not null references cennik_biletow_okresowych
+    timestamp_od                  timestamp not null,
+    id_typ_biletu                 integer   not null references cennik_biletow_okresowych
 );
 
 create table przejazdy
@@ -155,9 +155,9 @@ create table bilety_jednorazowe_zamowienia
 (
     id_bilety_jednorazowe_zamowienia serial primary key,
     id_zamowienia                    integer references zamowienia,
-    timestamp_kupna                  timestamp    not null,
+    timestamp_kupna                  timestamp not null,
     timestamp_zwrotu                 timestamp check ( timestamp_kupna < timestamp_zwrotu ),
-    id_ulgi                          integer not null references ulgi,
+    id_ulgi                          integer   not null references ulgi,
     id_rabatu                        integer references rabaty
 );
 
@@ -172,6 +172,6 @@ create table bilety_jednorazowe
     nr_miejsca                       smallint not null,
     id_szczegolow                    smallint not null references szczegoly_biletu
 );
-create index on stacje_posrednie using hash(id_trasy);
+create index on stacje_posrednie using hash (id_trasy);
 
-create index on stacje_posrednie using btree(numer_stacji);
+create index on stacje_posrednie using btree (numer_stacji);
