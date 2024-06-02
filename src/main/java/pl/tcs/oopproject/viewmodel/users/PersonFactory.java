@@ -38,7 +38,7 @@ public class PersonFactory {
 		try {
 			AuthenticateLogin authenticator = new AuthenticateLogin();
 			Person person = authenticator.authenticate(login, password);
-			ActiveUser.setActiveUser(person);
+			ActiveUser.setActiveUser(login);
 			return person;
 		} catch (SQLException e) {
 			throw new InvalidUsernameOrPasswordException();
@@ -63,7 +63,7 @@ public class PersonFactory {
 			Checkers checker = new Checkers();
 			if (checker.checkIfUserExists(login)) throw new ExistingUserException();
 			if (!inserter.insert(person, login, password)) throw new SQLException();
-			ActiveUser.setActiveUser(person);
+			ActiveUser.setActiveUser(login);
 			return person;
 		} catch (SQLException e) {
 			throw new InternalDatabaseException();

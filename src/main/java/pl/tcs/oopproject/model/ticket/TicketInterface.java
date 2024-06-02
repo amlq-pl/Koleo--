@@ -12,7 +12,11 @@ public interface TicketInterface {
 	
 	DiscountInterface getOneTimeDiscount();
 	
-	String getID();
+	boolean returned();
+	
+	boolean returnTicket();
+	
+	int getID();
 	
 	LocalDateTime getPurchaseDate();
 }

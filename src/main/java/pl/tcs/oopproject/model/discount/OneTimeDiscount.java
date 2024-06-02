@@ -1,15 +1,21 @@
 package pl.tcs.oopproject.model.discount;
 
-public enum OneTimeDiscount implements DiscountInterface {
-	DISCOUNT1 {
-		@Override
-		public String getDiscount() {
-			return null;
-		}
-		
-		@Override
-		public int getValue() {
-			return 0;
-		}
+public class OneTimeDiscount implements DiscountInterface {
+	private final String name;
+	private final double value;
+	
+	public OneTimeDiscount(String name, double value) {
+		this.name = name;
+		this.value = value;
+	}
+	
+	@Override
+	public String getDiscount() {
+		return name;
+	}
+	
+	@Override
+	public double getValue() {
+		return value;
 	}
 }

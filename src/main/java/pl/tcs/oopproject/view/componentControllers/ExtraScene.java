@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 public class ExtraScene extends AnchorPane implements Initializable {
 	private final ObservableList<StationPane> stationPanes = FXCollections.observableArrayList();
 	private final Basket thisBasket;
+	private final ConnectionWithTransfers thisConnection;
 	@FXML
 	private Label BegStation;
 	@FXML
@@ -38,7 +39,6 @@ public class ExtraScene extends AnchorPane implements Initializable {
 	private Label ArrDate;
 	@FXML
 	private VBox ListOfStations;
-	private final ConnectionWithTransfers thisConnection;
 	
 	public ExtraScene(TrainPane trainPane, Basket basket) {
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("components/extra-scene.fxml"));
@@ -117,7 +117,7 @@ public class ExtraScene extends AnchorPane implements Initializable {
 			}
 		});
 	}
-
+	
 	private void addAllStations() {
 		ArrayList<ArrayList<Station>> routes = thisConnection.getRoute();
 		ArrayList<DirectConnection> trains = (ArrayList<DirectConnection>) thisConnection.getTrains();

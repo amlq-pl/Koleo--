@@ -81,7 +81,7 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 		System.out.println("Train Type: " + trainType.name());
 		System.out.println("Stations:");
 		for (Station station : connection.getStations()) {
-			station.display();
+			station.toString();
 		}
 	}
 }

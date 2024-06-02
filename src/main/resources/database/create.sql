@@ -77,7 +77,7 @@ create table trasy_przewoznicy
 create table cennik_biletow_okresowych
 (
     id_typ_biletu  serial primary key,
-    cena_bazowa    numeric(6, 2) not null,
+    cena_bazowa    numeric(6    , 2) not null,
     okres_waznosci interval      not null,
     id_przewoznika integer       not null references przewoznicy,
     nazwa          varchar(30)
@@ -155,8 +155,8 @@ create table bilety_jednorazowe_zamowienia
 (
     id_bilety_jednorazowe_zamowienia serial primary key,
     id_zamowienia                    integer references zamowienia,
-    timestamp_kupna                  date    not null,
-    timestamp_zwrotu                 date check ( timestamp_kupna < timestamp_zwrotu ),
+    timestamp_kupna                  timestamp    not null,
+    timestamp_zwrotu                 timestamp check ( timestamp_kupna < timestamp_zwrotu ),
     id_ulgi                          integer not null references ulgi,
     id_rabatu                        integer references rabaty
 );
