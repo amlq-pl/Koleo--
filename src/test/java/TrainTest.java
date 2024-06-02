@@ -27,14 +27,18 @@ public class TrainTest {
 		}
 		
 		private boolean contains(ArrayList<DirectConnection> stack) {
+			System.out.println("CONTAINS");
 			for(ConnectionWithTransfers connection : trains) {
 				if(connection.getNumberOfTransfers() + 1 != stack.size()) continue;
 				boolean equal = true;
+				System.out.println("NEW TRACE");
 				for(int i = 0; i < stack.size(); ++i){
-					if(stack.get(i) != connection.getTrains().get(i)){
+					if(trains.size() >= 4)
+							System.out.println(stack.get(i) + " + " + connection.getTrains().get(i));
+					if(!stack.get(i).equals( connection.getTrains().get(i))){
 						equal = false;
 						break;
-					}
+					} //EQUALS DOES NOT WORK!!!!
 				}
 				if(equal) return true;
 			}
@@ -298,6 +302,7 @@ public class TrainTest {
 		
 		System.out.println("DISPLAY");
 		for(ConnectionWithTransfers c : connection) {
+			System.out.println(c.getNumberOfTransfers());
 			//System.out.println("CONNECTION");
 			//c.display();
 			System.out.println("STATIONS");

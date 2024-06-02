@@ -74,6 +74,12 @@ public class DirectConnection implements ConnectionInterface { //some kind of de
 		return connection.getStation(station);
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof DirectConnection)) return false;
+		return connection.equals(((DirectConnection) obj).connection);
+	}
+	
 	public void display() {
 		System.out.println("Company: " + company);
 		System.out.println("Number: " + number);
