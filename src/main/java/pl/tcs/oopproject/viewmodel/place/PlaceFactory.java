@@ -2,6 +2,7 @@ package pl.tcs.oopproject.viewmodel.place;
 
 import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
 import pl.tcs.oopproject.model.place.Place;
+import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 public class PlaceFactory {
 	public static Place create(ConnectionWithTransfers connection) {
@@ -9,7 +10,8 @@ public class PlaceFactory {
 		//IT SHOULD THROW EXCEPTIONS OR RETURN OBJECT TYPE PLACE
 		//SAVE THIS OBJECT AS CHOSEN IN ACTIVE USER
 		//RETURN THIS OBJECT
-		return null;
+		Place place = null;
+		ActiveUser.setPlace(place);
+		return place;
 	}
-	
 }

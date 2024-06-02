@@ -29,7 +29,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 		this.departureDate = departureDate;
 	}
 	
-	 public static ConnectionFinder getConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) throws SQLException {
+	public static ConnectionFinder getConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) throws SQLException {
 		ConnectionFinder finder = new ConnectionFinder(stationA, stationB, departureDate);
 		finder.setTrains();
 		return finder;
@@ -105,6 +105,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 		ArrayList<String> transferStack = new ArrayList<>();
 		HashSet<DirectConnection> visitedDirectConnection = new HashSet<>();
 		HashSet<String> visitedStation = new HashSet<>();
+		visitedStation.add(stationA);
 		findConnection(allTrains, stationA, stack, transferStack, visitedDirectConnection, visitedStation);
 		active = false;
 	}

@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import net.synedra.validatorfx.Validator;
 import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.view.ViewController;
-import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 import pl.tcs.oopproject.viewmodel.users.PersonFactory;
 
 import java.net.URL;

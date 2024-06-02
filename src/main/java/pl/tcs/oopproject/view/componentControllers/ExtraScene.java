@@ -1,5 +1,6 @@
 package pl.tcs.oopproject.view.componentControllers;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -27,6 +28,7 @@ import java.util.ResourceBundle;
 public class ExtraScene extends AnchorPane implements Initializable {
 	private final ObservableList<StationPane> stationPanes = FXCollections.observableArrayList();
 	private final Basket thisBasket;
+	private final ConnectionWithTransfers thisConnection;
 	@FXML
 	private Label BegStation;
 	@FXML
@@ -37,7 +39,6 @@ public class ExtraScene extends AnchorPane implements Initializable {
 	private Label ArrDate;
 	@FXML
 	private VBox ListOfStations;
-	private final ConnectionWithTransfers thisConnection;
 	
 	public ExtraScene(TrainPane trainPane, Basket basket) {
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("components/extra-scene.fxml"));
@@ -87,7 +88,13 @@ public class ExtraScene extends AnchorPane implements Initializable {
 	
 	@FXML
 	protected void AddToBasketClick() {
-		thisBasket.itemsList.addAll(thisConnection);
+		if (thisBasket.itemsMap.containsKey(thisConnection)) {
+			Integer temp = thisBasket.itemsMap.get(thisConnection).getValue();
+			thisBasket.itemsMap.get(thisConnection).setValue(temp + 1);
+		} else {
+			thisBasket.itemsMap.put(thisConnection, new SimpleIntegerProperty(1));
+		}
+
 		Popup popup = new Popup();
 		Label popupText = new Label("Dodano połączenie do koszyka");
 		popupText.setStyle("-fx-text-fill: green");
@@ -110,7 +117,7 @@ public class ExtraScene extends AnchorPane implements Initializable {
 			}
 		});
 	}
-
+	
 	private void addAllStations() {
 		ArrayList<ArrayList<Station>> routes = thisConnection.getRoute();
 		ArrayList<DirectConnection> trains = (ArrayList<DirectConnection>) thisConnection.getTrains();
