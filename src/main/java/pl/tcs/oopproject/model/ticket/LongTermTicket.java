@@ -59,7 +59,7 @@ public class LongTermTicket implements TicketInterface {
 	
 	@Override
 	public boolean returnTicket() {
-		if(returned) return false;
+		if (returned) return false;
 		returned = true;
 		return true;
 	}

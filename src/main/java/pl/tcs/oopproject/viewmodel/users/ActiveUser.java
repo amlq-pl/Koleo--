@@ -23,8 +23,9 @@ public class ActiveUser {
 	public static void setPlace(Place place) {
 		ActiveUser.place = place;
 	}
+	
 	public static boolean logOut() {
-		if(activeUser == null) return false;
+		if (activeUser == null) return false;
 		activeUser = null;
 		return true;
 		

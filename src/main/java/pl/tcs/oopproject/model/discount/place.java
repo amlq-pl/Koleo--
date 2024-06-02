@@ -1,2 +1,4 @@
-package pl.tcs.oopproject.model.discount;public class place {
+package pl.tcs.oopproject.model.discount;
+
+public class place {
 }

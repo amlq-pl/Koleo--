@@ -4,6 +4,7 @@ import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.OneTimeDiscount;
 import pl.tcs.oopproject.model.exception.AlreadyReturnedTicketException;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
+
 import java.time.LocalDate;
 
 public class TicketFactory {
@@ -19,7 +20,7 @@ public class TicketFactory {
 	}
 	
 	public void refund(TicketInterface ticket) {
-		if(ticket.returned()) throw new AlreadyReturnedTicketException();
+		if (ticket.returned()) throw new AlreadyReturnedTicketException();
 		//RETURN TICKET - SAVE IT IN DATABASE
 		ticket.returnTicket();
 	}

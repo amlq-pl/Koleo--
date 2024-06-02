@@ -19,7 +19,7 @@ public class SingleFareTicket implements TicketInterface {
 	private final LocalDateTime purchaseDate;
 	private final int id;
 	private final Details details;
-	private  boolean returned;
+	private boolean returned;
 	
 	public SingleFareTicket(Place place, Discount discount, OneTimeDiscount oneTimeDiscount, int id, Details details) {
 		this.place = place;
@@ -50,10 +50,10 @@ public class SingleFareTicket implements TicketInterface {
 	public boolean returned() {
 		return returned;
 	}
-
+	
 	@Override
 	public boolean returnTicket() {
-		if(returned) return false;
+		if (returned) return false;
 		returned = true;
 		return true;
 	}

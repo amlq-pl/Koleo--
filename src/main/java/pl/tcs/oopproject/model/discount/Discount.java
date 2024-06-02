@@ -9,13 +9,13 @@ public class Discount implements DiscountInterface {
 		this.value = value;
 	}
 	
-		@Override
-		public String getDiscount() {
-			return name;
-		}
-		
-		@Override
-		public double getValue() {
-			return value;
-		}
+	@Override
+	public String getDiscount() {
+		return name;
+	}
+	
+	@Override
+	public double getValue() {
+		return value;
+	}
 }

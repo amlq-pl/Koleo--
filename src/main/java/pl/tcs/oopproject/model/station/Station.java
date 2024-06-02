@@ -41,6 +41,6 @@ public class Station {
 	
 	public void display() {
 		System.out.println("station: " + town + " arrives at " + departureTime + " departs at " + arrivalTime);
-
+		
 	}
 }

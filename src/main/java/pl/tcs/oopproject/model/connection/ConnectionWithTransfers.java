@@ -33,7 +33,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 				list.get(i).add(trains.get(i).getStationAt(t));
 			}
 		}
-
+		
 		transferStations.remove(stationB.getTown());
 		
 		return list;
