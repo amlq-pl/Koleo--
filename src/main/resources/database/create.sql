@@ -77,7 +77,7 @@ create table trasy_przewoznicy
 create table cennik_biletow_okresowych
 (
     id_typ_biletu  serial primary key,
-    cena_bazowa    numeric(5, 2) not null,
+    cena_bazowa    numeric(6, 2) not null,
     okres_waznosci interval      not null,
     id_przewoznika integer       not null references przewoznicy,
     nazwa          varchar(30)

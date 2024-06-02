@@ -7,3 +7,5 @@ python3 stacje_posrednie_gen.py
 python3 trasy_przewoznicy_gen.py
 python3 przejazdy_gen.py
 python3 przejazdy_sklad_gen.py
+python3 zamowienia_gen.py
+python3 cennik_biletow_okresowych_gen.py

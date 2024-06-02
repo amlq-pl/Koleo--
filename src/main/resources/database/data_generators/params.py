@@ -9,3 +9,4 @@ wagi_przewoznikow = [1.0, 0.9, 0.92, 0.94, 0.85, 1.5, 1.3, 0.84, 1.337, 0.71]
 liczba_przejazdow = 100000
 liczba_roznych_wagonow = 27
 szansa_na_zmiane_skladu = 0.05
+liczba_zamowien = 10000
