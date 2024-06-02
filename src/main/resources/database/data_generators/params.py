@@ -10,3 +10,5 @@ liczba_przejazdow = 100000
 liczba_roznych_wagonow = 27
 szansa_na_zmiane_skladu = 0.05
 liczba_zamowien = 10000
+procent_biletow_okresowych = 0.1
+procent_zwroconych_biletow = 0.2
