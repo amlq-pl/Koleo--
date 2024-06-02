@@ -21,13 +21,13 @@ import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.view.componentControllers.TrainPane;
 import pl.tcs.oopproject.view.componentControllers.TrainPaneFactory;
 import pl.tcs.oopproject.viewmodel.connection.ConnectionFinder;
+import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -37,7 +37,7 @@ import java.util.stream.Stream;
 public class TrainSearchSceneController implements Initializable {
     private static final StringProperty InitialDepStation = new SimpleStringProperty("");
     private static final StringProperty InitialArrStation = new SimpleStringProperty("");
-    private static final Property<LocalDate> InitialDate = new SimpleDateProperty();
+    private static final Property<LocalDate> InitialDate = new SimpleDateProperty(LocalDate.now());
     private static final StringProperty InitialHour = new SimpleStringProperty("");
     private final Basket basket = new Basket();
     public Button BasketButton;
@@ -158,6 +158,14 @@ public class TrainSearchSceneController implements Initializable {
     }
 
     public void BasketButtonClick() {
+        Stage thisStage = (Stage) BasketButton.getScene().getWindow();
+        thisStage.close();
 
+        Stage newStage = new Stage();
+        if (ActiveUser.getActiveUser() == null) {
+            newStage.setScene(ViewController.getBasketNotLoggedInScene());
+            BasketSceneController.setBasket(basket);
+            newStage.show();
+        }
     }
 }
