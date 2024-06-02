@@ -1,5 +1,8 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -13,6 +16,7 @@ import javafx.util.StringConverter;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
 import pl.tcs.oopproject.view.Basket;
+import pl.tcs.oopproject.view.SimpleDateProperty;
 import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.view.componentControllers.TrainPane;
 import pl.tcs.oopproject.view.componentControllers.TrainPaneFactory;
@@ -23,6 +27,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -30,9 +35,12 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class TrainSearchSceneController implements Initializable {
+    private static final StringProperty InitialDepStation = new SimpleStringProperty("");
+    private static final StringProperty InitialArrStation = new SimpleStringProperty("");
+    private static final Property<LocalDate> InitialDate = new SimpleDateProperty();
+    private static final StringProperty InitialHour = new SimpleStringProperty("");
     private final Basket basket = new Basket();
     public Button BasketButton;
-
     public Button GoBackButton;
     public Button ExitButton;
     public Button ConfirmButton;
@@ -44,6 +52,14 @@ public class TrainSearchSceneController implements Initializable {
     public DatePicker ConnectionDate;
     public ComboBox<String> HourPicker = new ComboBox<>();
 
+    public static void setInitialData(String DepStation, String ArrStation, LocalDate Date, String Hour) {
+        InitialDepStation.setValue(DepStation);
+        InitialArrStation.setValue(ArrStation);
+        InitialDate.setValue(Date);
+        InitialHour.setValue(Hour);
+    }
+
+
     private LocalDateTime getLocalDateTime() {
         LocalDate tempLocalDate = ConnectionDate.getValue();
 
@@ -54,7 +70,7 @@ public class TrainSearchSceneController implements Initializable {
                 Integer.parseInt(HourPicker.getValue().substring(3, 5)));
     }
 
-    private void addAllPanes(ConnectionFinder finder) throws SQLException {
+    private void addAllPanes(ConnectionFinder finder) {
         List<ConnectionWithTransfers> connections = null;
         try {
             connections = finder.getRoutes();
@@ -111,9 +127,13 @@ public class TrainSearchSceneController implements Initializable {
         HourPicker.getItems().setAll(hours);
         DepStation.getItems().setAll(StationObservable);
         ArrStation.getItems().setAll(StationObservable);
-        ConnectionDate.setValue(LocalDate.now());
 
-        BasketButton.textProperty().bindBidirectional(basket.size, new StringConverter<Number>() {
+        DepStation.valueProperty().bindBidirectional(InitialDepStation);
+        ArrStation.valueProperty().bindBidirectional(InitialArrStation);
+        ConnectionDate.valueProperty().bindBidirectional(InitialDate);
+        HourPicker.valueProperty().bindBidirectional(InitialHour);
+
+        BasketButton.textProperty().bindBidirectional(basket.size, new StringConverter<>() {
             @Override
             public String toString(Number number) {
                 return "KOSZYK (" + number + ")";

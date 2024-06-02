@@ -1,20 +1,35 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.view.ViewController;
 
-public class LandingSceneController {
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+public class LandingSceneController implements Initializable {
 	public Button SignUpButton;
 	public Button LogInButton;
-	public TextField fromTextField;
-	public TextField toTextField;
-	public DatePicker departureDate;
 	public Button confirmButton;
-	
+	private final ObservableList<String> ObservableStations = FXCollections.observableArrayList(App.Stations);
+	public ComboBox<String> DepStation;
+	public ComboBox<String> ArrStation;
+	public ComboBox<String> HourPicker;
+	public javafx.scene.control.DatePicker DatePicker;
+
 	@FXML
 	protected void SignUpClicked() {
 		Stage thisStage = (Stage) SignUpButton.getScene().getWindow();
@@ -39,6 +54,23 @@ public class LandingSceneController {
 		thisStage.close();
 		Stage newStage = new Stage();
 		newStage.setScene(ViewController.getTrainSearchScene());
+		TrainSearchSceneController.setInitialData(DepStation.getValue(), ArrStation.getValue(), DatePicker.getValue(), HourPicker.getValue());
 		newStage.show();
+	}
+
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		ArrayList<String> hours = IntStream.range(0, 24)
+				.boxed()
+				.flatMap(hour -> Stream.of(
+						String.format("%02d:00", hour),  // Full hour
+						String.format("%02d:30", hour)
+				))
+				.collect(Collectors.toCollection(ArrayList::new));
+
+		HourPicker.getItems().setAll(hours);
+		DepStation.getItems().setAll(App.Stations);
+		ArrStation.getItems().setAll(App.Stations);
+		DatePicker.setValue(LocalDate.now());
 	}
 }
