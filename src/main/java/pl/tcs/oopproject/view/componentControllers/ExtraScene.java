@@ -1,5 +1,6 @@
 package pl.tcs.oopproject.view.componentControllers;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -87,7 +88,14 @@ public class ExtraScene extends AnchorPane implements Initializable {
 	
 	@FXML
 	protected void AddToBasketClick() {
-		thisBasket.itemsList.addAll(thisConnection);
+		if (thisBasket.itemsMap.containsKey(thisConnection)) {
+			Integer temp = thisBasket.itemsMap.get(thisConnection).getValue();
+			thisBasket.itemsMap.get(thisConnection).setValue(temp + 1);
+			thisBasket.size.setValue(thisBasket.size.getValue() + 1);
+		} else {
+			thisBasket.itemsMap.put(thisConnection, new SimpleIntegerProperty(1));
+		}
+
 		Popup popup = new Popup();
 		Label popupText = new Label("Dodano połączenie do koszyka");
 		popupText.setStyle("-fx-text-fill: green");
