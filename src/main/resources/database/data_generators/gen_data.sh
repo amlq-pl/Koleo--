@@ -9,3 +9,4 @@ python3 przejazdy_gen.py
 python3 przejazdy_sklad_gen.py
 python3 zamowienia_gen.py
 python3 cennik_biletow_okresowych_gen.py
+python3 bilety_zamowienia_gen.py

@@ -45,7 +45,7 @@ def fetch_random_date(date_format='%Y-%m-%d') -> str:
     random_days = random.randint(0, delta.days)
     random_date = start + dt.timedelta(days=random_days)
 
-    return random_date.strftime(date_format) + ' 00:00:00.000000'
+    return random_date.strftime(date_format) + f' {random.randrange(24)}:{random.randrange(60)}:00.000000'
 
 
 path = os.path.dirname(__file__)
