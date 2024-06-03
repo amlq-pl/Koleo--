@@ -11,7 +11,7 @@ create table ulgi
 (
     id_ulgi serial primary key,
     nazwa   varchar(50) not null,
-    znizka  integer
+    znizka  integer     not null
 );
 
 create table klienci
@@ -20,8 +20,8 @@ create table klienci
     imie           varchar(20) not null,
     nazwisko       varchar(40) not null,
     data_urodzenia date        not null,
-    email          varchar(50) not null,
-    nr_telefonu    varchar(18)
+    email          varchar(50) not null unique,
+    nr_telefonu    varchar(18) unique
 );
 
 create table konto
@@ -80,7 +80,7 @@ create table cennik_biletow_okresowych
     cena_bazowa    numeric(6, 2) not null,
     okres_waznosci interval      not null,
     id_przewoznika integer       not null references przewoznicy,
-    nazwa          varchar(30)
+    nazwa          varchar(30)   not null
 );
 
 create table bilety_okresowe_zamowienia
@@ -108,7 +108,7 @@ create table przejazdy
     timestamp_przejazdu   timestamp     not null,
     koszt_bazowy          numeric(5, 2) not null,
     czy_rezerwacja_miejsc boolean       not null,
-    nazwa                 varchar(30)
+    nazwa                 varchar(30)   not null
 );
 
 create table wagony
@@ -172,6 +172,112 @@ create table bilety_jednorazowe
     nr_miejsca                       smallint not null,
     id_szczegolow                    smallint not null references szczegoly_biletu
 );
+
+
 create index on stacje_posrednie using hash (id_trasy);
 
 create index on stacje_posrednie using btree (numer_stacji);
+
+create index on przejazdy using hash (id_przejazdu);
+
+
+create or replace function getIDTrasy(id_przejazduu int) returns int as
+$$
+begin
+    return (select t.id_trasy
+            from przejazdy p
+                     join trasy_przewoznicy tp on p.id_trasy_przewoznika = tp.id_trasy_przewoznika
+                     join trasy t on tp.id_trasy = t.id_trasy
+            where p.id_przejazdu = id_przejazduu);
+end;
+$$ language plpgsql;
+
+create or replace function getNumOfStation(id_przejazduu int, nazwa_stacji varchar) returns int as
+$$
+begin
+    return (select sp.numer_stacji
+            from stacje_posrednie sp
+                     join stacje s on sp.id_stacji = s.id_stacji
+                     join trasy t on sp.id_trasy = t.id_trasy
+                     join trasy_przewoznicy on t.id_trasy = trasy_przewoznicy.id_trasy
+                     join przejazdy p on trasy_przewoznicy.id_trasy_przewoznika = p.id_trasy_przewoznika
+            where p.id_przejazdu = id_przejazduu
+              and s.nazwa = nazwa_stacji);
+end;
+$$ language plpgsql;
+
+create or replace function correctNullsStacjePosrednie() returns trigger as
+$$
+declare
+    lastStation int;
+begin
+    select ile_stacji into lastStation from trasy where id_trasy = new.id_trasy;
+    if new.numer_stacji = 1 then
+        if new.czas_postoju is not null or new.czas_przejazdu is not null then
+            raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
+        end if;
+    elsif new.numer_stacji = lastStation then
+        if new.czas_postoju is not null or new.czas_przejazdu is null then
+            raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
+        end if;
+    else
+        if new.czas_postoju is null or new.czas_przejazdu is null then
+            raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
+        end if;
+    end if;
+    return new;
+end;
+$$ language plpgsql;
+
+create trigger correctNullsInStacjePosrednie
+    before insert
+    on stacje_posrednie
+    for each row
+execute procedure correctNullsStacjePosrednie();
+
+create or replace function correctNullsBiletyJednorazowe() returns trigger as
+$$
+begin
+    if tg_op = 'INSERT' and new.timestamp_zwrotu is null then
+        raise exception 'timestamp zwrotu nie jest nullem podczas próby utworzenia biletu';
+    end if;
+    if tg_op = 'UPDATE' and new.timestamp_zwrotu is not null then
+        raise exception 'timestamp zwrotu nie może być null podczas próby zwrotu biletu';
+    end if;
+    return new;
+end;
+$$ language plpgsql;
+
+create trigger correctNullsInBiletyJednorazowe
+    before insert or update
+    on bilety_jednorazowe
+    for each row
+execute procedure correctNullsStacjePosrednie();
+
+create or replace function discardNullAcc() returns trigger as
+$$
+begin
+    if new.login is null and new.haslo is null then
+        return null;
+    end if;
+    return new;
+end;
+$$ language plpgsql;
+
+create trigger discardNullAccounts
+    before insert
+    on konto
+    for each row
+execute procedure discardNullAcc();
+
+create view uzytkownicy as
+select kl.imie, kl.nazwisko, kl.data_urodzenia, kl.email, kl.nr_telefonu, ko.login, ko.haslo
+from klienci kl
+         join konto ko on kl.id_klienta = ko.id_klienta;
+
+create rule nowyUzytkownik as on insert to uzytkownicy do instead (
+    insert into klienci
+    values (new.imie, new.nazwisko, new.data_urodzenia, new.email, new.nr_telefonu);
+    insert into konto
+    values (new.login, new.haslo, (select max(id_klienta) from klienci));
+    )
