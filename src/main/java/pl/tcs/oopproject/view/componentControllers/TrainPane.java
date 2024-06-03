@@ -7,14 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
-import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.view.Basket;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class TrainPane extends AnchorPane {
-	private final ConnectionWithTransfers privConnection;
+	private final MultiStopRoute privConnection;
 	private final Basket thisBasket;
 	@FXML
 	private Label DepHour;
@@ -25,7 +25,7 @@ public class TrainPane extends AnchorPane {
 	@FXML
 	private Button ExtraButton;
 	
-	public TrainPane(ConnectionWithTransfers connection, Basket basket) {
+	public TrainPane(MultiStopRoute connection, Basket basket) {
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("components/train-pane.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
@@ -33,9 +33,9 @@ public class TrainPane extends AnchorPane {
 		thisBasket = basket;
 		try {
 			loader.load();
-			this.DepHour.textProperty().setValue(connection.getDepartureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-			this.ArrHour.textProperty().setValue(connection.getArrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-			this.PriceLabel.textProperty().setValue(String.valueOf(connection.getCost()));
+			this.DepHour.textProperty().setValue(connection.departureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+			this.ArrHour.textProperty().setValue(connection.arrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+			this.PriceLabel.textProperty().setValue(String.valueOf(connection.cost()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -48,7 +48,7 @@ public class TrainPane extends AnchorPane {
 		ExtraScene scene = new ExtraScene(this, thisBasket);
 	}
 	
-	public ConnectionWithTransfers getConnection() {
+	public MultiStopRoute getConnection() {
 		return privConnection;
 	}
 	

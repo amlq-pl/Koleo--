@@ -1,6 +1,6 @@
 package pl.tcs.oopproject.model.carriage;
 
-public enum CarriageClassType {
+public enum CarriageClass {
 	FIRST_CLASS {
 		@Override
 		void display() {

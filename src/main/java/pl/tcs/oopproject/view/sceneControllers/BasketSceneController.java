@@ -8,16 +8,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.componentControllers.BasketItem;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class BasketSceneController implements Initializable {
@@ -50,7 +46,7 @@ public class BasketSceneController implements Initializable {
                 }
             }
         });
-        basket.itemsMap.addListener((MapChangeListener<? super ConnectionWithTransfers, ? super IntegerProperty>) change -> {
+        basket.itemsMap.addListener((MapChangeListener<? super MultiStopRoute, ? super IntegerProperty>) change -> {
             System.out.println("hello man");
             if (change.wasRemoved()) {
                 items.removeIf(item -> item.getConnection().equals(change.getKey()));

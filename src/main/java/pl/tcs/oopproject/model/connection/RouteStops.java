@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TrainConnection implements ConnectionInterface {
+public class RouteStops implements RouteElement {
 	private final ArrayList<Station> train;
 	
-	public TrainConnection(ArrayList<Station> train) {
+	public RouteStops(ArrayList<Station> train) {
 		this.train = train;
 	}
 	
@@ -25,17 +25,17 @@ public class TrainConnection implements ConnectionInterface {
 	}
 	
 	@Override
-	public Station getFirstStation() {
+	public Station originStation() {
 		return train.get(0);
 	}
 	
 	@Override
-	public Station getLastStation() {
+	public Station destinationStation() {
 		return train.get(train.size() - 1);
 	}
 	
 	@Override
-	public Station getStationAt(int index) throws IndexOutOfBoundsException {
+	public Station getStation(int index) throws IndexOutOfBoundsException {
 		return train.get(index);
 	}
 	
@@ -46,12 +46,12 @@ public class TrainConnection implements ConnectionInterface {
 	}
 	
 	@Override
-	public List<Station> getStations() {
+	public List<Station> stations() {
 		return train;
 	}
 	
 	@Override
-	public int getSize() {
+	public int numberOfStops() {
 		return train.size();
 	}
 	
@@ -62,11 +62,11 @@ public class TrainConnection implements ConnectionInterface {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof TrainConnection t)) return false;
-		if(t.getSize() != getSize()) return false;
-		for(int i = 0; i < t.getSize(); ++i) {
-			System.out.println(t.getStations().get(i).town() + " ~ " + getStations().get(i).town());
-			if (!Objects.equals(t.getStations().get(i).town(), getStations().get(i).town())) {
+		if(!(obj instanceof RouteStops t)) return false;
+		if(t.numberOfStops() != numberOfStops()) return false;
+		for(int i = 0; i < t.numberOfStops(); ++i) {
+		//	System.out.println(t.stations().get(i).town() + " ~ " + stations().get(i).town());
+			if (!Objects.equals(t.stations().get(i).town(), stations().get(i).town())) {
 				return false;
 			}
 		}

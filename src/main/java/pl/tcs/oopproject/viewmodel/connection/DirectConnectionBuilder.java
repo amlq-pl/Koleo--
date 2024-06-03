@@ -1,19 +1,19 @@
 package pl.tcs.oopproject.viewmodel.connection;
 
-import pl.tcs.oopproject.model.connection.DirectConnection;
-import pl.tcs.oopproject.model.connection.TrainConnection;
-import pl.tcs.oopproject.model.connection.TrainIsReservation;
+import pl.tcs.oopproject.model.connection.ScheduledTrain;
+import pl.tcs.oopproject.model.connection.RouteStops;
+import pl.tcs.oopproject.model.connection.ReservationType;
 import pl.tcs.oopproject.model.exception.TooFewArgumentsException;
 import pl.tcs.oopproject.model.station.Station;
 
 import java.util.ArrayList;
 
 public class DirectConnectionBuilder {
-	private TrainConnection connection = null;
+	private RouteStops connection = null;
 	private String company = "";
 	private int number = -1;
 	private double cost = 0;
-	private TrainIsReservation trainType;
+	private ReservationType trainType;
 	
 	
 	public DirectConnectionBuilder() {
@@ -23,7 +23,7 @@ public class DirectConnectionBuilder {
 		this.company = company;
 	}
 	
-	public void setConnection(TrainConnection connection) {
+	public void setConnection(RouteStops connection) {
 		this.connection = connection;
 	}
 	
@@ -35,12 +35,12 @@ public class DirectConnectionBuilder {
 		this.number = number;
 	}
 	
-	public void setTrainType(TrainIsReservation trainType) {
+	public void setTrainType(ReservationType trainType) {
 		this.trainType = trainType;
 	}
 	
 	public void addStation(Station station) {
-		if (connection == null) connection = new TrainConnection(new ArrayList<>());
+		if (connection == null) connection = new RouteStops(new ArrayList<>());
 		connection.add(station);
 	}
 	
@@ -48,10 +48,10 @@ public class DirectConnectionBuilder {
 		this.cost += cost;
 	}
 	
-	public DirectConnection getTrainConnection() throws TooFewArgumentsException {
+	public ScheduledTrain getTrainConnection() throws TooFewArgumentsException {
 		if (number == -1 || cost == 0 || trainType == null || connection == null || company.isEmpty())
 			throw new TooFewArgumentsException();
-		return new DirectConnection(company, number, cost, trainType, connection);
+		return new ScheduledTrain(company, number, cost, trainType, connection);
 	}
 }
 

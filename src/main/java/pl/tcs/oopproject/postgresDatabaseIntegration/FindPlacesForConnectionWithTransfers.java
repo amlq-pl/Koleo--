@@ -1,10 +1,10 @@
 package pl.tcs.oopproject.postgresDatabaseIntegration;
 
 import pl.tcs.oopproject.model.carriage.Carriage;
-import pl.tcs.oopproject.model.carriage.CarriageClassType;
+import pl.tcs.oopproject.model.carriage.CarriageClass;
 import pl.tcs.oopproject.model.carriage.CarriageType;
-import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
-import pl.tcs.oopproject.model.connection.DirectConnection;
+import pl.tcs.oopproject.model.connection.MultiStopRoute;
+import pl.tcs.oopproject.model.connection.ScheduledTrain;
 import pl.tcs.oopproject.model.databaseIntegration.FindPlacesForConnectionWithTransfersInterface;
 import pl.tcs.oopproject.model.place.Place;
 import pl.tcs.oopproject.model.place.SpecificSeat;
@@ -18,28 +18,28 @@ import java.util.ArrayList;
 
 public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnectionWithTransfersInterface {
 	@Override
-	public Place findPlacesForConnectionWithTransfers(ConnectionWithTransfers connectionWithTransfers) throws SQLException {
+	public Place findPlacesForConnectionWithTransfers(MultiStopRoute multiStopRoute) throws SQLException {
 		ArrayList<SpecificSeat> places = new ArrayList<>();
-		for (DirectConnection directConnection : connectionWithTransfers.getTrains()) {
-			places.add(findSpecificSeat(directConnection));
+		for (ScheduledTrain scheduledTrain : multiStopRoute.getTrains()) {
+			places.add(findSpecificSeat(scheduledTrain));
 		}
-		return new Place(connectionWithTransfers, places);
+		return new Place(multiStopRoute, places);
 	}
 	
-	private SpecificSeat findSpecificSeat(DirectConnection directConnection) throws SQLException {
-		int startStation = getNumOfStation(directConnection.getNumber(), directConnection.getFirstStation().town()),
-				endStation = getNumOfStation(directConnection.getNumber(), directConnection.getLastStation().town());
+	private SpecificSeat findSpecificSeat(ScheduledTrain scheduledTrain) throws SQLException {
+		int startStation = getNumOfStation(scheduledTrain.getNumber(), scheduledTrain.originStation().town()),
+				endStation = getNumOfStation(scheduledTrain.getNumber(), scheduledTrain.destinationStation().town());
 		
 		int carriageSeats;
-		int numOfNeededDifferentCarriageConfigurationsInConnection = getNumOfIntersectingCarriageChangesInConnection(directConnection.getNumber(), startStation, endStation);
-		for (int inspectedCarriage = 1; inspectedCarriage <= getNumOfMaxCarriages(directConnection.getNumber()); inspectedCarriage++) {
-			if (!isCarriageCorrect(directConnection.getNumber(), inspectedCarriage, numOfNeededDifferentCarriageConfigurationsInConnection))
+		int numOfNeededDifferentCarriageConfigurationsInConnection = getNumOfIntersectingCarriageChangesInConnection(scheduledTrain.getNumber(), startStation, endStation);
+		for (int inspectedCarriage = 1; inspectedCarriage <= getNumOfMaxCarriages(scheduledTrain.getNumber()); inspectedCarriage++) {
+			if (!isCarriageCorrect(scheduledTrain.getNumber(), inspectedCarriage, numOfNeededDifferentCarriageConfigurationsInConnection))
 				continue;
-			carriageSeats = getNumOfSeatsInCarriage(directConnection.getNumber(), inspectedCarriage);
+			carriageSeats = getNumOfSeatsInCarriage(scheduledTrain.getNumber(), inspectedCarriage);
 			for (int inspectedSeat = 1; inspectedSeat <= carriageSeats; inspectedSeat++) {
-				if (!checkSeatAvailability(directConnection.getNumber(), inspectedCarriage, inspectedSeat, startStation, endStation))
+				if (!checkSeatAvailability(scheduledTrain.getNumber(), inspectedCarriage, inspectedSeat, startStation, endStation))
 					continue;
-				return getSpecificSeat(directConnection.getNumber(), inspectedCarriage, inspectedSeat);
+				return getSpecificSeat(scheduledTrain.getNumber(), inspectedCarriage, inspectedSeat);
 			}
 		}
 		return null;
@@ -138,7 +138,7 @@ public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnec
 		} else if (carriageType.startsWith("Sypialny")) {
 			ct = CarriageType.SLEEPER;
 		} else ct = CarriageType.WARS;
-		Carriage c = new Carriage(rs.getInt("klasa") == 2 ? CarriageClassType.SECOND_CLASS : CarriageClassType.FIRST_CLASS,
+		Carriage c = new Carriage(rs.getInt("klasa") == 2 ? CarriageClass.SECOND_CLASS : CarriageClass.FIRST_CLASS,
 				ct, carriageNum, rs.getInt("liczba_miejsc"));
 		
 		//point for correct seat type

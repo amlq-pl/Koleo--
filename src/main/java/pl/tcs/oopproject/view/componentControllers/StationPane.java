@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
-import pl.tcs.oopproject.model.connection.DirectConnection;
+import pl.tcs.oopproject.model.connection.ScheduledTrain;
 import pl.tcs.oopproject.model.station.Station;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class StationPane extends AnchorPane {
 	@FXML
 	private final ObservableList<Station> observableList = FXCollections.observableArrayList();
 	
-	private StationPane(ArrayList<Station> list, DirectConnection train) {
+	private StationPane(ArrayList<Station> list, ScheduledTrain train) {
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("components/station-pane.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
@@ -50,7 +50,7 @@ public class StationPane extends AnchorPane {
 		}
 	}
 	
-	public static StationPane createStationPane(ArrayList<Station> list, DirectConnection train) {
+	public static StationPane createStationPane(ArrayList<Station> list, ScheduledTrain train) {
 		return new StationPane(list, train);
 	}
 }

@@ -1,8 +1,6 @@
 package pl.tcs.oopproject.model.history;
 
-import pl.tcs.oopproject.model.exception.NoUserIsLoggedException;
 import pl.tcs.oopproject.model.users.Person;
-import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 public class CustomerService {
 	private String email;

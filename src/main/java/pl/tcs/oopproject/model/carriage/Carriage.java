@@ -1,9 +1,9 @@
 package pl.tcs.oopproject.model.carriage;
 
-public record Carriage(CarriageClassType carriageClassType, CarriageType carriageType, int number, int numberOfSeats) {
+public record Carriage(CarriageClass carriageClass, CarriageType carriageType, int number, int numberOfSeats) {
 	public void display() {
 		carriageType.display();
-		carriageClassType.display();
+		carriageClass.display();
 		System.out.println("Carriage Number: " + number);
 		System.out.println("Number of Seats: " + numberOfSeats);
 	}

@@ -1,6 +1,6 @@
 package pl.tcs.oopproject.model.connection;
 
-public enum TrainIsReservation {
+public enum ReservationType {
 	WITH_RESERVATION,
 	WITHOUT_RESERVATION
 }

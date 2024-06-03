@@ -1,6 +1,6 @@
 package pl.tcs.oopproject.model.ticket;
 
-import pl.tcs.oopproject.model.connection.DirectConnection;
+import pl.tcs.oopproject.model.connection.ScheduledTrain;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.OneTimeDiscount;
 import pl.tcs.oopproject.model.discount.PricePLN;
@@ -33,7 +33,7 @@ public class SingleFareTicket implements TicketInterface {
 	
 	@Override
 	public PricePLN getCost() {
-		return place.getConnection().getCost();
+		return place.getConnection().cost();
 	}
 	
 	@Override
@@ -69,11 +69,11 @@ public class SingleFareTicket implements TicketInterface {
 	}
 	
 	public Station getDepartureStation() {
-		return place.getConnection().getFirstStation();
+		return place.getConnection().originStation();
 	}
 	
 	public Station getArrivalStation() {
-		return place.getConnection().getLastStation();
+		return place.getConnection().destinationStation();
 	}
 	
 	public LocalDateTime getDepartureTime() {
@@ -90,7 +90,7 @@ public class SingleFareTicket implements TicketInterface {
 	
 	public List<Integer> getTrainNumber() {
 		List<Integer> trains = new ArrayList<>();
-		for (DirectConnection connection : place.getConnection().getTrains()) {
+		for (ScheduledTrain connection : place.getConnection().getTrains()) {
 			trains.add(connection.getNumber());
 		}
 		return trains;

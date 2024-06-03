@@ -14,8 +14,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
-import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
-import pl.tcs.oopproject.model.connection.DirectConnection;
+import pl.tcs.oopproject.model.connection.MultiStopRoute;
+import pl.tcs.oopproject.model.connection.ScheduledTrain;
 import pl.tcs.oopproject.model.station.Station;
 import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.ViewController;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 public class ExtraScene extends AnchorPane implements Initializable {
 	private final ObservableList<StationPane> stationPanes = FXCollections.observableArrayList();
 	private final Basket thisBasket;
-	private final ConnectionWithTransfers thisConnection;
+	private final MultiStopRoute thisConnection;
 	@FXML
 	private Label BegStation;
 	@FXML
@@ -52,15 +52,15 @@ public class ExtraScene extends AnchorPane implements Initializable {
 			Scene scene = new Scene(this);
 			Stage stage = new Stage();
 			BegStation.textProperty().setValue(trainPane.getConnection()
-					.getFirstStation().town());
+					.originStation().town());
 			EndStation.textProperty().setValue(trainPane.getConnection()
-					.getLastStation().town());
+					.destinationStation().town());
 			BegDate.textProperty().setValue(trainPane.getConnection()
-					.getFirstStation()
+					.originStation()
 					.departureTime()
 					.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
 			ArrDate.textProperty().setValue(trainPane.getConnection()
-					.getLastStation()
+					.destinationStation()
 					.arrivalTime()
 					.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
 			stage.setScene(scene);
@@ -121,7 +121,7 @@ public class ExtraScene extends AnchorPane implements Initializable {
 	
 	private void addAllStations() {
 		ArrayList<ArrayList<Station>> routes = thisConnection.getRoute();
-		ArrayList<DirectConnection> trains = (ArrayList<DirectConnection>) thisConnection.getTrains();
+		ArrayList<ScheduledTrain> trains = (ArrayList<ScheduledTrain>) thisConnection.getTrains();
 		for (int i = 0; i < routes.size(); i++) {
 			stationPanes.addAll(StationPane.createStationPane(routes.get(i), trains.get(i)));
 		}

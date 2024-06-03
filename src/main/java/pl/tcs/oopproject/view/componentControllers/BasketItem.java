@@ -10,13 +10,13 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.AnchorPane;
 import pl.tcs.oopproject.App;
-import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.view.Basket;
 
 import java.time.format.DateTimeFormatter;
 
 public class BasketItem extends AnchorPane{
-    private ConnectionWithTransfers connection;
+    private MultiStopRoute connection;
     private Basket basket;
     @FXML
     private Spinner<Integer> Count;
@@ -33,7 +33,7 @@ public class BasketItem extends AnchorPane{
     @FXML
     private Button DeleteButton;
 
-    public BasketItem(ConnectionWithTransfers connection, Basket basket) {
+    public BasketItem(MultiStopRoute connection, Basket basket) {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/basket-item.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -47,11 +47,11 @@ public class BasketItem extends AnchorPane{
             SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, count.getValue());
             Count.setValueFactory(factory);
             count.bind(Count.valueProperty());
-            DepStation.textProperty().setValue(connection.getFirstStation().town());
-            ArrStation.textProperty().setValue(connection.getLastStation().town());
-            DepHour.textProperty().setValue(connection.getDepartureTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-            ArrHour.textProperty().setValue(connection.getArrivalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-            Cost.textProperty().setValue(connection.getCost().toString());
+            DepStation.textProperty().setValue(connection.originStation().town());
+            ArrStation.textProperty().setValue(connection.destinationStation().town());
+            DepHour.textProperty().setValue(connection.departureTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+            ArrHour.textProperty().setValue(connection.arrivalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+            Cost.textProperty().setValue(connection.cost().toString());
 
             DeleteButton.setOnMouseClicked(mouseEvent -> {
                 basket.itemsMap.remove(connection);
@@ -62,7 +62,7 @@ public class BasketItem extends AnchorPane{
         }
     }
 
-    public ConnectionWithTransfers getConnection() {
+    public MultiStopRoute getConnection() {
         return connection;
     }
 }

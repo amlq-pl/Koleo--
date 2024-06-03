@@ -1,7 +1,7 @@
 import org.junit.Test;
 
 import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimeframe;
-import pl.tcs.oopproject.model.connection.DirectConnection;
+import pl.tcs.oopproject.model.connection.ScheduledTrain;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -16,9 +16,9 @@ public class GetDirectConnectionsFunctionTest {
         LocalDateTime startDate = LocalDateTime.parse("2024-06-01 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         LocalDateTime endDate = LocalDateTime.parse("2024-06-02 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         GetDirectConnectionsInTimeframe dc = new GetDirectConnectionsInTimeframe();
-        ArrayList<DirectConnection> directConnections = dc.getDirectConnectionsInTimeframe(startDate, endDate);
-        for (DirectConnection directConnection : directConnections) {
-            directConnection.display();
+        ArrayList<ScheduledTrain> scheduledTrains = dc.getDirectConnectionsInTimeframe(startDate, endDate);
+        for (ScheduledTrain scheduledTrain : scheduledTrains) {
+            scheduledTrain.display();
         }
     }
 }

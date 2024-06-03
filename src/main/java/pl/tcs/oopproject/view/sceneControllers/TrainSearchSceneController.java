@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import pl.tcs.oopproject.App;
-import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.SimpleDateProperty;
 import pl.tcs.oopproject.view.ViewController;
@@ -27,7 +27,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -71,7 +70,7 @@ public class TrainSearchSceneController implements Initializable {
     }
 
     private void addAllPanes(ConnectionFinder finder) {
-        List<ConnectionWithTransfers> connections = null;
+        List<MultiStopRoute> connections = null;
         try {
             connections = finder.getRoutes();
         } catch (SQLException e) {
@@ -83,7 +82,7 @@ public class TrainSearchSceneController implements Initializable {
         }
 
         assert connections != null;
-        for (ConnectionWithTransfers con : connections) {
+        for (MultiStopRoute con : connections) {
             TrainPane pane = TrainPaneFactory.createTrainPane(con, basket);
             ConnectionList.add(pane);
         }

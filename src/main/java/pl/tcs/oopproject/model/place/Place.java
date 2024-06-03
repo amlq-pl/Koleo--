@@ -1,14 +1,14 @@
 package pl.tcs.oopproject.model.place;
 
-import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
+import pl.tcs.oopproject.model.connection.MultiStopRoute;
 
 import java.util.List;
 
 public class Place {
-	private ConnectionWithTransfers connection;
+	private MultiStopRoute connection;
 	private List<SpecificSeat> seats;
 	
-	public Place(ConnectionWithTransfers connection, List<SpecificSeat> seats) {
+	public Place(MultiStopRoute connection, List<SpecificSeat> seats) {
 		this.connection = connection;
 		this.seats = seats;
 	}
@@ -21,11 +21,11 @@ public class Place {
 		this.seats = seats;
 	}
 	
-	public ConnectionWithTransfers getConnection() {
+	public MultiStopRoute getConnection() {
 		return connection;
 	}
 	
-	public void setConnection(ConnectionWithTransfers connection) {
+	public void setConnection(MultiStopRoute connection) {
 		this.connection = connection;
 	}
 	
