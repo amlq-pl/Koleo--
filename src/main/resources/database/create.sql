@@ -289,3 +289,26 @@ create rule nowyUzytkownik as on insert to uzytkownicy do instead (
     insert into konto(login, haslo, id_klienta)
     values (new.login, new.haslo, (select max(id_klienta) from klienci));
     );
+
+create or replace function correctTimestamps() returns trigger as
+$$
+begin
+    if (select z.timestamp_kupna from zamowienia z where z.id_zamowienia = new.id_zamowienia) >=
+       new.timestamp_zwrotu then
+        raise exception 'błędny czas zwrotu';
+    end if;
+    return new;
+end;
+$$ language plpgsql;
+
+create trigger correctTimestampOnZamowieniaJednorazowe
+    before update
+    on bilety_jednorazowe_zamowienia
+    for each row
+execute procedure correctTimestamps();
+
+create trigger correctTimestampOnZamowieniaOkresowe
+    before update
+    on bilety_okresowe_zamowienia
+    for each row
+execute procedure correctTimestamps();
