@@ -4,6 +4,7 @@ import pl.tcs.oopproject.model.station.Station;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TrainConnection implements ConnectionInterface {
 	private final ArrayList<Station> train;
@@ -14,12 +15,12 @@ public class TrainConnection implements ConnectionInterface {
 	
 	public boolean contains(String town) {
 		for (Station s : train)
-			if (s.getTown().equals(town)) return true;
+			if (s.town().equals(town)) return true;
 		return false;
 	}
 	
 	public void add(Station station) {
-		if (contains(station.getTown())) throw new IllegalArgumentException();
+		if (contains(station.town())) throw new IllegalArgumentException();
 		train.add(station);
 	}
 	
@@ -40,7 +41,7 @@ public class TrainConnection implements ConnectionInterface {
 	
 	public int getIndexOfStation(String town) throws IllegalArgumentException {
 		for (int i = 0; i < train.size(); ++i)
-			if (town.equals(train.get(i).getTown())) return i;
+			if (town.equals(train.get(i).town())) return i;
 		throw new IllegalArgumentException();
 	}
 	
@@ -64,8 +65,8 @@ public class TrainConnection implements ConnectionInterface {
 		if(!(obj instanceof TrainConnection t)) return false;
 		if(t.getSize() != getSize()) return false;
 		for(int i = 0; i < t.getSize(); ++i) {
-			System.out.println(t.getStations().get(i).getTown() + " ~ " + getStations().get(i).getTown());
-			if (t.getStations().get(i).getTown() != getStations().get(i).getTown()) {
+			System.out.println(t.getStations().get(i).town() + " ~ " + getStations().get(i).town());
+			if (!Objects.equals(t.getStations().get(i).town(), getStations().get(i).town())) {
 				return false;
 			}
 		}

@@ -24,7 +24,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	
 	public ArrayList<ArrayList<Station>> getRoute() {
 		ArrayList<ArrayList<Station>> list = new ArrayList<>();
-		transferStations.add(stationB.getTown());
+		transferStations.add(stationB.town());
 		for (int i = 0; i < trains.size(); ++i) {
 			int j = trains.get(i).getIndexOfStation(transferStations.get(i));
 			int k = trains.get(i).getIndexOfStation(transferStations.get(i + 1));
@@ -34,7 +34,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 			}
 		}
 		
-		transferStations.remove(stationB.getTown());
+		transferStations.remove(stationB.town());
 		
 		return list;
 	}
@@ -89,7 +89,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 		}
 		
 		int j = trains.get(size - 1).getIndexOfStation(transferStations.get(size - 1));
-		int k = trains.get(size - 1).getIndexOfStation(stationB.getTown());
+		int k = trains.get(size - 1).getIndexOfStation(stationB.town());
 		for (int t = j; t <= k; ++t)
 			list.add(trains.get(size - 1).getStationAt(t));
 		
@@ -103,12 +103,12 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	
 	@Override
 	public LocalDateTime getDepartureTime() {
-		return stationA.getDepartureTime();
+		return stationA.departureTime();
 	}
 	
 	@Override
 	public LocalDateTime getArrivalTime() {
-		return stationB.getArrivalTime();
+		return stationB.arrivalTime();
 	}
 	
 	public List<String> getCompanies() {
@@ -137,7 +137,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 		
 		int size = trains.size();
 		
-		transferStations.add(stationB.getTown());
+		transferStations.add(stationB.town());
 		
 		for (int i = 0; i < size; ++i) {
 			double cost1 = trains.get(i).getCost().getPriceValue();
@@ -146,7 +146,7 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 			cost += cost1 * (k - j + 1) / trains.get(i).getSize();
 		}
 		
-		transferStations.remove(stationB.getTown());
+		transferStations.remove(stationB.town());
 		return new PricePLN((double) Math.round(cost * 100) / 100);
 	}
 	
@@ -163,8 +163,8 @@ public class ConnectionWithTransfers implements ConnectionInterface, ConnectionW
 	}
 	
 	public void displayLess() {
-		System.out.println("Departure Station: " + getFirstStation().getTown() + " " + getFirstStation().getDepartureTime());
-		System.out.println("Arrival Station: " + getLastStation().getTown() + " " + getLastStation().getArrivalTime());
+		System.out.println("Departure Station: " + getFirstStation().town() + " " + getFirstStation().departureTime());
+		System.out.println("Arrival Station: " + getLastStation().town() + " " + getLastStation().arrivalTime());
 		System.out.println("Cost: " + getCost().toString());
 	}
 	

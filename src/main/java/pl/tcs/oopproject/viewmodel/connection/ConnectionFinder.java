@@ -55,15 +55,15 @@ public class ConnectionFinder implements FindConnectionInterface {
 			DirectConnection tempConnection = allTrains.get(i);
 			if (tempConnection.contains(temp) && !visitedConnections.contains(tempConnection)) {
 				if (!stack.isEmpty()) {
-					LocalDateTime departureTime = stack.get(stack.size() - 1).getStation(temp).getDepartureTime();
-					if (tempConnection.getStation(temp).getArrivalTime().isBefore(departureTime)) continue;
+					LocalDateTime departureTime = stack.get(stack.size() - 1).getStation(temp).departureTime();
+					if (tempConnection.getStation(temp).arrivalTime().isBefore(departureTime)) continue;
 				}
 				stack.add(tempConnection);
 				visitedConnections.add(tempConnection);
 				transfersStack.add(temp);
 				if (tempConnection.contains(stationB) && tempConnection.getIndexOfStation(stationB) > tempConnection.getIndexOfStation(temp)) {
-					Station sA = new Station(stationA, stack.get(0).getStation(stationA).getDepartureTime(), stack.get(0).getStation(stationA).getArrivalTime());
-					Station sB = new Station(stationB, stack.get(stack.size() - 1).getStation(stationB).getDepartureTime(), stack.get(stack.size() - 1).getStation(stationB).getArrivalTime());
+					Station sA = new Station(stationA, stack.get(0).getStation(stationA).departureTime(), stack.get(0).getStation(stationA).arrivalTime());
+					Station sB = new Station(stationB, stack.get(stack.size() - 1).getStation(stationB).departureTime(), stack.get(stack.size() - 1).getStation(stationB).arrivalTime());
 					if (!contains(stack))
 						trains.add(new ConnectionWithTransfers(sA, sB, new ArrayList<>(stack), new ArrayList<>(transfersStack)));
 					
@@ -83,14 +83,14 @@ public class ConnectionFinder implements FindConnectionInterface {
 				int index = tempConnection.getIndexOfStation(temp);
 				
 				for (int j = index + 1; j < tempConnection.getSize(); ++j) {
-					if (!visitedStations.contains(tempConnection.getStationAt(j).getTown())) {
-						visitedStations.add(tempConnection.getStationAt(j).getTown());
-						findConnection(allTrains, tempConnection.getStationAt(j).getTown(), stack, transfersStack, visitedConnections, visitedStations);
+					if (!visitedStations.contains(tempConnection.getStationAt(j).town())) {
+						visitedStations.add(tempConnection.getStationAt(j).town());
+						findConnection(allTrains, tempConnection.getStationAt(j).town(), stack, transfersStack, visitedConnections, visitedStations);
 					} else break;
 				}
 				
 				for (int j = index + 1; j < tempConnection.getSize(); ++j) {
-					visitedStations.remove(tempConnection.getStationAt(j).getTown());
+					visitedStations.remove(tempConnection.getStationAt(j).town());
 				}
 				stack.remove(stack.size() - 1);
 				visitedConnections.remove(tempConnection);

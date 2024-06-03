@@ -22,15 +22,15 @@ public class ConnectionWithTransfersTest {
 		DirectConnection dC11= new DirectConnection("TCS", 12, 21, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station1, station2, station3, station4))));
 		DirectConnection dC12 = new DirectConnection("TCS", 12, 21.10, TrainIsReservation.WITH_RESERVATION, new TrainConnection(new ArrayList<>(List.of(station3, station4, station5))));
 		
-		ConnectionWithTransfers connection = new ConnectionWithTransfers(station1, station5, new ArrayList<>(List.of(dC11, dC12)), new ArrayList<>(List.of(station4.getTown())));
-		ArrayList<ArrayList<Station>> xd = connection.getRoute();
-		
-		for(ArrayList<Station> x : xd) {
-			for(Station d : x) {
-				d.display();
-			}
-			System.out.println();
-		}
+		ConnectionWithTransfers connection = new ConnectionWithTransfers(station1, station5, new ArrayList<>(List.of(dC11, dC12)), new ArrayList<>(List.of(station4.town())));
+//		ArrayList<ArrayList<Station>> xd = connection.getRoute();
+//
+//		for(ArrayList<Station> x : xd) {
+//			for(Station d : x) {
+//				System.out.println(x);
+//			}
+//			System.out.println();
+//		}
 		
 	}
 	

@@ -47,8 +47,8 @@ public class BasketItem extends AnchorPane{
             SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, count.getValue());
             Count.setValueFactory(factory);
             count.bind(Count.valueProperty());
-            DepStation.textProperty().setValue(connection.getFirstStation().getTown());
-            ArrStation.textProperty().setValue(connection.getLastStation().getTown());
+            DepStation.textProperty().setValue(connection.getFirstStation().town());
+            ArrStation.textProperty().setValue(connection.getLastStation().town());
             DepHour.textProperty().setValue(connection.getDepartureTime().format(DateTimeFormatter.ofPattern("HH:mm")));
             ArrHour.textProperty().setValue(connection.getArrivalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
             Cost.textProperty().setValue(connection.getCost().toString());

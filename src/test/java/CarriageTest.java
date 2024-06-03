@@ -5,8 +5,6 @@ import pl.tcs.oopproject.model.carriage.CarriageType;
 import pl.tcs.oopproject.model.seat.Seat;
 import pl.tcs.oopproject.model.seat.SeatType;
 
-import static org.junit.Assert.assertEquals;
-
 public class CarriageTest {
 	@Test
 	public void carriageMethods() {
@@ -24,11 +22,5 @@ public class CarriageTest {
 		Seat s2 = new Seat(SeatType.CORRIDOR, 34);
 		
 		Carriage carriage = new Carriage(CarriageClassType.FIRST_CLASS, CarriageType.SLEEPER, 23, 233);
-		carriage.displaySeats();
-		carriage.displaySeats();
-		
 	}
-	
-	
-	
 }

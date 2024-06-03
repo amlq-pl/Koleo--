@@ -77,11 +77,11 @@ public class SingleFareTicket implements TicketInterface {
 	}
 	
 	public LocalDateTime getDepartureTime() {
-		return getDepartureStation().getDepartureTime();
+		return getDepartureStation().departureTime();
 	}
 	
 	public LocalDateTime getArrivalTime() {
-		return getArrivalStation().getArrivalTime();
+		return getArrivalStation().arrivalTime();
 	}
 	
 	public List<SpecificSeat> getSeats() {

@@ -52,16 +52,16 @@ public class ExtraScene extends AnchorPane implements Initializable {
 			Scene scene = new Scene(this);
 			Stage stage = new Stage();
 			BegStation.textProperty().setValue(trainPane.getConnection()
-					.getFirstStation().getTown());
+					.getFirstStation().town());
 			EndStation.textProperty().setValue(trainPane.getConnection()
-					.getLastStation().getTown());
+					.getLastStation().town());
 			BegDate.textProperty().setValue(trainPane.getConnection()
 					.getFirstStation()
-					.getDepartureTime()
+					.departureTime()
 					.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
 			ArrDate.textProperty().setValue(trainPane.getConnection()
 					.getLastStation()
-					.getArrivalTime()
+					.arrivalTime()
 					.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
 			stage.setScene(scene);
 			stage.show();

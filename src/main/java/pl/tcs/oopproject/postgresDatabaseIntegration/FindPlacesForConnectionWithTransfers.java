@@ -27,8 +27,8 @@ public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnec
 	}
 	
 	private SpecificSeat findSpecificSeat(DirectConnection directConnection) throws SQLException {
-		int startStation = getNumOfStation(directConnection.getNumber(), directConnection.getFirstStation().getTown()),
-				endStation = getNumOfStation(directConnection.getNumber(), directConnection.getLastStation().getTown());
+		int startStation = getNumOfStation(directConnection.getNumber(), directConnection.getFirstStation().town()),
+				endStation = getNumOfStation(directConnection.getNumber(), directConnection.getLastStation().town());
 		
 		int carriageSeats;
 		int numOfNeededDifferentCarriageConfigurationsInConnection = getNumOfIntersectingCarriageChangesInConnection(directConnection.getNumber(), startStation, endStation);

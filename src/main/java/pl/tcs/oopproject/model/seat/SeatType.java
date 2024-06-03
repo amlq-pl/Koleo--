@@ -3,29 +3,27 @@ package pl.tcs.oopproject.model.seat;
 public enum SeatType {
 	WINDOW {
 		@Override
-		void display() {
-			System.out.println("Seat Type: Window");
+		public String toString() {
+			return "Seat Type: Window";
 		}
 	},
 	MIDDLE {
 		@Override
-		void display() {
-			System.out.println("Seat Type: Middle");
+		public String toString() {
+			return "Seat Type: Middle";
 		}
 	},
 	CORRIDOR {
 		@Override
-		void display() {
-			System.out.println("Seat Type: Corridor");
+		public String toString() {
+			return "Seat Type: Corridor";
 		}
 	},
 	
 	BERTH {
 		@Override
-		void display() {
-			System.out.println("Seat Type: Berth");
+		public String toString() {
+			return "Seat Type: Berth";
 		}
-	};
-	
-	abstract void display();
+	}
 }
