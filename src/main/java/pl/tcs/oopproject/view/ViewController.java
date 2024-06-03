@@ -11,7 +11,7 @@ public class ViewController {
 	private static final Scene signUpScene;
 	private static final Scene logInScene;
 	private static final Scene trainSearchScene;
-	private static final Scene basketNotLoggedInScene;
+	private static final Scene basketScene;
 	
 	static {
 		landingScene = createScene("scenes/landing-scene.fxml");
@@ -22,7 +22,7 @@ public class ViewController {
 
 		trainSearchScene = createScene("scenes/train-search-scene.fxml");
 
-		basketNotLoggedInScene = createScene("scenes/basket-scene.fxml");
+		basketScene = createScene("scenes/basket-scene.fxml");
 	}
 	
 	private static Scene createScene(String name) {
@@ -51,8 +51,8 @@ public class ViewController {
 		return trainSearchScene;
 	}
 
-	public static Scene getBasketNotLoggedInScene() {
-		return basketNotLoggedInScene;
+	public static Scene getBasketScene() {
+		return basketScene;
 	}
 
 

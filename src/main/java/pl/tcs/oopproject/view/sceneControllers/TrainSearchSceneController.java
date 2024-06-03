@@ -158,6 +158,11 @@ public class TrainSearchSceneController implements Initializable {
     }
 
     public void BasketButtonClick() {
-
+        Stage thisStage = (Stage) BasketButton.getScene().getWindow();
+        thisStage.close();
+        Stage newStage = new Stage();
+        newStage.setScene(ViewController.getBasketScene());
+        BasketSceneController.setBasket(basket);
+        newStage.show();
     }
 }

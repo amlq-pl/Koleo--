@@ -5,9 +5,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.*;
 import pl.tcs.oopproject.model.connection.ConnectionWithTransfers;
 
-import java.util.Collections;
-import java.util.Map;
-
 public class Basket {
     public ObservableMap<ConnectionWithTransfers, IntegerProperty> itemsMap = FXCollections.observableHashMap();
     public IntegerProperty size = new SimpleIntegerProperty();
