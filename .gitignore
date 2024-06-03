@@ -2,3 +2,4 @@
 /target/
 /src/main/resources/database/data_generators/api_key.py
 /src/main/resources/database/data_generators/__pycache/
+/dependency-reduced-pom.xml
