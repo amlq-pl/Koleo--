@@ -104,9 +104,10 @@ public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnec
 	}
 	
 	private boolean checkSeatAvailability(int connectionId, int carriageNum, int seatNum, int startStation, int endStation) throws SQLException {
-		PreparedStatement ps = DB.connection.prepareStatement("select exists (select * from przejazdy p " +
+		PreparedStatement ps = DB.connection.prepareStatement("select exists(select * from przejazdy p " +
 				"join bilety_jednorazowe bj on p.id_przejazdu = bj.id_przejazdu " +
-				"where p.id_przejazdu=? and bj.nr_wagonu=? and bj.nr_miejsca=? and " +
+				"join bilety_jednorazowe_zamowienia bjz on bj.id_bilety_jednorazowe_zamowienia = bjz.id_bilety_jednorazowe_zamowienia " +
+				"p.id_przejazdu=? and bj.nr_wagonu=? and bj.nr_miejsca=? and bjz.timestamp_zwrotu is null and " +
 				"greatest(bj.od_stacji,?) <  least(bj.do_stacji,?))");
 		ps.setInt(1, connectionId);
 		ps.setInt(2, carriageNum);

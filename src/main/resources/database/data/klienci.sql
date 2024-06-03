@@ -1,101 +1,101 @@
 copy klienci(imie,nazwisko,data_urodzenia,email,nr_telefonu) from stdin with (delimiter ',', null '');
-Jacek,Rutkowski,1945-5-7,jacekrutkowski@gmail.com,
-Michał,Wójcik,1992-5-18,michalwojcik@gmail.com,
-Krzysztof,Zając,1972-4-29,krzysztofzajac@yahoo.com,+48 004799198
-Aneta,Czarnecki,1965-8-26,anetaczarnecki@onet.pl,
-Grzegorz,Tomaszewski,1956-10-14,grzegorztomaszewski@gazeta.pl,+48 914705872
-Tomasz,Nowakowski,1961-6-7,tomasznowakowski@interia.pl,+48 493813918
-Wojciech,Wojciechowski,1955-5-30,wojciechwojciechowski@o2.pl,+48 648334216
-Marek,Gajewski,1976-1-16,marekgajewski@interia.pl,+48 337886299
-Joanna,Grabowski,1979-1-25,joannagrabowski@wp.pl,+48 187049484
-Wioletta,Borowski,1977-10-3,wiolettaborowski@onet.pl,
-Jan,Łuczak,1995-8-29,janluczak@outlook.com,+48 415461655
-Czesław,Różycki,1986-5-13,czeslawrozycki@outlook.com,+48 085765020
-Barbara,Tomaszewski,1948-11-14,barbaratomaszewski@outlook.com,
-Ewa,Sadowski,1982-2-9,ewasadowski@onet.pl,+48 793510555
-Norbert,Tomaszewski,1999-1-29,norberttomaszewski@outlook.com,+48 157235646
-Natalia,Domański,1952-9-22,nataliadomanski@outlook.com,
-Urszula,Mucha,1962-9-22,urszulamucha@gmail.com,+48 340267621
-Adam,Adamczyk,1953-7-5,adamadamczyk@onet.pl,
-Piotr,Domański,1990-12-29,piotrdomanski@gazeta.pl,+48 405272701
-Natalia,Walczak,1967-4-18,nataliawalczak@gazeta.pl,
-Gabriela,Kubiak,1980-10-28,gabrielakubiak@yahoo.com,+48 764067238
-Hanna,Piątek,1991-9-26,hannapiatek@interia.pl,
-Monika,Dąbrowski,1964-12-12,monikadabrowski@outlook.com,
-Monika,Michalak,1950-9-16,monikamichalak@o2.pl,+48 212920817
-Adam,Czarnecki,1945-4-28,adamczarnecki@onet.pl,+48 821861821
-Dominik,Wesołowski,1995-3-10,dominikwesolowski@poczta.fm,+48 075910741
-Tomasz,Wieczorek,1984-12-28,tomaszwieczorek@wp.pl,+48 592699984
-Olga,Pietrzak,1982-8-2,olgapietrzak@onet.pl,+48 968958655
-Justyna,Makowski,1995-12-25,justynamakowski@wp.pl,+48 311068742
-Aneta,Kubiak,1996-7-15,anetakubiak@outlook.com,+48 948741793
-Aleksander,Klimek,1994-5-29,aleksanderklimek@o2.pl,
-Hanna,Jakubowski,1989-11-16,hannajakubowski@onet.pl,
-Rafał,Mazur,1949-10-9,rafalmazur@wp.pl,
-Urszula,Wójcik,1971-11-13,urszulawojcik@gmail.com,+48 253333679
-Aneta,Mazur,1983-10-13,anetamazur@onet.pl,+48 222305172
-Piotr,Kowalski,1968-4-14,piotrkowalski@yahoo.com,
-Piotr,Sadowski,1991-8-24,piotrsadowski@onet.pl,
-Andrzej,Sawicki,1963-11-2,andrzejsawicki@outlook.com,+48 943455552
-Marek,Wiśniewski,1953-8-11,marekwisniewski@interia.pl,
-Rafał,Przybylski,1985-1-13,rafalprzybylski@outlook.com,+48 903892247
-Robert,Stankiewicz,1960-10-12,robertstankiewicz@gazeta.pl,+48 907547892
-Filip,Szymański,1978-5-9,filipszymanski@yahoo.com,+48 881211590
-Henryk,Stasiak,1985-4-10,henrykstasiak@yahoo.com,
-Karolina,Wojciechowski,1989-11-6,karolinawojciechowski@outlook.com,+48 688094011
-Aneta,Szewczyk,1958-12-19,anetaszewczyk@onet.pl,+48 935729865
-Piotr,Nowicki,1965-7-17,piotrnowicki@yahoo.com,+48 220184326
-Dorota,Michałowski,1993-12-8,dorotamichalowski@yahoo.com,+48 627797972
-Jan,Piątek,1974-12-15,janpiatek@gazeta.pl,
-Aleksander,Rutkowski,1998-12-22,aleksanderrutkowski@onet.pl,+48 915560158
-Andrzej,Jakubowski,1974-4-12,andrzejjakubowski@poczta.fm,+48 058722234
-Monika,Gajewski,1982-5-14,monikagajewski@o2.pl,
-Sylwia,Mucha,1965-12-14,sylwiamucha@gmail.com,+48 144550524
-Olga,Zając,1946-8-2,olgazajac@gazeta.pl,+48 077594690
-Marek,Rutkowski,1965-9-22,marekrutkowski@poczta.fm,+48 857230908
-Alicja,Malinowski,1998-11-1,alicjamalinowski@o2.pl,+48 683094442
-Adam,Mucha,1969-8-7,adammucha@o2.pl,+48 280188655
-Sylwia,Woźniak,1996-3-18,sylwiawozniak@outlook.com,+48 630337918
-Beata,Zalewski,1996-11-6,beatazalewski@wp.pl,+48 540290131
-Justyna,Michalak,1965-2-1,justynamichalak@onet.pl,+48 045066713
-Wioletta,Szewczyk,1948-10-22,wiolettaszewczyk@wp.pl,+48 424902608
-Hanna,Jaworski,1950-1-17,hannajaworski@poczta.fm,+48 712995596
-Piotr,Kubiak,1998-9-3,piotrkubiak@interia.pl,+48 293196844
-Beata,Wojciechowski,1997-3-22,beatawojciechowski@o2.pl,+48 892409532
-Michał,Jakubowski,1981-4-20,michaljakubowski@o2.pl,
-Zbigniew,Orłowski,1989-10-7,zbignieworlowski@yahoo.com,+48 847425664
-Grzegorz,Lis,1963-10-15,grzegorzlis@interia.pl,+48 503282405
-Dorota,Dąbrowski,1945-1-27,dorotadabrowski@onet.pl,+48 500912847
-Justyna,Marcinkowski,2000-7-11,justynamarcinkowski@wp.pl,+48 527310581
-Gabriela,Dudek,1975-12-14,gabrieladudek@interia.pl,+48 627431009
-Filip,Nowakowski,1984-2-17,filipnowakowski@interia.pl,+48 633199185
-Gabriela,Zalewski,1971-9-30,gabrielazalewski@yahoo.com,+48 893066412
-Aleksander,Sobczak,1990-4-28,aleksandersobczak@o2.pl,+48 473862290
-Urszula,Kłos,1964-7-3,urszulaklos@o2.pl,
-Natalia,Nowakowski,1952-4-15,natalianowakowski@poczta.fm,+48 945349656
-Robert,Zając,1991-1-13,robertzajac@outlook.com,+48 889285643
-Renata,Tomaszewski,1949-2-15,renatatomaszewski@yahoo.com,+48 371042686
-Ewa,Witkowski,1968-3-19,ewawitkowski@yahoo.com,+48 950455773
-Michał,Olszewski,1948-1-5,michalolszewski@gazeta.pl,+48 346394792
-Magdalena,Brzeziński,1968-6-23,magdalenabrzezinski@gazeta.pl,+48 258303553
-Robert,Łuczak,1992-5-29,robertluczak@wp.pl,
-Barbara,Wesołowski,1980-4-27,barbarawesolowski@gmail.com,+48 290089079
-Joanna,Kamiński,1964-10-9,joannakaminski@yahoo.com,+48 949218869
-Grzegorz,Malinowski,1965-6-1,grzegorzmalinowski@interia.pl,
-Michał,Kurowski,1999-9-23,michalkurowski@o2.pl,+48 981032651
-Ewa,Cieślak,1972-7-12,ewacieslak@o2.pl,+48 970417316
-Andrzej,Walczak,1970-8-27,andrzejwalczak@o2.pl,+48 415167736
-Monika,Krupa,1964-5-4,monikakrupa@outlook.com,+48 090700970
-Grzegorz,Majewski,1984-5-3,grzegorzmajewski@poczta.fm,+48 539437027
-Wojciech,Tomaszewski,1992-10-9,wojciechtomaszewski@outlook.com,+48 038452532
-Robert,Zalewski,1978-10-15,robertzalewski@outlook.com,+48 286794561
-Dominik,Pawłowski,1988-7-18,dominikpawlowski@wp.pl,+48 127665975
-Wioletta,Łuczak,1951-4-14,wiolettaluczak@yahoo.com,+48 048568854
-Wioletta,Lewandowski,1975-10-16,wiolettalewandowski@poczta.fm,+48 251065638
-Sylwia,Wrona,1985-5-29,sylwiawrona@interia.pl,
-Filip,Wojciechowski,1958-2-15,filipwojciechowski@gmail.com,+48 849978406
-Gabriela,Jabłoński,1980-8-19,gabrielajablonski@outlook.com,+48 954320848
-Grzegorz,Serafin,1970-2-15,grzegorzserafin@poczta.fm,+48 380803299
-Ewa,Witkowski,1957-1-21,ewawitkowski@poczta.fm,
-Bartosz,Lis,1995-8-16,bartoszlis@interia.pl,+48 269102802
-Renata,Pietrzak,1977-6-11,renatapietrzak@outlook.com,+48 552067073
+Marek,Wesołowski,1981-5-1,marekwesolowski847@gmail.com,+48 844811062
+Michał,Jabłoński,1986-2-5,michaljablonski634@outlook.com,+48 677653692
+Magdalena,Grabowski,2000-8-30,magdalenagrabowski848@interia.pl,+48 601466658
+Agnieszka,Pietrzak,1959-7-15,agnieszkapietrzak291@onet.pl,+48 413056709
+Natalia,Adamczyk,1955-3-10,nataliaadamczyk97@onet.pl,+48 799892181
+Zofia,Kaczmarek,1963-7-8,zofiakaczmarek875@gmail.com,
+Patrycja,Orłowski,1982-4-22,patrycjaorlowski82@yahoo.com,+48 513498781
+Michał,Sikora,1971-4-29,michalsikora435@interia.pl,+48 730617100
+Aleksander,Wieczorek,1946-1-25,aleksanderwieczorek539@interia.pl,+48 817476056
+Norbert,Majchrzak,1961-4-18,norbertmajchrzak997@outlook.com,+48 115009490
+Zofia,Adamczyk,1976-3-29,zofiaadamczyk140@yahoo.com,+48 337392750
+Czesław,Tomczak,1992-2-28,czeslawtomczak636@poczta.fm,+48 263067822
+Agnieszka,Lewandowski,2000-12-9,agnieszkalewandowski50@yahoo.com,
+Jan,Jaworski,1967-10-30,janjaworski57@gmail.com,+48 322784603
+Aneta,Szymański,1993-8-20,anetaszymanski38@yahoo.com,+48 575922891
+Joanna,Baran,1988-7-6,joannabaran325@wp.pl,+48 480369569
+Czesław,Król,2000-11-19,czeslawkrol786@gazeta.pl,
+Patrycja,Zieliński,1977-3-22,patrycjazielinski842@onet.pl,+48 603651272
+Urszula,Czarnecki,1995-12-20,urszulaczarnecki582@outlook.com,+48 201811099
+Krzysztof,Michalski,1953-11-5,krzysztofmichalski820@onet.pl,+48 294136569
+Krzysztof,Domański,2000-2-27,krzysztofdomanski81@o2.pl,+48 112278628
+Grzegorz,Jaworski,1953-9-22,grzegorzjaworski463@interia.pl,+48 924384837
+Olga,Sobczak,1962-7-28,olgasobczak859@outlook.com,+48 269864868
+Joanna,Lis,1978-12-15,joannalis142@yahoo.com,+48 140555426
+Andrzej,Kamiński,1986-7-26,andrzejkaminski235@poczta.fm,+48 642254287
+Andrzej,Domański,1986-12-26,andrzejdomanski587@onet.pl,+48 491069823
+Alicja,Kucharski,1989-10-14,alicjakucharski231@yahoo.com,+48 843505639
+Urszula,Majewski,1986-9-29,urszulamajewski81@gazeta.pl,+48 137682848
+Bartosz,Ostrowski,1951-12-12,bartoszostrowski612@interia.pl,+48 082484778
+Zbigniew,Ziółkowski,1974-9-3,zbigniewziolkowski263@interia.pl,+48 082959952
+Elżbieta,Nowicki,1958-3-13,elzbietanowicki30@onet.pl,+48 252433155
+Wioletta,Kamiński,1979-2-7,wiolettakaminski243@poczta.fm,+48 630719672
+Ewa,Piotrowicz,1975-10-3,ewapiotrowicz255@onet.pl,+48 135067083
+Norbert,Kaczmarek,1950-1-1,norbertkaczmarek978@gmail.com,+48 196246121
+Joanna,Domański,1968-7-1,joannadomanski282@interia.pl,+48 921622494
+Michał,Wójcik,1974-5-10,michalwojcik923@wp.pl,
+Gabriela,Marciniak,1993-12-12,gabrielamarciniak552@onet.pl,+48 496703967
+Beata,Piątek,1990-6-5,beatapiatek482@outlook.com,+48 632867452
+Adam,Mazur,1963-9-26,adammazur686@wp.pl,+48 068314569
+Robert,Kubiak,1981-5-15,robertkubiak592@wp.pl,+48 971288662
+Michał,Wesołowski,1989-9-15,michalwesolowski223@gazeta.pl,
+Piotr,Zalewski,1960-7-17,piotrzalewski131@wp.pl,+48 325159506
+Marek,Konieczny,1986-5-24,marekkonieczny469@poczta.fm,+48 424315727
+Gabriela,Gajewski,1966-12-13,gabrielagajewski788@poczta.fm,+48 174585632
+Marek,Pawłowski,1984-4-24,marekpawlowski22@onet.pl,+48 255090269
+Zofia,Lewandowski,1969-8-11,zofialewandowski781@interia.pl,+48 839399260
+Magdalena,Walczak,1975-7-7,magdalenawalczak31@poczta.fm,+48 968327687
+Olga,Wrona,1947-12-25,olgawrona936@gazeta.pl,+48 625451788
+Michał,Śliwiński,1961-8-24,michalsliwinski228@poczta.fm,+48 619918337
+Renata,Stankiewicz,2000-9-10,renatastankiewicz841@outlook.com,+48 441247734
+Gabriela,Szczepański,1991-6-1,gabrielaszczepanski798@outlook.com,+48 864037416
+Justyna,Sikora,1950-6-20,justynasikora648@o2.pl,+48 661829324
+Michał,Majewski,1956-9-17,michalmajewski700@poczta.fm,+48 138332697
+Natalia,Wilczyński,1978-7-5,nataliawilczynski431@poczta.fm,+48 148910808
+Wioletta,Woźniak,1951-3-22,wiolettawozniak116@gazeta.pl,
+Adam,Kucharski,1972-10-22,adamkucharski660@outlook.com,+48 901390859
+Rafał,Grabowski,1976-5-11,rafalgrabowski395@wp.pl,+48 213462304
+Marek,Majewski,1948-2-7,marekmajewski370@gazeta.pl,+48 559211419
+Piotr,Borowski,1952-9-6,piotrborowski597@poczta.fm,
+Marek,Makowski,1971-1-29,marekmakowski627@gmail.com,
+Aneta,Śliwiński,1975-6-19,anetasliwinski890@onet.pl,+48 525427572
+Czesław,Makowski,1996-5-7,czeslawmakowski94@poczta.fm,
+Jan,Kowalski,1992-2-17,jankowalski715@poczta.fm,
+Patrycja,Zając,1981-2-24,patrycjazajac496@wp.pl,+48 939578047
+Urszula,Przybylski,1980-2-18,urszulaprzybylski900@poczta.fm,+48 032111914
+Alicja,Piotrowski,1978-9-26,alicjapiotrowski916@onet.pl,
+Hanna,Kaczor,1971-2-15,hannakaczor961@poczta.fm,+48 266695193
+Henryk,Piotrowski,1969-12-9,henrykpiotrowski45@poczta.fm,
+Zbigniew,Wesołowski,1945-1-14,zbigniewwesolowski275@gazeta.pl,+48 343194206
+Bartosz,Woźniak,1979-12-6,bartoszwozniak160@gmail.com,+48 200106418
+Hanna,Witkowski,1998-8-28,hannawitkowski532@o2.pl,+48 492020898
+Justyna,Sobczak,1964-7-12,justynasobczak763@yahoo.com,+48 188004625
+Ewa,Wilk,1955-3-23,ewawilk253@yahoo.com,
+Dominik,Łuczak,1984-3-15,dominikluczak43@poczta.fm,+48 432886871
+Wioletta,Sadowski,1999-3-22,wiolettasadowski507@poczta.fm,
+Hanna,Wójcik,1974-6-30,hannawojcik351@wp.pl,+48 770222794
+Łukasz,Wrona,1984-3-23,lukaszwrona999@onet.pl,+48 935287769
+Zofia,Borowski,1975-2-7,zofiaborowski795@onet.pl,+48 240521000
+Karolina,Stasiak,1949-1-26,karolinastasiak685@o2.pl,+48 343683288
+Aleksander,Woźniak,1945-12-1,aleksanderwozniak892@outlook.com,+48 700151347
+Michał,Wieczorek,1962-10-7,michalwieczorek162@interia.pl,+48 192095721
+Aleksander,Jakubowski,1995-8-8,aleksanderjakubowski487@gazeta.pl,+48 646583883
+Czesław,Kowalczyk,1969-5-23,czeslawkowalczyk957@onet.pl,+48 768268666
+Wioletta,Konieczny,1948-5-2,wiolettakonieczny695@wp.pl,+48 489077533
+Monika,Olszewski,1965-11-24,monikaolszewski233@o2.pl,
+Agnieszka,Jabłoński,1968-6-25,agnieszkajablonski297@gazeta.pl,+48 557684849
+Adam,Czarnecki,1984-6-8,adamczarnecki421@gazeta.pl,
+Beata,Jakubowski,1984-3-3,beatajakubowski64@onet.pl,+48 048592724
+Sylwia,Pietrzak,1970-11-19,sylwiapietrzak834@yahoo.com,+48 075299859
+Tomasz,Marciniak,1992-8-29,tomaszmarciniak352@onet.pl,
+Elżbieta,Woźniak,1964-2-8,elzbietawozniak322@poczta.fm,+48 055886455
+Zbigniew,Szymański,1946-3-11,zbigniewszymanski731@onet.pl,+48 421340213
+Irena,Grabowski,1954-2-11,irenagrabowski72@poczta.fm,+48 594534837
+Ewa,Piątek,1966-12-13,ewapiatek152@wp.pl,+48 391849689
+Renata,Baran,1989-6-5,renatabaran50@onet.pl,+48 113405065
+Monika,Grabowski,1957-5-28,monikagrabowski641@onet.pl,+48 452266274
+Joanna,Laskowski,1948-7-1,joannalaskowski867@onet.pl,+48 922653291
+Krzysztof,Walczak,1981-10-16,krzysztofwalczak265@wp.pl,+48 261391161
+Wioletta,Jaworski,1972-10-9,wiolettajaworski373@outlook.com,+48 010761357
+Tomasz,Wesołowski,1966-8-4,tomaszwesolowski825@poczta.fm,+48 722544495

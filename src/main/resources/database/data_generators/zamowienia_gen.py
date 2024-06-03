@@ -24,7 +24,7 @@ script_path = script_path[:-16]
 script_path += "/data/zamowienia.sql"
 
 file = open(script_path, 'w')
-file.write("copy zamowienia(id_klienta) from stdin delimiter ',';\n")
+file.write("copy zamowienia(id_klienta, timestamp_kupna) from stdin delimiter ',';\n")
 for i in range(params.liczba_zamowien):
     file.write(f"""{random.randint(1, params.liczba_klientow)},{fetch_random_timestamp()}\n""")
 file.close()
