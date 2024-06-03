@@ -27,14 +27,19 @@ public class TrainTest {
 		}
 		
 		private boolean contains(ArrayList<DirectConnection> stack) {
-			System.out.println("CONTAINS");
+			System.out.println("CONTAINS " + trains.size());
 			for(ConnectionWithTransfers connection : trains) {
+				System.out.println(connection.getNumberOfTransfers() + 1  + " || " + stack.size());
+				for(int i = 0; i < stack.size(); ++i) {
+					System.out.println("STATION");
+					for(Station s : stack.get(i).getStations())
+						s.display();
+				}
 				if(connection.getNumberOfTransfers() + 1 != stack.size()) continue;
 				boolean equal = true;
-				System.out.println("NEW TRACE");
-				for(int i = 0; i < stack.size(); ++i){
-					if(trains.size() >= 4)
-							System.out.println(stack.get(i) + " + " + connection.getTrains().get(i));
+				System.out.println("NEW TRACE " + stack.size());
+				for(int i = 0; i < stack.size() ; ++i){
+							//System.out.println(stack.get(i) + " + " + connection.getTrains().get(i));
 					if(!stack.get(i).equals( connection.getTrains().get(i))){
 						equal = false;
 						break;
@@ -42,6 +47,7 @@ public class TrainTest {
 				}
 				if(equal) return true;
 			}
+			System.out.println("FALSE");
 			return false;
 		}
 		
@@ -300,11 +306,11 @@ public class TrainTest {
 		assert !connection.isEmpty();
 		System.out.println(connection.size());
 		
-		System.out.println("DISPLAY");
+		System.out.println("-----------------------------------------------------------------------------------------------");
 		for(ConnectionWithTransfers c : connection) {
 			System.out.println(c.getNumberOfTransfers());
-			//System.out.println("CONNECTION");
-			//c.display();
+			System.out.println("CONNECTION");
+			c.display();
 			System.out.println("STATIONS");
 			for(Station s : c.getStations())
 				s.display();

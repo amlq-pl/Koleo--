@@ -61,12 +61,14 @@ public class TrainConnection implements ConnectionInterface {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof TrainConnection)) return false;
-		TrainConnection t = (TrainConnection) obj;
+		if(!(obj instanceof TrainConnection t)) return false;
 		if(t.getSize() != getSize()) return false;
-		for(int i = 0; i < t.getSize(); ++i)
-			if(t.getStations().get(i) != getStations().get(i))
+		for(int i = 0; i < t.getSize(); ++i) {
+			System.out.println(t.getStations().get(i).getTown() + " ~ " + getStations().get(i).getTown());
+			if (t.getStations().get(i).getTown() != getStations().get(i).getTown()) {
 				return false;
+			}
+		}
 		return true;
  	}
 }
