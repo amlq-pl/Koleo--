@@ -38,9 +38,10 @@ public class ConnectionFinder implements FindConnectionInterface {
 	private boolean contains(ArrayList<ScheduledTrain> stack) {
 		for (MultiStopRoute connection : trains) {
 			if (connection.numberOfTransfers() + 1 != stack.size()) continue;
+			
 			boolean equal = true;
 			for (int i = 0; i < stack.size(); ++i) {
-				if (stack.get(i) != connection.trains().get(i)) {
+				if (!stack.get(i).equals(connection.trains().get(i))) {
 					equal = false;
 					break;
 				}

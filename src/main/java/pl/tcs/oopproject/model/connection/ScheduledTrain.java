@@ -77,7 +77,7 @@ public class ScheduledTrain implements RouteElement { //some kind of decorator t
 	@Override
 	public boolean equals(Object obj) {
 		if(!(obj instanceof ScheduledTrain)) return false;
-		return connection.equals(((ScheduledTrain) obj).connection);
+		return number == ((ScheduledTrain) obj).number;
 	}
 	
 	public void display() {
