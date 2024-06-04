@@ -14,14 +14,14 @@
     <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <top>
             <HBox alignment="CENTER_RIGHT" maxHeight="50.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
-                <Button fx:id="GoBackButton" mnemonicParsing="false">
+                <Button fx:id="GoBackButton" mnemonicParsing="false" onAction="#GoBackButtonClick">
                     <graphic>
                         <FontAwesomeIconView glyphName="ARROW_LEFT" />
                     </graphic>
                 </Button>
-                <Button fx:id="CloseButton" mnemonicParsing="false">
+                <Button fx:id="CloseButton" mnemonicParsing="false" onAction="#CloseButtonClick">
                     <graphic>
-                        <FontAwesomeIconView />
+                        <FontAwesomeIconView glyphName="REMOVE" />
                     </graphic>
                 </Button>
                 <opaqueInsets>

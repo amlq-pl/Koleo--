@@ -42,11 +42,13 @@ public class BasketItem extends AnchorPane{
             loader.load();
             this.connection = connection;
             this.basket = basket;
+            System.out.println(basket);
             IntegerProperty count = new SimpleIntegerProperty();
             count.bindBidirectional(basket.itemsMap.get(connection));
             SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, count.getValue());
             Count.setValueFactory(factory);
             count.bind(Count.valueProperty());
+
             DepStation.textProperty().setValue(connection.originStation().town());
             ArrStation.textProperty().setValue(connection.destinationStation().town());
             DepHour.textProperty().setValue(connection.departureTime().format(DateTimeFormatter.ofPattern("HH:mm")));
@@ -55,7 +57,6 @@ public class BasketItem extends AnchorPane{
 
             DeleteButton.setOnMouseClicked(mouseEvent -> {
                 basket.itemsMap.remove(connection);
-                System.out.println("Delete boy");
             });
         } catch (Exception e) {
             e.printStackTrace();
