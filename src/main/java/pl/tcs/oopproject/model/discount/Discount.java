@@ -1,6 +1,6 @@
 package pl.tcs.oopproject.model.discount;
 
-public class Discount implements DiscountInterface {
+public class Discount implements GeneralDiscount{
 	private final String name;
 	private final double value;
 	
@@ -10,12 +10,12 @@ public class Discount implements DiscountInterface {
 	}
 	
 	@Override
-	public String getDiscount() {
+	public String discount() {
 		return name;
 	}
 	
 	@Override
-	public double getValue() {
+	public double value() {
 		return value;
 	}
 }

@@ -4,20 +4,20 @@ import pl.tcs.oopproject.model.connection.MultiStopRoute;
 
 import java.util.List;
 
-public class Place {
+public class TrainsAssignedSeats {
 	private MultiStopRoute connection;
-	private List<SpecificSeat> seats;
+	private List<AssignedSeat> seats;
 	
-	public Place(MultiStopRoute connection, List<SpecificSeat> seats) {
+	public TrainsAssignedSeats(MultiStopRoute connection, List<AssignedSeat> seats) {
 		this.connection = connection;
 		this.seats = seats;
 	}
 	
-	public List<SpecificSeat> getSeat() {
+	public List<AssignedSeat> seatList() {
 		return seats;
 	}
 	
-	public void setSeat(List<SpecificSeat> seats) {
+	public void seat(List<AssignedSeat> seats) {
 		this.seats = seats;
 	}
 	

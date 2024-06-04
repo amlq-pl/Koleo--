@@ -1,6 +1,6 @@
 package pl.tcs.oopproject.model.connection;
 
-import pl.tcs.oopproject.model.discount.PriceInterface;
+import pl.tcs.oopproject.model.discount.Price;
 import pl.tcs.oopproject.model.discount.PricePLN;
 import pl.tcs.oopproject.model.station.Station;
 
@@ -10,7 +10,7 @@ public class ScheduledTrain implements RouteElement { //some kind of decorator t
 	private final String company;
 	private final RouteStops connection;
 	private final int number; //number of a train
-	private final PriceInterface cost;
+	private final Price cost;
 	private final ReservationType trainType;
 	
 	public ScheduledTrain(String company, int number, double cost, ReservationType trainType, RouteStops connection) {
@@ -57,7 +57,7 @@ public class ScheduledTrain implements RouteElement { //some kind of decorator t
 		return connection.stations();
 	}
 	
-	public PriceInterface getCost() {
+	public Price getCost() {
 		return cost;
 	}
 	

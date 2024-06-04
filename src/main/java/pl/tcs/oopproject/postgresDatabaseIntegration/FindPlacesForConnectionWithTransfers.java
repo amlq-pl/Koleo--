@@ -6,8 +6,8 @@ import pl.tcs.oopproject.model.carriage.CarriageType;
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.model.connection.ScheduledTrain;
 import pl.tcs.oopproject.model.databaseIntegration.FindPlacesForConnectionWithTransfersInterface;
-import pl.tcs.oopproject.model.place.Place;
-import pl.tcs.oopproject.model.place.SpecificSeat;
+import pl.tcs.oopproject.model.place.TrainsAssignedSeats;
+import pl.tcs.oopproject.model.place.AssignedSeat;
 import pl.tcs.oopproject.model.seat.Seat;
 import pl.tcs.oopproject.model.seat.SeatType;
 
@@ -18,15 +18,15 @@ import java.util.ArrayList;
 
 public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnectionWithTransfersInterface {
 	@Override
-	public Place findPlacesForConnectionWithTransfers(MultiStopRoute multiStopRoute) throws SQLException {
-		ArrayList<SpecificSeat> places = new ArrayList<>();
-		for (ScheduledTrain scheduledTrain : multiStopRoute.getTrains()) {
+	public TrainsAssignedSeats findPlacesForConnectionWithTransfers(MultiStopRoute multiStopRoute) throws SQLException {
+		ArrayList<AssignedSeat> places = new ArrayList<>();
+		for (ScheduledTrain scheduledTrain : multiStopRoute.trains()) {
 			places.add(findSpecificSeat(scheduledTrain));
 		}
-		return new Place(multiStopRoute, places);
+		return new TrainsAssignedSeats(multiStopRoute, places);
 	}
 	
-	private SpecificSeat findSpecificSeat(ScheduledTrain scheduledTrain) throws SQLException {
+	private AssignedSeat findSpecificSeat(ScheduledTrain scheduledTrain) throws SQLException {
 		int startStation = getNumOfStation(scheduledTrain.getNumber(), scheduledTrain.originStation().town()),
 				endStation = getNumOfStation(scheduledTrain.getNumber(), scheduledTrain.destinationStation().town());
 		
@@ -119,7 +119,7 @@ public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnec
 		return !rs.getBoolean(1);
 	}
 	
-	private SpecificSeat getSpecificSeat(int connectionId, int carriageNum, int seatNum) throws SQLException {
+	private AssignedSeat getSpecificSeat(int connectionId, int carriageNum, int seatNum) throws SQLException {
 		PreparedStatement ps = DB.connection.prepareStatement("select w.typ_wagonu,w.klasa,w.liczba_miejsc,wtm.miejsce_mod,wtm.typ_miejsca " +
 				"from przejazdy p join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
 				"join przejazdy_sklad_czesci psc on ps.id_przejazdu_skladu = psc.id_przejazdu_skladu " +
@@ -160,6 +160,6 @@ public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnec
 		} else if (seatType.equals("Korytarz")) {
 			st = SeatType.CORRIDOR;
 		}
-		return new SpecificSeat(c, new Seat(st, seatNum));
+		return new AssignedSeat(c, new Seat(st, seatNum));
 	}
 }

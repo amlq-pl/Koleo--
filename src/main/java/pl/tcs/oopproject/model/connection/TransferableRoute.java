@@ -1,6 +1,6 @@
 package pl.tcs.oopproject.model.connection;
 
-import pl.tcs.oopproject.model.discount.PriceInterface;
+import pl.tcs.oopproject.model.discount.Price;
 import pl.tcs.oopproject.model.station.Station;
 
 import java.time.LocalDateTime;
@@ -18,6 +18,6 @@ public interface TransferableRoute {
 	
 	List<Station> transferStations();
 	
-	PriceInterface cost();
+	Price cost();
 	
 }

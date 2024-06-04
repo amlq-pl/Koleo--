@@ -23,7 +23,7 @@ public class MultiStopRouteTest {
 		ScheduledTrain dC12 = new ScheduledTrain("TCS", 12, 21.10, ReservationType.WITH_RESERVATION, new RouteStops(new ArrayList<>(List.of(station3, station4, station5))));
 		
 		MultiStopRoute connection = new MultiStopRoute(station1, station5, new ArrayList<>(List.of(dC11, dC12)), new ArrayList<>(List.of(station4.town())));
-//		ArrayList<ArrayList<Station>> xd = connection.getRoute();
+//		ArrayList<ArrayList<Station>> xd = connection.route();
 //
 //		for(ArrayList<Station> x : xd) {
 //			for(Station d : x) {
