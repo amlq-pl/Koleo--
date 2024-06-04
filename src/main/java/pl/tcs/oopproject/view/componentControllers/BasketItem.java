@@ -14,10 +14,13 @@ import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.view.Basket;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BasketItem extends AnchorPane{
-    private MultiStopRoute connection;
-    private Basket basket;
+    public MultiStopRoute connection;
+    public IntegerProperty count = new SimpleIntegerProperty();
+    private Basket basket = App.basket;
     @FXML
     private Spinner<Integer> Count;
     @FXML
@@ -33,7 +36,7 @@ public class BasketItem extends AnchorPane{
     @FXML
     private Button DeleteButton;
 
-    public BasketItem(MultiStopRoute connection, Basket basket) {
+    public BasketItem(MultiStopRoute connection) {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/basket-item.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -41,10 +44,7 @@ public class BasketItem extends AnchorPane{
         try {
             loader.load();
             this.connection = connection;
-            this.basket = basket;
-            System.out.println(basket);
-            IntegerProperty count = new SimpleIntegerProperty();
-            count.bindBidirectional(basket.itemsMap.get(connection));
+            count.setValue(1);
             SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, count.getValue());
             Count.setValueFactory(factory);
             count.bind(Count.valueProperty());
@@ -56,11 +56,26 @@ public class BasketItem extends AnchorPane{
             Cost.textProperty().setValue(connection.cost().toString());
 
             DeleteButton.setOnMouseClicked(mouseEvent -> {
-                basket.itemsMap.remove(connection);
+                basket.connectionList.removeAll(connection);
+
+                List<BasketItem> toRemove = new ArrayList<>();
+                for (BasketItem Item : basket.basketItems) {
+                    if (Item.getConnection().equals(connection)) {
+                        toRemove.add(Item);
+                    }
+                }
+
+                basket.basketItems.removeAll(toRemove);
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void increment() {
+        Integer temp = count.getValue();
+        SpinnerValueFactory<Integer> newFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, temp + 1);
+        Count.setValueFactory(newFactory);
     }
 
     public MultiStopRoute getConnection() {

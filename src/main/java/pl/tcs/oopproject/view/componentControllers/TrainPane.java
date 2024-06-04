@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 public class TrainPane extends AnchorPane {
 	private final MultiStopRoute privConnection;
-	private final Basket thisBasket;
+	private final Basket thisBasket = App.basket;
 	@FXML
 	private Label DepHour;
 	@FXML
@@ -25,12 +25,11 @@ public class TrainPane extends AnchorPane {
 	@FXML
 	private Button ExtraButton;
 	
-	public TrainPane(MultiStopRoute connection, Basket basket) {
+	public TrainPane(MultiStopRoute connection) {
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("components/train-pane.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
 		privConnection = connection;
-		thisBasket = basket;
 		try {
 			loader.load();
 			this.DepHour.textProperty().setValue(connection.departureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
@@ -45,7 +44,7 @@ public class TrainPane extends AnchorPane {
 	protected void ExtraButtonClick() {
 		Stage thisStage = (Stage) ExtraButton.getScene().getWindow();
 		thisStage.close();
-		ExtraScene scene = new ExtraScene(this, thisBasket);
+		ExtraScene scene = new ExtraScene(this);
 	}
 	
 	public MultiStopRoute getConnection() {

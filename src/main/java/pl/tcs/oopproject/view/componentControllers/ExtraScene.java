@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class ExtraScene extends AnchorPane implements Initializable {
 	private final ObservableList<StationPane> stationPanes = FXCollections.observableArrayList();
-	private final Basket thisBasket;
+	private final Basket thisBasket = App.basket;
 	private final MultiStopRoute thisConnection;
 	@FXML
 	private Label BegStation;
@@ -40,12 +40,11 @@ public class ExtraScene extends AnchorPane implements Initializable {
 	@FXML
 	private VBox ListOfStations;
 	
-	public ExtraScene(TrainPane trainPane, Basket basket) {
+	public ExtraScene(TrainPane trainPane) {
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("components/extra-scene.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
 		thisConnection = trainPane.getConnection();
-		thisBasket = basket;
 		try {
 			loader.load();
 			addAllStations();
@@ -88,12 +87,15 @@ public class ExtraScene extends AnchorPane implements Initializable {
 	
 	@FXML
 	protected void AddToBasketClick() {
-		if (thisBasket.itemsMap.containsKey(thisConnection)) {
-			Integer temp = thisBasket.itemsMap.get(thisConnection).getValue();
-			thisBasket.itemsMap.get(thisConnection).setValue(temp + 1);
-			thisBasket.size.setValue(thisBasket.size.getValue() + 1);
+		if (thisBasket.connectionList.contains(thisConnection)) {
+			for (BasketItem Item : thisBasket.basketItems) {
+				if (Item.getConnection().equals(thisConnection)) {
+					Item.increment();
+				}
+			}
 		} else {
-			thisBasket.itemsMap.put(thisConnection, new SimpleIntegerProperty(1));
+			thisBasket.connectionList.add(thisConnection);
+			thisBasket.basketItems.add(new BasketItem(thisConnection));
 		}
 
 		Popup popup = new Popup();

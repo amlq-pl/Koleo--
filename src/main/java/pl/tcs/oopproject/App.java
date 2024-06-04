@@ -3,6 +3,7 @@ package pl.tcs.oopproject;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.postgresDatabaseIntegration.Checkers;
+import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.ViewController;
 
 import java.sql.SQLException;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 public class App extends Application {
 	public static ArrayList<String> Stations;
 	private final Checkers checkers = new Checkers();
+
+	public static Basket basket = new Basket();
 	
 	{
 		try {

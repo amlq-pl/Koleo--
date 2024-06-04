@@ -83,7 +83,7 @@ public class TrainSearchSceneController implements Initializable {
 
         assert connections != null;
         for (MultiStopRoute con : connections) {
-            TrainPane pane = TrainPaneFactory.createTrainPane(con, basket);
+            TrainPane pane = TrainPaneFactory.createTrainPane(con);
             ConnectionList.add(pane);
         }
 
@@ -135,8 +135,8 @@ public class TrainSearchSceneController implements Initializable {
         BasketButton.textProperty().bindBidirectional(basket.size, new StringConverter<>() {
             @Override
             public String toString(Number number) {
-                return "KOSZYK (" + number + ")";
-            }
+                return "KOSZYK";
+            } // TODO: wrocic do starego koszyka
 
             @Override
             public Number fromString(String s) {
@@ -161,7 +161,6 @@ public class TrainSearchSceneController implements Initializable {
         thisStage.close();
         Stage newStage = new Stage();
         newStage.setScene(ViewController.getBasketScene());
-        if (BasketSceneController.getBasket() != basket) BasketSceneController.setBasket(basket);
         newStage.show();
     }
 }
