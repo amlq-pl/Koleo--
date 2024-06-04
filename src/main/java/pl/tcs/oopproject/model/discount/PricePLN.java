@@ -1,6 +1,6 @@
 package pl.tcs.oopproject.model.discount;
 
-public class PricePLN implements PriceInterface {
+public class PricePLN implements Price {
 	private final Double price;
 	
 	public PricePLN(Double val) {
@@ -8,14 +8,13 @@ public class PricePLN implements PriceInterface {
 	}
 	
 	@Override
-	public Double getPriceValue() {
+	public Double value() {
 		return price;
 	}
 	
 	@Override
 	public String toString() {
 		String s = price.toString();
-		
 		return String.format("%.2f", price) + " zł";
 	}
 }

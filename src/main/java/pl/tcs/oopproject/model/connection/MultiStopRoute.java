@@ -22,7 +22,7 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 		this.transferStations = transferStations;
 	}
 	
-	public ArrayList<ArrayList<Station>> getRoute() {
+	public ArrayList<ArrayList<Station>> route() {
 		ArrayList<ArrayList<Station>> list = new ArrayList<>();
 		transferStations.add(stationB.town());
 		for (int i = 0; i < trains.size(); ++i) {
@@ -40,11 +40,11 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 	}
 	
 	
-	public List<ScheduledTrain> getTrains() {
+	public List<ScheduledTrain> trains() {
 		return trains;
 	}
 	
-	public ReservationType getTrainType() {
+	public ReservationType trainType() {
 		if (trains.size() != 1) return null;
 		else return trains.get(0).getTrainType();
 	}
@@ -141,7 +141,7 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 		transferStations.add(stationB.town());
 		
 		for (int i = 0; i < size; ++i) {
-			double cost1 = trains.get(i).getCost().getPriceValue();
+			double cost1 = trains.get(i).getCost().value();
 			int j = trains.get(i).getIndexOfStation(transferStations.get(i));
 			int k = trains.get(i).getIndexOfStation(transferStations.get(i + 1));
 			cost += cost1 * (k - j + 1) / trains.get(i).numberOfStops();

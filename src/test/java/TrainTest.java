@@ -39,8 +39,8 @@ public class TrainTest {
 				boolean equal = true;
 				System.out.println("NEW TRACE " + stack.size());
 				for(int i = 0; i < stack.size() ; ++i){
-							//System.out.println(stack.get(i) + " + " + connection.getTrains().get(i));
-					if(!stack.get(i).equals( connection.getTrains().get(i))){
+							//System.out.println(stack.get(i) + " + " + connection.trains().get(i));
+					if(!stack.get(i).equals( connection.trains().get(i))){
 						equal = false;
 						break;
 					} //EQUALS DOES NOT WORK!!!!
@@ -133,7 +133,7 @@ public class TrainTest {
 			int size = Math.min(5, trains.size());
 			for (int i = 0; i < size; ++i) {
 				for (int j = i + 1; j < trains.size(); ++j) {
-					if (trains.get(i).cost().getPriceValue() > trains.get(j).cost().getPriceValue()) {
+					if (trains.get(i).cost().value() > trains.get(j).cost().value()) {
 						Collections.swap(trains, i, j);
 					}
 				}
@@ -201,7 +201,7 @@ public class TrainTest {
 
 		for(MultiStopRoute x : connections) {
 			System.out.println("CONNECTION");
-			for (ScheduledTrain s : x.getTrains()) {
+			for (ScheduledTrain s : x.trains()) {
 				s.display();
 				System.out.println();
 			}

@@ -40,7 +40,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 			if (connection.numberOfTransfers() + 1 != stack.size()) continue;
 			boolean equal = true;
 			for (int i = 0; i < stack.size(); ++i) {
-				if (stack.get(i) != connection.getTrains().get(i)) {
+				if (stack.get(i) != connection.trains().get(i)) {
 					equal = false;
 					break;
 				}
@@ -134,7 +134,7 @@ public class ConnectionFinder implements FindConnectionInterface {
 		int size = Math.min(5, trains.size());
 		for (int i = 0; i < size; ++i) {
 			for (int j = i + 1; j < trains.size(); ++j) {
-				if (trains.get(i).cost().getPriceValue() > trains.get(j).cost().getPriceValue()) {
+				if (trains.get(i).cost().value() > trains.get(j).cost().value()) {
 					Collections.swap(trains, i, j);
 				}
 			}

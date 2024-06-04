@@ -120,8 +120,8 @@ public class ExtraScene extends AnchorPane implements Initializable {
 	}
 	
 	private void addAllStations() {
-		ArrayList<ArrayList<Station>> routes = thisConnection.getRoute();
-		ArrayList<ScheduledTrain> trains = (ArrayList<ScheduledTrain>) thisConnection.getTrains();
+		ArrayList<ArrayList<Station>> routes = thisConnection.route();
+		ArrayList<ScheduledTrain> trains = (ArrayList<ScheduledTrain>) thisConnection.trains();
 		for (int i = 0; i < routes.size(); i++) {
 			stationPanes.addAll(StationPane.createStationPane(routes.get(i), trains.get(i)));
 		}

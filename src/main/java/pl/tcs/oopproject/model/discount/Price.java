@@ -1,4 +1,5 @@
 package pl.tcs.oopproject.model.discount;
 
-public class place {
+public interface Price {
+	Double value();
 }

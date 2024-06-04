@@ -1,21 +1,21 @@
 package pl.tcs.oopproject.model.discount;
 
-public class OneTimeDiscount implements DiscountInterface {
+public class Voucher implements GeneralDiscount {
 	private final String name;
 	private final double value;
 	
-	public OneTimeDiscount(String name, double value) {
+	public Voucher(String name, double value) {
 		this.name = name;
 		this.value = value;
 	}
 	
 	@Override
-	public String getDiscount() {
+	public String discount() {
 		return name;
 	}
 	
 	@Override
-	public double getValue() {
+	public double value() {
 		return value;
 	}
 }

@@ -1,45 +1,45 @@
 package pl.tcs.oopproject.model.ticket;
 
 import pl.tcs.oopproject.model.discount.Discount;
-import pl.tcs.oopproject.model.discount.OneTimeDiscount;
-import pl.tcs.oopproject.model.discount.PriceInterface;
+import pl.tcs.oopproject.model.discount.Voucher;
+import pl.tcs.oopproject.model.discount.Price;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class LongTermTicket implements TicketInterface {
+public class LongTermTrainTicket implements TrainTicket {
 	private final LocalDate startDate;
 	private final LocalDateTime purchaseDate;
 	private final LongTermTicketType longTermTicketType;
-	private final Discount discount;
-	private final OneTimeDiscount oneTimeDiscount;
+	private final Discount appliedDiscount;
+	private final Voucher appliedVoucher;
 	private final int id;
 	private boolean returned;
 	
-	public LongTermTicket(LocalDate startDate, LongTermTicketType longTermTicketType, Discount discount, OneTimeDiscount oneTimeDiscount, int id) {
+	public LongTermTrainTicket(LocalDate startDate, LongTermTicketType longTermTicketType, Discount appliedDiscount, Voucher appliedVoucher, int id) {
 		this.startDate = startDate;
 		purchaseDate = LocalDateTime.now();
 		this.longTermTicketType = longTermTicketType;
-		this.discount = discount;
-		this.oneTimeDiscount = oneTimeDiscount;
+		this.appliedDiscount = appliedDiscount;
+		this.appliedVoucher = appliedVoucher;
 		this.id = id;
 		returned = false;
 	}
 	
 	@Override
-	public PriceInterface getCost() {
-		return longTermTicketType.cost();
+	public Price cost() {
+		return longTermTicketType.cost() ;
 	}
 	
 	@Override
-	public Discount getDiscount() {
-		return discount;
+	public Discount appliedDiscount() {
+		return appliedDiscount;
 	}
 	
 	
 	@Override
-	public OneTimeDiscount getOneTimeDiscount() {
-		return oneTimeDiscount;
+	public Voucher appliedVoucher() {
+		return appliedVoucher;
 	}
 	
 	@Override
@@ -48,12 +48,12 @@ public class LongTermTicket implements TicketInterface {
 	}
 	
 	@Override
-	public int getID() {
+	public int id() {
 		return id;
 	}
 	
 	@Override
-	public LocalDateTime getPurchaseDate() {
+	public LocalDateTime purchaseDate() {
 		return purchaseDate;
 	}
 	
