@@ -86,7 +86,7 @@ file.write("copy klienci(imie,nazwisko,data_urodzenia,email,nr_telefonu) from st
 for i in range(params.liczba_klientow):
     name = fetch_random_polish_name()
     surname = fetch_random_polish_surname()
-    str = f"""{name},{surname},{fetch_random_date()},{remove_polish_letters((name + surname + "@" + fetch_random_domain()).lower())},{fetch_random_phone_number()}\n"""
+    str = f"""{name},{surname},{fetch_random_date()},{remove_polish_letters((name + surname +f'{random.randint(0,999)}' "@" + fetch_random_domain()).lower())},{fetch_random_phone_number()}\n"""
 
     file.write(str)
 file.close()

@@ -56,6 +56,16 @@ with open(rabaty_path) as file:
 with open(ulgi_path) as file:
     ulgi = [line.rstrip() for line in file]
 
+with open(zamowienia_path) as file:
+    zamowienia = [line.rstrip() for line in file]
+
+newzamowienia=[]
+
+zamowienia=zamowienia[1:]
+
+for i in zamowienia:
+    newzamowienia.append(i.split(',')[1])
+
 for i in range(1, len(rabaty)):
     data = rabaty[i].split(',')
     newrabaty[i] = [datetime.strptime(data[2], "%Y-%m-%d"), datetime.strptime(data[3], "%Y-%m-%d")]
@@ -63,10 +73,11 @@ for i in range(1, len(rabaty)):
 okresowe = open(bilety_okresowe_zamowienia_path, 'w')
 jednorazowe = open(bilety_jednorazowe_zamowienia_path, 'w')
 
+
 okresowe.write(
-    "copy bilety_okresowe_zamowienia(id_zamowienia, timestamp_kupna, timestamp_zwrotu, id_ulgi, id_rabatu) from stdin with (delimiter ',', null '');\n")
+    "copy bilety_okresowe_zamowienia(id_zamowienia, timestamp_zwrotu, id_ulgi, id_rabatu) from stdin with (delimiter ',', null '');\n")
 jednorazowe.write(
-    "copy bilety_jednorazowe_zamowienia(id_zamowienia, timestamp_kupna, timestamp_zwrotu, id_ulgi, id_rabatu)  from stdin with (delimiter ',', null '');\n")
+    "copy bilety_jednorazowe_zamowienia(id_zamowienia, timestamp_zwrotu, id_ulgi, id_rabatu)  from stdin with (delimiter ',', null '');\n")
 
 okresoweWrite = False
 
@@ -75,7 +86,7 @@ for i in range(1, params.liczba_zamowien + 1):
         okresoweWrite = True
     else:
         okresoweWrite = False
-    tsKupna = fetch_random_timestamp()
+    tsKupna = newzamowienia[i-1]
     for j in range(random.randrange(5)):
         tsZwrotu = ""
         if params.procent_zwroconych_biletow >= random.uniform(0, 1):
@@ -83,9 +94,9 @@ for i in range(1, params.liczba_zamowien + 1):
             while not cmp_timestamps(tsKupna, tsZwrotu):
                 tsZwrotu = fetch_random_timestamp()
         if okresoweWrite:
-            okresowe.write(f"{i},{tsKupna},{tsZwrotu},{random.randint(1, len(ulgi)-1)},{fetch_random_rabat(tsKupna)}\n")
+            okresowe.write(f"{i},{tsZwrotu},{random.randint(1, len(ulgi)-1)},{fetch_random_rabat(tsKupna)}\n")
         else:
-            jednorazowe.write(f"{i},{tsKupna},{tsZwrotu},{random.randint(1, len(ulgi)-1)},{fetch_random_rabat(tsKupna)}\n")
+            jednorazowe.write(f"{i},{tsZwrotu},{random.randint(1, len(ulgi)-1)},{fetch_random_rabat(tsKupna)}\n")
 
 
 okresowe.close()

@@ -34,8 +34,9 @@ create table konto
 
 create table zamowienia
 (
-    id_zamowienia serial primary key,
-    id_klienta    integer not null references klienci
+    id_zamowienia   serial primary key,
+    id_klienta      integer   not null references klienci,
+    timestamp_kupna timestamp not null
 );
 
 create table przewoznicy
@@ -86,10 +87,9 @@ create table cennik_biletow_okresowych
 create table bilety_okresowe_zamowienia
 (
     id_bilety_okresowe_zamowienia serial primary key,
-    id_zamowienia                 integer   not null references zamowienia,
-    timestamp_kupna               timestamp not null,
-    timestamp_zwrotu              timestamp check ( timestamp_kupna < timestamp_zwrotu ),
-    id_ulgi                       integer   not null references ulgi,
+    id_zamowienia                 integer not null references zamowienia,
+    timestamp_zwrotu              timestamp,
+    id_ulgi                       integer not null references ulgi,
     id_rabatu                     integer references rabaty
 );
 
@@ -155,9 +155,8 @@ create table bilety_jednorazowe_zamowienia
 (
     id_bilety_jednorazowe_zamowienia serial primary key,
     id_zamowienia                    integer references zamowienia,
-    timestamp_kupna                  timestamp not null,
-    timestamp_zwrotu                 timestamp check ( timestamp_kupna < timestamp_zwrotu ),
-    id_ulgi                          integer   not null references ulgi,
+    timestamp_zwrotu                 timestamp,
+    id_ulgi                          integer not null references ulgi,
     id_rabatu                        integer references rabaty
 );
 
@@ -171,6 +170,15 @@ create table bilety_jednorazowe
     nr_wagonu                        smallint not null,
     nr_miejsca                       smallint not null,
     id_szczegolow                    smallint not null references szczegoly_biletu
+);
+
+create table koszty_udogodnien
+(
+    id_kosztu_udogodnien serial primary key,
+    nazwa                varchar(20) not null,
+    koszt_procentowy     int         not null,
+    data_poczatkowa      date        not null,
+    data_koncowa         date        not null check ( data_poczatkowa <= data_koncowa )
 );
 
 
@@ -257,7 +265,7 @@ execute procedure correctNullsStacjePosrednie();
 create or replace function discardNullAcc() returns trigger as
 $$
 begin
-    if new.login is null and new.haslo is null then
+    if new.login is null or new.haslo is null then
         return null;
     end if;
     return new;
@@ -276,8 +284,31 @@ from klienci kl
          join konto ko on kl.id_klienta = ko.id_klienta;
 
 create rule nowyUzytkownik as on insert to uzytkownicy do instead (
-    insert into klienci
+    insert into klienci(imie, nazwisko, data_urodzenia, email, nr_telefonu)
     values (new.imie, new.nazwisko, new.data_urodzenia, new.email, new.nr_telefonu);
-    insert into konto
+    insert into konto(login, haslo, id_klienta)
     values (new.login, new.haslo, (select max(id_klienta) from klienci));
-    )
+    );
+
+create or replace function correctTimestamps() returns trigger as
+$$
+begin
+    if (select z.timestamp_kupna from zamowienia z where z.id_zamowienia = new.id_zamowienia) >=
+       new.timestamp_zwrotu then
+        raise exception 'błędny czas zwrotu';
+    end if;
+    return new;
+end;
+$$ language plpgsql;
+
+create trigger correctTimestampOnZamowieniaJednorazowe
+    before update
+    on bilety_jednorazowe_zamowienia
+    for each row
+execute procedure correctTimestamps();
+
+create trigger correctTimestampOnZamowieniaOkresowe
+    before update
+    on bilety_okresowe_zamowienia
+    for each row
+execute procedure correctTimestamps();

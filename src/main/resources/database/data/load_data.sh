@@ -20,3 +20,4 @@ psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "data/cennik_biletow_okresow
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "data/bilety_jednorazowe_zamowienia.sql"
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "data/bilety_okresowe_zamowienia.sql"
 psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "data/bilety_okresowe.sql"
+psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "data/koszty_udogodnien.sql"
