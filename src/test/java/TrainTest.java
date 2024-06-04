@@ -12,7 +12,7 @@ import java.util.*;
 
 public class TrainTest {
 	
-	public class Finder implements FindConnectionInterface {
+	public class Finder implements FindTrainConnection {
 		private static final int maxTransferNumber = 4;
 		private static final int hours = 8;
 		private final ArrayList<MultiStopRoute> trains = new ArrayList<>();
@@ -117,7 +117,7 @@ public class TrainTest {
 		}
 		
 		@Override
-		public List<MultiStopRoute> getRoutes() {
+		public List<MultiStopRoute> findTrainRoutes() {
 			Collections.sort(trains);
 			ArrayList<MultiStopRoute> connections = new ArrayList<>();
 			int size = Math.min(5, trains.size());
@@ -128,7 +128,7 @@ public class TrainTest {
 		}
 		
 		@Override
-		public List<MultiStopRoute> getCheapRoutes() {
+		public List<MultiStopRoute> findCheapestTrainRoutes() {
 			ArrayList<MultiStopRoute> connections = new ArrayList<>();
 			int size = Math.min(5, trains.size());
 			for (int i = 0; i < size; ++i) {
@@ -146,7 +146,7 @@ public class TrainTest {
 		}
 		
 		@Override
-		public List<MultiStopRoute> getRoutesWithoutTransfers(){
+		public List<MultiStopRoute> getDirectTrainRoutes(){
 			ArrayList<MultiStopRoute> connection = new ArrayList<>();
 			for (MultiStopRoute train : trains)
 				if (train.numberOfTransfers() == 0) connection.add(train);
@@ -197,7 +197,7 @@ public class TrainTest {
 	public void BasicFunctionalityTest() {
 		Finder finder = new Finder("Kraków", "Warszawa", LocalDateTime.now());
 		finder.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6));
-		List<MultiStopRoute> connections = finder.getRoutes();
+		List<MultiStopRoute> connections = finder.findTrainRoutes();
 
 		for(MultiStopRoute x : connections) {
 			System.out.println("CONNECTION");
@@ -212,7 +212,7 @@ public class TrainTest {
 	public void StationDoesNotExistsTest() {
 		Finder finder2 = new Finder("Szczecin", "Skierniewice", LocalDateTime.now());
 		finder2.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6));
-		List<MultiStopRoute> connections2 = finder2.getRoutes();
+		List<MultiStopRoute> connections2 = finder2.findTrainRoutes();
 		assert(connections2.isEmpty());
 	}
 	
@@ -220,14 +220,14 @@ public class TrainTest {
 	public void NothingFoundTest() {
 		Finder finder = new Finder("Szczecin", "Kraków", LocalDateTime.now());
 		finder.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6));
-		assert(finder.getRoutes().isEmpty());
+		assert(finder.findTrainRoutes().isEmpty());
 	}
 	
 	@Test
 	public void RoutesSortedByCostTest() {
 		Finder finder = new Finder("Kraków", "Warszawa", LocalDateTime.now());
 		finder.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6));
-		List<MultiStopRoute> connections = finder.getCheapRoutes();
+		List<MultiStopRoute> connections = finder.findCheapestTrainRoutes();
 		System.out.println("DISPLAY <#");
 		for(MultiStopRoute c : connections)
 			c.displayLess();
@@ -237,7 +237,7 @@ public class TrainTest {
 	public void RoutesWithoutTransfers() {
 		Finder finder = new Finder("Kraków", "Warszawa", LocalDateTime.now());
 		finder.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6));
-		List<MultiStopRoute> connection = finder.getRoutesWithoutTransfers();
+		List<MultiStopRoute> connection = finder.getDirectTrainRoutes();
 		System.out.println("DISPLAY");
 		for(MultiStopRoute c : connection)
 			c.displayLess();
@@ -247,7 +247,7 @@ public class TrainTest {
 	public void TimeDifferencesThatDoesNotWorkTest() {
 		Finder finder = new Finder("Kędzierzyn Koźle", "Jastrzębia Góra", LocalDateTime.now());
 		finder.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6, dC7, dC8));
-		List<MultiStopRoute> connection = finder.getRoutes();
+		List<MultiStopRoute> connection = finder.findTrainRoutes();
 		assert connection.isEmpty();
 	}
 	
@@ -255,7 +255,7 @@ public class TrainTest {
 	public void TestTimeDifferencesThatWorkTest() {
 		Finder finder = new Finder("Kędzierzyn Koźle", "Jastrzębia Góra", LocalDateTime.now());
 		finder.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6, dC7, dC8, dC9));
-		List<MultiStopRoute> connection = finder.getRoutes();
+		List<MultiStopRoute> connection = finder.findTrainRoutes();
 		assert !connection.isEmpty();
 		
 		System.out.println("DISPLAY");
@@ -267,7 +267,7 @@ public class TrainTest {
 	public void NestStations() {
 		Finder finder = new Finder("Jastrzębia Góra", "Warszawa", LocalDateTime.now());
 		fillFinder(finder);
-		List<MultiStopRoute> connection = finder.getRoutes();
+		List<MultiStopRoute> connection = finder.findTrainRoutes();
 		assert !connection.isEmpty();
 		
 		System.out.println("DISPLAY");
@@ -284,7 +284,7 @@ public class TrainTest {
 	public void ParallelTracksTest() {
 		Finder finder = new Finder("Warszawa", "Szczecinek", LocalDateTime.now());
 		finder.setTrains(List.of(dC11, dC12));
-		List<MultiStopRoute> connection = finder.getRoutes();
+		List<MultiStopRoute> connection = finder.findTrainRoutes();
 		assert !connection.isEmpty();
 		assert connection.size() == 1;
 		
@@ -302,7 +302,7 @@ public class TrainTest {
 	public void TracksTest() {
 		Finder finder = new Finder("Warszawa", "Szczecinek", LocalDateTime.now());
 		fillFinder(finder);
-		List<MultiStopRoute> connection = finder.getRoutes();
+		List<MultiStopRoute> connection = finder.findTrainRoutes();
 		assert !connection.isEmpty();
 		System.out.println(connection.size());
 		

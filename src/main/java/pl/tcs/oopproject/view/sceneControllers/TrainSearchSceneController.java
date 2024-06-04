@@ -20,7 +20,7 @@ import pl.tcs.oopproject.view.SimpleDateProperty;
 import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.view.componentControllers.TrainPane;
 import pl.tcs.oopproject.view.componentControllers.TrainPaneFactory;
-import pl.tcs.oopproject.viewmodel.connection.ConnectionFinder;
+import pl.tcs.oopproject.viewmodel.connection.TrainConnectionFinder;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -69,10 +69,10 @@ public class TrainSearchSceneController implements Initializable {
                 Integer.parseInt(HourPicker.getValue().substring(3, 5)));
     }
 
-    private void addAllPanes(ConnectionFinder finder) {
+    private void addAllPanes(TrainConnectionFinder finder) {
         List<MultiStopRoute> connections = null;
         try {
-            connections = finder.getRoutes();
+            connections = finder.findTrainRoutes();
         } catch (SQLException e) {
             Stage stage = (Stage) ArrStation.getScene().getWindow();
             stage.close();
@@ -95,7 +95,7 @@ public class TrainSearchSceneController implements Initializable {
 
         LocalDateTime tempLocalDateTime = getLocalDateTime();
 
-        ConnectionFinder finder =  ConnectionFinder.getConnectionFinder(DepStation.getValue(), ArrStation.getValue(), tempLocalDateTime);
+        TrainConnectionFinder finder =  TrainConnectionFinder.getConnectionFinder(DepStation.getValue(), ArrStation.getValue(), tempLocalDateTime);
 
         addAllPanes(finder);
     }
