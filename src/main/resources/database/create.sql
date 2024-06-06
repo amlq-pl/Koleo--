@@ -311,3 +311,13 @@ create trigger correctTimestampOnZamowieniaOkresowe
     on bilety_okresowe_zamowienia
     for each row
 execute procedure correctTimestamps();
+
+create or replace function getKlientId(userLogin varchar) returns int as
+$$
+begin
+    return (select kl.id_klienta
+            from klienci kl
+                     join konto k on kl.id_klienta = k.id_klienta
+            where k.login = userLogin);
+end;
+$$ language plpgsql;
