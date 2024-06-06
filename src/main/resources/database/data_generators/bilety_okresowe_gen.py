@@ -33,6 +33,10 @@ path = path[:-16]
 bilety_okresowe_zamowienia_path = path + "/data/bilety_okresowe_zamowienia.sql"
 bilety_okresowe_path = path + "/data/bilety_okresowe.sql"
 cennik_path = path + "/data/cennik_biletow_okresowych.sql"
+zamowienia_path = path + "/data/zamowienia.sql"
+
+with open(zamowienia_path) as file:
+    zamowienia = [line.rstrip() for line in file]
 
 with open(bilety_okresowe_zamowienia_path) as file:
     bilety_okresowe_zamowienia = [line.rstrip() for line in file]
@@ -45,6 +49,8 @@ file.write(
     "copy bilety_okresowe(id_bilety_okresowe_zamowienia, timestamp_od, id_typ_biletu) from stdin delimiter ',';\n")
 for i in range(1, len(bilety_okresowe_zamowienia)):
     mn = bilety_okresowe_zamowienia[i].split(',')[1]
+    if mn == '':
+        mn = zamowienia[int(bilety_okresowe_zamowienia[i].split(',')[0])].split(',')[1]
     ts = fetch_random_timestamp()
     while not cmp_timestamps(ts, mn):
         ts = fetch_random_timestamp()
