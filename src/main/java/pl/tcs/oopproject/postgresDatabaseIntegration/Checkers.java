@@ -1,6 +1,8 @@
 package pl.tcs.oopproject.postgresDatabaseIntegration;
 
 import pl.tcs.oopproject.model.databaseIntegration.CheckersInterface;
+import pl.tcs.oopproject.model.discount.Discount;
+import pl.tcs.oopproject.model.discount.Voucher;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +27,16 @@ public class Checkers implements CheckersInterface {
 		}
 		return stations;
 	}
-	
-	
+
+	@Override
+	public ArrayList<Discount> getAllDiscounts() throws SQLException {
+		return null;
+	}
+
+	@Override
+	public ArrayList<Voucher> getAllVouchers() throws SQLException {
+		return null;
+	}
+
+
 }
