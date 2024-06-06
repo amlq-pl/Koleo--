@@ -17,7 +17,7 @@ wagony_typy_miejsc.write(
 wagony_counter = 1
 
 typy_wagonow = ["Przedziałowy 8-osobowy", "Przedziałowy 6-osobowy", "Bezprzedziałowy", "Sypialny", "Restauracyjny"]
-for i in range(40, 88, 8):
+for i in range(24, 41, 8):
     str = f"""{typy_wagonow[0]},{2},{i}\n"""
     wagony.write(str)
     wagony_typy_miejsc.write(f"""{wagony_counter},{1},{"Okno"}\n""")
@@ -30,7 +30,7 @@ for i in range(40, 88, 8):
     wagony_typy_miejsc.write(f"""{wagony_counter},{0},{"Okno"}\n""")
     wagony_counter += 1
 
-for i in range(30, 78, 6):
+for i in range(24, 43, 6):
     str = f"""{typy_wagonow[1]},{2},{i}\n"""
     wagony.write(str)
     wagony_typy_miejsc.write(f"""{wagony_counter},{1},{"Okno"}\n""")
@@ -41,7 +41,7 @@ for i in range(30, 78, 6):
     wagony_typy_miejsc.write(f"""{wagony_counter},{0},{"Okno"}\n""")
     wagony_counter += 1
 
-for i in range(40, 124, 8):
+for i in range(40, 81, 8):
     str = f"""{typy_wagonow[2]},{2},{i}\n"""
     wagony.write(str)
     wagony_typy_miejsc.write(f"""{wagony_counter},{1},{"Okno"}\n""")
