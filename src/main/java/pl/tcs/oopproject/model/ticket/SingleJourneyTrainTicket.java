@@ -1,5 +1,6 @@
 package pl.tcs.oopproject.model.ticket;
 
+import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.model.connection.ScheduledTrain;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
@@ -14,36 +15,43 @@ import java.util.List;
 
 public class SingleJourneyTrainTicket implements TrainTicket {
 	private final TrainsAssignedSeats trainsAssignedSeats;
-	private final Discount discount;
-	private final Voucher voucher;
+	private final Discount appliedDiscount;
+	private final Voucher appliedVoucher;
 	private final LocalDateTime purchaseDate;
 	private final int id;
 	private final Details details;
 	private boolean returned;
+	private final MultiStopRoute train;
 	
-	public SingleJourneyTrainTicket(TrainsAssignedSeats trainsAssignedSeats, Discount discount, Voucher voucher, int id, Details details) {
+	public SingleJourneyTrainTicket(TrainsAssignedSeats trainsAssignedSeats, Discount appliedDiscount, Voucher appliedVoucher, int id, Details details, MultiStopRoute train) {
 		this.trainsAssignedSeats = trainsAssignedSeats;
-		this.discount = discount;
-		this.voucher = voucher;
+		this.appliedDiscount = appliedDiscount;
+		this.appliedVoucher = appliedVoucher;
 		this.id = id;
 		this.details = details;
+		this.train = train;
 		purchaseDate = LocalDateTime.now();
 		returned = false;
 	}
 	
 	@Override
 	public PricePLN cost() {
-		return trainsAssignedSeats.getConnection().cost();
+		double cost = train.cost().value();
+		if(appliedDiscount != null)
+			cost = cost * (100 - appliedDiscount.value()) / 100;
+		if(appliedVoucher != null)
+			cost = cost * (100 - appliedVoucher.value()) / 100;
+		return new PricePLN(cost);
 	}
 	
 	@Override
 	public Discount appliedDiscount() {
-		return discount;
+		return appliedDiscount;
 	}
 	
 	@Override
 	public Voucher appliedVoucher() {
-		return voucher;
+		return appliedVoucher;
 	}
 	
 	@Override

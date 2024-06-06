@@ -1,5 +1,6 @@
 package pl.tcs.oopproject.model.ticket;
 
+import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.exception.AlreadyReturnedTicketException;
@@ -14,9 +15,9 @@ public class TicketFactory {
 		return new LongTermTrainTicket(startDate, ticketType, discount, voucher, id);
 	}
 	
-	public SingleJourneyTrainTicket createSingleFairTicket(Discount discount, Voucher voucher, Details details) {
+	public SingleJourneyTrainTicket createSingleFairTicket(Discount discount, Voucher voucher, Details details, MultiStopRoute train) {
 		int id = 0; //=SAVE IN DATABASE, FUNCTION TAKES PLACE (FROM USER), SAVE DATA IN DATABASE AND MUST RETURN ID OF THE ORDER
-		return new SingleJourneyTrainTicket(ActiveUser.getPlace(), discount, voucher, id, details);
+		return new SingleJourneyTrainTicket(ActiveUser.getPlace(), discount, voucher, id, details, train);
 	}
 	
 	public void refund(TrainTicket ticket) {

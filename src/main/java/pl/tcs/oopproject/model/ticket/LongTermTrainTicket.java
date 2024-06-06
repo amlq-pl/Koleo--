@@ -1,6 +1,7 @@
 package pl.tcs.oopproject.model.ticket;
 
 import pl.tcs.oopproject.model.discount.Discount;
+import pl.tcs.oopproject.model.discount.PricePLN;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.discount.Price;
 
@@ -28,7 +29,12 @@ public class LongTermTrainTicket implements TrainTicket {
 	
 	@Override
 	public Price cost() {
-		return longTermTicketType.cost() ;
+		double cost = longTermTicketType.cost().value();
+		if(appliedDiscount != null)
+			cost = cost * (100 - appliedDiscount.value()) / 100;
+		if(appliedVoucher != null)
+			cost = cost * (100 - appliedVoucher.value()) / 100;
+		return new PricePLN(cost);
 	}
 	
 	@Override

@@ -4,6 +4,7 @@ package pl.tcs.oopproject.model.users;
 import pl.tcs.oopproject.model.exception.KoleoException;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Person {
 	private String name;
@@ -21,8 +22,7 @@ public class Person {
 	}
 	
 	public String getName() {
-		if (name == null) return "";
-		return name;
+		return Objects.toString(name, "");
 	}
 	
 	public void setName(String name) {
@@ -30,8 +30,7 @@ public class Person {
 	}
 	
 	public String getSurname() {
-		if (surname == null) return "";
-		return surname;
+		return  Objects.toString(surname, "");
 	}
 	
 	public void setSurname(String surname) {

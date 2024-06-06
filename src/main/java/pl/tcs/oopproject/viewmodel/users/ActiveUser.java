@@ -4,8 +4,7 @@ package pl.tcs.oopproject.viewmodel.users;
 import pl.tcs.oopproject.model.place.TrainsAssignedSeats;
 
 public class ActiveUser {
-	private static String activeUser; //active customer
-	private static String login;
+	private static String activeUser; //active customer, login
 	private static TrainsAssignedSeats trainsAssignedSeats; //temporarily viewed place
 	
 	public static String getActiveUser() {
