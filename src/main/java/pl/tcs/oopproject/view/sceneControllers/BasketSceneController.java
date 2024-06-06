@@ -1,8 +1,6 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -52,5 +50,9 @@ public class BasketSceneController implements Initializable {
                 }
             }
         });
+    }
+
+    public void BuyButtonClick() {
+
     }
 }
