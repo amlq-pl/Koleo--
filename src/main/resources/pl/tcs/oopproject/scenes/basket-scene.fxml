@@ -39,7 +39,7 @@
          <AnchorPane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
                <Label fx:id="CostLabel" layoutX="538.0" layoutY="17.0" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="17.0" />
-               <Button fx:id="BuyButton" layoutX="47.0" layoutY="13.0" mnemonicParsing="false" text="KUP BILETY" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="13.0" />
+               <Button fx:id="BuyButton" layoutX="47.0" layoutY="13.0" mnemonicParsing="false" onAction="#BuyButtonClick" text="KUP BILETY" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="13.0" />
             </children>
          </AnchorPane>
       </bottom>

@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
+import pl.tcs.oopproject.model.ticket.LongTermTicketType;
+import pl.tcs.oopproject.model.ticket.TicketFactory;
 import pl.tcs.oopproject.view.ViewController;
 
 import java.net.URL;
