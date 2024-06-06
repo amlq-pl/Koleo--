@@ -1,12 +1,15 @@
 package pl.tcs.oopproject.model.ticket;
 
 import pl.tcs.oopproject.model.discount.Discount;
-import pl.tcs.oopproject.model.discount.PricePLN;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.discount.Price;
+import pl.tcs.oopproject.model.users.Person;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
+
+import static pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket.getPricePLN;
 
 public class LongTermTrainTicket implements TrainTicket {
 	private final LocalDate startDate;
@@ -14,11 +17,14 @@ public class LongTermTrainTicket implements TrainTicket {
 	private final LongTermTicketType longTermTicketType;
 	private final Discount appliedDiscount;
 	private final Voucher appliedVoucher;
+	
 	private final int id;
 	private boolean returned;
+	private final Person person;
 	
-	public LongTermTrainTicket(LocalDate startDate, LongTermTicketType longTermTicketType, Discount appliedDiscount, Voucher appliedVoucher, int id) {
+	public LongTermTrainTicket(LocalDate startDate, LongTermTicketType longTermTicketType, Discount appliedDiscount, Voucher appliedVoucher, int id, Person person) {
 		this.startDate = startDate;
+		this.person = person;
 		purchaseDate = LocalDateTime.now();
 		this.longTermTicketType = longTermTicketType;
 		this.appliedDiscount = appliedDiscount;
@@ -27,14 +33,22 @@ public class LongTermTrainTicket implements TrainTicket {
 		returned = false;
 	}
 	
+	public Person getPerson() {
+		return person;
+	}
 	@Override
 	public Price cost() {
-		double cost = longTermTicketType.cost().value();
-		if(appliedDiscount != null)
-			cost = cost * (100 - appliedDiscount.value()) / 100;
-		if(appliedVoucher != null)
-			cost = cost * (100 - appliedVoucher.value()) / 100;
-		return new PricePLN(cost);
+		return getPricePLN(longTermTicketType.cost(), appliedDiscount, appliedVoucher);
+	}
+	
+	@Override
+	public boolean isActive() {
+		Period p = longTermTicketType.period();
+		LocalDateTime afterPeriod = startDate.atStartOfDay().plusYears(p.getYears());
+		afterPeriod = afterPeriod.plusMonths(p.getMonths());
+		afterPeriod = afterPeriod.plusDays(p.getDays());
+		
+		return LocalDateTime.now().isAfter(startDate.atStartOfDay()) && LocalDateTime.now().isBefore(afterPeriod);
 	}
 	
 	@Override
