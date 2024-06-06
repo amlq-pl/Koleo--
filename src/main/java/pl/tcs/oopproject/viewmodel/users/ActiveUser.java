@@ -4,10 +4,12 @@ package pl.tcs.oopproject.viewmodel.users;
 import pl.tcs.oopproject.model.place.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.users.Person;
 
+import java.util.ArrayList;
+
 public class ActiveUser {
 	private static String activeUser; //active customer, login
 	private static Person person;
-	private static TrainsAssignedSeats trainsAssignedSeats; //temporarily viewed place
+	private static ArrayList<TrainsAssignedSeats> trainsAssignedSeats; //temporarily viewed place
 	
 	public static String getActiveUser() {
 		return activeUser;
@@ -17,11 +19,11 @@ public class ActiveUser {
 		activeUser = user;
 	}
 	
-	public static TrainsAssignedSeats getPlace() {
+	public static ArrayList<TrainsAssignedSeats> getPlace() {
 		return trainsAssignedSeats;
 	}
 	
-	public static void setPlace(TrainsAssignedSeats trainsAssignedSeats) {
+	public static void setPlace(ArrayList<TrainsAssignedSeats> trainsAssignedSeats) {
 		ActiveUser.trainsAssignedSeats = trainsAssignedSeats;
 	}
 	
