@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SingleJourneyTrainTicket implements TrainTicket {
 	private final static int ticketValidityWindow = 8; //how many hours after planned arrival is ticket active
-	private final TrainsAssignedSeats trainsAssignedSeats;
+	private final ArrayList<TrainsAssignedSeats> trainsAssignedSeats;
 	private final Discount appliedDiscount;
 	private final Voucher appliedVoucher;
 	private final LocalDateTime purchaseDate;
@@ -29,7 +29,7 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	private final MultiStopRoute train;
 	private final Person person;
 	
-	public SingleJourneyTrainTicket(TrainsAssignedSeats trainsAssignedSeats, Discount appliedDiscount, Voucher appliedVoucher, int id, Details details, MultiStopRoute train, Person person) {
+	public SingleJourneyTrainTicket(ArrayList<TrainsAssignedSeats> trainsAssignedSeats, Discount appliedDiscount, Voucher appliedVoucher, int id, Details details, MultiStopRoute train, Person person) {
 		this.trainsAssignedSeats = trainsAssignedSeats;
 		this.appliedDiscount = appliedDiscount;
 		this.appliedVoucher = appliedVoucher;
@@ -98,11 +98,11 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	}
 	
 	public Station departureStation() {
-		return trainsAssignedSeats.getConnection().originStation();
+		return trainsAssignedSeats.get(0).getConnection().originStation();
 	}
 	
 	public Station arrivalStation() {
-		return trainsAssignedSeats.getConnection().destinationStation();
+		return trainsAssignedSeats.get(0).getConnection().destinationStation();
 	}
 	
 	public LocalDateTime departureTime() {
@@ -113,13 +113,10 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 		return arrivalStation().arrivalTime();
 	}
 	
-	public List<AssignedSeat> seats() {
-		return trainsAssignedSeats.seatList();
-	}
 	
 	public List<Integer> trainNumber() {
 		List<Integer> trains = new ArrayList<>();
-		for (ScheduledTrain connection : trainsAssignedSeats.getConnection().trains()) {
+		for (ScheduledTrain connection : trainsAssignedSeats.get(0).getConnection().trains()) {
 			trains.add(connection.getNumber());
 		}
 		return trains;
@@ -129,7 +126,7 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 		return details;
 	}
 	
-	public TrainsAssignedSeats place() {
+	public List<TrainsAssignedSeats> places() {
 		return trainsAssignedSeats;
 	}
 }
