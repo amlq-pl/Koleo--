@@ -54,8 +54,7 @@ create table stacje
 
 create table trasy
 (
-    id_trasy   serial primary key,
-    ile_stacji smallint not null
+    id_trasy integer primary key
 );
 
 create table stacje_posrednie
@@ -106,7 +105,7 @@ create table przejazdy
     id_przejazdu          serial primary key,
     id_trasy_przewoznika  integer       not null references trasy_przewoznicy,
     timestamp_przejazdu   timestamp     not null,
-    koszt_bazowy          numeric(5, 2) not null,
+    koszt_bazowy          numeric(7, 2) not null,
     czy_rezerwacja_miejsc boolean       not null,
     nazwa                 varchar(30)   not null
 );
@@ -214,34 +213,34 @@ begin
 end;
 $$ language plpgsql;
 
-create or replace function correctNullsStacjePosrednie() returns trigger as
-$$
-declare
-    lastStation int;
-begin
-    select ile_stacji into lastStation from trasy where id_trasy = new.id_trasy;
-    if new.numer_stacji = 1 then
-        if new.czas_postoju is not null or new.czas_przejazdu is not null then
-            raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
-        end if;
-    elsif new.numer_stacji = lastStation then
-        if new.czas_postoju is not null or new.czas_przejazdu is null then
-            raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
-        end if;
-    else
-        if new.czas_postoju is null or new.czas_przejazdu is null then
-            raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
-        end if;
-    end if;
-    return new;
-end;
-$$ language plpgsql;
-
-create trigger correctNullsInStacjePosrednie
-    before insert
-    on stacje_posrednie
-    for each row
-execute procedure correctNullsStacjePosrednie();
+-- create or replace function correctNullsStacjePosrednie() returns trigger as
+-- $$
+-- declare
+--     lastStation int;
+-- begin
+--     select count(*) into lastStation from trasy t join stacje_posrednie sp on t.id_trasy = sp.id_trasy where t.id_trasy = new.id_trasy;
+--     if new.numer_stacji = 1 then
+--         if new.czas_postoju is not null or new.czas_przejazdu is not null then
+--             raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
+--         end if;
+--     elsif new.numer_stacji = lastStation then
+--         if new.czas_postoju is not null or new.czas_przejazdu is null then
+--             raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
+--         end if;
+--     else
+--         if new.czas_postoju is null or new.czas_przejazdu is null then
+--             raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
+--         end if;
+--     end if;
+--     return new;
+-- end;
+-- $$ language plpgsql;
+--
+-- create trigger correctNullsInStacjePosrednie
+--     before insert
+--     on stacje_posrednie
+--     for each row
+-- execute procedure correctNullsStacjePosrednie();
 
 create or replace function correctNullsBiletyJednorazowe() returns trigger as
 $$
@@ -260,7 +259,7 @@ create trigger correctNullsInBiletyJednorazowe
     before insert or update
     on bilety_jednorazowe
     for each row
-execute procedure correctNullsStacjePosrednie();
+execute procedure correctNullsBiletyJednorazowe();
 
 create or replace function discardNullAcc() returns trigger as
 $$
