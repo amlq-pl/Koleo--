@@ -19,8 +19,7 @@ public class Checkers implements CheckersInterface {
 	
 	@Override
 	public ArrayList<String> getAllStations() throws SQLException {
-		String query = "select s.nazwa from stacje s order by s.nazwa;";
-		ResultSet resultSet = DB.statement.executeQuery(query);
+		ResultSet resultSet = DB.statement.executeQuery("select s.nazwa from stacje s order by s.nazwa;");
 		ArrayList<String> stations = new ArrayList<>();
 		while (resultSet.next()) {
 			stations.add(resultSet.getString("nazwa"));
@@ -30,12 +29,25 @@ public class Checkers implements CheckersInterface {
 
 	@Override
 	public ArrayList<Discount> getAllDiscounts() throws SQLException {
-		return null;
+		//Ulgi
+		ArrayList<Discount> discounts = new ArrayList<>();
+		ResultSet rs = DB.statement.executeQuery("select u.nazwa,u.znizka from ulgi u order by u.nazwa;");
+		while (rs.next()) {
+			discounts.add(new Discount(rs.getString("nazwa"),rs.getInt("znizka")));
+		}
+		return discounts;
 	}
 
 	@Override
 	public ArrayList<Voucher> getAllVouchers() throws SQLException {
-		return null;
+		//Znizki
+		ArrayList<Voucher> vouchers = new ArrayList<>();
+		ResultSet rs = DB.statement.executeQuery("select r.nazwa,r.znizka from rabaty r " +
+				"where r.data_wprowadzenia<=now() and r.data_waznosci>=now() order by r.nazwa; ");
+		while (rs.next()) {
+			vouchers.add(new Voucher(rs.getString("nazwa"),rs.getInt("znizka")));
+		}
+		return vouchers;
 	}
 
 
