@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public interface TrainTicket {
 	Price cost();
-	
+	boolean isActive();
 	Discount appliedDiscount();
 	
 	Voucher appliedVoucher();

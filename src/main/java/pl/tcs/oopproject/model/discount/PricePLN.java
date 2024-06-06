@@ -14,7 +14,6 @@ public class PricePLN implements Price {
 	
 	@Override
 	public String toString() {
-		String s = price.toString();
 		return String.format("%.2f", price) + " zł";
 	}
 }

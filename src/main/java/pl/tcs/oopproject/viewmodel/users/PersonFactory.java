@@ -8,20 +8,15 @@ import pl.tcs.oopproject.postgresDatabaseIntegration.InsertNewPersonToDatabase;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 public class PersonFactory {
-	static int minNameLength = 2;
-	static int maxNameLength = 20;
-	static int minAge = 12;
-	
 	public static Person logIn(String login, String password) throws KoleoException {
 		try {
 			AuthenticateLogin authenticator = new AuthenticateLogin();
 			Person person = authenticator.authenticate(login, password);
 			ActiveUser.setActiveUser(login);
+			ActiveUser.setPerson(person);
 			return person;
 		} catch (SQLException e) {
 			throw new InvalidUsernameOrPasswordException();
@@ -31,10 +26,10 @@ public class PersonFactory {
 	
 	public static Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber) throws KoleoException {
 		if (Objects.equals(phoneNumber, "")) phoneNumber = null;
-		if (!Check.correctTelephoneNumber(phoneNumber)) throw new InvalidTelephoneNumberException();
-		if (name.length() > maxNameLength || name.length() < minNameLength) throw new InvalidNameOrSurnameException();
-		if (Period.between(dateOfBirth, LocalDate.now()).getYears() < minAge) throw new InvalidDateOfBirthException();
-		if (!Check.correctEmail(email)) throw new InvalidEmailException();
+		if (Check.incorrectTelephoneNumber(phoneNumber)) throw new InvalidTelephoneNumberException();
+		if (Check.incorrectName(name) || Check.incorrectSurname(surname)) throw new InvalidNameOrSurnameException();
+		if (!Check.correctDateOfBirth(dateOfBirth)) throw new InvalidDateOfBirthException();
+		if (Check.incorrectEmail(email)) throw new InvalidEmailException();
 		return new Person(name, surname, dateOfBirth, email, phoneNumber);
 	} //buy without signing up nor logging in
 	
@@ -47,9 +42,10 @@ public class PersonFactory {
 			if (checker.checkIfUserExists(login)) throw new ExistingUserException();
 			if (!inserter.insert(person, login, password)) throw new SQLException();
 			ActiveUser.setActiveUser(login);
+			ActiveUser.setPerson(person);
 			return person;
 		} catch (SQLException e) {
 			throw new InternalDatabaseException();
 		}
-	} //sign up without phoneNumber
+	} //sign up with or without phoneNumber
 }
