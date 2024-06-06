@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.componentControllers.BasketItem;
-import pl.tcs.oopproject.view.componentControllers.TicketItem;
 import pl.tcs.oopproject.view.componentControllers.TicketItemContainer;
 
 import java.net.URL;
