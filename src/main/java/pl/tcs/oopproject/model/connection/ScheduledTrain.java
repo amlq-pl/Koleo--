@@ -87,7 +87,7 @@ public class ScheduledTrain implements RouteElement { //some kind of decorator t
 		System.out.println("Train Type: " + trainType.name());
 		System.out.println("Stations:");
 		for (Station station : connection.stations()) {
-			station.toString();
+			System.out.println(station);
 		}
 	}
 }
