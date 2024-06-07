@@ -7,8 +7,8 @@ import pl.tcs.oopproject.model.station.Station;
 import java.util.ArrayList;
 
 public class TicketItem extends AnchorPane {
-    private MultiStopRoute route;
-    public TicketItem(MultiStopRoute route) {
+    private final ArrayList<Station> route;
+    public TicketItem(ArrayList<Station> route) {
         this.route = route;
     }
 }
