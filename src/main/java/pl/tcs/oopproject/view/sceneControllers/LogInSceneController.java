@@ -55,7 +55,7 @@ public class LogInSceneController implements Initializable {
 		if (validator.validate()) {
 			try {
 				Person newPerson = PersonFactory.logIn(LogInInputField.getText(), PasswordInputField.getText());
-				newPerson.display();
+				System.out.println(newPerson);
 				LogInInputField.setText("");
 				PasswordInputField.setText("");
 				Stage thisStage = (Stage) BackButton.getScene().getWindow();

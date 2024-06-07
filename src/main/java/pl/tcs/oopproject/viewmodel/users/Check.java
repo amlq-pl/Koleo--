@@ -34,8 +34,8 @@ public class Check {
 	public static boolean incorrectSurname(String name) {
 		return name.length() > maxSurnameLength || name.length() < minSurnameLength;
 	}
-	public static boolean correctDateOfBirth(LocalDate dateOfBirth) {
-		return Period.between(dateOfBirth, LocalDate.now()).getYears() >= minAge && Period.between(dateOfBirth, LocalDate.now()).getYears() <= maxAge;
+	public static boolean incorrectDateOfBirth(LocalDate dateOfBirth) {
+		return Period.between(dateOfBirth, LocalDate.now()).getYears() < minAge || Period.between(dateOfBirth, LocalDate.now()).getYears() > maxAge;
 	}
 	
 	

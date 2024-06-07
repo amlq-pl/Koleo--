@@ -1,57 +1,59 @@
 package pl.tcs.oopproject.model.history;
-import pl.tcs.oopproject.model.exception.InvalidDateOfBirthException;
-import pl.tcs.oopproject.model.exception.InvalidEmailException;
-import pl.tcs.oopproject.model.exception.InvalidNameOrSurnameException;
-import pl.tcs.oopproject.model.exception.InvalidTelephoneNumberException;
+import pl.tcs.oopproject.model.exception.*;
 import pl.tcs.oopproject.model.users.Person;
+import pl.tcs.oopproject.postgresDatabaseIntegration.UserProfileUpdater;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 import pl.tcs.oopproject.viewmodel.users.Check;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class UserProfileEditor {
 	private final Person person = ActiveUser.getPerson();
-	public UserProfileEditor() {}
+	private final UserProfileUpdater updater;
+	public UserProfileEditor() {
+		updater = new UserProfileUpdater();
+	}
 	
-	public void changeDateOfBirth(LocalDate date) {
-		if(!Check.correctDateOfBirth(date)) throw new InvalidDateOfBirthException();
-		//SAVE CHANGES IN DATABASE (Person, date)
+	public void changeDateOfBirth(LocalDate date) throws SQLException {
+		if(Check.incorrectDateOfBirth(date)) throw new InvalidDateOfBirthException();
+		updater.updateDateOfBirth(ActiveUser.getActiveUser(), date);
 		person.setDateOfBirth(date);
 	}
 
-	public void changeName(String name) {
+	public void changeName(String name) throws SQLException {
 		if(Check.incorrectName(name)) throw new InvalidNameOrSurnameException();
-		//SAVE CHANGES IN DATABASE (Person, name)
+		updater.updateName(ActiveUser.getActiveUser(), name);
 		person.setName(name);
 	}
 	
-	public void changeSurname(String name) {
-		if(Check.incorrectSurname(name)) throw new InvalidNameOrSurnameException();
-		//SAVE CHANGES IN DATABASE (Person, surname)
+	public void changeSurname(String name) throws SQLException {
+		if (Check.incorrectSurname(name)) throw new InvalidNameOrSurnameException();
+		updater.updateSurname(ActiveUser.getActiveUser(), name);
 		person.setSurname(name);
 	}
 	
-	public void changeEmail(String email) {
-		if(Check.incorrectEmail(email)) throw new InvalidEmailException();
-		//SAVE CHANGES IN DATABASE (Person, email)
+	public void changeEmail(String email) throws SQLException {
+		if (Check.incorrectEmail(email)) throw new InvalidEmailException();
+		updater.updateEmail(ActiveUser.getActiveUser(), email);
 		person.setEmailAddress(email);
-	}
+	} // updateEmail must return boolean - if email is unique
 	
-	public void changeTelephoneNumber(String phone) {
+	public void changeTelephoneNumber(String phone) throws SQLException {
 		if(Check.incorrectTelephoneNumber(phone)) throw new InvalidTelephoneNumberException();
-		//SAVA CHANGES IN DATABASE (Person, phone)
+		updater.updateTelephoneNumber(ActiveUser.getActiveUser(), phone);
 		person.setTelephoneNumber(phone);
 	}
 	
-	public void changeLogin(String login) {
-		//CHECK IF DATA CAN BE CHANGE IN DATABASE
-		//IF NOT - EXCEPTION
-		//ELSE - CHANGE IT
+	public void changeLogin(String login) throws SQLException {
+		if(updater.updateLogin(ActiveUser.getActiveUser(), login))
+			ActiveUser.setActiveUser(login);
+		else
+			throw new ExistingUserException();
 	}
 	
-	public void changePassword(String oldPassword, String newPassword) {
-		//CHECK IF OLD PASSWORD IS CORRECT
-		//IF YES - TRY CHANGING
-		//ELSE - EXCEPTION
+	public void changePassword(String oldPassword, String newPassword) throws SQLException {
+		if(!updater.updatePassword(ActiveUser.getActiveUser(), oldPassword, newPassword))
+			throw new InvalidPasswordException();
 	}
 }

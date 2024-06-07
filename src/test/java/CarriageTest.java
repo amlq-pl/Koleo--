@@ -9,10 +9,12 @@ public class CarriageTest {
 	@Test
 	public void carriageMethods() {
 		Carriage carriage = new Carriage(CarriageClass.SECOND_CLASS, CarriageType.COMPARTMENT_CARRIAGE, 56, 120);
-		carriage.display();
+		System.out.println(carriage);
+		//carriage.display();
 		
 		Carriage carriage1 = new Carriage(CarriageClass.FIRST_CLASS, CarriageType.SINGLE_COMPARTMENT_CARRIAGE, 123, 23);
-		carriage1.display();
+		System.out.println(carriage1);
+		//carriage1.display();
 	}
 	
 	@Test

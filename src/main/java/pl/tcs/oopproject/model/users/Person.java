@@ -61,11 +61,15 @@ public class Person {
 		this.telephoneNumber = telephoneNumber;
 	}
 	
-	public void display() {
-		System.out.println("Name and Surname: " + name + " " + surname);
-		System.out.println("Date of Birth: " + dateOfBirth);
-		System.out.println("Email Address: " + emailAddress);
-		if (telephoneNumber != null)
-			System.out.println("Phone Number: " + telephoneNumber);
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Name and Surname: ").append(name).append(" ").append(surname).append("\n");
+		sb.append("Date of Birth: ").append(dateOfBirth).append("\n");
+		sb.append("Email Address: ").append(emailAddress).append("\n");
+		if (telephoneNumber != null) {
+			sb.append("Phone Number: ").append(telephoneNumber).append("\n");
+		}
+		return sb.toString();
 	}
 }
