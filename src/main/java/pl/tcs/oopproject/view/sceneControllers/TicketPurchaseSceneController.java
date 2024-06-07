@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
-import pl.tcs.oopproject.model.place.AssignedSeat;
-import pl.tcs.oopproject.model.place.TrainsAssignedSeats;
+
+import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
 import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.componentControllers.BasketItem;
 import pl.tcs.oopproject.view.componentControllers.TicketItemContainer;

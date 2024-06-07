@@ -7,9 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import pl.tcs.oopproject.App;
+import pl.tcs.oopproject.model.assignedSeat.AssignedSeat;
 import pl.tcs.oopproject.model.connection.ScheduledTrain;
-import pl.tcs.oopproject.model.place.AssignedSeat;
-import pl.tcs.oopproject.model.seat.Seat;
 import pl.tcs.oopproject.model.station.Station;
 
 import java.net.URL;

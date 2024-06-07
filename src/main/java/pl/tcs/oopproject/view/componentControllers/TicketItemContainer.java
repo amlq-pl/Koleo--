@@ -8,8 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
+import pl.tcs.oopproject.model.assignedSeat.AssignedSeat;
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
-import pl.tcs.oopproject.model.place.AssignedSeat;
 
 import java.net.URL;
 import java.util.List;
