@@ -125,7 +125,7 @@ public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnec
     private boolean checkSeatAvailability(int connectionId, int carriageNum, int seatNum, int startStation, int endStation) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("select exists(select * from przejazdy p " +
                 "join bilety_jednorazowe bj on p.id_przejazdu = bj.id_przejazdu " +
-                "join bilety_jednorazowe bjz on bj.id_bilety_jednorazowe_zamowienia = bjz.id_bilety_jednorazowe_zamowienia " +
+                "join bilety_jednorazowe_zamowienia bjz on bj.id_bilety_jednorazowe_zamowienia = bjz.id_bilety_jednorazowe_zamowienia " +
                 "where p.id_przejazdu=? and bj.nr_wagonu=? and bj.nr_miejsca=? and bjz.timestamp_zwrotu is null and " +
                 "greatest(bj.od_stacji,?) <  least(bj.do_stacji,?));");
         ps.setInt(1, connectionId);
@@ -140,11 +140,12 @@ public class FindPlacesForConnectionWithTransfers implements FindPlacesForConnec
 
     private AssignedSeat getSpecificSeat(int connectionId, int carriageNum, int seatNum) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("select w.typ_wagonu,w.klasa,w.liczba_miejsc,wtm.miejsce_mod,wtm.typ_miejsca " +
-                "from przejazdy p join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
-                "join przejazdy_sklad_czesci psc on ps.id_przejazdu_skladu = psc.id_przejazdu_skladu " +
-                "join wagony w on psc.id_wagonu = w.id_wagonu " +
-                "join wagony_typy_miejsc wtm on w.id_wagonu = wtm.id_wagonu " +
-                "where p.id_przejazdu=? and psc.nr_wagonu=?");
+                        "from przejazdy p join przejazdy_sklad ps on p.id_przejazdu = ps.id_przejazdu " +
+                        "join przejazdy_sklad_czesci psc on ps.id_przejazdu_skladu = psc.id_przejazdu_skladu " +
+                        "join wagony w on psc.id_wagonu = w.id_wagonu " +
+                        "join wagony_typy_miejsc wtm on w.id_wagonu = wtm.id_wagonu " +
+                        "where p.id_przejazdu=? and psc.nr_wagonu=?", ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY);
         ps.setInt(1, connectionId);
         ps.setInt(2, carriageNum);
         ResultSet rs = ps.executeQuery();
