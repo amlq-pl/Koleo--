@@ -1,7 +1,7 @@
 package pl.tcs.oopproject.viewmodel.place;
 
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
-import pl.tcs.oopproject.model.place.TrainsAssignedSeats;
+import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
 import pl.tcs.oopproject.postgresDatabaseIntegration.FindPlacesForConnectionWithTransfers;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 

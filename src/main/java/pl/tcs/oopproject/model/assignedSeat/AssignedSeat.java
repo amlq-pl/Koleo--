@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.model.place;
+package pl.tcs.oopproject.model.assignedSeat;
 
 import pl.tcs.oopproject.model.carriage.Carriage;
 import pl.tcs.oopproject.model.seat.Seat;

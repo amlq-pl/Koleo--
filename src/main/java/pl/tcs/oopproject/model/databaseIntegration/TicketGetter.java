@@ -8,6 +8,6 @@ public interface TicketGetter {
 	/**
 	returns list of all tickets bought by the user login
 	 */
-	public ArrayList<TrainTicket> getTickets(String login);
+	ArrayList<TrainTicket> getTickets(String login);
 	
 }

@@ -1,6 +1,7 @@
 package pl.tcs.oopproject.viewmodel.users;
 
 import pl.tcs.oopproject.model.exception.*;
+import pl.tcs.oopproject.model.users.Check;
 import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.postgresDatabaseIntegration.AuthenticateLogin;
 import pl.tcs.oopproject.postgresDatabaseIntegration.Checkers;

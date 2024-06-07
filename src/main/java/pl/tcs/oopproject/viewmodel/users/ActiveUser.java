@@ -1,7 +1,7 @@
 package pl.tcs.oopproject.viewmodel.users;
 
 
-import pl.tcs.oopproject.model.place.TrainsAssignedSeats;
+import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.users.Person;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ActiveUser {
 	private static String activeUser; //active customer, login
 	private static Person person;
-	private static ArrayList<TrainsAssignedSeats> trainsAssignedSeats; //temporarily viewed place
+	private static ArrayList<TrainsAssignedSeats> trainsAssignedSeats; //temporarily viewed assignedSeat
 	
 	public static String getActiveUser() {
 		return activeUser;

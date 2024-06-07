@@ -22,7 +22,8 @@ module Koleo {
 	exports pl.tcs.oopproject.model.carriage;
 	exports pl.tcs.oopproject.model.seat;
 	exports pl.tcs.oopproject.model.connection;
-	exports pl.tcs.oopproject.model.place;
+	exports pl.tcs.oopproject.model.assignedSeat;
 	exports pl.tcs.oopproject.model.users;
 	exports pl.tcs.oopproject.model.ticket;
+	exports pl.tcs.oopproject.viewmodel.tickets;
 }
