@@ -18,7 +18,7 @@ public class GetDirectConnectionsFunctionTest {
         GetDirectConnectionsInTimeframe dc = new GetDirectConnectionsInTimeframe();
         ArrayList<ScheduledTrain> scheduledTrains = dc.getDirectConnectionsInTimeframe(startDate, endDate);
         for (ScheduledTrain scheduledTrain : scheduledTrains) {
-            scheduledTrain.display();
+            System.out.println(scheduledTrain);
         }
     }
 }

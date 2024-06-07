@@ -163,14 +163,14 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 		return arrivalTime().compareTo(o.arrivalTime());
 	}
 	
-	public void displayLess() {
-		System.out.println("Departure Station: " + originStation().town() + " " + originStation().departureTime());
-		System.out.println("Arrival Station: " + destinationStation().town() + " " + destinationStation().arrivalTime());
-		System.out.println("Cost: " + cost().toString());
+	public String toString() {
+		return "Departure Station: " + originStation().town() + " " + originStation().departureTime() + "\n" +
+				"Arrival Station: " + destinationStation().town() + " " + destinationStation().arrivalTime() + "\n" +
+				"Cost: " + cost().toString();
 	}
 	
 	public void display() {
 		for (ScheduledTrain d : trains)
-			d.display();
+			System.out.println(d);
 	}
 }

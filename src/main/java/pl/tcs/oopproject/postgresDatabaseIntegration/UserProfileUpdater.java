@@ -35,7 +35,7 @@ public class UserProfileUpdater implements UpdateUserProfile {
     }
 
     @Override
-    public boolean updateEmail(String login, String email) throws SQLException {
+    public void updateEmail(String login, String email) throws SQLException {
         PreparedStatement preparedStatement = DB.connection.prepareStatement("update klienci set email = ? where id_klienta = ?");
         preparedStatement.setString(1, email);
         preparedStatement.setInt(2, getIdKlienta(login));

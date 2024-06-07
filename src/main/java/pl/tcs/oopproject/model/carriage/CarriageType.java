@@ -3,29 +3,27 @@ package pl.tcs.oopproject.model.carriage;
 public enum CarriageType {
 	SINGLE_COMPARTMENT_CARRIAGE {
 		@Override
-		void display() {
-			System.out.println("Carriage Type: Single Compartment Carriage");
+		public String toString() {
+			return "Carriage Type: Single Compartment Carriage";
 		}
 	}, COMPARTMENT_CARRIAGE {
 		@Override
-		void display() {
-			System.out.println("Carriage Type: Compartment Carriage");
+		public String toString() {
+			return "Carriage Type: Compartment Carriage";
 		}
 	},
 	
 	WARS {
 		@Override
-		void display() {
-			System.out.println("Carriage Type: Wars");
+		public String toString() {
+			return "Carriage Type: Wars";
 		}
 	},
 	
 	SLEEPER {
 		@Override
-		void display() {
-			System.out.println("Carriage Type: Sleeper");
+		public String toString() {
+			return "Carriage Type: Sleeper";
 		}
-	};
-	
-	abstract void display();
+	}
 }

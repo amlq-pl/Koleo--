@@ -80,14 +80,17 @@ public class ScheduledTrain implements RouteElement { //some kind of decorator t
 		return number == ((ScheduledTrain) obj).number;
 	}
 	
-	public void display() {
-		System.out.println("Company: " + company);
-		System.out.println("Number: " + number);
-		System.out.println("Cost: " + cost);
-		System.out.println("Train Type: " + trainType.name());
-		System.out.println("Stations:");
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Company: ").append(company).append("\n");
+		sb.append("Number: ").append(number).append("\n");
+		sb.append("Cost: ").append(cost.toString()).append("\n");
+		sb.append("Train Type: ").append(trainType.name()).append("\n");
+		sb.append("Stations:\n");
 		for (Station station : connection.stations()) {
-			System.out.println(station);
+			sb.append(station.toString()).append("\n");
 		}
+		return sb.toString();
 	}
 }
