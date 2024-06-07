@@ -16,6 +16,7 @@ import java.util.ArrayList;
  IF TRAIN IN CONNECTION DOES NOT SUPPORT RESERVATION, THEN
  RETURN TRAIN_WITHOUT_RESERVATION (singleton in AssignedSeat)
  */
+
 public class PlaceFactory {
 	public static ArrayList<TrainsAssignedSeats> create(MultiStopRoute connection, int numberOfPlaces) throws SQLException {
 		ArrayList<TrainsAssignedSeats> list = new FindPlacesForConnectionWithTransfers().findPlacesForConnectionWithTransfers(connection, numberOfPlaces);
