@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public interface CreateOrRefactorTicket {
 	// RETURN ID OF THE TICKET
-	ArrayList<LongTermTrainTicket> saveLongTermTicket(LocalDateTime startDate, Discount discount, Voucher voucher, String login, LongTermTicketType ticketType, Person person);
+	ArrayList<LongTermTrainTicket> saveLongTermTicket(LocalDateTime startDate, Discount discount, Voucher voucher, String login, ArrayList<LongTermTicketType> ticketType, Person person);
 	
 	/**
 	 * the method has to return ArrayList of SingleUseTickets (Person, voucher, discount, details, ArrayList<TrainsAssignedSeats>  (each seat has getTrain)
