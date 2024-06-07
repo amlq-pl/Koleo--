@@ -94,8 +94,14 @@ public class TrainSearchSceneController implements Initializable {
         // TODO: add validation using validator FX or something like this
 
         LocalDateTime tempLocalDateTime = getLocalDateTime();
+        String departure = DepStation.getValue();
+        String arrival = ArrStation.getValue();
 
-        TrainConnectionFinder finder =  TrainConnectionFinder.getConnectionFinder(DepStation.getValue(), ArrStation.getValue(), tempLocalDateTime);
+        if (departure.equals(arrival)) { // TODO: make an alert for this situation
+            return;
+        }
+
+        TrainConnectionFinder finder =  TrainConnectionFinder.getConnectionFinder(departure, arrival, tempLocalDateTime);
 
         addAllPanes(finder);
     }
