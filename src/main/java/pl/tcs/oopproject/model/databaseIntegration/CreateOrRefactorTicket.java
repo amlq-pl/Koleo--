@@ -1,8 +1,8 @@
 package pl.tcs.oopproject.model.databaseIntegration;
 
+import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
-import pl.tcs.oopproject.model.place.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.ticket.LongTermTicketType;
 import pl.tcs.oopproject.model.ticket.LongTermTrainTicket;

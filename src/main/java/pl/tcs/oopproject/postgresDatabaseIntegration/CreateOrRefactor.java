@@ -1,9 +1,9 @@
 package pl.tcs.oopproject.postgresDatabaseIntegration;
 
+import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.databaseIntegration.CreateOrRefactorTicket;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
-import pl.tcs.oopproject.model.place.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.ticket.LongTermTicketType;
 import pl.tcs.oopproject.model.ticket.LongTermTrainTicket;
@@ -44,6 +44,7 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
     public ArrayList<SingleJourneyTrainTicket> saveSingleJourneyTicket(Person person, Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats, String login) throws SQLException {
         return null;
     }
+
 
     @Override
     public int returnTicket(int id) {
