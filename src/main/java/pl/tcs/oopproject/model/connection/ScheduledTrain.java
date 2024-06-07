@@ -85,7 +85,7 @@ public class ScheduledTrain implements RouteElement { //some kind of decorator t
 		StringBuilder sb = new StringBuilder();
 		sb.append("Company: ").append(company).append("\n");
 		sb.append("Number: ").append(number).append("\n");
-		sb.append("Cost: ").append(cost.toString()).append("\n");
+		sb.append("Cost: ").append(cost).append("\n");
 		sb.append("Train Type: ").append(trainType.name()).append("\n");
 		sb.append("Stations:\n");
 		for (Station station : connection.stations()) {
