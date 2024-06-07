@@ -24,7 +24,11 @@ public class TicketPurchaseSceneController implements Initializable {
         thisBasket.basketItems.addListener((ListChangeListener<? super BasketItem>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
-//                    TicketItemContainer container = new TicketItemContainer();
+                    for (BasketItem i : change.getAddedSubList()) {
+                        for (int j = 0; j < i.count.getValue(); j++) {
+                            TicketItemContainer container = new TicketItemContainer(i.connection);
+                        }
+                    }
                 }
                 if (change.wasRemoved()) {
 
@@ -35,10 +39,10 @@ public class TicketPurchaseSceneController implements Initializable {
         ticketContainers.addListener((ListChangeListener<? super TicketItemContainer>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
-
+                    TicketContainersBox.getChildren().addAll(change.getAddedSubList());
                 }
                 if (change.wasRemoved()) {
-
+                    TicketContainersBox.getChildren().removeAll(change.getRemoved());
                 }
             }
         });
