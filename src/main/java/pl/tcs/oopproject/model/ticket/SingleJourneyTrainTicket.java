@@ -25,7 +25,6 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	private final int id;
 	private final Details details;
 	private boolean returned;
-	
 	private final MultiStopRoute train;
 	private final Person person;
 	
