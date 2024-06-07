@@ -96,6 +96,7 @@ create table bilety_okresowe
 (
     id_biletu_okresowego          serial primary key,
     id_bilety_okresowe_zamowienia integer references bilety_okresowe_zamowienia,
+    id_podrozujacego              integer,
     timestamp_od                  timestamp not null,
     id_typ_biletu                 integer   not null references cennik_biletow_okresowych
 );
@@ -164,6 +165,7 @@ create table bilety_jednorazowe
     id_biletu_jednorazowego          serial primary key,
     id_bilety_jednorazowe_zamowienia integer  not null references bilety_jednorazowe_zamowienia,
     id_przejazdu                     integer  not null references przejazdy,
+    id_podrozujacego                 integer,
     od_stacji                        smallint not null,
     do_stacji                        smallint not null check ( od_stacji < do_stacji ),
     nr_wagonu                        smallint not null,
@@ -319,5 +321,12 @@ begin
             from klienci kl
                      join konto k on kl.id_klienta = k.id_klienta
             where k.login = userLogin);
+end;
+$$ language plpgsql;
+
+create or replace function getPrzewoznikIdByName(name varchar) returns int as
+$$
+begin
+    return (select p.id_przewoznika from przewoznicy p where p.nazwa_skrocona = name);
 end;
 $$ language plpgsql;

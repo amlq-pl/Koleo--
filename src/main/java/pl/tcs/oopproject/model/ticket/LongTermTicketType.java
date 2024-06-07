@@ -4,7 +4,7 @@ import pl.tcs.oopproject.model.discount.Price;
 
 import java.time.Period;
 
-public record LongTermTicketType(Period period, Price cost) {
+public record LongTermTicketType(Period period, Price cost, String company) {
 	
 	@Override
 	public String toString() {
