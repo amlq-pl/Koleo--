@@ -4,10 +4,13 @@ import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.exception.AlreadyReturnedTicketException;
+import pl.tcs.oopproject.model.place.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class TicketFactory {
 	
@@ -21,14 +24,14 @@ public class TicketFactory {
 		return new LongTermTrainTicket(startDate, ticketType, discount, voucher, id, person);
 	}
 	
-	public SingleJourneyTrainTicket createSingleFairTicket(Discount discount, Voucher voucher, Details details, MultiStopRoute train) {
-		int id = 0; //=SAVE IN DATABASE, FUNCTION TAKES PLACE (FROM USER), SAVE DATA IN DATABASE AND MUST RETURN ID OF THE ORDER
-		return new SingleJourneyTrainTicket(ActiveUser.getPlace(), discount, voucher, id, details, train, ActiveUser.getPerson());
+	public ArrayList<SingleJourneyTrainTicket> createSingleFairTicket(Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats) {
+		int id = 0; //=SAVE IN DATABASE, FUNCTION TAKES PLACE (FROM USER), SAVE DATA IN DATABASE AND MUST RETURN Lit of tickets
+		return null;
 	}
 	
-	public SingleJourneyTrainTicket createSingleFairTicket(Discount discount, Voucher voucher, Details details, MultiStopRoute train, Person person) {
+	public SingleJourneyTrainTicket createSingleFairTicket(Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats, Person person) {
 		int id = 0; //=SAVE IN DATABASE, FUNCTION TAKES PLACE (FROM USER), SAVE DATA IN DATABASE AND MUST RETURN ID OF THE ORDER
-		return new SingleJourneyTrainTicket(ActiveUser.getPlace(), discount, voucher, id, details, train, person);
+		return null;
 	}
 	
 	public void refund(TrainTicket ticket) {
