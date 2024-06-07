@@ -20,6 +20,7 @@ import java.util.List;
 public class BasketItem extends AnchorPane{
     public MultiStopRoute connection;
     public IntegerProperty count = new SimpleIntegerProperty();
+    public int update = 0;
     private Basket basket = App.basket;
     @FXML
     private Spinner<Integer> Count;
@@ -48,6 +49,8 @@ public class BasketItem extends AnchorPane{
             SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, count.getValue());
             Count.setValueFactory(factory);
             count.bind(Count.valueProperty());
+
+            count.addListener(change -> update++);
 
             DepStation.textProperty().setValue(connection.originStation().town());
             ArrStation.textProperty().setValue(connection.destinationStation().town());

@@ -7,8 +7,7 @@ import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Price;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.discount.PricePLN;
-import pl.tcs.oopproject.model.place.TrainsAssignedSeats;
-import pl.tcs.oopproject.model.place.AssignedSeat;
+import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.station.Station;
 import pl.tcs.oopproject.model.users.Person;
 

@@ -1,7 +1,10 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
 import javafx.collections.ListChangeListener;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -53,6 +56,18 @@ public class BasketSceneController implements Initializable {
     }
 
     public void BuyButtonClick() {
-
+        Stage stage = (Stage) BuyButton.getScene().getWindow();
+        stage.close();
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/ticket-purchase-scene.fxml"));
+        Parent p = null;
+        try {
+            p = loader.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(p);
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        newStage.show();
     }
 }

@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.viewmodel.users;
+package pl.tcs.oopproject.model.users;
 
 import java.time.LocalDate;
 import java.time.Period;

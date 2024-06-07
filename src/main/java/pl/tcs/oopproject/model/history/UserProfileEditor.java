@@ -3,7 +3,7 @@ import pl.tcs.oopproject.model.exception.*;
 import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.postgresDatabaseIntegration.UserProfileUpdater;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
-import pl.tcs.oopproject.viewmodel.users.Check;
+import pl.tcs.oopproject.model.users.Check;
 
 import java.sql.SQLException;
 import java.time.LocalDate;

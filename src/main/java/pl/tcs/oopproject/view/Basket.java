@@ -13,6 +13,5 @@ public class Basket {
     public IntegerProperty size = new SimpleIntegerProperty();
 
     public Basket() {
-
     }
 }
