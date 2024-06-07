@@ -202,7 +202,7 @@ public class TrainTest {
 		for(MultiStopRoute x : connections) {
 			System.out.println("CONNECTION");
 			for (ScheduledTrain s : x.trains()) {
-				s.display();
+				System.out.println(s);
 				System.out.println();
 			}
 		}
@@ -230,7 +230,7 @@ public class TrainTest {
 		List<MultiStopRoute> connections = finder.findCheapestTrainRoutes();
 		System.out.println("DISPLAY <#");
 		for(MultiStopRoute c : connections)
-			c.displayLess();
+			System.out.println(c);
 	}
 	
 	@Test
@@ -240,7 +240,7 @@ public class TrainTest {
 		List<MultiStopRoute> connection = finder.getDirectTrainRoutes();
 		System.out.println("DISPLAY");
 		for(MultiStopRoute c : connection)
-			c.displayLess();
+			System.out.println(c);
 	}
 	
 	@Test

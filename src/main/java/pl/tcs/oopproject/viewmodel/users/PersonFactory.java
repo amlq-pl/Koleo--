@@ -1,6 +1,7 @@
 package pl.tcs.oopproject.viewmodel.users;
 
 import pl.tcs.oopproject.model.exception.*;
+import pl.tcs.oopproject.model.users.Check;
 import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.postgresDatabaseIntegration.AuthenticateLogin;
 import pl.tcs.oopproject.postgresDatabaseIntegration.Checkers;
@@ -28,7 +29,7 @@ public class PersonFactory {
 		if (Objects.equals(phoneNumber, "")) phoneNumber = null;
 		if (Check.incorrectTelephoneNumber(phoneNumber)) throw new InvalidTelephoneNumberException();
 		if (Check.incorrectName(name) || Check.incorrectSurname(surname)) throw new InvalidNameOrSurnameException();
-		if (!Check.correctDateOfBirth(dateOfBirth)) throw new InvalidDateOfBirthException();
+		if (Check.incorrectDateOfBirth(dateOfBirth)) throw new InvalidDateOfBirthException();
 		if (Check.incorrectEmail(email)) throw new InvalidEmailException();
 		return new Person(name, surname, dateOfBirth, email, phoneNumber);
 	} //buy without signing up nor logging in
