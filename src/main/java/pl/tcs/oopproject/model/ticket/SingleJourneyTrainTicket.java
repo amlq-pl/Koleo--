@@ -83,9 +83,8 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	@Override
 	public boolean returnTicket() {
 		CreateOrRefactor refactor = new CreateOrRefactor();
-//		if (returned()) throw new AlreadyReturnedTicketException();
-//			refactor.returnSingleJourneyTrainTicket(ticket.id());
-		return  true;
+		if (returned()) return false;
+			refactor.returnSingleJourneyTrainTicket(ticket.id());
 	}
 	
 	@Override
