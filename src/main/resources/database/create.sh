@@ -17,6 +17,6 @@ psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "create.sql"
 
 data/load_data.sh
 
-psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "misc.sql"
+psql -h 127.0.0.1  -U "koleo_user" -d "koleo_db" -f "afterLoadingData.sql"
 
 unset PGPASSWORD
