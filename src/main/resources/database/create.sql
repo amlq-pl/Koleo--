@@ -244,7 +244,7 @@ $$ language plpgsql;
 --     for each row
 -- execute procedure correctNullsStacjePosrednie();
 
-create or replace function correctNullsBiletyJednorazowe() returns trigger as
+create or replace function correctNullsBiletyJednorazoweZamowienia() returns trigger as
 $$
 begin
     if tg_op = 'INSERT' and new.timestamp_zwrotu is null then
@@ -257,11 +257,11 @@ begin
 end;
 $$ language plpgsql;
 
-create trigger correctNullsInBiletyJednorazowe
+create trigger correctNullsInBiletyJednorazoweZamowienia
     before insert or update
-    on bilety_jednorazowe
+    on bilety_jednorazowe_zamowienia
     for each row
-execute procedure correctNullsBiletyJednorazowe();
+execute procedure correctNullsBiletyJednorazoweZamowienia();
 
 create or replace function discardNullAcc() returns trigger as
 $$
@@ -361,7 +361,11 @@ $$ language plpgsql;
 create or replace function getIdSzczegolow(bike boolean, luggage boolean, animal boolean) returns int as
 $$
 begin
-    return (select sb.id_szczegolow from szczegoly_biletu sb where sb.rower=bike and sb.dodatkowy_bagaz=luggage and sb.zwierze=animal);
+    return (select sb.id_szczegolow
+            from szczegoly_biletu sb
+            where sb.rower = bike
+              and sb.dodatkowy_bagaz = luggage
+              and sb.zwierze = animal);
 end;
 $$ language plpgsql;
 
