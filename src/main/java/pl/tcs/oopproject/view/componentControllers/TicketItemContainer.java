@@ -113,7 +113,11 @@ public class TicketItemContainer extends AnchorPane implements Initializable {
         AnimalCheck.allowIndeterminateProperty().setValue(false);
         LuggageCheck.allowIndeterminateProperty().setValue(false);
 
-        CostLabel.textProperty().setValue(currentRoute.cost().toString());
+        try {
+            CostLabel.textProperty().setValue(currentRoute.cost().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Details getDetails() {
