@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class PlaceFactory {
 	public static ArrayList<TrainsAssignedSeats> create(MultiStopRoute connection, int numberOfPlaces) throws SQLException {
 		LocalDateTime departureDate = connection.departureTime();
-		if(departureDate.isAfter(LocalDateTime.now())) throw new AllTrainsAlreadyDepartedException();
+		if(departureDate.isBefore(LocalDateTime.now())) throw new AllTrainsAlreadyDepartedException();
 		ArrayList<TrainsAssignedSeats> list = new FindPlacesForConnectionWithTransfers().findPlacesForConnectionWithTransfers(connection, numberOfPlaces);
 		ActiveUser.setPlace(list);
 			return list;
