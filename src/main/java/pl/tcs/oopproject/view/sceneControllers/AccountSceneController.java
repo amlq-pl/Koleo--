@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.model.history.History;
 import pl.tcs.oopproject.model.ticket.TrainTicket;
+import pl.tcs.oopproject.view.componentControllers.CustomFormDate;
 import pl.tcs.oopproject.view.componentControllers.CustomFormString;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
@@ -49,11 +50,12 @@ public class AccountSceneController implements Initializable {
     }
 
     public void DateChangeButtonClick() {
-
+        CustomFormDate form = new CustomFormDate(DateOfBirth.textProperty());
+        showStage(form);
     }
 
     public void EmailChangeButtonClick() {
-        CustomFormString form = new CustomFormString("Account", EmailAdress.textProperty());
+        CustomFormString form = new CustomFormString("Email", EmailAdress.textProperty());
         showStage(form);
     }
 

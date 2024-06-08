@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -19,7 +20,6 @@ import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.view.sceneControllers.TicketFormController;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
-
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,13 +29,19 @@ public class TicketItemContainer extends AnchorPane implements Initializable {
     private final ObservableList<TicketItem> ticketItems = FXCollections.observableArrayList();
     private final MultiStopRoute currentRoute;
     private final List<AssignedSeat> seatList;
-    private Person person = ActiveUser.getPerson();
+    private final Person person = ActiveUser.getPerson();
     @FXML
     private VBox TicketContainer;
     @FXML
     private ComboBox<Discount> DiscountComboBox;
     @FXML
     private ComboBox<Voucher> VoucherComboBox;
+    @FXML
+    private CheckBox BicycleCheck;
+    @FXML
+    private CheckBox AnimalCheck;
+    @FXML
+    private CheckBox LuggageCheck;
 
     public TicketItemContainer(MultiStopRoute route, List<AssignedSeat> seatList) {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/ticket-container.fxml"));
@@ -91,5 +97,17 @@ public class TicketItemContainer extends AnchorPane implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DiscountComboBox.getItems().addAll(App.Discounts);
         VoucherComboBox.getItems().addAll(App.Vouchers);
+
+        BicycleCheck.allowIndeterminateProperty().setValue(false);
+        AnimalCheck.allowIndeterminateProperty().setValue(false);
+        LuggageCheck.allowIndeterminateProperty().setValue(false);
+    }
+
+    public void getDetails() {
+//        Addition animal = null;
+//        Addition bicycle = null;
+//        Addition luggage = null;
+//
+//        return new Details(new ArrayList<Addition>(List.of(bicycle, luggage, animal)));
     }
 }
