@@ -40,6 +40,10 @@ public class HistoryLongTermTicket {
 		cost = getPricePLN(longTermTicketType.cost(), appliedDiscount, appliedVoucher);
 	}
 	
+	public LongTermTicketType getLongTermTicketType() {
+		return longTermTicketType;
+	}
+	
 	public Person getPerson() {
 		return person;
 	}
@@ -66,9 +70,7 @@ public class HistoryLongTermTicket {
 	}
 	
 	public boolean refundTicket() throws SQLException {
-		CreateOrRefactor refactor = new CreateOrRefactor();
 		if (refunded()) return false;
-		refactor.returnLongTermTrainTicket(id);
 		returned = true;
 		return true;
 	}

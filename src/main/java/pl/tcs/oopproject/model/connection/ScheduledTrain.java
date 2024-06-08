@@ -10,7 +10,7 @@ public class ScheduledTrain implements RouteElement { //some kind of decorator t
 	private final String company;
 	private final RouteStops connection;
 	private final int number; //number of a train
-	private final Price cost;
+	private  Price cost;
 	private final ReservationType trainType;
 	
 	public ScheduledTrain(String company, int number, double cost, ReservationType trainType, RouteStops connection) {
@@ -19,6 +19,9 @@ public class ScheduledTrain implements RouteElement { //some kind of decorator t
 		this.number = number;
 		this.trainType = trainType;
 		this.cost = new PricePLN(cost);
+	}
+	public void setCost(Price cost) {
+		this.cost = cost;
 	}
 	
 	public int getNumber() {
