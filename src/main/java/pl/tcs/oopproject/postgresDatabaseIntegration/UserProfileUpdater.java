@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 public class UserProfileUpdater implements UpdateUserProfile {
     private int getIdKlienta(String login) throws SQLException {
-        PreparedStatement preparedStatement = DB.connection.prepareStatement("select getKlientId(?)");
+        PreparedStatement preparedStatement = DB.connection.prepareStatement("select getklientidbylogin(?)");
         preparedStatement.setString(1, login);
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
@@ -28,7 +28,7 @@ public class UserProfileUpdater implements UpdateUserProfile {
 
     @Override
     public void updateSurname(String login, String name) throws SQLException {
-        PreparedStatement preparedStatement = DB.connection.prepareStatement("update klienci set nazwisko = ? where id_klienta = ?");
+        PreparedStatement preparedStatement = DB.connection.prepareStatement("update klienci set nazwisko = ?::varchar where id_klienta = ?");
         preparedStatement.setString(1, name);
         preparedStatement.setInt(2, getIdKlienta(login));
         preparedStatement.executeUpdate();

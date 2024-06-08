@@ -6,6 +6,7 @@ import pl.tcs.oopproject.model.ticket.LongTermTrainTicket;
 import pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket;
 import pl.tcs.oopproject.model.ticket.TrainTicket;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface TicketGetter {
@@ -14,6 +15,6 @@ public interface TicketGetter {
 	 */
 	ArrayList<HistorySingleJourneyTicket> getSingleUseTickets(String login);
 	
-	ArrayList<HistoryLongTermTicket> getLongTermTickets(String login);
+	ArrayList<HistoryLongTermTicket> getLongTermTickets(String login) throws SQLException;
 	
 }
