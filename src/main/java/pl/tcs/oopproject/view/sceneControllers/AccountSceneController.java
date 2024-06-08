@@ -5,8 +5,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.model.history.History;
+import pl.tcs.oopproject.model.history.HistoryLongTermTicket;
+import pl.tcs.oopproject.model.history.HistorySingleJourneyTicket;
 import pl.tcs.oopproject.model.ticket.TrainTicket;
 import pl.tcs.oopproject.view.componentControllers.CustomFormDate;
 import pl.tcs.oopproject.view.componentControllers.CustomFormPassword;
@@ -15,15 +18,25 @@ import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AccountSceneController implements Initializable {
+    private final History history = new History();
+    ArrayList<HistorySingleJourneyTicket> activeTickets = new ArrayList<>();
+    ArrayList<HistorySingleJourneyTicket> nonActiveTickets = new ArrayList<>();
+    ArrayList<HistoryLongTermTicket> activeLongTerm = new ArrayList<>();
+    ArrayList<HistoryLongTermTicket> nonActiveLongTerm = new ArrayList<>();
     public Label Name;
     public Label Surname;
     public Label DateOfBirth;
     public Label PhoneNumber;
     public Label EmailAdress;
     public Label AccountName;
+    public VBox ActiveTickets;
+    public VBox NonActiveTickets;
+    public VBox ActiveLongTerm;
+    public VBox NonActiveLongTerm;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -33,6 +46,15 @@ public class AccountSceneController implements Initializable {
         DateOfBirth.textProperty().setValue(ActiveUser.getPerson().getDateOfBirth().format(DateTimeFormatter.ofPattern("dd:MM:yyyy")));
         PhoneNumber.textProperty().setValue(ActiveUser.getPerson().getTelephoneNumber());
         EmailAdress.textProperty().setValue(ActiveUser.getPerson().getEmailAddress());
+
+        try {
+            activeTickets = history.activeSingleJourneyTickets();
+            nonActiveTickets = history.archivedSingleJourneyTickets();
+            activeLongTerm = history.activeLongTermTickets();
+            nonActiveLongTerm = history.archivedLongTermTickets();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void AccountChangeButtonClick() {
