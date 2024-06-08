@@ -28,6 +28,23 @@ public class HistoryLongTermTicket {
 	private final LongTermTicketType longTermTicketType;
 	private final int id;
 	private boolean returned;
+	
+	public int getId() {
+		return id;
+	}
+	
+	public boolean isReturned() {
+		return returned;
+	}
+	
+	public PricePLN getCost() {
+		return cost;
+	}
+	
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+	
 	private final Person person;
 	private final PricePLN cost;
 	
