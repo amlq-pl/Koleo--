@@ -80,7 +80,7 @@ public class Checkers implements CheckersInterface {
 		PreparedStatement ps=DB.connection.prepareStatement("select * from koszty_udogodnien where data_poczatkowa<=now() and data_koncowa>=now();");
 		ResultSet rs=ps.executeQuery();
 		while (rs.next()) {
-//			additions.
+			additions.add(new Addition(rs.getString("nazwa"),rs.getDouble("koszt")));
 		}
 		return additions;
 	}
