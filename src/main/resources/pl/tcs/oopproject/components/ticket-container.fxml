@@ -31,7 +31,7 @@
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                <children>
                   <Label text="CENA:" />
-                  <Label text="Label" />
+                  <Label fx:id="CostLabel" text="Label" />
                </children>
                <padding>
                   <Insets right="20.0" />
@@ -53,7 +53,7 @@
                   <ComboBox fx:id="DiscountComboBox" prefWidth="150.0" />
                   <Label text="VOUCHERY" />
                   <ComboBox fx:id="VoucherComboBox" prefWidth="150.0" />
-                  <Button onAction="#SetNewDataClick" mnemonicParsing="false" text="DANE" />
+                  <Button mnemonicParsing="false" onAction="#SetNewDataClick" text="DANE" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />

@@ -26,7 +26,7 @@
                   </Button>
             </HBox>
             <Button fx:id="BasketButton" mnemonicParsing="false" onAction="#BasketButtonClick" text="KOSZYK (0)" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <Button mnemonicParsing="false" text="KONTO"  onAction="#AccountButtonClick" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="10.0" />
+      <Button mnemonicParsing="false" onAction="#AccountButtonClick" text="KONTO" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="10.0" />
       </AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
             <HBox alignment="CENTER_LEFT" layoutX="27.0" layoutY="14.0" prefHeight="70.0" prefWidth="200.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -36,7 +36,7 @@
                   <TilePane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="115.0">
                         <ComboBox fx:id="HourPicker" prefHeight="24.0" prefWidth="115.0" promptText="GODZINA" />
                   </TilePane>
-                  <ComboBox prefHeight="24.0" prefWidth="138.0" promptText="SORTUJ WG" />
+                  <ComboBox fx:id="SortBy" prefHeight="24.0" prefWidth="138.0" promptText="SORTUJ WG" />
                   <Button fx:id="ConfirmButton" mnemonicParsing="false" onAction="#ConfirmButtonClick" text="GOTOWE" />
                <opaqueInsets>
                   <Insets />

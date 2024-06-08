@@ -56,6 +56,7 @@ public class TrainSearchSceneController implements Initializable {
     public ComboBox<String> ArrStation;
     public DatePicker ConnectionDate;
     public ComboBox<String> HourPicker = new ComboBox<>();
+    public ComboBox<String> SortBy = new ComboBox<>();
 
     public static void setInitialData(String DepStation, String ArrStation, LocalDate Date, String Hour) {
         InitialDepStation.setValue(DepStation);
@@ -78,7 +79,13 @@ public class TrainSearchSceneController implements Initializable {
     private void addAllPanes(TrainConnectionFinder finder) {
         List<MultiStopRoute> connections = null;
         try {
-            connections = finder.findTrainRoutes();
+            if (SortBy.valueProperty().getValue().equals("Po czasie")) {
+                connections = finder.findTrainRoutes();
+            } else if (SortBy.valueProperty().getValue().equals("Po cenie")) {
+                connections = finder.findCheapestTrainRoutes();
+            } else {
+                connections = finder.getDirectTrainRoutes();
+            }
         } catch (SQLException e) {
             Stage stage = (Stage) ArrStation.getScene().getWindow();
             stage.close();
@@ -104,6 +111,9 @@ public class TrainSearchSceneController implements Initializable {
         String arrival = ArrStation.getValue();
 
         if (departure.equals(arrival)) { // TODO: make an alert for this situation
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("Miasto początkowe i końcowe muszą być różne");
+            a.showAndWait();
             return;
         }
 
@@ -144,6 +154,8 @@ public class TrainSearchSceneController implements Initializable {
         HourPicker.getItems().setAll(hours);
         DepStation.getItems().setAll(StationObservable);
         ArrStation.getItems().setAll(StationObservable);
+        SortBy.getItems().setAll(FXCollections.observableArrayList(new ArrayList<>(List.of("Po czasie", "Po cenie", "Bez przesiadek"))));
+        SortBy.valueProperty().setValue("Po czasie");
 
         DepStation.valueProperty().bindBidirectional(InitialDepStation);
         ArrStation.valueProperty().bindBidirectional(InitialArrStation);
