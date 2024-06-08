@@ -14,6 +14,7 @@ public class ViewController {
 	private static final Scene logInScene;
 	private static final Scene trainSearchScene;
 	private static final Scene basketScene;
+	private static final Scene longTermTicketBuyScene;
 	
 	static {
 		landingScene = createScene("scenes/landing-scene.fxml");
@@ -25,6 +26,8 @@ public class ViewController {
 		trainSearchScene = createScene("scenes/train-search-scene.fxml");
 
 		basketScene = createScene("scenes/basket-scene.fxml");
+
+		longTermTicketBuyScene = createScene("scenes/long-term-ticket-scene.fxml");
 	}
 	
 	private static Scene createScene(String name) {
@@ -55,5 +58,9 @@ public class ViewController {
 
 	public static Scene getBasketScene() {
 		return basketScene;
+	}
+
+	public static Scene getLongTermTicketBuyScene() {
+		return longTermTicketBuyScene;
 	}
 }
