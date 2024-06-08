@@ -82,6 +82,7 @@ public class HistorySingleJourneyTicket{
 		CreateOrRefactor refactor = new CreateOrRefactor();
 		if (refunded()) return false;
 		refactor.returnSingleJourneyTrainTicket(id);
+		refunded = true;
 		return true;
 	}
 	public int id() {

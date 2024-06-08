@@ -8,48 +8,48 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class History {
-	private  ArrayList<SingleJourneyTrainTicket> singleJourneyTickets;
-	private ArrayList<LongTermTrainTicket> longTermTickets;
+	private  ArrayList<HistorySingleJourneyTicket> singleJourneyTickets;
+	private ArrayList<HistoryLongTermTicket> longTermTickets;
 	
 	private void setData() {
 		//SET DATA ABOUT TICKETS
 		//
 	}
 	
-	public ArrayList<LongTermTrainTicket> activeLongTermTickets(){
+	public ArrayList<HistoryLongTermTicket> activeLongTermTickets(){
 		if(longTermTickets.isEmpty()) setData();
-		ArrayList<LongTermTrainTicket> activeTickets = new ArrayList<>();
-		for(LongTermTrainTicket t : longTermTickets) {
+		ArrayList<HistoryLongTermTicket> activeTickets = new ArrayList<>();
+		for(HistoryLongTermTicket t : longTermTickets) {
 			if(t.isActive())
 				activeTickets.add(t);
 		}
 		return activeTickets;
 	}
 	
-	public ArrayList<SingleJourneyTrainTicket> activeSingleJourneyTickets(){
+	public ArrayList<HistorySingleJourneyTicket> activeSingleJourneyTickets(){
 		if(singleJourneyTickets.isEmpty()) setData();
-		ArrayList<SingleJourneyTrainTicket> activeTickets = new ArrayList<>();
-		for(SingleJourneyTrainTicket t : singleJourneyTickets) {
+		ArrayList<HistorySingleJourneyTicket> activeTickets = new ArrayList<>();
+		for(HistorySingleJourneyTicket t : singleJourneyTickets) {
 			if(t.isActive())
 				activeTickets.add(t);
 		}
 		return activeTickets;
 	}
 	
-	public ArrayList<SingleJourneyTrainTicket> archivedSingleJourneyTickets() {
+	public ArrayList<HistorySingleJourneyTicket> archivedSingleJourneyTickets() {
 		if(singleJourneyTickets.isEmpty()) setData();
-		ArrayList<SingleJourneyTrainTicket> archivedTickets = new ArrayList<>();
-		for(SingleJourneyTrainTicket t : singleJourneyTickets) {
+		ArrayList<HistorySingleJourneyTicket> archivedTickets = new ArrayList<>();
+		for(HistorySingleJourneyTicket t : singleJourneyTickets) {
 			if(!t.isActive())
 				archivedTickets.add(t);
 		}
 		return archivedTickets;
 	}
 	
-	public ArrayList<LongTermTrainTicket> archivedLongTermTickets() {
+	public ArrayList<HistoryLongTermTicket> archivedLongTermTickets() {
 		if(longTermTickets.isEmpty()) setData();
-		ArrayList<LongTermTrainTicket> archivedTickets = new ArrayList<>();
-		for(LongTermTrainTicket t : longTermTickets) {
+		ArrayList<HistoryLongTermTicket> archivedTickets = new ArrayList<>();
+		for(HistoryLongTermTicket t : longTermTickets) {
 			if(!t.isActive())
 				archivedTickets.add(t);
 		}
