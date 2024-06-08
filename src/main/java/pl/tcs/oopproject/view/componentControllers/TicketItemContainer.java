@@ -105,7 +105,9 @@ public class TicketItemContainer extends AnchorPane implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DiscountComboBox.getItems().addAll(App.Discounts);
+        DiscountComboBox.valueProperty().setValue(App.DEFAULT_DISCOUNT);
         VoucherComboBox.getItems().addAll(App.Vouchers);
+        VoucherComboBox.valueProperty().setValue(App.DEFAULT_VOUCHER);
 
         BicycleCheck.allowIndeterminateProperty().setValue(false);
         AnimalCheck.allowIndeterminateProperty().setValue(false);

@@ -64,7 +64,7 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
             for (int j = 0; j < seats.get(i).getConnection().trains().size(); j++) {
                 insertSingleTicketIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia, seats.get(i).seatList().get(j), seats.get(i).getConnection().trains().get(j), getIdPodrozujacegoByEmail(person.get(i).getEmailAddress()), extractIdSzczegolow(details.get(i)));
             }
-            ticketsToReturn.add(1, new SingleJourneyTrainTicket(seats.get(i), discount.get(i), voucher.get(i), idBiletyJednorazoweZamowienia, details.get(i), seats.get(i).getConnection(), person.get(i)));
+            ticketsToReturn.add( new SingleJourneyTrainTicket(seats.get(i), discount.get(i), voucher.get(i), idBiletyJednorazoweZamowienia, details.get(i), seats.get(i).getConnection(), person.get(i)));
         }
         return ticketsToReturn;
     }
