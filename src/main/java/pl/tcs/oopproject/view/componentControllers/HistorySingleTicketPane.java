@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class HistoryActiveSingleTicketPane extends AnchorPane implements Initializable {
+public class HistorySingleTicketPane extends AnchorPane implements Initializable {
     HistorySingleJourneyTicket ticket;
     @FXML
     private Label IdLabel;
@@ -35,7 +35,7 @@ public class HistoryActiveSingleTicketPane extends AnchorPane implements Initial
     private Button RefundButton;
     @FXML
     private VBox ButtonContainer;
-    public HistoryActiveSingleTicketPane(HistorySingleJourneyTicket ticket) {
+    public HistorySingleTicketPane(HistorySingleJourneyTicket ticket) {
         this.ticket = ticket;
     }
 

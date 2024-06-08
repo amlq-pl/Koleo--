@@ -12,7 +12,7 @@ import pl.tcs.oopproject.model.history.HistorySingleJourneyTicket;
 import pl.tcs.oopproject.view.componentControllers.CustomFormDate;
 import pl.tcs.oopproject.view.componentControllers.CustomFormPassword;
 import pl.tcs.oopproject.view.componentControllers.CustomFormString;
-import pl.tcs.oopproject.view.componentControllers.HistoryActiveSingleTicketPane;
+import pl.tcs.oopproject.view.componentControllers.HistorySingleTicketPane;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;
@@ -56,7 +56,7 @@ public class AccountSceneController implements Initializable {
         }
 
         activeTickets.forEach(c -> {
-            HistoryActiveSingleTicketPane pane = new HistoryActiveSingleTicketPane(c);
+            HistorySingleTicketPane pane = new HistorySingleTicketPane(c);
             ActiveTickets.getChildren().addAll(pane);
         });
     }

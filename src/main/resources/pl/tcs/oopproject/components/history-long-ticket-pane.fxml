@@ -40,7 +40,7 @@
                   <Label fx:id="CostLabel" text="Label" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
+            <VBox fx:id="RefundButtonContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
                <children>
                   <Button fx:id="RefundButton" mnemonicParsing="false" text="ZWRÓĆ" />
                </children>
