@@ -7,12 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import pl.tcs.oopproject.App;
+import pl.tcs.oopproject.model.history.UserProfileEditor;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CustomFormPassword extends AnchorPane implements Initializable {
     private final String type;
+    private UserProfileEditor editor = new UserProfileEditor();
     @FXML
     private Label CustomText;
     @FXML
@@ -32,10 +34,17 @@ public class CustomFormPassword extends AnchorPane implements Initializable {
         }
     }
 
+    @FXML
+    protected void ReadyButtonClick() {
+        try {
+            editor.changePassword(OldPassword.getText(), NewPassword.getText());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
-
 }

@@ -48,6 +48,7 @@ public class CustomFormString extends AnchorPane implements Initializable {
                 case "Name" -> editor.changeName(info);
                 case "Surname" -> editor.changeSurname(info);
                 case "Email" -> editor.changeEmail(info);
+                case "PhoneNumber" -> editor.changeTelephoneNumber(info);
             }
 
             property.setValue(info);
@@ -70,6 +71,7 @@ public class CustomFormString extends AnchorPane implements Initializable {
             case "Name" -> CustomText.textProperty().setValue("Ustaw nowe imię");
             case "Surname" -> CustomText.textProperty().setValue("Ustaw nowe nazwisko");
             case "Email" -> CustomText.textProperty().setValue("Ustaw nowy e-mail");
+            case "PhoneNumber" -> CustomText.textProperty().set("Ustaw nowy numer telefonu");
         }
     }
 }

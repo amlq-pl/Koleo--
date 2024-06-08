@@ -123,11 +123,7 @@ public class TicketFormController implements Initializable {
     }
 
     public void BackButtonClick() {
-        Stage thisStage = (Stage) BackButton.getScene().getWindow();
-        thisStage.close();
-        Stage prevStage = new Stage();
-        prevStage.setScene(ViewController.getLandingScene());
-        prevStage.show();
+
     }
 
     public void ExitButtonClick() {
