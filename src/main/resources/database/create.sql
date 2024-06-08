@@ -314,7 +314,7 @@ create trigger correctTimestampOnZamowieniaOkresowe
     for each row
 execute procedure correctTimestamps();
 
-create or replace function getKlientId(userLogin varchar) returns int as
+create or replace function getKlientIdByLogin(userLogin varchar) returns int as
 $$
 begin
     return (select kl.id_klienta
@@ -324,9 +324,43 @@ begin
 end;
 $$ language plpgsql;
 
+create or replace function getKlientIdByEmail(userEmail varchar) returns int as
+$$
+begin
+    return (select kl.id_klienta
+            from klienci kl
+            where kl.email = userEmail);
+end;
+$$ language plpgsql;
+
 create or replace function getPrzewoznikIdByName(name varchar) returns int as
 $$
 begin
     return (select p.id_przewoznika from przewoznicy p where p.nazwa_skrocona = name);
+end;
+$$ language plpgsql;
+
+create or replace function getIdUlgi(name varchar) returns int as
+$$
+begin
+    return (select u.id_ulgi from ulgi u where u.nazwa = name);
+end;
+$$ language plpgsql;
+
+create or replace function getIdRabatu(name varchar) returns int as
+$$
+begin
+    return (select r.id_rabatu
+            from rabaty r
+            where r.nazwa = name
+              and r.data_wprowadzenia <= now()
+              and r.data_waznosci >= now());
+end;
+$$ language plpgsql;
+
+create or replace function getIdSzczegolow(bike boolean, luggage boolean, animal boolean) returns int as
+$$
+begin
+    return (select sb.id_szczegolow from szczegoly_biletu sb where sb.rower=bike and sb.dodatkowy_bagaz=animal and sb.zwierze=animal);
 end;
 $$ language plpgsql;
