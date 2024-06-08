@@ -63,7 +63,7 @@ public class HistorySingleJourneyTicket{
 	}
 
 	public boolean isActive() {
-		return LocalDateTime.now().isBefore(arrivalTime().plusHours(ticketValidityWindow));
+		return !refunded && LocalDateTime.now().isBefore(arrivalTime().plusHours(ticketValidityWindow));
 	}
 	
 	public boolean refunded() {

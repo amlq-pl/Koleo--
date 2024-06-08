@@ -21,7 +21,7 @@ public class History {
 		if(longTermTickets == null) setData();
 		ArrayList<HistoryLongTermTicket> activeTickets = new ArrayList<>();
 		for(HistoryLongTermTicket t : longTermTickets) {
-			if(t.isActive() && !t.refunded())
+			if(t.isActive())
 				activeTickets.add(t);
 		}
 		return activeTickets;
@@ -31,7 +31,7 @@ public class History {
 		if(singleJourneyTickets == null) setData();
 		ArrayList<HistorySingleJourneyTicket> activeTickets = new ArrayList<>();
 		for(HistorySingleJourneyTicket t : singleJourneyTickets) {
-			if(t.isActive() || !t.refunded())
+			if(t.isActive())
 				activeTickets.add(t);
 		}
 		return activeTickets;
@@ -41,7 +41,7 @@ public class History {
 		if(singleJourneyTickets == null) setData();
 		ArrayList<HistorySingleJourneyTicket> archivedTickets = new ArrayList<>();
 		for(HistorySingleJourneyTicket t : singleJourneyTickets) {
-			if(!t.isActive() || t.refunded())
+			if(!t.isActive())
 				archivedTickets.add(t);
 		}
 		return archivedTickets;
@@ -51,7 +51,7 @@ public class History {
 		if(longTermTickets == null) setData();
 		ArrayList<HistoryLongTermTicket> archivedTickets = new ArrayList<>();
 		for(HistoryLongTermTicket t : longTermTickets) {
-			if(!t.isActive() || t.refunded())
+			if(!t.isActive())
 				archivedTickets.add(t);
 		}
 		return archivedTickets;
