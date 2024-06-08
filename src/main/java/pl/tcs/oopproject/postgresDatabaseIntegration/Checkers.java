@@ -3,6 +3,7 @@ package pl.tcs.oopproject.postgresDatabaseIntegration;
 import pl.tcs.oopproject.model.databaseIntegration.CheckersInterface;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
+import pl.tcs.oopproject.model.ticket.LongTermTicketType;
 import pl.tcs.oopproject.model.users.Person;
 
 import java.sql.PreparedStatement;
@@ -57,6 +58,11 @@ public class Checkers implements CheckersInterface {
 			vouchers.add(new Voucher(rs.getString("nazwa"),rs.getInt("znizka")));
 		}
 		return vouchers;
+	}
+
+	@Override
+	public ArrayList<LongTermTicketType> getAllLongTermTicketTypes() throws SQLException {
+		return null;
 	}
 
 
