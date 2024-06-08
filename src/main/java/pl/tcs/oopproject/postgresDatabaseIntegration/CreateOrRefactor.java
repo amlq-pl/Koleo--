@@ -15,6 +15,7 @@ import pl.tcs.oopproject.model.users.Person;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -113,7 +114,7 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
         ResultSet rs = sub.executeQuery();
         rs.next();
         main.setInt(1, rs.getInt(1));
-        main.setString(2, startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        main.setTimestamp(2, Timestamp.valueOf(startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
         main.executeUpdate();
         PreparedStatement sub2 = DB.connection.prepareStatement("select max(z.id_zamowienia) from zamowienia z");
         ResultSet rs2 = sub2.executeQuery();

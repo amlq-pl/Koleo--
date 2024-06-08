@@ -18,7 +18,8 @@ import java.util.ArrayList;
 public class TicketGet implements TicketGetter {
     @Override
     public ArrayList<HistorySingleJourneyTicket> getSingleUseTickets(String login) {
-        return null;
+        ArrayList<HistorySingleJourneyTicket> tickets = new ArrayList<>();
+        return tickets;
     }
 
     @Override
