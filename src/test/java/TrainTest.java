@@ -7,6 +7,7 @@ import pl.tcs.oopproject.viewmodel.connection.*;
 import pl.tcs.oopproject.model.exception.NoRouteFoundException;
 import pl.tcs.oopproject.model.station.Station;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -128,7 +129,7 @@ public class TrainTest {
 		}
 		
 		@Override
-		public List<MultiStopRoute> findCheapestTrainRoutes() {
+		public List<MultiStopRoute> findCheapestTrainRoutes() throws SQLException {
 			ArrayList<MultiStopRoute> connections = new ArrayList<>();
 			int size = Math.min(5, trains.size());
 			for (int i = 0; i < size; ++i) {
@@ -224,7 +225,7 @@ public class TrainTest {
 	}
 	
 	@Test
-	public void RoutesSortedByCostTest() {
+	public void RoutesSortedByCostTest() throws SQLException {
 		Finder finder = new Finder("Kraków", "Warszawa", LocalDateTime.now());
 		finder.setTrains(List.of(dC1, dC2, dC3, dC4, dC5, dC6));
 		List<MultiStopRoute> connections = finder.findCheapestTrainRoutes();
