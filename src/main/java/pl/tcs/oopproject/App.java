@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
+import pl.tcs.oopproject.model.ticket.Addition;
+import pl.tcs.oopproject.model.ticket.LongTermTicketType;
 import pl.tcs.oopproject.postgresDatabaseIntegration.Checkers;
 import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.ViewController;
@@ -15,6 +17,8 @@ public class App extends Application {
 	public static ArrayList<String> Stations;
 	public static ArrayList<Discount> Discounts;
 	public static ArrayList<Voucher> Vouchers;
+	public static ArrayList<Addition> Additions;
+	public static ArrayList<LongTermTicketType> LongTermTicketTypes;
 	private final Checkers checkers = new Checkers();
 
 	public static Basket basket = new Basket();
@@ -23,6 +27,8 @@ public class App extends Application {
 			Stations = checkers.getAllStations();
 			Discounts = checkers.getAllDiscounts();
 			Vouchers = checkers.getAllVouchers();
+			Additions = checkers.getAllAdditions();
+			LongTermTicketTypes = checkers.getAllLongTermTicketTypes();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

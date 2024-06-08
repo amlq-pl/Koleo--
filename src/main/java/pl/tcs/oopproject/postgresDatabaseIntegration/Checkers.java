@@ -69,7 +69,15 @@ public class Checkers implements CheckersInterface {
 		PreparedStatement ps=DB.connection.prepareStatement("select * from cennik_biletow_okresowych join przewoznicy on cennik_biletow_okresowych.id_przewoznika = przewoznicy.id_przewoznika");
 		ResultSet rs=ps.executeQuery();
 		while (rs.next()) {
-			ticketTypes.add(new LongTermTicketType(Period.ofDays(rs.getTimestamp("okres_waznosic").getDay()),new PricePLN(rs.getDouble("cena_bazowa")),rs.getString("nazwa_skrocona")));
+			int days=0;
+			String[] parts=rs.getString("okres_waznosci").split(" ");
+			for (String part : parts) {
+            if (part.endsWith("days")) {
+                days = Integer.parseInt(part.replace("days", "").trim());
+                break;
+            }
+        }
+			ticketTypes.add(new LongTermTicketType(Period.ofDays(days),new PricePLN(rs.getDouble("cena_bazowa")),rs.getString("nazwa_skrocona")));
 		}
 		return ticketTypes;
 	}
@@ -80,7 +88,7 @@ public class Checkers implements CheckersInterface {
 		PreparedStatement ps=DB.connection.prepareStatement("select * from koszty_udogodnien where data_poczatkowa<=now() and data_koncowa>=now();");
 		ResultSet rs=ps.executeQuery();
 		while (rs.next()) {
-			additions.add(new Addition(rs.getString("nazwa"),rs.getDouble("koszt")));
+			additions.add(new Addition(rs.getString("nazwa"),rs.getDouble("koszt_procentowy")));
 		}
 		return additions;
 	}

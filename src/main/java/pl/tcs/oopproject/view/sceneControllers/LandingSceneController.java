@@ -2,6 +2,7 @@ package pl.tcs.oopproject.view.sceneControllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -70,5 +71,9 @@ public class LandingSceneController implements Initializable {
 		DepStation.getItems().setAll(App.Stations);
 		ArrStation.getItems().setAll(App.Stations);
 		DatePicker.setValue(LocalDate.now());
+	}
+
+	public void BuyLongTermTicketAction() {
+
 	}
 }
