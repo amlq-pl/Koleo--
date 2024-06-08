@@ -16,25 +16,14 @@ import java.util.List;
 
 public class TicketFactory {
 	
-	public ArrayList<LongTermTrainTicket> createLongTermTicket(ArrayList<LongTermTicketType> tickets, Discount discount, Voucher voucher, LocalDate startDate) throws SQLException {
+	public ArrayList<LongTermTrainTicket> createLongTermTicket(ArrayList<LongTermTicketType> tickets, ArrayList<Discount> discount, ArrayList<Voucher> voucher, ArrayList<LocalDate> startDate, ArrayList<Person> person) throws SQLException {
 		CreateOrRefactor creator = new CreateOrRefactor();
-		return creator.saveLongTermTicket(startDate.atStartOfDay(), discount, voucher, ActiveUser.getActiveUser(), tickets, ActiveUser.getPerson());
+		return creator.saveLongTermTicket(startDate, discount, voucher, ActiveUser.getActiveUser(), tickets, person);
 	}
 	
-	public ArrayList<LongTermTrainTicket> createLongTermTicket(ArrayList<LongTermTicketType> tickets, Discount discount, Voucher voucher, LocalDate startDate, Person person) throws SQLException {
-		CreateOrRefactor creator = new CreateOrRefactor();
-		return creator.saveLongTermTicket(startDate.atStartOfDay(), discount, voucher, ActiveUser.getActiveUser(), tickets, ActiveUser.getPerson());
-	}
-	
-	public ArrayList<SingleJourneyTrainTicket> createSingleJourneyTicket(Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats) throws SQLException {
-		CreateOrRefactor creator = new CreateOrRefactor();
-		return creator.saveSingleJourneyTicket(ActiveUser.getPerson(), discount, voucher, details, seats, ActiveUser.getActiveUser());
-	}
-	
-	public ArrayList<SingleJourneyTrainTicket> createSingleJourneyTicket(Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats, Person person) throws SQLException {
+	public ArrayList<SingleJourneyTrainTicket> createSingleJourneyTicket(ArrayList<Discount> discount, ArrayList<Voucher> voucher, ArrayList<Details> details, ArrayList<TrainsAssignedSeats> seats, ArrayList<Person> person) throws SQLException {
 		CreateOrRefactor creator = new CreateOrRefactor();
 		return creator.saveSingleJourneyTicket(person, discount, voucher, details, seats, ActiveUser.getActiveUser());
-		
 	}
 	
 	public void refund(TrainTicket ticket) {
