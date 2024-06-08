@@ -1,10 +1,7 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import net.synedra.validatorfx.Validator;
 import pl.tcs.oopproject.model.users.Person;
@@ -55,14 +52,24 @@ public class LogInSceneController implements Initializable {
 		if (validator.validate()) {
 			try {
 				Person newPerson = PersonFactory.logIn(LogInInputField.getText(), PasswordInputField.getText());
-				System.out.println(newPerson);
-				LogInInputField.setText("");
-				PasswordInputField.setText("");
-				Stage thisStage = (Stage) BackButton.getScene().getWindow();
-				thisStage.close();
-				Stage newStage = new Stage();
-				newStage.setScene(ViewController.getLandingScene());
-				newStage.show();
+
+				if (newPerson != null) {
+					Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+					a.setContentText("ZALOGOWANO POMYŚLNIE");
+					a.showAndWait();
+
+					Stage thisStage = (Stage) BackButton.getScene().getWindow();
+					thisStage.close();
+					Stage newStage = new Stage();
+					newStage.setScene(ViewController.getTrainSearchScene());
+					newStage.show();
+					LogInInputField.setText("");
+					PasswordInputField.setText("");
+				} else {
+					Alert a = new Alert(Alert.AlertType.ERROR);
+					a.setContentText("NIEPRAWIDŁOWE DANE LOGOWANIA");
+					a.showAndWait();
+				}
 			} catch (Exception e) {
 				ErrorLabel.setText("Nieprawidłowa nazwa użykownika lub hasło");
 			}

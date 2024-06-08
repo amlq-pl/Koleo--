@@ -6,7 +6,12 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -21,6 +26,7 @@ import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.view.componentControllers.TrainPane;
 import pl.tcs.oopproject.view.componentControllers.TrainPaneFactory;
 import pl.tcs.oopproject.viewmodel.connection.TrainConnectionFinder;
+import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -106,6 +112,12 @@ public class TrainSearchSceneController implements Initializable {
         addAllPanes(finder);
     }
     public void GoBackButtonClick() {
+        if (ActiveUser.getActiveUser() != null) {
+            ActiveUser.logOut();
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("WYLOGOWANO Z KONTA");
+            a.showAndWait();
+        }
         Stage thisStage = (Stage) GoBackButton.getScene().getWindow();
         thisStage.close();
         Stage prevStage = new Stage();
@@ -138,6 +150,8 @@ public class TrainSearchSceneController implements Initializable {
         ConnectionDate.valueProperty().bindBidirectional(InitialDate);
         HourPicker.valueProperty().bindBidirectional(InitialHour);
 
+        if (ActiveUser.getActiveUser() != null) GoBackButton.textProperty().setValue("WYLOGUJ SIĘ");
+
         BasketButton.textProperty().bindBidirectional(basket.size, new StringConverter<>() {
             @Override
             public String toString(Number number) {
@@ -168,5 +182,31 @@ public class TrainSearchSceneController implements Initializable {
         Stage newStage = new Stage();
         newStage.setScene(ViewController.getBasketScene());
         newStage.show();
+    }
+
+    public void AccountButtonClick() {
+        if (ActiveUser.getActiveUser() == null) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("ZALOGUJ SIĘ ABY KORZYSTAĆ Z TEJ OPCJI");
+            a.showAndWait();
+        } else {
+
+            Stage thisStage = (Stage) BasketButton.getScene().getWindow();
+            thisStage.close();
+
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/account-scene.fxml"));
+            Parent p = null;
+            try {
+                p = loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Scene scene = new Scene(p);
+
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
+        }
     }
 }

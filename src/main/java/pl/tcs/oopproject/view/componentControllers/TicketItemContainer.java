@@ -30,18 +30,18 @@ public class TicketItemContainer extends AnchorPane implements Initializable {
         this.currentRoute = route;
         this.seatList = seatList;
 
+        try {
+            loader.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         int size = seatList.size();
         IntStream.range(0, size).forEach(c -> {
             TicketItem item = new TicketItem(currentRoute.route().get(c), seatList.get(c),
                     currentRoute.trains().get(c));
             TicketContainer.getChildren().addAll(item);
         });
-
-        try {
-            loader.load();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public MultiStopRoute getConnection() {

@@ -1,4 +1,4 @@
 package pl.tcs.oopproject.model.ticket;
 
-public record Addition(String name, double cost) {
+public record Addition(String name, double cost, boolean active) {
 }
