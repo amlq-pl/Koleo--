@@ -108,7 +108,7 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
     }
 
     private int insertIntoZamowieniaByLogin(LocalDateTime startDate, String login) throws SQLException {
-        PreparedStatement main = DB.connection.prepareStatement("insert into zamowienia(id_klienta, timestamp_kupna) values (?,?)");
+        PreparedStatement main = DB.connection.prepareStatement("insert into zamowienia(id_klienta, timestamp_kupna) values (?,?::timestamp)");
         PreparedStatement sub = DB.connection.prepareStatement("select getklientidbylogin(?)");
         sub.setString(1, login);
         ResultSet rs = sub.executeQuery();
@@ -123,7 +123,7 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
     }
 
     private int insertIntoZamowieniaByEmail(LocalDateTime startDate, String email) throws SQLException {
-        PreparedStatement main = DB.connection.prepareStatement("insert into zamowienia(id_klienta, timestamp_kupna) values (?,?)");
+        PreparedStatement main = DB.connection.prepareStatement("insert into zamowienia(id_klienta, timestamp_kupna) values (?,?::timestamp)");
         main.setInt(1, getIdPodrozujacegoByEmail(email));
         main.setTimestamp(2, Timestamp.valueOf(startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
         main.executeUpdate();
