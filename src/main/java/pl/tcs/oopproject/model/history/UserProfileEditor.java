@@ -15,44 +15,44 @@ public class UserProfileEditor {
 		updater = new UserProfileUpdater();
 	}
 	
-	public void changeDateOfBirth(LocalDate date) throws SQLException {
+	public void changeDateOfBirth(LocalDate date) throws SQLException, InvalidDateOfBirthException {
 		if(Check.incorrectDateOfBirth(date)) throw new InvalidDateOfBirthException();
 		updater.updateDateOfBirth(ActiveUser.getActiveUser(), date);
 		person.setDateOfBirth(date);
 	}
 
-	public void changeName(String name) throws SQLException {
+	public void changeName(String name) throws SQLException, InvalidNameOrSurnameException{
 		if(Check.incorrectName(name)) throw new InvalidNameOrSurnameException();
 		updater.updateName(ActiveUser.getActiveUser(), name);
 		person.setName(name);
 	}
 	
-	public void changeSurname(String name) throws SQLException {
+	public void changeSurname(String name) throws SQLException, InvalidNameOrSurnameException {
 		if (Check.incorrectSurname(name)) throw new InvalidNameOrSurnameException();
 		updater.updateSurname(ActiveUser.getActiveUser(), name);
 		person.setSurname(name);
 	}
 	
-	public void changeEmail(String email) throws SQLException {
+	public void changeEmail(String email) throws SQLException, InvalidEmailException {
 		if (Check.incorrectEmail(email)) throw new InvalidEmailException();
 		updater.updateEmail(ActiveUser.getActiveUser(), email);
 		person.setEmailAddress(email);
 	} // updateEmail must return boolean - if email is unique
 	
-	public void changeTelephoneNumber(String phone) throws SQLException {
+	public void changeTelephoneNumber(String phone) throws SQLException, InvalidTelephoneNumberException {
 		if(Check.incorrectTelephoneNumber(phone)) throw new InvalidTelephoneNumberException();
 		updater.updateTelephoneNumber(ActiveUser.getActiveUser(), phone);
 		person.setTelephoneNumber(phone);
 	}
 	
-	public void changeLogin(String login) throws SQLException {
+	public void changeLogin(String login) throws SQLException, ExistingUserException {
 		if(updater.updateLogin(ActiveUser.getActiveUser(), login))
 			ActiveUser.setActiveUser(login);
 		else
 			throw new ExistingUserException();
 	}
 	
-	public void changePassword(String oldPassword, String newPassword) throws SQLException {
+	public void changePassword(String oldPassword, String newPassword) throws SQLException, InvalidPasswordException {
 		if(!updater.updatePassword(ActiveUser.getActiveUser(), oldPassword, newPassword))
 			throw new InvalidPasswordException();
 	}
