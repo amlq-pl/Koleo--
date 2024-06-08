@@ -20,8 +20,8 @@ public class Check {
 	
 	public static boolean incorrectTelephoneNumber(String number) {
 		if (number == null) return false;
-		if (number.length() == 9) number = "+48" + number;
 		number = number.replaceAll("\\s", "");
+		if (number.length() == 9) number = "+48" + number;
 		String numberRegex = "^\\+\\d{10,12}$";
 		Pattern pattern = Pattern.compile(numberRegex);
 		return !pattern.matcher(number).matches();
