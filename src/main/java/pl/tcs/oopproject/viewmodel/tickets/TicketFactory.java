@@ -29,7 +29,7 @@ public class TicketFactory {
 	public void refund(TrainTicket ticket) {
 		if (ticket.returned()) throw new AlreadyReturnedTicketException();
 		CreateOrRefactor refactor = new CreateOrRefactor();
-		refactor.returnTicket(ticket.id());
+		//refactor.returnTicket(ticket.id());
 		ticket.returnTicket();
 	}
 }
