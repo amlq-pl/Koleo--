@@ -50,7 +50,7 @@ public class HistorySingleJourneyTicket{
 		this.details = details;
 		this.departureStation = departureStation;
 		this.person = person;
-		this.refunded = false;
+		this.refunded = refunded;
 		this.cost = getPricePLN(new PricePLN(cost), appliedDiscount, appliedVoucher);
 	}
 	
