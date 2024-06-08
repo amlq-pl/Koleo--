@@ -69,7 +69,7 @@ public class Checkers implements CheckersInterface {
 		PreparedStatement ps=DB.connection.prepareStatement("select * from cennik_biletow_okresowych join przewoznicy on cennik_biletow_okresowych.id_przewoznika = przewoznicy.id_przewoznika");
 		ResultSet rs=ps.executeQuery();
 		while (rs.next()) {
-			ticketTypes.add(new LongTermTicketType(Period.ofDays(rs.getTimestamp("okres_waznosic").getDay()),new PricePLN(rs.getDouble("cena_bazowa")),rs.getString("nazwa_skrocona")));
+			ticketTypes.add(new LongTermTicketType(Period.ofDays(rs.getTimestamp("okres_waznosci").getDay()),new PricePLN(rs.getDouble("cena_bazowa")),rs.getString("nazwa_skrocona")));
 		}
 		return ticketTypes;
 	}
