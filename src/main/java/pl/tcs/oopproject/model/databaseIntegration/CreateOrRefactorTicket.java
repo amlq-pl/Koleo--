@@ -22,7 +22,7 @@ public interface CreateOrRefactorTicket {
 	 */
 	ArrayList<SingleJourneyTrainTicket> saveSingleJourneyTicket(Person person, Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats, String login) throws SQLException;
 	
-	boolean returnSingleJourneyTrainTicket(int id);
+	boolean returnSingleJourneyTrainTicket(int id) throws SQLException;
 	
-	boolean returnLongTermTrainTicket(int id);
+	boolean returnLongTermTrainTicket(int id) throws SQLException;
 }
