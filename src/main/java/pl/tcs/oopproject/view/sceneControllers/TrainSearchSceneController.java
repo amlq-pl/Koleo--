@@ -110,7 +110,7 @@ public class TrainSearchSceneController implements Initializable {
         String departure = DepStation.getValue();
         String arrival = ArrStation.getValue();
 
-        if (departure.equals(arrival)) { // TODO: make an alert for this situation
+        if (departure.equals(arrival)) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setContentText("Miasto początkowe i końcowe muszą być różne");
             a.showAndWait();
@@ -220,5 +220,11 @@ public class TrainSearchSceneController implements Initializable {
             newStage.setScene(scene);
             newStage.show();
         }
+    }
+
+    public void BuyLongTermTicket() {
+        Stage newStage = new Stage();
+        newStage.setScene(ViewController.getLongTermTicketBuyScene());
+        newStage.show();
     }
 }
