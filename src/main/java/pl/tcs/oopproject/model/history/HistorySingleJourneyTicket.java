@@ -36,7 +36,7 @@ public class HistorySingleJourneyTicket{
 	private final Details details;
 	private boolean refunded;
 	private final Person person;
-	PricePLN cost;
+	private final PricePLN cost;
 	
 	public HistorySingleJourneyTicket(Discount appliedDiscount,
 	                                  Voucher appliedVoucher,
