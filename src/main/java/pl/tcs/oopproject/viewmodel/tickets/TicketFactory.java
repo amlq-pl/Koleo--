@@ -12,7 +12,6 @@ import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TicketFactory {
 	
@@ -26,10 +25,13 @@ public class TicketFactory {
 		return creator.saveSingleJourneyTicket(person, discount, voucher, details, seats, ActiveUser.getActiveUser());
 	}
 	
-	public void refund(TrainTicket ticket) {
+	public void refund(TrainTicket ticket) throws SQLException {
 		if (ticket.returned()) throw new AlreadyReturnedTicketException();
 		CreateOrRefactor refactor = new CreateOrRefactor();
-		//refactor.returnTicket(ticket.id());
+		if(ticket instanceof SingleJourneyTrainTicket)
+			refactor.returnSingleJourneyTrainTicket(ticket.id());
+		else
+			refactor.returnLongTermTrainTicket(ticket.id());
 		ticket.returnTicket();
 	}
 }
