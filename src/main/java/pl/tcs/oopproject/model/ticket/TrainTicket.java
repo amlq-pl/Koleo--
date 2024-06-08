@@ -14,10 +14,6 @@ public interface TrainTicket {
 	
 	Voucher appliedVoucher();
 	
-	boolean refunded();
-	
-	boolean refundTicket() throws SQLException;
-	
 	int id();
 	
 	LocalDateTime purchaseDate();

@@ -15,6 +15,14 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class SingleJourneyTrainTicket implements TrainTicket {
+	public static @NotNull PricePLN getPricePLN(Price cost2, Discount appliedDiscount, Voucher appliedVoucher) {
+		double cost = cost2.value();
+		if(appliedDiscount != null)
+			cost = cost * (100 - appliedDiscount.value()) / 100;
+		if(appliedVoucher != null)
+			cost = cost * (100 - appliedVoucher.value()) / 100;
+		return new PricePLN(cost);
+	}
 	private final static int ticketValidityWindow = 8; //how many hours after planned arrival is ticket active
 	private final TrainsAssignedSeats trainsAssignedSeats;
 	private final Discount appliedDiscount;
@@ -22,7 +30,6 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	private final LocalDateTime purchaseDate;
 	private final int id;
 	private final Details details;
-	private boolean returned;
 	private final MultiStopRoute train;
 	private final Person person;
 	
@@ -35,7 +42,6 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 		this.train = train;
 		this.person = person;
 		purchaseDate = LocalDateTime.now();
-		returned = false;
 	}
 	
 	public Person getPerson() {
@@ -45,11 +51,6 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	@Override
 	public PricePLN cost() {
 		return getPricePLN(train.cost(), appliedDiscount, appliedVoucher);
-	}
-	
-	@NotNull
-	static PricePLN getPricePLN(Price cost2, Discount appliedDiscount, Voucher appliedVoucher) {
-		return getPricePLN(cost2, appliedDiscount, appliedVoucher);
 	}
 	
 	@Override
@@ -65,19 +66,6 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	@Override
 	public Voucher appliedVoucher() {
 		return appliedVoucher;
-	}
-	
-	@Override
-	public boolean refunded() {
-		return returned;
-	}
-	
-	@Override
-	public boolean refundTicket() throws SQLException {
-		CreateOrRefactor refactor = new CreateOrRefactor();
-		if (refunded()) return false;
-		refactor.returnSingleJourneyTrainTicket(id);
-		return true;
 	}
 	
 	@Override

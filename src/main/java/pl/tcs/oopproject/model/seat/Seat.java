@@ -4,6 +4,6 @@ public record Seat (SeatType seatType, int number){
 	
 	@Override
 	public String toString() {
-		return seatType + "\n" + "Seat Number: " + number;
+		return seatType.toString() + number;
 	}
 }

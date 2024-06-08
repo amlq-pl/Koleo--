@@ -19,9 +19,7 @@ public class LongTermTrainTicket implements TrainTicket {
 	private final LongTermTicketType longTermTicketType;
 	private final Discount appliedDiscount;
 	private final Voucher appliedVoucher;
-	
 	private final int id;
-	private boolean returned;
 	private final Person person;
 	
 	public LongTermTrainTicket(LocalDate startDate, LongTermTicketType longTermTicketType, Discount appliedDiscount, Voucher appliedVoucher, int id, Person person) {
@@ -32,7 +30,6 @@ public class LongTermTrainTicket implements TrainTicket {
 		this.appliedDiscount = appliedDiscount;
 		this.appliedVoucher = appliedVoucher;
 		this.id = id;
-		returned = false;
 	}
 	
 	public Person getPerson() {
@@ -65,11 +62,6 @@ public class LongTermTrainTicket implements TrainTicket {
 	}
 	
 	@Override
-	public boolean refunded() {
-		return returned;
-	}
-	
-	@Override
 	public int id() {
 		return id;
 	}
@@ -77,13 +69,5 @@ public class LongTermTrainTicket implements TrainTicket {
 	@Override
 	public LocalDateTime purchaseDate() {
 		return purchaseDate;
-	}
-	
-	@Override
-	public boolean refundTicket() throws SQLException {
-		CreateOrRefactor refactor = new CreateOrRefactor();
-		if (refunded()) return false;
-		refactor.returnLongTermTrainTicket(id);
-		return true;
 	}
 }

@@ -4,26 +4,26 @@ public enum SeatType {
 	WINDOW {
 		@Override
 		public String toString() {
-			return "Seat Type: Window";
+			return "okno ";
 		}
 	},
 	MIDDLE {
 		@Override
 		public String toString() {
-			return "Seat Type: Middle";
+			return "środek ";
 		}
 	},
 	CORRIDOR {
 		@Override
 		public String toString() {
-			return "Seat Type: Corridor";
+			return "korytarz ";
 		}
 	},
 	
 	BERTH {
 		@Override
 		public String toString() {
-			return "Seat Type: Berth";
+			return "prycza ";
 		}
 	}
 }
