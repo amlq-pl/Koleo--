@@ -3,6 +3,7 @@ package pl.tcs.oopproject.model.connection;
 import pl.tcs.oopproject.model.discount.Price;
 import pl.tcs.oopproject.model.station.Station;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,6 +19,6 @@ public interface TransferableRoute {
 	
 	List<Station> transferStations();
 	
-	Price cost();
+	Price cost() throws SQLException;
 	
 }

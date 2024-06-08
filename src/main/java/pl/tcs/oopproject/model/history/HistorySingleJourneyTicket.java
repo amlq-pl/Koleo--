@@ -24,7 +24,6 @@ public class HistorySingleJourneyTicket{
 	private final LocalDateTime arrivalTime;
 	private final String departureStation;
 	private final String arrivalStation;
-	
 	private final int id;
 	private final Details details;
 	private boolean refunded;
