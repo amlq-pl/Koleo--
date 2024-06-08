@@ -17,7 +17,7 @@ import java.util.List;
 
 public class SingleJourneyTrainTicket implements TrainTicket {
 	private final static int ticketValidityWindow = 8; //how many hours after planned arrival is ticket active
-	private final ArrayList<TrainsAssignedSeats> trainsAssignedSeats;
+	private final TrainsAssignedSeats trainsAssignedSeats;
 	private final Discount appliedDiscount;
 	private final Voucher appliedVoucher;
 	private final LocalDateTime purchaseDate;
@@ -27,7 +27,7 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	private final MultiStopRoute train;
 	private final Person person;
 	
-	public SingleJourneyTrainTicket(ArrayList<TrainsAssignedSeats> trainsAssignedSeats, Discount appliedDiscount, Voucher appliedVoucher, int id, Details details, MultiStopRoute train, Person person) {
+	public SingleJourneyTrainTicket(TrainsAssignedSeats trainsAssignedSeats, Discount appliedDiscount, Voucher appliedVoucher, int id, Details details, MultiStopRoute train, Person person) {
 		this.trainsAssignedSeats = trainsAssignedSeats;
 		this.appliedDiscount = appliedDiscount;
 		this.appliedVoucher = appliedVoucher;
@@ -96,11 +96,11 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	}
 	
 	public Station departureStation() {
-		return trainsAssignedSeats.get(0).getConnection().originStation();
+		return trainsAssignedSeats.getConnection().originStation();
 	}
 	
 	public Station arrivalStation() {
-		return trainsAssignedSeats.get(0).getConnection().destinationStation();
+		return trainsAssignedSeats.getConnection().destinationStation();
 	}
 	
 	public LocalDateTime departureTime() {
@@ -111,20 +111,11 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 		return arrivalStation().arrivalTime();
 	}
 	
-	
-	public List<Integer> trainNumber() {
-		List<Integer> trains = new ArrayList<>();
-		for (ScheduledTrain connection : trainsAssignedSeats.get(0).getConnection().trains()) {
-			trains.add(connection.getNumber());
-		}
-		return trains;
-	}
-	
 	public Details details() {
 		return details;
 	}
 	
-	public List<TrainsAssignedSeats> places() {
+	public TrainsAssignedSeats places() {
 		return trainsAssignedSeats;
 	}
 }
