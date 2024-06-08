@@ -86,6 +86,4 @@ public class Checkers implements CheckersInterface {
 		}
 		return additions;
 	}
-
-
 }
