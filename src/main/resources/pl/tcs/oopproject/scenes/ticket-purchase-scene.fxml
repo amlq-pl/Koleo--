@@ -37,7 +37,7 @@
          <bottom>
             <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: pink;" BorderPane.alignment="CENTER">
               <items>
-                <Button mnemonicParsing="false" text="KUP" />
+                <Button onAction="#BuyAction" mnemonicParsing="false" text="KUP" />
               </items>
             </ToolBar>
          </bottom>

@@ -56,5 +56,4 @@ public class ViewController {
 	public static Scene getBasketScene() {
 		return basketScene;
 	}
-
 }

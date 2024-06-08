@@ -29,12 +29,6 @@ public class TicketItem extends AnchorPane implements Initializable {
     private Label TrainName;
     @FXML
     private Label Seat;
-    @FXML
-    private RadioButton bikeRadio;
-    @FXML
-    private RadioButton luggageRadio;
-    @FXML
-    private RadioButton animalRadio;
     private ArrayList<Station> stations;
     private ScheduledTrain train;
     AssignedSeat seat;

@@ -3,8 +3,10 @@ package pl.tcs.oopproject.view.sceneControllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
 
@@ -13,6 +15,7 @@ import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.componentControllers.BasketItem;
 import pl.tcs.oopproject.view.componentControllers.TicketItemContainer;
 import pl.tcs.oopproject.viewmodel.place.PlaceFactory;
+import pl.tcs.oopproject.viewmodel.tickets.TicketFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -58,13 +61,15 @@ public class TicketPurchaseSceneController implements Initializable {
                 ticketContainers.addAll(container);
             }
         });
+    }
 
-//        thisBasket.basketItems.forEach(c -> {
-//            System.out.println(c.count.getValue());
-//            for (int i = 0; i < c.count.getValue(); i++) {
-//                TicketItemContainer container = new TicketItemContainer(c.getConnection());
-//                ticketContainers.addAll(container);
-//            }
-//        });
+    public void BuyAction() {
+        // TODO: check czy wszystkie dane sa w porzadku (czy sa miejsca ktore checmy kupic)
+
+        TicketFactory factory = new TicketFactory();
+
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setContentText("Ale eza byq dobrze iziziziziz");
+        a.showAndWait();
     }
 }
