@@ -8,6 +8,6 @@ public record AssignedSeat(Carriage carriage, Seat seat) {
 	
 	@Override
 	public String toString() {
-		return carriage + "\n" + seat;
+		return carriage.toString() + seat.toString();
 	}
 }
