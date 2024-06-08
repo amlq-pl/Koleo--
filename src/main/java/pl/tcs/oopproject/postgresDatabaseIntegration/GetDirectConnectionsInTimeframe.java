@@ -20,10 +20,13 @@ public class GetDirectConnectionsInTimeframe implements GetDirectConnectionsInTi
 		PreparedStatement ps = DB.connection.prepareStatement("select * from stations s " +
 				"where s.czas_przyjazdu>=?::timestamp and s.czas_przyjazdu<=?::timestamp ;");
 		
-		PreparedStatement przejazdy = DB.connection.prepareStatement("select * from przejazdy p " +
+		PreparedStatement przejazdy = DB.connection.prepareStatement("select p.koszt_bazowy,p.czy_rezerwacja_miejsc,pr.nazwa_skrocona,count(sp.numer_stacji) as ile_stacji from przejazdy p " +
 				"join trasy_przewoznicy tp on p.id_trasy_przewoznika = tp.id_trasy_przewoznika " +
-				"join przewoznicy on tp.id_przewoznika = przewoznicy.id_przewoznika " +
-				"join trasy on tp.id_trasy = trasy.id_trasy where p.id_przejazdu=?");
+				"join przewoznicy pr on tp.id_przewoznika = pr.id_przewoznika " +
+				"join trasy on tp.id_trasy = trasy.id_trasy" +
+				" join stacje_posrednie sp on trasy.id_trasy = sp.id_trasy " +
+				"where p.id_przejazdu=? " +
+				"group by sp.id_trasy, p.koszt_bazowy, p.czy_rezerwacja_miejsc, pr.nazwa_skrocona;");
 		ResultSet przejazdyResult = null;
 		
 		

@@ -114,10 +114,15 @@ public class SignUpSceneController implements Initializable {
 				ErrorLabel.setStyle("-fx-text-fill: green");
 				ErrorLabel.setText("Użytkownik utworzony pomyślnie");
 				resetToInitial();
+
+				Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+				a.setContentText("ZAREJESTROWANO POMYŚLNIE");
+				a.showAndWait();
+
 				Stage thisStage = (Stage) NameTextField.getScene().getWindow();
 				thisStage.close();
 				Stage newStage = new Stage();
-				newStage.setScene(ViewController.getLandingScene());
+				newStage.setScene(ViewController.getTrainSearchScene());
 				newStage.show();
 			} catch (InvalidNameOrSurnameException e) {
 				ErrorLabel.setText("Podaj porawne imię");

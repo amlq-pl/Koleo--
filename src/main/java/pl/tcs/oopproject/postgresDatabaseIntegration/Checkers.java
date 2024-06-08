@@ -3,6 +3,7 @@ package pl.tcs.oopproject.postgresDatabaseIntegration;
 import pl.tcs.oopproject.model.databaseIntegration.CheckersInterface;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
+import pl.tcs.oopproject.model.users.Person;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,15 @@ public class Checkers implements CheckersInterface {
 		ResultSet resultSet = statement.executeQuery();
 		return resultSet.next();
 	}
-	
+
+	@Override
+	public boolean checkIfPersonExists(Person person) throws SQLException {
+		PreparedStatement statement = DB.connection.prepareStatement("select * from klienci k where k.email=?");
+		statement.setString(1, person.getEmailAddress());
+		ResultSet resultSet = statement.executeQuery();
+		return resultSet.next();
+	}
+
 	@Override
 	public ArrayList<String> getAllStations() throws SQLException {
 		ResultSet resultSet = DB.statement.executeQuery("select s.nazwa from stacje s order by s.nazwa;");

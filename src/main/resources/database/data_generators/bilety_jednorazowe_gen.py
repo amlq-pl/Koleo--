@@ -3,7 +3,7 @@ import random
 from collections import defaultdict
 from multiprocessing.pool import ThreadPool
 
-pool = ThreadPool(16)
+#TODO fix it
 
 path = os.path.dirname(__file__)
 path = path[:-16]
@@ -64,7 +64,7 @@ for i in range(1, len(bilety_jednorazowe_zamowienia)):
 
         mx = len(list(driver[id_przejazdu].keys()))
         start = random.randint(1, mx - 2)
-        end = random.randint(start + 1, mx-1)
+        end = random.randint(start + 1, mx - 1)
         minWagon = 999
         for miniPrzejazd in range(start, end):
             minWagon = min(minWagon, len(list(driver[id_przejazdu][miniPrzejazd].keys())))

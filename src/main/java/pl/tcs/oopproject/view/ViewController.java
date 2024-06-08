@@ -1,8 +1,10 @@
 package pl.tcs.oopproject.view;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import pl.tcs.oopproject.App;
+import pl.tcs.oopproject.view.sceneControllers.TicketPurchaseSceneController;
 
 import java.io.IOException;
 
@@ -54,6 +56,5 @@ public class ViewController {
 	public static Scene getBasketScene() {
 		return basketScene;
 	}
-
 
 }
