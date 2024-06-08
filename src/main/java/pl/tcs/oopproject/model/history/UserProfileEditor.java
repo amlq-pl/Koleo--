@@ -35,7 +35,8 @@ public class UserProfileEditor {
 	
 	public void changeEmail(String email) throws SQLException, InvalidEmailException {
 		if (Check.incorrectEmail(email)) throw new InvalidEmailException();
-		updater.updateEmail(ActiveUser.getActiveUser(), email);
+		if(!updater.updateEmail(ActiveUser.getActiveUser(), email))
+			throw new InvalidPasswordException();
 		person.setEmailAddress(email);
 	} // updateEmail must return boolean - if email is unique
 	
@@ -52,8 +53,9 @@ public class UserProfileEditor {
 			throw new ExistingUserException();
 	}
 	
-	public void changePassword(String oldPassword, String newPassword) throws SQLException, InvalidPasswordException {
+	public void changePassword(String oldPassword, String newPassword) throws SQLException, InvalidPasswordException, NewPasswordMustDifferException {
 		if(!updater.updatePassword(ActiveUser.getActiveUser(), oldPassword, newPassword))
 			throw new InvalidPasswordException();
+		if(oldPassword.equals(newPassword)) throw new NewPasswordMustDifferException();
 	}
 }
