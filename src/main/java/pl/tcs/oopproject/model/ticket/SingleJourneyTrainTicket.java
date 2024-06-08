@@ -49,7 +49,7 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	}
 	
 	@Override
-	public PricePLN cost() {
+	public PricePLN cost() throws SQLException {
 		return getPricePLN(train.cost(), appliedDiscount, appliedVoucher);
 	}
 	
