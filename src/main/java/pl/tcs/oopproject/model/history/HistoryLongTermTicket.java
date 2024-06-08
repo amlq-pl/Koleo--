@@ -29,7 +29,7 @@ public class HistoryLongTermTicket {
 	private final int id;
 	private boolean returned;
 	private final Person person;
-	private static PricePLN cost;
+	private final PricePLN cost;
 	
 	public HistoryLongTermTicket(LocalDate startDate, LongTermTicketType longTermTicketType, Discount appliedDiscount, Voucher appliedVoucher, int id, Person person) {
 		this.startDate = startDate;

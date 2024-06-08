@@ -71,13 +71,7 @@ public class Checkers implements CheckersInterface {
 		while (rs.next()) {
 			int days=0;
 			String[] parts=rs.getString("okres_waznosci").split(" ");
-			for (String part : parts) {
-            if (part.endsWith("days")) {
-                days = Integer.parseInt(part.replace("days", "").trim());
-                break;
-            }
-        }
-			ticketTypes.add(new LongTermTicketType(Period.ofDays(days),new PricePLN(rs.getDouble("cena_bazowa")),rs.getString("nazwa_skrocona")));
+			ticketTypes.add(new LongTermTicketType(Period.ofDays(Integer.parseInt(parts[0])),new PricePLN(rs.getDouble("cena_bazowa")),rs.getString("nazwa_skrocona")));
 		}
 		return ticketTypes;
 	}
@@ -92,6 +86,4 @@ public class Checkers implements CheckersInterface {
 		}
 		return additions;
 	}
-
-
 }
