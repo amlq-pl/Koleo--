@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import pl.tcs.oopproject.model.history.History;
 import pl.tcs.oopproject.model.ticket.TrainTicket;
 import pl.tcs.oopproject.view.componentControllers.CustomFormDate;
+import pl.tcs.oopproject.view.componentControllers.CustomFormPassword;
 import pl.tcs.oopproject.view.componentControllers.CustomFormString;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
@@ -60,11 +61,13 @@ public class AccountSceneController implements Initializable {
     }
 
     public void PhoneNumberChangeButtonClick() {
-
+        CustomFormString form = new CustomFormString("PhoneNumber", PhoneNumber.textProperty());
+        showStage(form);
     }
 
     public void PasswordChangeButtonClick() {
-
+        CustomFormPassword form = new CustomFormPassword();
+        showStage(form);
     }
     private void showStage(Parent node) {
         Stage stage = new Stage();

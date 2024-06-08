@@ -23,7 +23,7 @@ public class CustomFormDate extends AnchorPane implements Initializable {
     @FXML
     private DatePicker NewDate;
     public CustomFormDate(StringProperty text) {
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("components/custom-form-string.fxml"));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("components/custom-form-date.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         this.text = text;

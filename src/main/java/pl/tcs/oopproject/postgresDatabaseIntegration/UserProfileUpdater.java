@@ -70,8 +70,8 @@ public class UserProfileUpdater implements UpdateUserProfile {
     public boolean updatePassword(String login, String oldPassword, String newPassword) throws SQLException {
         PreparedStatement preparedStatement = DB.connection.prepareStatement("update konto set haslo = ? where login = ? and haslo = ?");
         preparedStatement.setString(2, login);
-        preparedStatement.setString(3, oldPassword);
-        preparedStatement.setString(1, newPassword);
+        preparedStatement.setInt(3, oldPassword.hashCode());
+        preparedStatement.setInt(1, newPassword.hashCode());
         return preparedStatement.executeUpdate() == 1;
     }
 }
