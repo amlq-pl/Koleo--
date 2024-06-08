@@ -11,7 +11,7 @@ public enum CarriageClass {
 		public String toString() {
 			return "klasa druga\n";
 		}
-	};
+	}
 	
 
 }
