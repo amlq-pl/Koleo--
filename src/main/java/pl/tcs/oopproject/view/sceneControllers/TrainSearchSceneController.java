@@ -7,7 +7,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -186,16 +189,24 @@ public class TrainSearchSceneController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setContentText("ZALOGUJ SIĘ ABY KORZYSTAĆ Z TEJ OPCJI");
             a.showAndWait();
+        } else {
 
             Stage thisStage = (Stage) BasketButton.getScene().getWindow();
             thisStage.close();
+
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/account-scene.fxml"));
+            Parent p = null;
+            try {
+                p = loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Scene scene = new Scene(p);
+
             Stage newStage = new Stage();
-            newStage.setScene(ViewController.getBasketScene());
+            newStage.setScene(scene);
             newStage.show();
-        } else {
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-            a.setContentText("ALE EZA BYQ RURURURU");
-            a.showAndWait();
         }
     }
 }
