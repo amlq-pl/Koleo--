@@ -37,10 +37,10 @@ public class HistoryLongTicketPane extends AnchorPane implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         IdLabel.textProperty().setValue(String.valueOf(ticket.id()));
-        NameLabel.textProperty().setValue(ticket.getPerson().getName());
-        SurnameLabel.textProperty().setValue(ticket.getPerson().getSurname());
+        NameLabel.textProperty().setValue(ticket.person().getName());
+        SurnameLabel.textProperty().setValue(ticket.person().getSurname());
         BeginDateLabel.textProperty().setValue(ticket.startDate().format(DateTimeFormatter.ofPattern("HH:mm")));
-        DurationLabel.textProperty().setValue(ticket.getLongTermTicketType().period().toString());
+        DurationLabel.textProperty().setValue(ticket.longTermTicketType().period().toString());
         CostLabel.textProperty().setValue(ticket.cost().toString());
     }
 }

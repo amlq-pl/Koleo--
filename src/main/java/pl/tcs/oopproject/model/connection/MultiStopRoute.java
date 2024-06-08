@@ -143,8 +143,8 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 		ArrayList<HistoryLongTermTicket> longTermTickets = ticketGet.getLongTermTickets(ActiveUser.getActiveUser());
 		ArrayList<String> companies = new ArrayList<>();
 		for(HistoryLongTermTicket t : longTermTickets) {
-			if(t.isActive() && !t.refunded() && !companies.contains(t.getLongTermTicketType().company()))
-				companies.add(t.getLongTermTicketType().company());
+			if(t.isActive() && !t.refunded() && !companies.contains(t.longTermTicketType().company()))
+				companies.add(t.longTermTicketType().company());
 		}
 		double cost = 0;
 		
