@@ -58,16 +58,20 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
             int idBiletyJednorazoweZamowienia = insertIntoBiletyJednorazoweZamowienia(id_zamowienia, extractIdUlgi(discount), extractIdRabatu(voucher));
             for (int i=0;i< seat.getConnection().trains().size();i++){
                 insertSingleTicketIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia,seat.seatList().get(i),seat.getConnection().trains().get(i),getIdPodrozujacegoByEmail(person.getEmailAddress()),extractIdUlgi(discount),extractIdRabatu(voucher),extractIdSzczegolow(details));
-
             }
+//            ticketsToReturn.add(new SingleJourneyTrainTicket())
         }
         return ticketsToReturn;
     }
 
     private int extractIdSzczegolow(Details details) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("select getidszczegolow(?,?,?)");
-//        ps.setBoolean(1,);
-        return 0;
+        ps.setBoolean(1,details.bike().active());
+        ps.setBoolean(2,details.luggage().active());
+        ps.setBoolean(3,details.animal().active());
+        ResultSet rs= ps.executeQuery();
+        rs.next();
+        return rs.getInt(1);
     }
 
     private void insertSingleTicketIntoBiletyJednorazowe(int idBiletyJednorazoweZamowienia, AssignedSeat assignedSeat, ScheduledTrain scheduledTrain, int idPodroznika, int idDiscount, int idVoucher, int idDetails) throws SQLException {
