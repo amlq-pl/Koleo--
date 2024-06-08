@@ -12,12 +12,13 @@ import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class TicketFactory {
 	
-	public ArrayList<LongTermTrainTicket> createLongTermTicket(ArrayList<LongTermTicketType> tickets, ArrayList<Discount> discount, ArrayList<Voucher> voucher, ArrayList<LocalDate> startDate, ArrayList<Person> person) throws SQLException {
+	public ArrayList<LongTermTrainTicket> createLongTermTicket(LongTermTicketType ticket, Discount discount, Voucher voucher, LocalDate startDate, Person person) throws SQLException {
 		CreateOrRefactor creator = new CreateOrRefactor();
-		return creator.saveLongTermTicket(startDate, discount, voucher, ActiveUser.getActiveUser(), tickets, person);
+		return creator.saveLongTermTicket(new ArrayList<>(Collections.singleton(startDate)), new ArrayList<>(Collections.singleton(discount)), new ArrayList<>(Collections.singleton(voucher)), ActiveUser.getActiveUser(), new ArrayList<>(Collections.singleton(ticket)), new ArrayList<>(Collections.singleton(person)));
 	}
 	
 	public ArrayList<SingleJourneyTrainTicket> createSingleJourneyTicket(ArrayList<Discount> discount, ArrayList<Voucher> voucher, ArrayList<Details> details, ArrayList<TrainsAssignedSeats> seats, ArrayList<Person> person) throws SQLException {
