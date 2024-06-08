@@ -18,7 +18,7 @@ public class History {
 	}
 	
 	public ArrayList<HistoryLongTermTicket> activeLongTermTickets() throws SQLException {
-		if(longTermTickets.isEmpty()) setData();
+		if(longTermTickets == null) setData();
 		ArrayList<HistoryLongTermTicket> activeTickets = new ArrayList<>();
 		for(HistoryLongTermTicket t : longTermTickets) {
 			if(t.isActive() && !t.refunded())
@@ -28,7 +28,7 @@ public class History {
 	}
 	
 	public ArrayList<HistorySingleJourneyTicket> activeSingleJourneyTickets() throws SQLException {
-		if(singleJourneyTickets.isEmpty()) setData();
+		if(singleJourneyTickets == null) setData();
 		ArrayList<HistorySingleJourneyTicket> activeTickets = new ArrayList<>();
 		for(HistorySingleJourneyTicket t : singleJourneyTickets) {
 			if(t.isActive() || !t.refunded())
@@ -38,7 +38,7 @@ public class History {
 	}
 	
 	public ArrayList<HistorySingleJourneyTicket> archivedSingleJourneyTickets() throws SQLException {
-		if(singleJourneyTickets.isEmpty()) setData();
+		if(singleJourneyTickets == null) setData();
 		ArrayList<HistorySingleJourneyTicket> archivedTickets = new ArrayList<>();
 		for(HistorySingleJourneyTicket t : singleJourneyTickets) {
 			if(!t.isActive() || t.refunded())
@@ -48,7 +48,7 @@ public class History {
 	}
 	
 	public ArrayList<HistoryLongTermTicket> archivedLongTermTickets() throws SQLException {
-		if(longTermTickets.isEmpty()) setData();
+		if(longTermTickets == null) setData();
 		ArrayList<HistoryLongTermTicket> archivedTickets = new ArrayList<>();
 		for(HistoryLongTermTicket t : longTermTickets) {
 			if(!t.isActive() || t.refunded())
