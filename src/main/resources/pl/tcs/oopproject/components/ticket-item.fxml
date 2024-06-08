@@ -49,7 +49,7 @@
                 <VBox alignment="CENTER_RIGHT" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647">
                     <children>
                   <Label fx:id="TrainName" text="Label" />
-                  <Label fx:id="Seat" text="Label" />
+                  <Label fx:id="Seat" text="Label" wrapText="true" />
                     </children>
                <opaqueInsets>
                   <Insets />
