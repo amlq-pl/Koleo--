@@ -1,7 +1,6 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -10,11 +9,10 @@ import javafx.stage.Stage;
 import pl.tcs.oopproject.model.history.History;
 import pl.tcs.oopproject.model.history.HistoryLongTermTicket;
 import pl.tcs.oopproject.model.history.HistorySingleJourneyTicket;
-import pl.tcs.oopproject.model.ticket.TrainTicket;
 import pl.tcs.oopproject.view.componentControllers.CustomFormDate;
 import pl.tcs.oopproject.view.componentControllers.CustomFormPassword;
 import pl.tcs.oopproject.view.componentControllers.CustomFormString;
-import pl.tcs.oopproject.view.componentControllers.HistorySingleTicketPane;
+import pl.tcs.oopproject.view.componentControllers.HistoryActiveSingleTicketPane;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;
@@ -58,7 +56,7 @@ public class AccountSceneController implements Initializable {
         }
 
         activeTickets.forEach(c -> {
-            HistorySingleTicketPane pane = new HistorySingleTicketPane(c);
+            HistoryActiveSingleTicketPane pane = new HistoryActiveSingleTicketPane(c);
             ActiveTickets.getChildren().addAll(pane);
         });
     }
