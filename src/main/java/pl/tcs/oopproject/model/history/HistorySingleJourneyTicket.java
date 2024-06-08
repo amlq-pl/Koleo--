@@ -24,7 +24,6 @@ public class HistorySingleJourneyTicket{
 	private final LocalDateTime arrivalTime;
 	private final String departureStation;
 	private final String arrivalStation;
-	
 	private final int id;
 	private final Details details;
 	private boolean refunded;
@@ -51,7 +50,7 @@ public class HistorySingleJourneyTicket{
 		this.details = details;
 		this.departureStation = departureStation;
 		this.person = person;
-		this.refunded = false;
+		this.refunded = refunded;
 		this.cost = getPricePLN(new PricePLN(cost), appliedDiscount, appliedVoucher);
 	}
 	
@@ -64,7 +63,7 @@ public class HistorySingleJourneyTicket{
 	}
 
 	public boolean isActive() {
-		return LocalDateTime.now().isBefore(arrivalTime().plusHours(ticketValidityWindow));
+		return !refunded && LocalDateTime.now().isBefore(arrivalTime().plusHours(ticketValidityWindow));
 	}
 	
 	public boolean refunded() {

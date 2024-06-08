@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public interface TrainTicket {
-	Price cost();
+	Price cost() throws SQLException;
 	boolean isActive();
 	Discount appliedDiscount();
 	

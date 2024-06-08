@@ -28,6 +28,23 @@ public class HistoryLongTermTicket {
 	private final LongTermTicketType longTermTicketType;
 	private final int id;
 	private boolean returned;
+	
+	public int getId() {
+		return id;
+	}
+	
+	public boolean isReturned() {
+		return returned;
+	}
+	
+	public PricePLN getCost() {
+		return cost;
+	}
+	
+	public LocalDate startDate() {
+		return startDate;
+	}
+	
 	private final Person person;
 	private final PricePLN cost;
 	
@@ -40,7 +57,11 @@ public class HistoryLongTermTicket {
 		cost = getPricePLN(longTermTicketType.cost(), appliedDiscount, appliedVoucher);
 	}
 	
-	public Person getPerson() {
+	public LongTermTicketType longTermTicketType() {
+		return longTermTicketType;
+	}
+	
+	public Person person() {
 		return person;
 	}
 
@@ -54,7 +75,7 @@ public class HistoryLongTermTicket {
 		afterPeriod = afterPeriod.plusMonths(p.getMonths());
 		afterPeriod = afterPeriod.plusDays(p.getDays());
 		
-		return LocalDateTime.now().isAfter(startDate.atStartOfDay()) && LocalDateTime.now().isBefore(afterPeriod);
+		return !returned && LocalDateTime.now().isAfter(startDate.atStartOfDay()) && LocalDateTime.now().isBefore(afterPeriod);
 	}
 	
 	public boolean refunded() {
@@ -66,9 +87,7 @@ public class HistoryLongTermTicket {
 	}
 	
 	public boolean refundTicket() throws SQLException {
-		CreateOrRefactor refactor = new CreateOrRefactor();
 		if (refunded()) return false;
-		refactor.returnLongTermTrainTicket(id);
 		returned = true;
 		return true;
 	}

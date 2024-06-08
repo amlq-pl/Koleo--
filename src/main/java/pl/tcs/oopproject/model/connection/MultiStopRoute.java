@@ -2,9 +2,14 @@ package pl.tcs.oopproject.model.connection;
 
 import org.jetbrains.annotations.NotNull;
 import pl.tcs.oopproject.model.discount.PricePLN;
+import pl.tcs.oopproject.model.exception.KoleoException;
 import pl.tcs.oopproject.model.exception.NoRouteFoundException;
+import pl.tcs.oopproject.model.history.HistoryLongTermTicket;
 import pl.tcs.oopproject.model.station.Station;
+import pl.tcs.oopproject.postgresDatabaseIntegration.TicketGet;
+import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +138,14 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 	
 	
 	@Override
-	public PricePLN cost() {
+	public PricePLN cost() throws SQLException {
+		TicketGet ticketGet = new TicketGet();
+		ArrayList<HistoryLongTermTicket> longTermTickets = ticketGet.getLongTermTickets(ActiveUser.getActiveUser());
+		ArrayList<String> companies = new ArrayList<>();
+		for(HistoryLongTermTicket t : longTermTickets) {
+			if(t.isActive() && !t.refunded() && !companies.contains(t.getLongTermTicketType().company()))
+				companies.add(t.getLongTermTicketType().company());
+		}
 		double cost = 0;
 		
 		int size = trains.size();
@@ -141,10 +153,12 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 		transferStations.add(stationB.town());
 		
 		for (int i = 0; i < size; ++i) {
-			double cost1 = trains.get(i).getCost().value();
-			int j = trains.get(i).getIndexOfStation(transferStations.get(i));
-			int k = trains.get(i).getIndexOfStation(transferStations.get(i + 1));
-			cost += cost1 * (k - j + 1) / trains.get(i).numberOfStops();
+			if(!companies.contains(trains.get(i).getCompany())) {
+				double cost1 = trains.get(i).getCost().value();
+				int j = trains.get(i).getIndexOfStation(transferStations.get(i));
+				int k = trains.get(i).getIndexOfStation(transferStations.get(i + 1));
+				cost += cost1 * (k - j + 1) / trains.get(i).numberOfStops();
+			}
 		}
 		
 		transferStations.remove(stationB.town());
@@ -164,9 +178,13 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 	}
 	
 	public String toString() {
-		return "Departure Station: " + originStation().town() + " " + originStation().departureTime() + "\n" +
-				"Arrival Station: " + destinationStation().town() + " " + destinationStation().arrivalTime() + "\n" +
-				"Cost: " + cost().toString();
+		try {
+			return "Departure Station: " + originStation().town() + " " + originStation().departureTime() + "\n" +
+					"Arrival Station: " + destinationStation().town() + " " + destinationStation().arrivalTime() + "\n" +
+					"Cost: " + cost().toString();
+		} catch (SQLException e) {
+			throw new KoleoException();
+		}
 	}
 	
 	public void display() {
