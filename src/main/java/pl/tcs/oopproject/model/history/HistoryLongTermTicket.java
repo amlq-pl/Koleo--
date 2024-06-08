@@ -57,11 +57,11 @@ public class HistoryLongTermTicket {
 		cost = getPricePLN(longTermTicketType.cost(), appliedDiscount, appliedVoucher);
 	}
 	
-	public LongTermTicketType getLongTermTicketType() {
+	public LongTermTicketType longTermTicketType() {
 		return longTermTicketType;
 	}
 	
-	public Person getPerson() {
+	public Person person() {
 		return person;
 	}
 
