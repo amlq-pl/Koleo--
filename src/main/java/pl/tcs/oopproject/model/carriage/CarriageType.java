@@ -4,26 +4,26 @@ public enum CarriageType {
 	SINGLE_COMPARTMENT_CARRIAGE {
 		@Override
 		public String toString() {
-			return "wagon bezprzedziałowy";
+			return "bezprzedziałowy\n";
 		}
 	}, COMPARTMENT_CARRIAGE {
 		@Override
 		public String toString() {
-			return "wagon przedziałowy";
+			return "przedziałowy\n";
 		}
 	},
 	
 	WARS {
 		@Override
 		public String toString() {
-			return "wars";
+			return "wars\n";
 		}
 	},
 	
 	SLEEPER {
 		@Override
 		public String toString() {
-			return "wagon sypialny";
+			return "sypialny\n";
 		}
 	}
 }

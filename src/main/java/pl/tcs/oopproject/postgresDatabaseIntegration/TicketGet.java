@@ -30,13 +30,15 @@ public class TicketGet implements TicketGetter {
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Person person=null;
-//            if(rs.getString("id_podrozujacego")==null){
-//                person=new Person(rs.getString("imie"),rs.getString("nazwisko"),rs.getDate("data_urodzenia").toLocalDate(),rs.getString("email"),rs.getString("nr_telefonu"));
-//            } else{
-//                getPodroznik.setInt(1,);
-//                person
-//            }
-//            tickets.add(new HistoryLongTermTicket())
+            if(rs.getString("id_podrozujacego")==null){
+                person=new Person(rs.getString("imie"),rs.getString("nazwisko"),rs.getDate("data_urodzenia").toLocalDate(),rs.getString("email"),rs.getString("nr_telefonu"));
+            } else{
+                getPodroznik.setInt(1,rs.getInt("id_podrozujacego"));
+                ResultSet klient=getPodroznik.executeQuery();
+                klient.next();
+                person=new Person(klient.getString("imie"),klient.getString("nazwisko"),klient.getDate("data_urodzenia").toLocalDate(),klient.getString("email"),klient.getString("nr_telefonu"));
+            }
+//            tickets.add(new HistoryLongTermTicket(rs.getDate("timestamp_od").toLocalDate(),));
         }
         return tickets;
     }

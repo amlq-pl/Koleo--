@@ -4,12 +4,12 @@ public enum CarriageClass {
 	FIRST_CLASS {
 		@Override
 		public String toString() {
-			return "pierwsza klasa ";
+			return "klasa pierwsza\n";
 		}
 	}, SECOND_CLASS {
 		@Override
 		public String toString() {
-			return "druga klasa ";
+			return "klasa druga\n";
 		}
 	};
 	
