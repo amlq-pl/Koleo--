@@ -35,7 +35,7 @@ public class TrainPane extends AnchorPane {
 			this.DepHour.textProperty().setValue(connection.departureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
 			this.ArrHour.textProperty().setValue(connection.arrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
 			this.PriceLabel.textProperty().setValue(String.valueOf(connection.cost()));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
