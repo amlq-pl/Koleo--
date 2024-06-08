@@ -3,9 +3,11 @@ package pl.tcs.oopproject.view.componentControllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.history.UserProfileEditor;
 
@@ -37,8 +39,13 @@ public class CustomFormPassword extends AnchorPane implements Initializable {
         try {
             editor.changePassword(OldPassword.getText(), NewPassword.getText());
         } catch (Exception e) {
-            e.printStackTrace();
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("Niepoprawne hasło, spróbuj ponownie");
+            a.showAndWait();
         }
+
+        Stage thisStage = (Stage) OldPassword.getScene().getWindow();
+        thisStage.close();
     }
 
     @Override

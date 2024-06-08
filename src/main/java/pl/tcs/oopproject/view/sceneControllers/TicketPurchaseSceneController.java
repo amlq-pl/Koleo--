@@ -13,6 +13,7 @@ import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
+import pl.tcs.oopproject.model.exception.AllTrainsAlreadyDepartedException;
 import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket;
 import pl.tcs.oopproject.model.users.Person;
@@ -24,6 +25,7 @@ import pl.tcs.oopproject.viewmodel.tickets.TicketFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -46,6 +48,12 @@ public class TicketPurchaseSceneController implements Initializable {
                 listOfConnections.add(assignedSeats);
             } catch (SQLException e) {
                 e.printStackTrace();
+            } catch (AllTrainsAlreadyDepartedException e) {
+                System.out.println("------------------------");
+                System.out.println(item.getConnection().departureTime());
+                System.out.println(item.getConnection().departureTime().isAfter(LocalDateTime.now()));
+                System.out.println("------------------------");
+
             }
         }
 
