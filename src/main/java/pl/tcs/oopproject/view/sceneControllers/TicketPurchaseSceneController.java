@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
 
 import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
+import pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket;
 import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.componentControllers.BasketItem;
 import pl.tcs.oopproject.view.componentControllers.TicketItemContainer;
@@ -67,6 +68,7 @@ public class TicketPurchaseSceneController implements Initializable {
         // TODO: check czy wszystkie dane sa w porzadku (czy sa miejsca ktore checmy kupic)
 
         TicketFactory factory = new TicketFactory();
+//        ArrayList<SingleJourneyTrainTicket> ticketList = factory.createSingleJourneyTicket();
 
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setContentText("Ale eza byq dobrze iziziziziz");
