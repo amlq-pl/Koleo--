@@ -84,9 +84,9 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
 
     private int extractIdSzczegolow(Details details) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("select getidszczegolow(?,?,?)");
-        ps.setBoolean(1, details.bike().active());
-        ps.setBoolean(2, details.luggage().active());
-        ps.setBoolean(3, details.animal().active());
+        ps.setBoolean(1, details.additions().get(0).active());
+        ps.setBoolean(2, details.additions().get(1).active());
+        ps.setBoolean(3, details.additions().get(2).active());
         ResultSet rs = ps.executeQuery();
         rs.next();
         return rs.getInt(1);
