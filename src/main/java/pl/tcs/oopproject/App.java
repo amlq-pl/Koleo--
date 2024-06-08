@@ -19,6 +19,7 @@ public class App extends Application {
 	public static ArrayList<Voucher> Vouchers;
 	public static ArrayList<Addition> Additions;
 	public static ArrayList<LongTermTicketType> LongTermTicketTypes;
+	public static Discount DEFAULT_DISCOUNT;
 	private final Checkers checkers = new Checkers();
 
 	public static Basket basket = new Basket();
@@ -29,6 +30,13 @@ public class App extends Application {
 			Vouchers = checkers.getAllVouchers();
 			Additions = checkers.getAllAdditions();
 			LongTermTicketTypes = checkers.getAllLongTermTicketTypes();
+
+			for (Discount d : Discounts) {
+				if (d.discount().equals("Normalny")) {
+					DEFAULT_DISCOUNT = d;
+					break;
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

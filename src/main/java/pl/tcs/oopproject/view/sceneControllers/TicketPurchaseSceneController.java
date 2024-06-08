@@ -46,14 +46,8 @@ public class TicketPurchaseSceneController implements Initializable {
             try {
                 ArrayList<TrainsAssignedSeats> assignedSeats = PlaceFactory.create(item.getConnection(), item.count.getValue());
                 listOfConnections.add(assignedSeats);
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-            } catch (AllTrainsAlreadyDepartedException e) {
-                System.out.println("------------------------");
-                System.out.println(item.getConnection().departureTime());
-                System.out.println(item.getConnection().departureTime().isAfter(LocalDateTime.now()));
-                System.out.println("------------------------");
-
             }
         }
 
