@@ -57,9 +57,9 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
         for (TrainsAssignedSeats seat : seats) {
             int idBiletyJednorazoweZamowienia = insertIntoBiletyJednorazoweZamowienia(id_zamowienia, extractIdUlgi(discount), extractIdRabatu(voucher));
             for (int i=0;i< seat.getConnection().trains().size();i++){
-                insertSingleTicketIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia,seat.seatList().get(i),seat.getConnection().trains().get(i),getIdPodrozujacegoByEmail(person.getEmailAddress()),extractIdUlgi(discount),extractIdRabatu(voucher),extractIdSzczegolow(details));
+                insertSingleTicketIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia,seat.seatList().get(i),seat.getConnection().trains().get(i),getIdPodrozujacegoByEmail(person.getEmailAddress()),extractIdSzczegolow(details));
             }
-//            ticketsToReturn.add(new SingleJourneyTrainTicket())
+            ticketsToReturn.add(1,new SingleJourneyTrainTicket(seat,discount,voucher,idBiletyJednorazoweZamowienia,details,seat.getConnection(),person));
         }
         return ticketsToReturn;
     }
@@ -74,8 +74,9 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
         return rs.getInt(1);
     }
 
-    private void insertSingleTicketIntoBiletyJednorazowe(int idBiletyJednorazoweZamowienia, AssignedSeat assignedSeat, ScheduledTrain scheduledTrain, int idPodroznika, int idDiscount, int idVoucher, int idDetails) throws SQLException {
-        insertIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia,scheduledTrain.getNumber(),idPodroznika, scheduledTrain.getIndexOfStation(scheduledTrain.originStation().town()),scheduledTrain.getIndexOfStation(scheduledTrain.destinationStation().town()),assignedSeat.carriage().number(), assignedSeat.seat().number(),idDetails);
+    private void insertSingleTicketIntoBiletyJednorazowe(int idBiletyJednorazoweZamowienia, AssignedSeat assignedSeat, ScheduledTrain scheduledTrain, int idPodroznika, int idDetails) throws SQLException {
+        insertIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia,scheduledTrain.getNumber(),idPodroznika, scheduledTrain.getIndexOfStation(scheduledTrain.originStation().town()),
+                scheduledTrain.getIndexOfStation(scheduledTrain.destinationStation().town()),assignedSeat.carriage().number(), assignedSeat.seat().number(),idDetails);
     }
 
 
