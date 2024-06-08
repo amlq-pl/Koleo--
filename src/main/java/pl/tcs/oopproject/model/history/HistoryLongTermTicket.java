@@ -69,6 +69,7 @@ public class HistoryLongTermTicket {
 		CreateOrRefactor refactor = new CreateOrRefactor();
 		if (refunded()) return false;
 		refactor.returnLongTermTrainTicket(id);
+		returned = true;
 		return true;
 	}
 }

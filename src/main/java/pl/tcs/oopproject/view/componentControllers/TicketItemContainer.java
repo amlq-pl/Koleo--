@@ -119,7 +119,7 @@ public class TicketItemContainer extends AnchorPane implements Initializable {
         Addition bicycle = new Addition(App.Additions.get(1), BicycleCheck.isSelected());
         Addition luggage = new Addition(App.Additions.get(2), LuggageCheck.isSelected());
 
-        return new Details(new ArrayList<Addition>(List.of(bicycle, luggage, animal)));
+        return new Details(new ArrayList<>(List.of(bicycle, luggage, animal)));
     }
 
     public Discount getDiscount() {
