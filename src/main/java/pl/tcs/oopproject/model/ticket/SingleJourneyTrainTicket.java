@@ -49,12 +49,7 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	
 	@NotNull
 	static PricePLN getPricePLN(Price cost2, Discount appliedDiscount, Voucher appliedVoucher) {
-		double cost = cost2.value();
-		if(appliedDiscount != null)
-			cost = cost * (100 - appliedDiscount.value()) / 100;
-		if(appliedVoucher != null)
-			cost = cost * (100 - appliedVoucher.value()) / 100;
-		return new PricePLN(cost);
+		return getPricePLN(cost2, appliedDiscount, appliedVoucher);
 	}
 	
 	@Override

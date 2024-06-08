@@ -26,4 +26,5 @@ module Koleo {
 	exports pl.tcs.oopproject.model.users;
 	exports pl.tcs.oopproject.model.ticket;
 	exports pl.tcs.oopproject.viewmodel.tickets;
+	exports pl.tcs.oopproject.model.history;
 }
