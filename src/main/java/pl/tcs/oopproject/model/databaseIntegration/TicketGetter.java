@@ -13,7 +13,7 @@ public interface TicketGetter {
 	/**
 	returns list of all tickets bought by the user login
 	 */
-	ArrayList<HistorySingleJourneyTicket> getSingleUseTickets(String login);
+	ArrayList<HistorySingleJourneyTicket> getSingleUseTickets(String login) throws SQLException;
 	
 	ArrayList<HistoryLongTermTicket> getLongTermTickets(String login) throws SQLException;
 	
