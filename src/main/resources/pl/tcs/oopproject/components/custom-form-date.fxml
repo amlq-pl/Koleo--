@@ -13,7 +13,7 @@
             <children>
                 <Label text="Wybierz datę" />
             <DatePicker fx:id="NewDate" />
-            <Button onAction="#ReadyButtonClick" mnemonicParsing="false" text="Gotowe" />
+            <Button mnemonicParsing="false" onAction="#ReadyButtonClick" text="Gotowe" />
             </children>
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
