@@ -364,3 +364,8 @@ begin
     return (select sb.id_szczegolow from szczegoly_biletu sb where sb.rower=bike and sb.dodatkowy_bagaz=animal and sb.zwierze=animal);
 end;
 $$ language plpgsql;
+
+insert into uzytkownicy(imie, nazwisko, data_urodzenia, email, nr_telefonu, login, haslo)
+values ('Lord','Garmadon','2001-09-11'::date,'hotuwa@ninjago.pl','420420420','daddy',1334861830),
+       ('Slim','Shady','2000-04-18'::date,'slim.shady@dr.dre','696969696','slim_shady',-1299522251),
+       ('Dua','Lipa','1995-08-22'::date,'physical@illusion.love','213701337','houdini',1100073550);

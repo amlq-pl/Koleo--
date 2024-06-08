@@ -4,7 +4,9 @@ import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.discount.Price;
 import pl.tcs.oopproject.model.users.Person;
+import pl.tcs.oopproject.postgresDatabaseIntegration.CreateOrRefactor;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -63,7 +65,7 @@ public class LongTermTrainTicket implements TrainTicket {
 	}
 	
 	@Override
-	public boolean returned() {
+	public boolean refunded() {
 		return returned;
 	}
 	
@@ -78,9 +80,10 @@ public class LongTermTrainTicket implements TrainTicket {
 	}
 	
 	@Override
-	public boolean returnTicket() {
-		if (returned) return false;
-		returned = true;
+	public boolean refundTicket() throws SQLException {
+		CreateOrRefactor refactor = new CreateOrRefactor();
+		if (refunded()) return false;
+		refactor.returnLongTermTrainTicket(id);
 		return true;
 	}
 }
