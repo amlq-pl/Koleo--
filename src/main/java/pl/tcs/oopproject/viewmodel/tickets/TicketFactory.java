@@ -18,12 +18,12 @@ public class TicketFactory {
 	
 	public ArrayList<LongTermTrainTicket> createLongTermTicket(ArrayList<LongTermTicketType> tickets, Discount discount, Voucher voucher, LocalDate startDate) throws SQLException {
 		CreateOrRefactor creator = new CreateOrRefactor();
-		return creator.saveLongTermTicket(startDate, discount, voucher, ActiveUser.getActiveUser(), tickets, ActiveUser.getPerson());
+		return creator.saveLongTermTicket(startDate.atStartOfDay(), discount, voucher, ActiveUser.getActiveUser(), tickets, ActiveUser.getPerson());
 	}
 	
-	public ArrayList<LongTermTrainTicket> createLongTermTicket(ArrayList<LongTermTicketType> tickets, Discount discount, Voucher voucher, LocalDate startDate, Person person) {
+	public ArrayList<LongTermTrainTicket> createLongTermTicket(ArrayList<LongTermTicketType> tickets, Discount discount, Voucher voucher, LocalDate startDate, Person person) throws SQLException {
 		CreateOrRefactor creator = new CreateOrRefactor();
-		return creator.saveLongTermTicket(startDate, discount, voucher, ActiveUser.getActiveUser(), tickets, ActiveUser.getPerson());
+		return creator.saveLongTermTicket(startDate.atStartOfDay(), discount, voucher, ActiveUser.getActiveUser(), tickets, ActiveUser.getPerson());
 	}
 	
 	public ArrayList<SingleJourneyTrainTicket> createSingleFairTicket(Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats) throws SQLException {
