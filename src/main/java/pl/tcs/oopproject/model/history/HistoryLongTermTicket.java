@@ -41,7 +41,7 @@ public class HistoryLongTermTicket {
 		return cost;
 	}
 	
-	public LocalDate getStartDate() {
+	public LocalDate startDate() {
 		return startDate;
 	}
 	
