@@ -30,3 +30,28 @@ insert into uzytkownicy(imie, nazwisko, data_urodzenia, email, nr_telefonu, logi
 values ('Slim', 'Shady', '2000-04-18'::date, 'slim.shady@dr.dre', '696969696', 'slim_shady', -1299522251);
 insert into uzytkownicy(imie, nazwisko, data_urodzenia, email, nr_telefonu, login, haslo)
 values ('Dua', 'Lipa', '1995-08-22'::date, 'physical@illusion.love', '213701337', 'houdini', 1100073550);
+
+create or replace function correctNullsZamowienia() returns trigger as
+$$
+begin
+    if tg_op = 'INSERT' and new.timestamp_zwrotu is not null then
+        raise exception 'timestamp zwrotu nie jest nullem podczas próby utworzenia biletu';
+    end if;
+    if tg_op = 'UPDATE' and new.timestamp_zwrotu is null then
+        raise exception 'timestamp zwrotu nie może być null podczas próby zwrotu biletu';
+    end if;
+    return new;
+end;
+$$ language plpgsql;
+
+create trigger correctNullsInBiletyJednorazoweZamowienia
+    before insert or update
+    on bilety_jednorazowe_zamowienia
+    for each row
+execute procedure correctNullsZamowienia();
+
+create trigger correctNullsInBiletyOkresoweZamowienia
+    before insert or update
+    on bilety_okresowe_zamowienia
+    for each row
+execute procedure correctNullsZamowienia();
