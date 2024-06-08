@@ -6,8 +6,6 @@ import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Price;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.discount.PricePLN;
-import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
-import pl.tcs.oopproject.model.station.Station;
 import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.postgresDatabaseIntegration.CreateOrRefactor;
@@ -17,12 +15,7 @@ import java.time.LocalDateTime;
 
 public class HistorySingleJourneyTicket{
 	public static @NotNull PricePLN getPricePLN(Price cost2, Discount appliedDiscount, Voucher appliedVoucher) {
-		double cost = cost2.value();
-		if(appliedDiscount != null)
-			cost = cost * (100 - appliedDiscount.value()) / 100;
-		if(appliedVoucher != null)
-			cost = cost * (100 - appliedVoucher.value()) / 100;
-		return new PricePLN(cost);
+		return HistoryLongTermTicket.getPricePLN(cost2, appliedDiscount, appliedVoucher);
 	}
 	
 	private final static int ticketValidityWindow = 8; //how many hours after planned arrival is ticket active
