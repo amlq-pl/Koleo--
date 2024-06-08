@@ -30,6 +30,7 @@ nazwy = [
     'Prometeusz', 'Maggelan', 'DaGama', 'Konfucjusz', 'Uranos'
 ]
 
+
 def fetch_random_name() -> str:
     id = ""
     for i in range(5):
@@ -52,30 +53,40 @@ path = os.path.dirname(__file__)
 path = path[:-16]
 script_path = path + "/data/przejazdy.sql"
 
-przewoznicy_path = path + "/data/trasy_przewoznicy.sql"
+trasy_przewoznicy_path = path + "/data/trasy_przewoznicy.sql"
 
 trasy_path = path + "/data/trasy.sql"
 
-with open(przewoznicy_path) as file:
-    przewoznicy_trasy = [line.rstrip() for line in file]
+stacje_posrednie_path = path + "/data/stacje_posrednie.sql"
+
+with open(trasy_przewoznicy_path) as file:
+    trasy_przewoznicy_trasy = [line.rstrip() for line in file]
 
 with open(trasy_path) as file:
-    trasyToLiczba = [line.rstrip() for line in file]
+    trasy = [line.rstrip() for line in file]
+
+with open(stacje_posrednie_path) as file:
+    stacje_posrednie = [line.rstrip() for line in file]
 
 tpToPrzewoznicy = {}
 tpToTrasy = {}
 
-for i in range(1, len(przewoznicy_trasy)):
-    tpToTrasy[i] = int(przewoznicy_trasy[i][:przewoznicy_trasy[i].find(',')])
-    tpToPrzewoznicy[i] = int(przewoznicy_trasy[i][przewoznicy_trasy[i].rfind(',') + 1:])
+trasyToLiczba = [0] * len(trasy)
+
+for i in range(1, len(trasy_przewoznicy_trasy)):
+    tpToTrasy[i] = int(trasy_przewoznicy_trasy[i].split(',')[0])
+    tpToPrzewoznicy[i] = int(trasy_przewoznicy_trasy[i].split(',')[1])
+
+for i in range(1, len(stacje_posrednie)):
+    trasyToLiczba[int(stacje_posrednie[i].split(',')[0])] += 1
 
 file = open(script_path, 'w')
 file.write(
     "copy przejazdy(id_trasy_przewoznika, timestamp_przejazdu, koszt_bazowy, czy_rezerwacja_miejsc, nazwa) from stdin delimiter ',';\n")
 for i in range(params.liczba_przejazdow):
     id_trasy_przewoznika = random.randint(1, params.liczba_tras_przewoznikow)
-    koszt = (float(trasyToLiczba[tpToTrasy[id_trasy_przewoznika]]) * 23 *
+    koszt = (float(trasyToLiczba[tpToTrasy[id_trasy_przewoznika]]) * 24 *
              random.uniform(0.8, 1.2) * params.wagi_przewoznikow[tpToPrzewoznicy[id_trasy_przewoznika] - 1])
-    file.write(f"""{id_trasy_przewoznika},{fetch_random_date()},{round(koszt,2)},{'true'},{fetch_random_name()}\n""")
+    file.write(f"""{id_trasy_przewoznika},{fetch_random_date()},{round(koszt, 2)},{'true'},{fetch_random_name()}\n""")
 
 file.close()
