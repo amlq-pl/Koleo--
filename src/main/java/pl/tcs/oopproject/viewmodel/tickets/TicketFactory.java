@@ -26,14 +26,4 @@ public class TicketFactory {
 		CreateOrRefactor creator = new CreateOrRefactor();
 		return creator.saveSingleJourneyTicket(person, discount, voucher, details, seats, ActiveUser.getActiveUser());
 	}
-	
-	public void refund(TrainTicket ticket) throws SQLException {
-		if (ticket.returned()) throw new AlreadyReturnedTicketException();
-		CreateOrRefactor refactor = new CreateOrRefactor();
-		if(ticket instanceof SingleJourneyTrainTicket)
-			refactor.returnSingleJourneyTrainTicket(ticket.id());
-		else
-			refactor.returnLongTermTrainTicket(ticket.id());
-		ticket.returnTicket();
-	}
 }

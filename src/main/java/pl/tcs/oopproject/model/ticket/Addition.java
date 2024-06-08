@@ -25,7 +25,6 @@ public class Addition {
 	}
 	
 	public String name() {
-		
 		return name;
 	}
 }

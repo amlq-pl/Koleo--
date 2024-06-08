@@ -4,6 +4,7 @@ import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Price;
 import pl.tcs.oopproject.model.discount.Voucher;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public interface TrainTicket {
@@ -13,9 +14,9 @@ public interface TrainTicket {
 	
 	Voucher appliedVoucher();
 	
-	boolean returned();
+	boolean refunded();
 	
-	boolean returnTicket();
+	boolean refundTicket() throws SQLException;
 	
 	int id();
 	
