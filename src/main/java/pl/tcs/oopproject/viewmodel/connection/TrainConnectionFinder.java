@@ -3,6 +3,7 @@ package pl.tcs.oopproject.viewmodel.connection;
 import org.jetbrains.annotations.NotNull;
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.model.connection.ScheduledTrain;
+import pl.tcs.oopproject.model.exception.AllTrainsAlreadyDepartedException;
 import pl.tcs.oopproject.model.exception.NoRouteFoundException;
 import pl.tcs.oopproject.model.station.Station;
 import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimeframe;
@@ -29,7 +30,7 @@ public class TrainConnectionFinder implements FindTrainConnection {
 		this.departureDate = departureDate;
 	}
 	
-	public static TrainConnectionFinder getConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) throws SQLException {
+	public static TrainConnectionFinder getConnectionFinder(String stationA, String stationB, LocalDateTime departureDate) throws SQLException{
 		TrainConnectionFinder finder = new TrainConnectionFinder(stationA, stationB, departureDate);
 		finder.setTrains();
 		return finder;
