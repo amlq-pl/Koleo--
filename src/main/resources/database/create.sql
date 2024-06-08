@@ -244,18 +244,18 @@ $$ language plpgsql;
 --     for each row
 -- execute procedure correctNullsStacjePosrednie();
 
-create or replace function correctNullsBiletyJednorazoweZamowienia() returns trigger as
-$$
-begin
-    if tg_op = 'INSERT' and new.timestamp_zwrotu is null then
-        raise exception 'timestamp zwrotu nie jest nullem podczas próby utworzenia biletu';
-    end if;
-    if tg_op = 'UPDATE' and new.timestamp_zwrotu is not null then
-        raise exception 'timestamp zwrotu nie może być null podczas próby zwrotu biletu';
-    end if;
-    return new;
-end;
-$$ language plpgsql;
+-- create or replace function correctNullsBiletyJednorazoweZamowienia() returns trigger as
+-- $$
+-- begin
+--     if tg_op = 'INSERT' and new.timestamp_zwrotu is not null then
+--         raise exception 'timestamp zwrotu nie jest nullem podczas próby utworzenia biletu';
+--     end if;
+--     if tg_op = 'UPDATE' and new.timestamp_zwrotu is not null then
+--         raise exception 'timestamp zwrotu nie może być null podczas próby zwrotu biletu';
+--     end if;
+--     return new;
+-- end;
+-- $$ language plpgsql;
 
 create trigger correctNullsInBiletyJednorazoweZamowienia
     before insert or update
