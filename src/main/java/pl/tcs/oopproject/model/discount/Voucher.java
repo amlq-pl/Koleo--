@@ -21,6 +21,6 @@ public class Voucher implements GeneralDiscount {
 	
 	@Override
 	public String toString() {
-		return name + " " + new PricePLN(value);
+		return name + " " + String.format("%.2f", value) + "%";
 	}
 }
