@@ -20,6 +20,7 @@ public class App extends Application {
 	public static ArrayList<Addition> Additions;
 	public static ArrayList<LongTermTicketType> LongTermTicketTypes;
 	public static Discount DEFAULT_DISCOUNT;
+	public static Voucher DEFAULT_VOUCHER;
 	private final Checkers checkers = new Checkers();
 
 	public static Basket basket = new Basket();
@@ -34,6 +35,13 @@ public class App extends Application {
 			for (Discount d : Discounts) {
 				if (d.discount().equals("Normalny")) {
 					DEFAULT_DISCOUNT = d;
+					break;
+				}
+			}
+
+			for (Voucher v : Vouchers) {
+				if (v.discount().equals("Brak zniżki")) {
+					DEFAULT_VOUCHER = v;
 					break;
 				}
 			}
