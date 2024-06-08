@@ -8,8 +8,10 @@ import pl.tcs.oopproject.model.discount.Price;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.discount.PricePLN;
 import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
+import pl.tcs.oopproject.model.exception.AlreadyReturnedTicketException;
 import pl.tcs.oopproject.model.station.Station;
 import pl.tcs.oopproject.model.users.Person;
+import pl.tcs.oopproject.postgresDatabaseIntegration.CreateOrRefactor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -80,9 +82,10 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 	
 	@Override
 	public boolean returnTicket() {
-		if (returned) return false;
-		returned = true;
-		return true;
+		CreateOrRefactor refactor = new CreateOrRefactor();
+//		if (returned()) throw new AlreadyReturnedTicketException();
+//			refactor.returnSingleJourneyTrainTicket(ticket.id());
+		return  true;
 	}
 	
 	@Override

@@ -16,4 +16,16 @@ public class Addition {
 		this.active = active;
 	}
 	
+	public boolean active() {
+		return active;
+	}
+	
+	public double cost() {
+		return cost;
+	}
+	
+	public String name() {
+		
+		return name;
+	}
 }
