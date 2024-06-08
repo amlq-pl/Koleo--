@@ -4,6 +4,7 @@ import pl.tcs.oopproject.model.databaseIntegration.CheckersInterface;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.PricePLN;
 import pl.tcs.oopproject.model.discount.Voucher;
+import pl.tcs.oopproject.model.ticket.Addition;
 import pl.tcs.oopproject.model.ticket.LongTermTicketType;
 import pl.tcs.oopproject.model.users.Person;
 
@@ -71,6 +72,17 @@ public class Checkers implements CheckersInterface {
 			ticketTypes.add(new LongTermTicketType(Period.ofDays(rs.getTimestamp("okres_waznosic").getDay()),new PricePLN(rs.getDouble("cena_bazowa")),rs.getString("nazwa_skrocona")));
 		}
 		return ticketTypes;
+	}
+
+	@Override
+	public ArrayList<Addition> getAllAdditions() throws SQLException {
+		ArrayList<Addition> additions = new ArrayList<>();
+		PreparedStatement ps=DB.connection.prepareStatement("select * from koszty_udogodnien where data_poczatkowa<=now() and data_koncowa>=now();");
+		ResultSet rs=ps.executeQuery();
+		while (rs.next()) {
+//			additions.
+		}
+		return additions;
 	}
 
 
