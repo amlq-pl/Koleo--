@@ -18,4 +18,9 @@ public class Voucher implements GeneralDiscount {
 	public double value() {
 		return value;
 	}
+	
+	@Override
+	public String toString() {
+		return name + " " + new PricePLN(value);
+	}
 }
