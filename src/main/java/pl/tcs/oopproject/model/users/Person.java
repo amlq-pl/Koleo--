@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Person {
+	public static Person DEFAULT = new Person("Lord", "Garmadon", LocalDate.of(2001, 9, 11), "ninjago@gmail.com", null);
 	private String name;
 	private String surname;
 	private LocalDate dateOfBirth;
