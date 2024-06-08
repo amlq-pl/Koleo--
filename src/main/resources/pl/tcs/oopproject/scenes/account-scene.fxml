@@ -50,14 +50,14 @@
                                     <Label fx:id="DateOfBirth" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label fx:id="PhoneNumber" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     <Label fx:id="EmailAdress" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <Button onAction="#NameChangeButtonClick" mnemonicParsing="false" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                    <Button onAction="#SurnameChangeButtonClick" mnemonicParsing="false" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                                    <Button onAction="#DateChangeButtonClick" mnemonicParsing="false" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                                    <Button onAction="#PhoneNumberChangeButtonClick" mnemonicParsing="false" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                                    <Button onAction="#EmailChangeButtonClick" mnemonicParsing="false" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                                    <Button onAction="#PasswordChangeButtonClick" mnemonicParsing="false" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                                    <Button mnemonicParsing="false" onAction="#NameChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Button mnemonicParsing="false" onAction="#SurnameChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Button mnemonicParsing="false" onAction="#DateChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Button mnemonicParsing="false" onAction="#PhoneNumberChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                    <Button mnemonicParsing="false" onAction="#EmailChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                                    <Button mnemonicParsing="false" onAction="#PasswordChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                                     <Label text="LOGIN" />
-                                    <Button onAction="#AccountChangeButtonClick" mnemonicParsing="false" text="ZMIEŃ" GridPane.columnIndex="2" />
+                                    <Button mnemonicParsing="false" onAction="#AccountChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" />
                                     <Label fx:id="AccountName" text="Label" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
