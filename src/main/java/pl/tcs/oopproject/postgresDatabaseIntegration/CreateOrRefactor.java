@@ -64,6 +64,20 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
         return ticketsToReturn;
     }
 
+    @Override
+    public boolean returnSingleJourneyTrainTicket(int id) throws SQLException {
+        PreparedStatement ps = DB.connection.prepareStatement("update bilety_jednorazowe_zamowienia set timestamp_zwrotu=now() where id_bilety_jednorazowe_zamowienia=?");
+        ps.setInt(1,id);
+        return ps.executeUpdate() == 1;
+    }
+
+    @Override
+    public boolean returnLongTermTrainTicket(int id) throws SQLException {
+        PreparedStatement ps = DB.connection.prepareStatement("update bilety_okresowe_zamowienia set timestamp_zwrotu=now() where id_bilety_okresowe_zamowienia=?");
+        ps.setInt(1,id);
+        return ps.executeUpdate() == 1;
+    }
+
     private int extractIdSzczegolow(Details details) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("select getidszczegolow(?,?,?)");
         ps.setBoolean(1,details.bike().active());
@@ -80,10 +94,6 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
     }
 
 
-    @Override
-    public int returnTicket(int id) {
-        return 0;
-    }
 
     private int getIdPodrozujacegoByEmail(String email) throws SQLException {
         PreparedStatement sub = DB.connection.prepareStatement("select getklientidbyemail(?)");
