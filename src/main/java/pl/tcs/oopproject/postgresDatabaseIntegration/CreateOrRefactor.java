@@ -125,7 +125,7 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
     private int insertIntoZamowieniaByEmail(LocalDateTime startDate, String email) throws SQLException {
         PreparedStatement main = DB.connection.prepareStatement("insert into zamowienia(id_klienta, timestamp_kupna) values (?,?)");
         main.setInt(1, getIdPodrozujacegoByEmail(email));
-        main.setString(2, startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        main.setTimestamp(2, Timestamp.valueOf(startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
         main.executeUpdate();
         PreparedStatement sub = DB.connection.prepareStatement("select max(z.id_zamowienia) from zamowienia z");
         ResultSet rs = sub.executeQuery();
