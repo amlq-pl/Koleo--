@@ -2,12 +2,15 @@ package pl.tcs.oopproject.postgresDatabaseIntegration;
 
 import pl.tcs.oopproject.model.databaseIntegration.CheckersInterface;
 import pl.tcs.oopproject.model.discount.Discount;
+import pl.tcs.oopproject.model.discount.PricePLN;
 import pl.tcs.oopproject.model.discount.Voucher;
+import pl.tcs.oopproject.model.ticket.LongTermTicketType;
 import pl.tcs.oopproject.model.users.Person;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class Checkers implements CheckersInterface {
@@ -57,6 +60,17 @@ public class Checkers implements CheckersInterface {
 			vouchers.add(new Voucher(rs.getString("nazwa"),rs.getInt("znizka")));
 		}
 		return vouchers;
+	}
+
+	@Override
+	public ArrayList<LongTermTicketType> getAllLongTermTicketTypes() throws SQLException {
+		ArrayList<LongTermTicketType> ticketTypes = new ArrayList<>();
+		PreparedStatement ps=DB.connection.prepareStatement("select * from cennik_biletow_okresowych join przewoznicy on cennik_biletow_okresowych.id_przewoznika = przewoznicy.id_przewoznika");
+		ResultSet rs=ps.executeQuery();
+		while (rs.next()) {
+			ticketTypes.add(new LongTermTicketType(Period.ofDays(rs.getTimestamp("okres_waznosic").getDay()),new PricePLN(rs.getDouble("cena_bazowa")),rs.getString("nazwa_skrocona")));
+		}
+		return ticketTypes;
 	}
 
 

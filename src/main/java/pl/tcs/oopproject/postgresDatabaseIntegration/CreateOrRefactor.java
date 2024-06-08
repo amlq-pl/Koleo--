@@ -15,74 +15,88 @@ import pl.tcs.oopproject.model.users.Person;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CreateOrRefactor implements CreateOrRefactorTicket {
+
     @Override
-    public ArrayList<LongTermTrainTicket> saveLongTermTicket(LocalDateTime startDate, Discount discount, Voucher voucher, String login, ArrayList<LongTermTicketType> ticketType, Person person) throws SQLException {
+    public ArrayList<LongTermTrainTicket> saveLongTermTicket(ArrayList<LocalDate> startDate, ArrayList<Discount> discount, ArrayList<Voucher> voucher, String login, ArrayList<LongTermTicketType> ticketType, ArrayList<Person> person) throws SQLException {
         ArrayList<LongTermTrainTicket> ticketsToReturn = new ArrayList<>();
         int id_zamowienia;
-        if (login != null) {
-            id_zamowienia = insertIntoZamowieniaByLogin(LocalDateTime.now(), login);
-        } else {
-            Checkers c = new Checkers();
-            if (!c.checkIfPersonExists(person)) {
-                new InsertNewPersonToDatabase().insert(person, null, null);
+
+        for (int i = 0; i < startDate.size(); i++) {
+            if (login != null) {
+                id_zamowienia = insertIntoZamowieniaByLogin(LocalDateTime.now(), login);
+            } else {
+                Checkers c = new Checkers();
+                if (!c.checkIfPersonExists(person.get(i))) {
+                    new InsertNewPersonToDatabase().insert(person.get(i), null, null);
+                }
+                id_zamowienia = insertIntoZamowieniaByEmail(LocalDateTime.now(), person.get(i).getEmailAddress());
             }
-            id_zamowienia = insertIntoZamowieniaByEmail(LocalDateTime.now(), person.getEmailAddress());
-        }
-        for (LongTermTicketType ticket : ticketType) {
-            int idBiletyOkresoweZamowienia = insertIntoBiletyOkresoweZamowienia(id_zamowienia, extractIdUlgi(discount), extractIdRabatu(voucher));
-            insertIntoBiletyOkresowe(idBiletyOkresoweZamowienia, getIdPodrozujacegoByEmail(person.getEmailAddress()), startDate, extractIdTypBiletu(ticket));
-            ticketsToReturn.add(new LongTermTrainTicket(startDate.toLocalDate(), ticket, discount, voucher, idBiletyOkresoweZamowienia, person));
+            int idBiletyOkresoweZamowienia = insertIntoBiletyOkresoweZamowienia(id_zamowienia, extractIdUlgi(discount.get(i)), extractIdRabatu(voucher.get(i)));
+            insertIntoBiletyOkresowe(idBiletyOkresoweZamowienia, getIdPodrozujacegoByEmail(person.get(i).getEmailAddress()), startDate.get(i).atStartOfDay(), extractIdTypBiletu(ticketType.get(i)));
+            ticketsToReturn.add(new LongTermTrainTicket(startDate.get(i), ticketType.get(i), discount.get(i), voucher.get(i), idBiletyOkresoweZamowienia, person.get(i)));
         }
         return ticketsToReturn;
     }
 
     @Override
-    public ArrayList<SingleJourneyTrainTicket> saveSingleJourneyTicket(Person person, Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats, String login) throws SQLException {
+    public ArrayList<SingleJourneyTrainTicket> saveSingleJourneyTicket(ArrayList<Person> person, ArrayList<Discount> discount, ArrayList<Voucher> voucher, ArrayList<Details> details, ArrayList<TrainsAssignedSeats> seats, String login) throws SQLException {
         ArrayList<SingleJourneyTrainTicket> ticketsToReturn = new ArrayList<>();
         int id_zamowienia;
-        if (login != null) {
-            id_zamowienia = insertIntoZamowieniaByLogin(LocalDateTime.now(), login);
-        } else {
-            Checkers c = new Checkers();
-            if (!c.checkIfPersonExists(person)) {
-                new InsertNewPersonToDatabase().insert(person, null, null);
+
+        for (int i = 0; i < person.size(); i++) {
+            if (login != null) {
+                id_zamowienia = insertIntoZamowieniaByLogin(LocalDateTime.now(), login);
+            } else {
+                Checkers c = new Checkers();
+                if (!c.checkIfPersonExists(person.get(i))) {
+                    new InsertNewPersonToDatabase().insert(person.get(i), null, null);
+                }
+                id_zamowienia = insertIntoZamowieniaByEmail(LocalDateTime.now(), person.get(i).getEmailAddress());
             }
-            id_zamowienia = insertIntoZamowieniaByEmail(LocalDateTime.now(), person.getEmailAddress());
-        }
-        for (TrainsAssignedSeats seat : seats) {
-            int idBiletyJednorazoweZamowienia = insertIntoBiletyJednorazoweZamowienia(id_zamowienia, extractIdUlgi(discount), extractIdRabatu(voucher));
-            for (int i=0;i< seat.getConnection().trains().size();i++){
-                insertSingleTicketIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia,seat.seatList().get(i),seat.getConnection().trains().get(i),getIdPodrozujacegoByEmail(person.getEmailAddress()),extractIdUlgi(discount),extractIdRabatu(voucher),extractIdSzczegolow(details));
+            int idBiletyJednorazoweZamowienia = insertIntoBiletyJednorazoweZamowienia(id_zamowienia, extractIdUlgi(discount.get(i)), extractIdRabatu(voucher.get(i)));
+            for (int j = 0; j < seats.get(i).getConnection().trains().size(); j++) {
+                insertSingleTicketIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia, seats.get(i).seatList().get(j), seats.get(i).getConnection().trains().get(j), getIdPodrozujacegoByEmail(person.get(i).getEmailAddress()), extractIdSzczegolow(details.get(i)));
             }
-//            ticketsToReturn.add(new SingleJourneyTrainTicket())
+            ticketsToReturn.add(1, new SingleJourneyTrainTicket(seats.get(i), discount.get(i), voucher.get(i), idBiletyJednorazoweZamowienia, details.get(i), seats.get(i).getConnection(), person.get(i)));
         }
         return ticketsToReturn;
+    }
+
+    @Override
+    public boolean returnSingleJourneyTrainTicket(int id) throws SQLException {
+        PreparedStatement ps = DB.connection.prepareStatement("update bilety_jednorazowe_zamowienia set timestamp_zwrotu=now() where id_bilety_jednorazowe_zamowienia=?");
+        ps.setInt(1, id);
+        return ps.executeUpdate() == 1;
+    }
+
+    @Override
+    public boolean returnLongTermTrainTicket(int id) throws SQLException {
+        PreparedStatement ps = DB.connection.prepareStatement("update bilety_okresowe_zamowienia set timestamp_zwrotu=now() where id_bilety_okresowe_zamowienia=?");
+        ps.setInt(1, id);
+        return ps.executeUpdate() == 1;
     }
 
     private int extractIdSzczegolow(Details details) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("select getidszczegolow(?,?,?)");
-        ps.setBoolean(1,details.bike().active());
-        ps.setBoolean(2,details.luggage().active());
-        ps.setBoolean(3,details.animal().active());
-        ResultSet rs= ps.executeQuery();
+        ps.setBoolean(1, details.bike().active());
+        ps.setBoolean(2, details.luggage().active());
+        ps.setBoolean(3, details.animal().active());
+        ResultSet rs = ps.executeQuery();
         rs.next();
         return rs.getInt(1);
     }
 
-    private void insertSingleTicketIntoBiletyJednorazowe(int idBiletyJednorazoweZamowienia, AssignedSeat assignedSeat, ScheduledTrain scheduledTrain, int idPodroznika, int idDiscount, int idVoucher, int idDetails) throws SQLException {
-        insertIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia,scheduledTrain.getNumber(),idPodroznika, scheduledTrain.getIndexOfStation(scheduledTrain.originStation().town()),scheduledTrain.getIndexOfStation(scheduledTrain.destinationStation().town()),assignedSeat.carriage().number(), assignedSeat.seat().number(),idDetails);
+    private void insertSingleTicketIntoBiletyJednorazowe(int idBiletyJednorazoweZamowienia, AssignedSeat assignedSeat, ScheduledTrain scheduledTrain, int idPodroznika, int idDetails) throws SQLException {
+        insertIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia, scheduledTrain.getNumber(), idPodroznika, scheduledTrain.getIndexOfStation(scheduledTrain.originStation().town()),
+                scheduledTrain.getIndexOfStation(scheduledTrain.destinationStation().town()), assignedSeat.carriage().number(), assignedSeat.seat().number(), idDetails);
     }
 
-
-    @Override
-    public int returnTicket(int id) {
-        return 0;
-    }
 
     private int getIdPodrozujacegoByEmail(String email) throws SQLException {
         PreparedStatement sub = DB.connection.prepareStatement("select getklientidbyemail(?)");
@@ -186,7 +200,7 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
 //        return rs2.getInt(1);
     }
 
-    private void insertIntoBiletyJednorazowe(int idBiletyJednorazoweZamowienia,int idPrzejazdu, int idPodrozujacego, int startStation, int endStation, int nrWagonu, int nrMiejsca, int idSzegolow) throws SQLException {
+    private void insertIntoBiletyJednorazowe(int idBiletyJednorazoweZamowienia, int idPrzejazdu, int idPodrozujacego, int startStation, int endStation, int nrWagonu, int nrMiejsca, int idSzegolow) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("insert into bilety_jednorazowe(id_bilety_jednorazowe_zamowienia, id_przejazdu, id_podrozujacego, od_stacji, do_stacji, nr_wagonu, nr_miejsca, id_szczegolow) " +
                 "values (?,?,?,?,?,?,?,?);");
         ps.setInt(1, idBiletyJednorazoweZamowienia);

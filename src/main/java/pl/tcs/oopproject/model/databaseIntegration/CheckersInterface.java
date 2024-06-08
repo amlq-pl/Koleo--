@@ -2,6 +2,7 @@ package pl.tcs.oopproject.model.databaseIntegration;
 
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
+import pl.tcs.oopproject.model.ticket.LongTermTicketType;
 import pl.tcs.oopproject.model.users.Person;
 
 import java.sql.SQLException;
@@ -15,4 +16,5 @@ public interface CheckersInterface {
 	ArrayList<String> getAllStations() throws SQLException;
 	ArrayList<Discount> getAllDiscounts() throws SQLException;
 	ArrayList<Voucher> getAllVouchers() throws SQLException;
+	ArrayList<LongTermTicketType> getAllLongTermTicketTypes() throws SQLException;
 }

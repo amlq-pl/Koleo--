@@ -12,35 +12,27 @@ import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 public class TicketFactory {
 	
-	public ArrayList<LongTermTrainTicket> createLongTermTicket(ArrayList<LongTermTicketType> tickets, Discount discount, Voucher voucher, LocalDate startDate) throws SQLException {
+	public ArrayList<LongTermTrainTicket> createLongTermTicket(LongTermTicketType ticket, Discount discount, Voucher voucher, LocalDate startDate, Person person) throws SQLException {
 		CreateOrRefactor creator = new CreateOrRefactor();
-		return creator.saveLongTermTicket(startDate.atStartOfDay(), discount, voucher, ActiveUser.getActiveUser(), tickets, ActiveUser.getPerson());
+		return creator.saveLongTermTicket(new ArrayList<>(Collections.singleton(startDate)), new ArrayList<>(Collections.singleton(discount)), new ArrayList<>(Collections.singleton(voucher)), ActiveUser.getActiveUser(), new ArrayList<>(Collections.singleton(ticket)), new ArrayList<>(Collections.singleton(person)));
 	}
 	
-	public ArrayList<LongTermTrainTicket> createLongTermTicket(ArrayList<LongTermTicketType> tickets, Discount discount, Voucher voucher, LocalDate startDate, Person person) throws SQLException {
-		CreateOrRefactor creator = new CreateOrRefactor();
-		return creator.saveLongTermTicket(startDate.atStartOfDay(), discount, voucher, ActiveUser.getActiveUser(), tickets, ActiveUser.getPerson());
-	}
-	
-	public ArrayList<SingleJourneyTrainTicket> createSingleJourneyTicket(Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats) throws SQLException {
-		CreateOrRefactor creator = new CreateOrRefactor();
-		return creator.saveSingleJourneyTicket(ActiveUser.getPerson(), discount, voucher, details, seats, ActiveUser.getActiveUser());
-	}
-	
-	public ArrayList<SingleJourneyTrainTicket> createSingleJourneyTicket(Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats, Person person) throws SQLException {
+	public ArrayList<SingleJourneyTrainTicket> createSingleJourneyTicket(ArrayList<Discount> discount, ArrayList<Voucher> voucher, ArrayList<Details> details, ArrayList<TrainsAssignedSeats> seats, ArrayList<Person> person) throws SQLException {
 		CreateOrRefactor creator = new CreateOrRefactor();
 		return creator.saveSingleJourneyTicket(person, discount, voucher, details, seats, ActiveUser.getActiveUser());
-		
 	}
 	
-	public void refund(TrainTicket ticket) {
+	public void refund(TrainTicket ticket) throws SQLException {
 		if (ticket.returned()) throw new AlreadyReturnedTicketException();
 		CreateOrRefactor refactor = new CreateOrRefactor();
-		refactor.returnTicket(ticket.id());
+		if(ticket instanceof SingleJourneyTrainTicket)
+			refactor.returnSingleJourneyTrainTicket(ticket.id());
+		else
+			refactor.returnLongTermTrainTicket(ticket.id());
 		ticket.returnTicket();
 	}
 }

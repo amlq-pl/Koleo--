@@ -10,17 +10,19 @@ import pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket;
 import pl.tcs.oopproject.model.users.Person;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface CreateOrRefactorTicket {
 	// RETURN ID OF THE TICKET
-	ArrayList<LongTermTrainTicket> saveLongTermTicket(LocalDateTime startDate, Discount discount, Voucher voucher, String login, ArrayList<LongTermTicketType> ticketType, Person person) throws SQLException;
+	ArrayList<LongTermTrainTicket> saveLongTermTicket(ArrayList<LocalDate> startDate, ArrayList<Discount> discount, ArrayList<Voucher> voucher, String login, ArrayList<LongTermTicketType> ticketType, ArrayList<Person> person) throws SQLException;
 	
 	/**
 	 * the method has to return ArrayList of SingleUseTickets (Person, voucher, discount, details, ArrayList<TrainsAssignedSeats>  (each seat has getTrain)
 	 */
-	ArrayList<SingleJourneyTrainTicket> saveSingleJourneyTicket(Person person, Discount discount, Voucher voucher, Details details, ArrayList<TrainsAssignedSeats> seats, String login) throws SQLException;
+	ArrayList<SingleJourneyTrainTicket> saveSingleJourneyTicket(ArrayList<Person> person, ArrayList<Discount> discount, ArrayList<Voucher> voucher, ArrayList<Details> details, ArrayList<TrainsAssignedSeats> seats, String login) throws SQLException;
 	
-	int returnTicket(int id);
+	boolean returnSingleJourneyTrainTicket(int id) throws SQLException;
+	
+	boolean returnLongTermTrainTicket(int id) throws SQLException;
 }
