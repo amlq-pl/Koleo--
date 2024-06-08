@@ -7,11 +7,11 @@ import java.util.ArrayList;
 public class History {
 	private static ArrayList<TrainTicket> tickets;
 	
-	void setData() {
+	private void setData() {
 		//SET DATA ABOUT TICKETS
 	}
 	
-	private ArrayList<TrainTicket> activeTickets(){
+	public ArrayList<TrainTicket> activeTickets(){
 		ArrayList<TrainTicket> activeTickets = new ArrayList<>();
 		for(TrainTicket t : tickets) {
 			if(t.isActive())
@@ -20,7 +20,7 @@ public class History {
 		return activeTickets;
 	}
 	
-	private ArrayList<TrainTicket> archivedTickets() {
+	public ArrayList<TrainTicket> archivedTickets() {
 		ArrayList<TrainTicket> archivedTickets = new ArrayList<>();
 		for(TrainTicket t : tickets) {
 			if(!t.isActive())
