@@ -14,6 +14,7 @@ import pl.tcs.oopproject.model.ticket.TrainTicket;
 import pl.tcs.oopproject.view.componentControllers.CustomFormDate;
 import pl.tcs.oopproject.view.componentControllers.CustomFormPassword;
 import pl.tcs.oopproject.view.componentControllers.CustomFormString;
+import pl.tcs.oopproject.view.componentControllers.HistorySingleTicketPane;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;
@@ -55,6 +56,11 @@ public class AccountSceneController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        activeTickets.forEach(c -> {
+            HistorySingleTicketPane pane = new HistorySingleTicketPane(c);
+            ActiveTickets.getChildren().addAll(pane);
+        });
     }
 
     public void AccountChangeButtonClick() {
