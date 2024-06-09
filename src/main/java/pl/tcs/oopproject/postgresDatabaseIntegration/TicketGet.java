@@ -89,11 +89,11 @@ public class TicketGet implements TicketGetter {
         ResultSet rs2 = ps2.executeQuery();
         while (rs2.next()) {
             if (rs2.getString("nazwa").equals("dodatkowy bagaż")) {
-                additions.add(new Addition(new Addition(rs.getString("nazwa"), rs.getDouble("koszt_procentowy")), rs.getBoolean("dodatkowy_bagaz")));
+                additions.add(new Addition(new Addition(rs2.getString("nazwa"), rs2.getDouble("koszt_procentowy")), rs.getBoolean("dodatkowy_bagaz")));
             } else if (rs2.getString("nazwa").equals("przewóz zwierzęcia")) {
-                additions.add(new Addition(new Addition(rs.getString("nazwa"), rs.getDouble("koszt_procentowy")), rs.getBoolean("zwierze")));
+                additions.add(new Addition(new Addition(rs2.getString("nazwa"), rs2.getDouble("koszt_procentowy")), rs.getBoolean("zwierze")));
             } else {
-                additions.add(new Addition(new Addition(rs.getString("nazwa"), rs.getDouble("koszt_procentowy")), rs.getBoolean("rower")));
+                additions.add(new Addition(new Addition(rs2.getString("nazwa"), rs2.getDouble("koszt_procentowy")), rs.getBoolean("rower")));
             }
         }
         return new Details(additions);
@@ -106,7 +106,7 @@ public class TicketGet implements TicketGetter {
                 ResultSet.CONCUR_READ_ONLY);
         ps.setInt(1, idPrzejazdu);
         ResultSet resultSet = ps.executeQuery();
-        resultSet.absolute(nrStacji-1);
+        resultSet.absolute(nrStacji);
         return resultSet.getTimestamp("czas_odjazdu");
     }
 
@@ -117,7 +117,7 @@ public class TicketGet implements TicketGetter {
                 ResultSet.CONCUR_READ_ONLY);
         ps.setInt(1, idPrzejazdu);
         ResultSet resultSet = ps.executeQuery();
-        resultSet.absolute(nrStacji-1);
+        resultSet.absolute(nrStacji);
         return resultSet.getTimestamp("czas_przyjazdu");
     }
 
