@@ -100,7 +100,6 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
 
 
     private int getIdPodrozujacegoByEmail(String email) throws SQLException {
-        System.err.println(email);
         PreparedStatement sub = DB.connection.prepareStatement("select getklientidbyemail(?)");
         sub.setString(1, email);
         ResultSet rs = sub.executeQuery();
