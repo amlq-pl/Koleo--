@@ -37,7 +37,7 @@ public class TicketItemContainer extends AnchorPane implements Initializable {
     private final ObservableList<TicketItem> ticketItems = FXCollections.observableArrayList();
     private final MultiStopRoute currentRoute;
     private final List<AssignedSeat> seatList;
-    private final Person person = (ActiveUser.getPerson() == null) ? Person.DEFAULT : ActiveUser.getPerson();
+    public Person person = (ActiveUser.getActiveUser() == null) ? Person.DEFAULT : ActiveUser.getPerson();
     private final TrainsAssignedSeats assignedSeats;
     @FXML
     private VBox TicketContainer;
@@ -88,19 +88,9 @@ public class TicketItemContainer extends AnchorPane implements Initializable {
     @FXML
     protected void SetNewDataClick() {
         Stage newStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/ticket-form.fxml"));
+        TicketFormController form = new TicketFormController(this);
 
-        Parent p = null;
-
-        try {
-            p = loader.load();
-            TicketFormController controller = loader.getController();
-            controller.setPerson(person);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Scene scene = new Scene(p);
+        Scene scene = new Scene(form);
         newStage.setScene(scene);
         newStage.show();
     }

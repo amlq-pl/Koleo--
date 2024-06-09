@@ -3,13 +3,11 @@ package pl.tcs.oopproject.viewmodel.connection;
 import org.jetbrains.annotations.NotNull;
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.model.connection.ScheduledTrain;
-import pl.tcs.oopproject.model.exception.AllTrainsAlreadyDepartedException;
 import pl.tcs.oopproject.model.exception.NoRouteFoundException;
 import pl.tcs.oopproject.model.station.Station;
 import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimeframe;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class TrainConnectionFinder implements FindTrainConnection {
 	private static final int maxTransferNumber = 4;
-	private static final int hours = 10;
+	private static final int hours = 9;
 	private final ArrayList<MultiStopRoute> trains = new ArrayList<>();
 	private final String stationA;
 	private final String stationB;
@@ -122,28 +120,11 @@ public class TrainConnectionFinder implements FindTrainConnection {
 	@NotNull
 	private List<MultiStopRoute> getConnectionWithTransfers(ArrayList<MultiStopRoute> trains) {
 		Collections.sort(trains);
-//		ArrayList<MultiStopRoute> connections = new ArrayList<>();
+		ArrayList<MultiStopRoute> connections = new ArrayList<>();
 		int size = Math.min(5, trains.size());
-//		for (int i = 0; i < size; ++i)
-//			connections.add(trains.get(i));
-		
-		ArrayList<MultiStopRoute> connections1 = new ArrayList<>();
-		LocalDateTime time = trains.get(0).departureTime();
-		connections1.add(trains.get(0));
-		for(int i = 0; i < size; ++i) {
-			if(!trains.get(i).departureTime().isAfter(time)) continue;
-			connections1.add(trains.get(i));
-			time = trains.get(i).departureTime();
-		}
-		for(MultiStopRoute m : trains) {
-			if(connections1.size() >= size) break;
-			if(connections1.contains(m)) continue;
-			connections1.add(m);
-		}
-		Collections.sort(connections1);
-		return connections1;
-		
-		//return connections;
+		for (int i = 0; i < size; ++i)
+			connections.add(trains.get(i));
+		return connections;
 	}
 	
 	@Override

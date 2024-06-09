@@ -113,22 +113,22 @@ public class AccountSceneController implements Initializable {
         System.out.println(activeLongTerm);
 
         activeTickets.forEach(c -> {
-            HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this);
+            HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this, true);
             ActiveTickets.getChildren().addAll(pane);
         });
 
         activeLongTerm.forEach(c -> {
-            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this);
+            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this, true);
             ActiveLongTerm.getChildren().addAll(pane);
         });
 
         nonActiveTickets.forEach(c -> {
-            HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this);
+            HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this, false);
             NonActiveTickets.getChildren().addAll(pane);
         });
 
         nonActiveLongTerm.forEach(c -> {
-            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this);
+            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this, false);
             NonActiveLongTerm.getChildren().addAll(pane);
         });
     }

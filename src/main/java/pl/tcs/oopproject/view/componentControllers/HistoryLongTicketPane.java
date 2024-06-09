@@ -1,5 +1,7 @@
 package pl.tcs.oopproject.view.componentControllers;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +21,7 @@ import java.util.ResourceBundle;
 public class HistoryLongTicketPane extends AnchorPane implements Initializable {
     private HistoryLongTermTicket ticket;
     private AccountSceneController controller;
+    public BooleanProperty isRefundable = new SimpleBooleanProperty();
     @FXML
     private Label IdLabel;
     @FXML
@@ -30,14 +33,17 @@ public class HistoryLongTicketPane extends AnchorPane implements Initializable {
     @FXML
     private Label DurationLabel;
     @FXML
+    private Label CompanyLabel;
+    @FXML
     private Label CostLabel;
     @FXML
     private Button RefundButton;
     @FXML
     private VBox RefundButtonContainer;
-    public HistoryLongTicketPane(HistoryLongTermTicket ticket, AccountSceneController controller) {
+    public HistoryLongTicketPane(HistoryLongTermTicket ticket, AccountSceneController controller, boolean refundable) {
         this.ticket = ticket;
         this.controller = controller;
+        isRefundable.setValue(refundable);
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/history-long-ticket-pane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -56,7 +62,9 @@ public class HistoryLongTicketPane extends AnchorPane implements Initializable {
         SurnameLabel.textProperty().setValue(ticket.person().getSurname());
         BeginDateLabel.textProperty().setValue(ticket.startDate().format(DateTimeFormatter.ofPattern("dd:MM:yyyy")));
         DurationLabel.textProperty().setValue(ticket.longTermTicketType().period().toString());
+        CompanyLabel.textProperty().setValue(ticket.longTermTicketType().company());
         CostLabel.textProperty().setValue(ticket.cost().toString());
+        RefundButton.visibleProperty().bindBidirectional(isRefundable);
 
         RefundButton.setOnAction(c -> {
             try {

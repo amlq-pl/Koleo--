@@ -176,11 +176,13 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 	
 	@Override
 	public int compareTo(@NotNull MultiStopRoute o) {
-		if (!o.departureTime().isEqual(departureTime()))
-			return departureTime().isBefore(o.departureTime()) ? -1 : 1;
-		if(arrivalTime() != o.arrivalTime())
-			return arrivalTime().compareTo(o.arrivalTime());
-		return numberOfTransfers() < o.numberOfTransfers() ? -1 : 1;
+		if(!arrivalTime().isEqual(o.arrivalTime()))
+			return arrivalTime().isBefore(o.arrivalTime()) ? -1 : 1;
+		return departureTime().compareTo(o.departureTime());
+		
+//		if (!o.departureTime().isEqual(departureTime()))
+//			return departureTime().isBefore(o.departureTime()) ? -1 : 1;
+//		return arrivalTime().compareTo(o.arrivalTime());
 	}
 	
 	public String toString() {

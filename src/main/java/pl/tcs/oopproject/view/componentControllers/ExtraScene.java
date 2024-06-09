@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,8 @@ import pl.tcs.oopproject.view.Basket;
 import pl.tcs.oopproject.view.ViewController;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -87,6 +90,13 @@ public class ExtraScene extends AnchorPane implements Initializable {
 	
 	@FXML
 	protected void AddToBasketClick() {
+		if (thisConnection.departureTime().isBefore(LocalDateTime.now())) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setContentText("Nie można kupić biletu z przeszłości!!!");
+			alert.showAndWait();
+			return;
+		}
+
 		if (thisBasket.connectionList.contains(thisConnection)) {
 			for (BasketItem Item : thisBasket.basketItems) {
 				if (Item.getConnection().equals(thisConnection)) {
