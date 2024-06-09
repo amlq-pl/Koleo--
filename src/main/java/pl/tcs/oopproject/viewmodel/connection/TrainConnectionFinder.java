@@ -17,7 +17,7 @@ import java.util.List;
 
 public class TrainConnectionFinder implements FindTrainConnection {
 	private static final int maxTransferNumber = 4;
-	private static final int hours = 16;
+	private static final int hours = 10;
 	private final ArrayList<MultiStopRoute> trains = new ArrayList<>();
 	private final String stationA;
 	private final String stationB;
