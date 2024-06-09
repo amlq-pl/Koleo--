@@ -24,7 +24,10 @@ import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.view.sceneControllers.TicketFormController;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
+import pl.tcs.oopproject.viewmodel.users.PersonFactory;
+
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -34,8 +37,8 @@ public class TicketItemContainer extends AnchorPane implements Initializable {
     private final ObservableList<TicketItem> ticketItems = FXCollections.observableArrayList();
     private final MultiStopRoute currentRoute;
     private final List<AssignedSeat> seatList;
-    private final Person person = ActiveUser.getPerson();
-    private TrainsAssignedSeats assignedSeats;
+private final Person person = (ActiveUser.getPerson() == null) ? Person.DEFAULT : ActiveUser.getPerson();
+    private final TrainsAssignedSeats assignedSeats;
     @FXML
     private VBox TicketContainer;
     @FXML

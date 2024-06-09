@@ -95,7 +95,6 @@ public class TicketFormController implements Initializable {
                 ErrorLabel.setStyle("-fx-text-fill: green");
                 ErrorLabel.setText("Użytkownik utworzony pomyślnie");
                 resetToInitial();
-
                 toChange = newPerson;
 
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);

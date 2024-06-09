@@ -64,7 +64,7 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
             for (int j = 0; j < seats.get(i).getConnection().trains().size(); j++) {
                 insertSingleTicketIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia, seats.get(i).seatList().get(j), seats.get(i).getConnection().trains().get(j), getIdPodrozujacegoByEmail(person.get(i).getEmailAddress()), extractIdSzczegolow(details.get(i)));
             }
-            ticketsToReturn.add( new SingleJourneyTrainTicket(seats.get(i), discount.get(i), voucher.get(i), idBiletyJednorazoweZamowienia, details.get(i), seats.get(i).getConnection(), person.get(i)));
+            ticketsToReturn.add(new SingleJourneyTrainTicket(seats.get(i), discount.get(i), voucher.get(i), idBiletyJednorazoweZamowienia, details.get(i), seats.get(i).getConnection(), person.get(i)));
         }
         return ticketsToReturn;
     }
@@ -100,6 +100,7 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
 
 
     private int getIdPodrozujacegoByEmail(String email) throws SQLException {
+        System.err.println(email);
         PreparedStatement sub = DB.connection.prepareStatement("select getklientidbyemail(?)");
         sub.setString(1, email);
         ResultSet rs = sub.executeQuery();
@@ -207,8 +208,8 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
         ps.setInt(1, idBiletyJednorazoweZamowienia);
         ps.setInt(2, idPrzejazdu);
         ps.setInt(3, idPodrozujacego);
-        ps.setInt(4, startStation);
-        ps.setInt(5, endStation);
+        ps.setInt(4, startStation+1);
+        ps.setInt(5, endStation+1);
         ps.setInt(6, nrWagonu);
         ps.setInt(7, nrMiejsca);
         ps.setInt(8, idSzegolow);

@@ -5,9 +5,13 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
 
 import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
@@ -71,7 +75,7 @@ public class TicketPurchaseSceneController implements Initializable {
     }
 
     public void BuyAction() {
-        // TODO: check czy wszystkie dane sa w porzadku (czy sa miejsca ktore checmy kupic)
+        // TODO: check czy wszystkie dane sa w porzadku (czy sa miejsca ktore chcemy kupic)
 
         TicketFactory factory = new TicketFactory();
 
@@ -93,7 +97,24 @@ public class TicketPurchaseSceneController implements Initializable {
 
         try {
             ArrayList<SingleJourneyTrainTicket> ticketList = factory.createSingleJourneyTicket(discounts, vouchers, details, seats, persons);
-            ticketList.forEach(System.out::println);
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/summary-scene.fxml"));
+            Parent p = null;
+
+            try {
+                p = loader.load();
+                Stage thisStage = (Stage) TicketContainersBox.getScene().getWindow();
+                thisStage.close();
+
+                SummarySceneController controller = loader.getController();
+                controller.setList(ticketList);
+
+                Stage newStage = new Stage();
+                Scene scene = new Scene(p);
+                newStage.setScene(scene);
+                newStage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
