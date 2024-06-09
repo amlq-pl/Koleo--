@@ -1,5 +1,7 @@
 package pl.tcs.oopproject.view.componentControllers;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +21,7 @@ import java.util.ResourceBundle;
 public class HistorySingleTicketPane extends AnchorPane implements Initializable {
     private HistorySingleJourneyTicket ticket;
     private AccountSceneController controller;
+    public BooleanProperty isRefundable = new SimpleBooleanProperty();
     @FXML
     private Label IdLabel;
     @FXML
@@ -34,14 +37,17 @@ public class HistorySingleTicketPane extends AnchorPane implements Initializable
     @FXML
     private Label ArrStationHour;
     @FXML
+    private Label SeatLabel;
+    @FXML
     private Label CostLabel;
     @FXML
     private Button RefundButton;
     @FXML
     private VBox ButtonContainer;
-    public HistorySingleTicketPane(HistorySingleJourneyTicket ticket, AccountSceneController controller) {
+    public HistorySingleTicketPane(HistorySingleJourneyTicket ticket, AccountSceneController controller, boolean refundable) {
         this.ticket = ticket;
         this.controller = controller;
+        isRefundable.setValue(refundable);
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/history-single-ticket-pane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -60,11 +66,13 @@ public class HistorySingleTicketPane extends AnchorPane implements Initializable
         SurnameLabel.textProperty().setValue(ticket.person().getSurname());
         DepStationLabel.textProperty().setValue(ticket.departureStation());
         DepHourLabel.textProperty().setValue(ticket.departureTime()
-                .format(DateTimeFormatter.ofPattern("HH:mm")));
+                .format(DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm")));
         ArrStationLabel.textProperty().setValue(ticket.arrivalStation());
         ArrStationHour.textProperty().setValue(ticket.arrivalTime()
-                .format(DateTimeFormatter.ofPattern("HH:mm")));
+                .format(DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm")));
+        SeatLabel.textProperty().setValue(ticket.places().toString());
         CostLabel.textProperty().setValue(ticket.cost().toString());
+        RefundButton.visibleProperty().bindBidirectional(isRefundable);
 
         RefundButton.setOnAction(e -> {
             try {
