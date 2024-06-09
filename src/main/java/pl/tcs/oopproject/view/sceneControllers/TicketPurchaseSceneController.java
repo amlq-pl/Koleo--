@@ -76,9 +76,16 @@ public class TicketPurchaseSceneController implements Initializable {
     }
 
     public void BuyAction() {
-        // TODO: check czy wszystkie dane sa w porzadku (czy sa miejsca ktore chcemy kupic)
-
         TicketFactory factory = new TicketFactory();
+
+        for (TicketItemContainer ticketItemContainer : ticketContainers) {
+            if (ticketItemContainer.getPerson().equals(Person.DEFAULT)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Wprowadź dane dla wszystkich użytkowników");
+                alert.showAndWait();
+                return;
+            }
+        }
 
         ArrayList<Discount> discounts = new ArrayList<>();
         ArrayList<Voucher> vouchers = new ArrayList<>();
@@ -119,7 +126,7 @@ public class TicketPurchaseSceneController implements Initializable {
         }
 
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setContentText("Ale eza byq dobrze iziziziziz");
+        a.setContentText("BILETY ZAKUPIONO POMYŚLNIE");
         a.showAndWait();
     }
 
