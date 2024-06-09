@@ -32,7 +32,6 @@ public class TicketFormController implements Initializable {
 
     public void setPerson(Person person) {
         this.toChange = person;
-        System.out.println("chuj");
     }
 
     @Override
@@ -96,9 +95,7 @@ public class TicketFormController implements Initializable {
                 ErrorLabel.setStyle("-fx-text-fill: green");
                 ErrorLabel.setText("Użytkownik utworzony pomyślnie");
                 resetToInitial();
-                System.out.println(newPerson);
                 toChange = newPerson;
-                System.out.println(toChange);
 
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setContentText("ZAREJESTROWANO POMYŚLNIE");

@@ -37,9 +37,8 @@ public class TicketItemContainer extends AnchorPane implements Initializable {
     private final ObservableList<TicketItem> ticketItems = FXCollections.observableArrayList();
     private final MultiStopRoute currentRoute;
     private final List<AssignedSeat> seatList;
-    private final Person person = new Person("null", "null", LocalDate.now(),
-            "null", "null");
-    private TrainsAssignedSeats assignedSeats;
+    private final Person person = Person.DEFAULT;
+    private final TrainsAssignedSeats assignedSeats;
     @FXML
     private VBox TicketContainer;
     @FXML
