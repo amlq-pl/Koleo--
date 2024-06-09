@@ -122,28 +122,28 @@ public class TrainConnectionFinder implements FindTrainConnection {
 	@NotNull
 	private List<MultiStopRoute> getConnectionWithTransfers(ArrayList<MultiStopRoute> trains) {
 		Collections.sort(trains);
-//		ArrayList<MultiStopRoute> connections = new ArrayList<>();
+		ArrayList<MultiStopRoute> connections = new ArrayList<>();
 		int size = Math.min(5, trains.size());
-//		for (int i = 0; i < size; ++i)
-//			connections.add(trains.get(i));
+		for (int i = 0; i < size; ++i)
+			connections.add(trains.get(i));
+
+//		ArrayList<MultiStopRoute> connections1 = new ArrayList<>();
+//		LocalDateTime time = trains.get(0).departureTime();
+//		connections1.add(trains.get(0));
+//		for(int i = 0; i < size; ++i) {
+//			if(!trains.get(i).departureTime().isAfter(time)) continue;
+//			connections1.add(trains.get(i));
+//			time = connections1.get(i).departureTime();
+//		}
+//		for(MultiStopRoute m : trains) {
+//			if(connections1.size() >= size) break;
+//			if(connections1.contains(m)) continue;
+//			connections1.add(m);
+//		}
+//		Collections.sort(connections1);
+//		return connections1;
 		
-		ArrayList<MultiStopRoute> connections1 = new ArrayList<>();
-		LocalDateTime time = trains.get(0).departureTime();
-		connections1.add(trains.get(0));
-		for(int i = 0; i < size; ++i) {
-			if(!trains.get(i).departureTime().isAfter(time)) continue;
-			connections1.add(trains.get(i));
-			time = connections1.get(i).departureTime();
-		}
-		for(MultiStopRoute m : trains) {
-			if(connections1.size() >= size) break;
-			if(connections1.contains(m)) continue;
-			connections1.add(m);
-		}
-		Collections.sort(connections1);
-		return connections1;
-		
-		//return connections;
+		return connections;
 	}
 	
 	@Override
