@@ -23,7 +23,7 @@ public class TicketGet implements TicketGetter {
     public ArrayList<HistorySingleJourneyTicket> getSingleUseTickets(String login) throws SQLException {
         FindPlacesForConnectionWithTransfers finder = new FindPlacesForConnectionWithTransfers();
         ArrayList<HistorySingleJourneyTicket> tickets = new ArrayList<>();
-        PreparedStatement ps = DB.connection.prepareStatement("select * from konto ko join klienci kl on ko.id_klienta = kl.id_klienta " +
+        PreparedStatement ps = DB.connection.prepareStatement("select *,r.nazwa as r_nazwa,r.znizka as r_znizka,u.nazwa as u_nazwa,u.znizka as u_znizka from konto ko join klienci kl on ko.id_klienta = kl.id_klienta " +
                 "join zamowienia z on kl.id_klienta = z.id_klienta " +
                 "join bilety_jednorazowe_zamowienia bjz on z.id_zamowienia = bjz.id_zamowienia " +
                 "join bilety_jednorazowe bj on bjz.id_bilety_jednorazowe_zamowienia = bj.id_bilety_jednorazowe_zamowienia " +
@@ -50,11 +50,11 @@ public class TicketGet implements TicketGetter {
                 person = new Person(klient.getString("imie"), klient.getString("nazwisko"), klient.getDate("data_urodzenia").toLocalDate(), klient.getString("email"), klient.getString("nr_telefonu"));
             }
 
-            if (rs.getString("r.id_rabatu") != null) {
-                voucher = new Voucher(rs.getString("r.nazwa"), rs.getDouble("r.znizka"));
+            if (rs.getString("id_rabatu") != null) {
+                voucher = new Voucher(rs.getString("r_nazwa"), rs.getDouble("r_znizka"));
             }
-            if (rs.getString("u.id_ulgi") != null) {
-                discount = new Discount(rs.getString("u.nazwa"), rs.getDouble("u.znika"));
+            if (rs.getString("id_ulgi") != null) {
+                discount = new Discount(rs.getString("u_nazwa"), rs.getDouble("u_znizka"));
             }
             refunded = rs.getString("timestamp_zwrotu") != null;
             tickets.add(new HistorySingleJourneyTicket(discount, voucher, finder.getSpecificSeat(rs.getInt("id_przejazdu"), rs.getInt("nr_wagonu"), rs.getInt("nr_miejsca")),
@@ -66,17 +66,17 @@ public class TicketGet implements TicketGetter {
     }
 
     private String getStationName(int idPrzejazdu, int nrStacji) throws SQLException {
-        PreparedStatement ps = DB.connection.prepareStatement("select * from przejazdy p " +
+        PreparedStatement ps = DB.connection.prepareStatement("select *,s.nazwa as s_nazwa from przejazdy p " +
                 "join trasy_przewoznicy tp on p.id_trasy_przewoznika = tp.id_trasy_przewoznika " +
                 "join trasy t on tp.id_trasy = t.id_trasy " +
                 "join stacje_posrednie sp on t.id_trasy = sp.id_trasy " +
                 "join stacje s on sp.id_stacji = s.id_stacji " +
-                "where sp.numer_stacji=? and p.id_przejazdu=?");
+                "where sp.numer_stacji=? and p.id_przejazdu=?;");
         ps.setInt(2, idPrzejazdu);
         ps.setInt(1, nrStacji);
         ResultSet resultSet = ps.executeQuery();
         resultSet.next();
-        return resultSet.getString("s.nazwa");
+        return resultSet.getString("s_nazwa");
     }
 
     private Details getDetails(int idSzczegolow) throws SQLException {
@@ -101,28 +101,30 @@ public class TicketGet implements TicketGetter {
 
     private Timestamp getDepartureTime(int idPrzejazdu, int nrStacji) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("select * from stations s " +
-                "where s.id_przejazdu=? " +
-                "order by s.czas_przyjazdu ");
+                        "where s.id_przejazdu=? " +
+                        "order by s.czas_przyjazdu ", ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY);
         ps.setInt(1, idPrzejazdu);
         ResultSet resultSet = ps.executeQuery();
-        resultSet.absolute(nrStacji);
-        return resultSet.getTimestamp("s.czas_odjazdu");
+        resultSet.absolute(nrStacji-1);
+        return resultSet.getTimestamp("czas_odjazdu");
     }
 
     private Timestamp getArrivalTime(int idPrzejazdu, int nrStacji) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("select * from stations s " +
-                "where s.id_przejazdu=? " +
-                "order by s.czas_przyjazdu ");
+                        "where s.id_przejazdu=? " +
+                        "order by s.czas_przyjazdu ", ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY);
         ps.setInt(1, idPrzejazdu);
         ResultSet resultSet = ps.executeQuery();
-        resultSet.absolute(nrStacji);
-        return resultSet.getTimestamp("s.czas_przyjazdu");
+        resultSet.absolute(nrStacji-1);
+        return resultSet.getTimestamp("czas_przyjazdu");
     }
 
     @Override
     public ArrayList<HistoryLongTermTicket> getLongTermTickets(String login) throws SQLException {
         ArrayList<HistoryLongTermTicket> tickets = new ArrayList<>();
-        PreparedStatement ps = DB.connection.prepareStatement("select * from konto ko join klienci kl on ko.id_klienta = kl.id_klienta " +
+        PreparedStatement ps = DB.connection.prepareStatement("select bo.id_podrozujacego,kl.imie,kl.nazwisko,kl.data_urodzenia,kl.email,kl.nr_telefonu,cbo.okres_waznosci,r.id_rabatu as r_id_rabatu,r.nazwa as r_nazwa, r.znizka as r_znizka,u.id_ulgi as u_id_ulgi,u.znizka as u_znizka, u.nazwa as u_znizka from konto ko join klienci kl on ko.id_klienta = kl.id_klienta " +
                 "join zamowienia z on kl.id_klienta = z.id_klienta " +
                 "join bilety_okresowe_zamowienia boz on z.id_zamowienia = boz.id_zamowienia " +
                 "join bilety_okresowe bo on boz.id_bilety_okresowe_zamowienia = bo.id_bilety_okresowe_zamowienia " +
@@ -149,11 +151,11 @@ public class TicketGet implements TicketGetter {
 
             String[] okres_waznosci = rs.getString("okres_waznosci").split(" ");
 
-            if (rs.getString("r.id_rabatu") != null) {
-                voucher = new Voucher(rs.getString("r.nazwa"), rs.getDouble("r.znizka"));
+            if (rs.getString("r_id_rabatu") != null) {
+                voucher = new Voucher(rs.getString("r_nazwa"), rs.getDouble("r_znizka"));
             }
-            if (rs.getString("u.id_ulgi") != null) {
-                discount = new Discount(rs.getString("u.nazwa"), rs.getDouble("u.znika"));
+            if (rs.getString("u_id_ulgi") != null) {
+                discount = new Discount(rs.getString("u_nazwa"), rs.getDouble("u_znika"));
             }
             tickets.add(new HistoryLongTermTicket(rs.getDate("timestamp_od").toLocalDate(), new LongTermTicketType(Period.ofDays(Integer.parseInt(okres_waznosci[0])), new PricePLN(rs.getDouble("cena_bazowa")), rs.getString("nazwa_skrocony")), discount, voucher, rs.getInt("id_bilety_okresowe_zamowienia"), person));
         }
