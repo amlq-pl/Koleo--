@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
+import pl.tcs.oopproject.model.exception.NoRouteFoundException;
 import pl.tcs.oopproject.viewmodel.basket.Basket;
 import pl.tcs.oopproject.viewmodel.property.SimpleDateProperty;
 import pl.tcs.oopproject.view.ViewController;
@@ -110,7 +111,6 @@ public class TrainSearchSceneController implements Initializable {
         }
 
         if (!ConnectionList.isEmpty()) ConnectionList.clear();
-        // TODO: add validation using validator FX or something like this
 
         LocalDateTime tempLocalDateTime = getLocalDateTime();
         String departure = DepStation.getValue();
@@ -122,10 +122,15 @@ public class TrainSearchSceneController implements Initializable {
             a.showAndWait();
             return;
         }
+        try {
+            TrainConnectionFinder finder = TrainConnectionFinder.getConnectionFinder(departure, arrival, tempLocalDateTime);
 
-        TrainConnectionFinder finder = TrainConnectionFinder.getConnectionFinder(departure, arrival, tempLocalDateTime);
-
-        addAllPanes(finder);
+            addAllPanes(finder);
+        } catch (NoRouteFoundException | NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Nie ma trasy dla podanych danych");
+            alert.showAndWait();
+        }
     }
 
     public void GoBackButtonClick() {
