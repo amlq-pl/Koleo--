@@ -162,7 +162,7 @@ public class TicketGet implements TicketGetter {
             if (rs.getString("u_id_ulgi") != null) {
                 discount = new Discount(rs.getString("u_nazwa"), rs.getDouble("u_znizka"));
             }
-            tickets.add(new HistoryLongTermTicket(rs.getDate("timestamp_od").toLocalDate(), new LongTermTicketType(Period.ofDays(Integer.parseInt(okres_waznosci[0])), new PricePLN(rs.getDouble("cena_bazowa")), rs.getString("nazwa_skrocony")), discount, voucher, rs.getInt("id_bilety_okresowe_zamowienia"), person));
+            tickets.add(new HistoryLongTermTicket(rs.getDate("timestamp_od").toLocalDate(), new LongTermTicketType(Period.ofDays(Integer.parseInt(okres_waznosci[0])), new PricePLN(rs.getDouble("cena_bazowa")), rs.getString("nazwa_skrocona")), discount, voucher, rs.getInt("id_bilety_okresowe_zamowienia"), person));
         }
         return tickets;
     }
