@@ -1,11 +1,13 @@
 package pl.tcs.oopproject.view.componentControllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.history.HistoryLongTermTicket;
 
 import java.net.URL;
@@ -32,6 +34,16 @@ public class HistoryLongTicketPane extends AnchorPane implements Initializable {
     private VBox RefundButtonContainer;
     public HistoryLongTicketPane(HistoryLongTermTicket ticket) {
         this.ticket = ticket;
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("components/history-long-ticket-pane.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+
+        try {
+            loader.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

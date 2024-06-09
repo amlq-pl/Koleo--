@@ -71,7 +71,7 @@ public class TicketPurchaseSceneController implements Initializable {
     }
 
     public void BuyAction() {
-        // TODO: check czy wszystkie dane sa w porzadku (czy sa miejsca ktore checmy kupic)
+        // TODO: check czy wszystkie dane sa w porzadku (czy sa miejsca ktore chcemy kupic)
 
         TicketFactory factory = new TicketFactory();
 
