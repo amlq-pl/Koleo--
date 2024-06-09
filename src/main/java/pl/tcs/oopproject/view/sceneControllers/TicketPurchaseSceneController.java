@@ -5,7 +5,9 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
@@ -93,7 +95,14 @@ public class TicketPurchaseSceneController implements Initializable {
 
         try {
             ArrayList<SingleJourneyTrainTicket> ticketList = factory.createSingleJourneyTicket(discounts, vouchers, details, seats, persons);
-            ticketList.forEach(System.out::println);
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/summary-scene.fxml"));
+            Parent p = null;
+
+            try {
+                p = loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
