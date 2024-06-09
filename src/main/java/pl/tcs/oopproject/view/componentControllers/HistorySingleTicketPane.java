@@ -68,7 +68,7 @@ public class HistorySingleTicketPane extends AnchorPane implements Initializable
 
         RefundButton.setOnAction(e -> {
             try {
-                ticket.refundTicket();
+                controller.history.refundSingleUSeTicket(ticket);
                 controller.reload();
             } catch (SQLException ex) {
                 ex.printStackTrace();
