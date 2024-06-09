@@ -17,7 +17,7 @@ public class InsertNewPersonToDatabase implements InsertNewPersonToDatabaseInter
         ps.setString(4, p.getEmailAddress());
         ps.setString(5, p.getTelephoneNumber());
         ps.setString(6, login);
-        ps.setInt(7, password.hashCode());
+        ps.setInt(7, password==null ? null :  password.hashCode());
         return ps.executeUpdate() == 1;
     }
 }
