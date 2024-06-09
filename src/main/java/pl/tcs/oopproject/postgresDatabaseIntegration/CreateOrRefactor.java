@@ -33,9 +33,9 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
             if (login != null) {
                 id_zamowienia = insertIntoZamowieniaByLogin(LocalDateTime.now(), login);
             } else {
-                Checkers c = new Checkers();
-                if (!c.checkIfPersonExists(person.get(i))) {
-                    new InsertNewPersonToDatabase().insert(person.get(i), null, null);
+                Users u =new Users();
+                if (!u.checkIfPersonExists(person.get(i))) {
+                    new Users().insert(person.get(i), null, null);
                 }
                 id_zamowienia = insertIntoZamowieniaByEmail(LocalDateTime.now(), person.get(i).getEmailAddress());
             }
@@ -55,9 +55,9 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
             if (login != null) {
                 id_zamowienia = insertIntoZamowieniaByLogin(LocalDateTime.now(), login);
             } else {
-                Checkers c = new Checkers();
-                if (!c.checkIfPersonExists(person.get(i))) {
-                    new InsertNewPersonToDatabase().insert(person.get(i), null, null);
+                Users u = new Users();
+                if (!u.checkIfPersonExists(person.get(i))) {
+                    new Users().insert(person.get(i), null, null);
                 }
                 id_zamowienia = insertIntoZamowieniaByEmail(LocalDateTime.now(), person.get(i).getEmailAddress());
             }

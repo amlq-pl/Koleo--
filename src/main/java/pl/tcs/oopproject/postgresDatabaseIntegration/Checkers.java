@@ -6,7 +6,6 @@ import pl.tcs.oopproject.model.discount.PricePLN;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.ticket.Addition;
 import pl.tcs.oopproject.model.ticket.LongTermTicketType;
-import pl.tcs.oopproject.model.users.Person;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,20 +14,6 @@ import java.time.Period;
 import java.util.ArrayList;
 
 public class Checkers implements CheckersInterface {
-    public boolean checkIfUserExists(String login) throws SQLException {
-        PreparedStatement statement = DB.connection.prepareStatement("select * from konto ko where ko.login=?");
-        statement.setString(1, login);
-        ResultSet resultSet = statement.executeQuery();
-        return resultSet.next();
-    }
-
-    @Override
-    public boolean checkIfPersonExists(Person person) throws SQLException {
-        PreparedStatement statement = DB.connection.prepareStatement("select * from klienci k where k.email=?");
-        statement.setString(1, person.getEmailAddress());
-        ResultSet resultSet = statement.executeQuery();
-        return resultSet.next();
-    }
 
     @Override
     public ArrayList<String> getAllStations() throws SQLException {
@@ -69,7 +54,6 @@ public class Checkers implements CheckersInterface {
         PreparedStatement ps = DB.connection.prepareStatement("select * from cennik_biletow_okresowych join przewoznicy on cennik_biletow_okresowych.id_przewoznika = przewoznicy.id_przewoznika");
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            int days = 0;
             String[] parts = rs.getString("okres_waznosci").split(" ");
             ticketTypes.add(new LongTermTicketType(Period.ofDays(Integer.parseInt(parts[0])), new PricePLN(rs.getDouble("cena_bazowa")), rs.getString("nazwa_skrocona")));
         }

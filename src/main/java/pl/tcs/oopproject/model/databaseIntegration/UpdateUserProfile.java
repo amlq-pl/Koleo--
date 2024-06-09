@@ -10,7 +10,6 @@ public interface UpdateUserProfile {
 
     boolean updateEmail(String login, String email) throws SQLException;
 
-    //-> has to return boolean
     void updateTelephoneNumber(String login, String phone) throws SQLException;
 
     void updateDateOfBirth(String login, LocalDate date) throws SQLException;

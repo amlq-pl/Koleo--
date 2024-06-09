@@ -3,9 +3,7 @@ package pl.tcs.oopproject.viewmodel.users;
 import pl.tcs.oopproject.model.exception.*;
 import pl.tcs.oopproject.model.users.Check;
 import pl.tcs.oopproject.model.users.Person;
-import pl.tcs.oopproject.postgresDatabaseIntegration.AuthenticateLogin;
-import pl.tcs.oopproject.postgresDatabaseIntegration.Checkers;
-import pl.tcs.oopproject.postgresDatabaseIntegration.InsertNewPersonToDatabase;
+import pl.tcs.oopproject.postgresDatabaseIntegration.Users;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -14,8 +12,8 @@ import java.util.Objects;
 public class PersonFactory {
     public static Person logIn(String login, String password) throws KoleoException {
         try {
-            AuthenticateLogin authenticator = new AuthenticateLogin();
-            Person person = authenticator.authenticate(login, password);
+            Users users=new Users();
+            Person person = users.authenticate(login, password);
             ActiveUser.setActiveUser(login);
             ActiveUser.setPerson(person);
             return person;
@@ -36,11 +34,11 @@ public class PersonFactory {
 
 
     public static Person create(String name, String surname, LocalDate dateOfBirth, String email, String phoneNumber, String login, String password) throws KoleoException {
-        InsertNewPersonToDatabase inserter = new InsertNewPersonToDatabase();
+        Users inserter = new Users();
         Person person = create(name, surname, dateOfBirth, email, phoneNumber);
         try {
-            Checkers checker = new Checkers();
-            if (checker.checkIfUserExists(login)) throw new ExistingUserException();
+            Users users=new Users();
+            if (users.checkIfUserExists(login)) throw new ExistingUserException();
             if (!inserter.insert(person, login, password)) throw new SQLException();
             ActiveUser.setActiveUser(login);
             ActiveUser.setPerson(person);
