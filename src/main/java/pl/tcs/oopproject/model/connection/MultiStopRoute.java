@@ -140,12 +140,15 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 	@Override
 	public PricePLN cost() throws SQLException {
 		TicketGet ticketGet = new TicketGet();
-		ArrayList<HistoryLongTermTicket> longTermTickets = ticketGet.getLongTermTickets(ActiveUser.getActiveUser());
 		ArrayList<String> companies = new ArrayList<>();
-		for(HistoryLongTermTicket t : longTermTickets) {
-			if(t.isActive() && !t.refunded() && !companies.contains(t.longTermTicketType().company()))
-				companies.add(t.longTermTicketType().company());
+		if(ActiveUser.getActiveUser() != null) {
+			ArrayList<HistoryLongTermTicket> longTermTickets = ticketGet.getLongTermTickets(ActiveUser.getActiveUser());
+			for (HistoryLongTermTicket t : longTermTickets) {
+				if (t.isActive() && !companies.contains(t.longTermTicketType().company()))
+					companies.add(t.longTermTicketType().company());
+			}
 		}
+		
 		double cost = 0;
 		
 		int size = trains.size();
@@ -174,6 +177,8 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 	public int compareTo(@NotNull MultiStopRoute o) {
 		if (!o.departureTime().isEqual(departureTime()))
 			return departureTime().isBefore(o.departureTime()) ? -1 : 1;
+		if(o.numberOfTransfers() != numberOfTransfers())
+			return numberOfTransfers() < o.numberOfTransfers() ? -1 : 1;
 		return arrivalTime().compareTo(o.arrivalTime());
 	}
 	
