@@ -46,6 +46,7 @@ public class MultiStopRoute implements RouteElement, TransferableRoute, Comparab
 	
 	
 	public List<ScheduledTrain> trains() {
+		
 		return trains;
 	}
 	

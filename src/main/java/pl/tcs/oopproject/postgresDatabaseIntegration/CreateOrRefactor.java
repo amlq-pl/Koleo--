@@ -100,7 +100,6 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
 
 
     private int getIdPodrozujacegoByEmail(String email) throws SQLException {
-        System.err.println(email);
         PreparedStatement sub = DB.connection.prepareStatement("select getklientidbyemail(?)");
         sub.setString(1, email);
         ResultSet rs = sub.executeQuery();
@@ -190,7 +189,7 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
 
     private void insertIntoBiletyOkresowe(int idBiletyOkresoweZamowienia, int idPodrozujacego, LocalDateTime startDate, int idTypBiletu) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("insert into bilety_okresowe(id_bilety_okresowe_zamowienia, id_podrozujacego, timestamp_od, id_typ_biletu) " +
-                "values (?,?,?,?);");
+                "values (?,?,?::timestamp,?);");
         ps.setInt(1, idBiletyOkresoweZamowienia);
         ps.setInt(2, idPodrozujacego);
         ps.setString(3, startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
