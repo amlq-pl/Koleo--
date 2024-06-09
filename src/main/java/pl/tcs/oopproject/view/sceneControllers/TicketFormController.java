@@ -87,7 +87,6 @@ public class TicketFormController implements Initializable {
         if (validator.validate()) {
             if (!ErrorLabel.getText().isEmpty()) ErrorLabel.setText("");
             try {
-                System.out.println(toChange.hashCode());
                 Person newPerson = PersonFactory.create(NameTextField.getText(),
                         SurnameTextField.getText(),
                         BirthDatePicker.getValue(),
