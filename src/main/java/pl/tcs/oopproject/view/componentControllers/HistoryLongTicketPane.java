@@ -30,6 +30,8 @@ public class HistoryLongTicketPane extends AnchorPane implements Initializable {
     @FXML
     private Label DurationLabel;
     @FXML
+    private Label CompanyLabel;
+    @FXML
     private Label CostLabel;
     @FXML
     private Button RefundButton;
@@ -56,6 +58,7 @@ public class HistoryLongTicketPane extends AnchorPane implements Initializable {
         SurnameLabel.textProperty().setValue(ticket.person().getSurname());
         BeginDateLabel.textProperty().setValue(ticket.startDate().format(DateTimeFormatter.ofPattern("dd:MM:yyyy")));
         DurationLabel.textProperty().setValue(ticket.longTermTicketType().period().toString());
+        CompanyLabel.textProperty().setValue(ticket.longTermTicketType().company());
         CostLabel.textProperty().setValue(ticket.cost().toString());
 
         RefundButton.setOnAction(c -> {
