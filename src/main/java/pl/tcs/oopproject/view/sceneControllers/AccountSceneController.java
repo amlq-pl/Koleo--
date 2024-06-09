@@ -154,4 +154,5 @@ public class AccountSceneController implements Initializable {
         newStage.setScene(ViewController.getLandingScene());
         newStage.show();
     }
+
 }

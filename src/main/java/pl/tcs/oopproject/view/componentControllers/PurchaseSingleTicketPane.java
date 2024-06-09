@@ -3,12 +3,15 @@ package pl.tcs.oopproject.view.componentControllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -72,7 +75,15 @@ public class PurchaseSingleTicketPane extends AnchorPane implements Initializabl
         VoucherLabel.textProperty().setValue(ticket.appliedVoucher().discount());
 
         DownloadButton.setOnAction(c -> {
-
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/download-scene.fxml"));
+            try {
+                Scene scene = new Scene(loader.load());
+                Stage newStage = new Stage();
+                newStage.setScene(scene);
+                newStage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }
