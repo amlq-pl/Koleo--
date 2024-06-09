@@ -56,12 +56,4 @@ public class History {
 		}
 		return archivedTickets;
 	}
-	
-	public boolean refundLongTermTicket(HistoryLongTermTicket ticket) throws SQLException {
-		CreateOrRefactor refactor = new CreateOrRefactor();
-		if (ticket.refunded()) return false;
-		refactor.returnLongTermTrainTicket(ticket.id());
-		ticket.refundTicket();
-		return true;
-	}
 }
