@@ -223,6 +223,12 @@ public class TrainSearchSceneController implements Initializable {
     }
 
     public void BuyLongTermTicket() {
+        if (ActiveUser.getPerson() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Zaloguj się aby kupić");
+            alert.showAndWait();
+        }
+
         Stage newStage = new Stage();
         newStage.setScene(ViewController.getLongTermTicketBuyScene());
         newStage.show();
