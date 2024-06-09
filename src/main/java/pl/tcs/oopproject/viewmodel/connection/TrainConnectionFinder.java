@@ -133,7 +133,7 @@ public class TrainConnectionFinder implements FindTrainConnection {
 		for(int i = 0; i < size; ++i) {
 			if(!trains.get(i).departureTime().isAfter(time)) continue;
 			connections1.add(trains.get(i));
-			time = connections1.get(i).departureTime();
+			time = trains.get(i).departureTime();
 		}
 		for(MultiStopRoute m : trains) {
 			if(connections1.size() >= size) break;
