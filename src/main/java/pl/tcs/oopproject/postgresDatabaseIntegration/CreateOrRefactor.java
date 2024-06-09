@@ -94,6 +94,8 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
     }
 
     private void insertSingleTicketIntoBiletyJednorazowe(int idBiletyJednorazoweZamowienia, AssignedSeat assignedSeat, ScheduledTrain scheduledTrain, int idPodroznika, int idDetails) throws SQLException {
+        ArrayList<String> sta=new ArrayList<>();
+
         insertIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia, scheduledTrain.getNumber(), idPodroznika, scheduledTrain.getIndexOfStation(scheduledTrain.originStation().town()),
                 scheduledTrain.getIndexOfStation(scheduledTrain.destinationStation().town()), assignedSeat.carriage().number(), assignedSeat.seat().number(), idDetails);
     }
