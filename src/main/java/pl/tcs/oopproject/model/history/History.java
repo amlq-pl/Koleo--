@@ -49,18 +49,22 @@ public class History {
 	}
 	
 	public ArrayList<HistoryLongTermTicket> activeLongTermTickets() throws SQLException {
+		if(activeLongTermTickets == null) setData();
 		return activeLongTermTickets;
 	}
 	
 	public ArrayList<HistorySingleJourneyTicket> activeSingleJourneyTickets() throws SQLException {
+		if(activeSingleJourneyTickets == null) setData();
 		return activeSingleJourneyTickets;
 	}
 	
 	public ArrayList<HistorySingleJourneyTicket> archivedSingleJourneyTickets() throws SQLException {
+		if(archivedSingleJourneyTickets == null) setData();
 		return archivedSingleJourneyTickets;
 	}
 	
 	public ArrayList<HistoryLongTermTicket> archivedLongTermTickets() throws SQLException {
+		if(archivedLongTermTickets == null) setData();
 		return archivedLongTermTickets;
 	}
 	public boolean refundLongTermTicket(HistoryLongTermTicket ticket) throws SQLException {
