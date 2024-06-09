@@ -3,6 +3,7 @@ package pl.tcs.oopproject.view.componentControllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import pl.tcs.oopproject.App;
@@ -35,6 +36,8 @@ public class PurchaseSingleTicketPane extends AnchorPane implements Initializabl
     private Label DiscountLabel;
     @FXML
     private Label VoucherLabel;
+    @FXML
+    private Button DownloadButton;
     public PurchaseSingleTicketPane(SingleJourneyTrainTicket ticket) {
         this.ticket = ticket;
 
@@ -67,5 +70,9 @@ public class PurchaseSingleTicketPane extends AnchorPane implements Initializabl
         }
         DiscountLabel.textProperty().setValue(ticket.appliedDiscount().discount());
         VoucherLabel.textProperty().setValue(ticket.appliedVoucher().discount());
+
+        DownloadButton.setOnAction(c -> {
+
+        });
     }
 }

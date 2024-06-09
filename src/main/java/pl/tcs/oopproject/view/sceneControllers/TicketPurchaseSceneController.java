@@ -94,8 +94,6 @@ public class TicketPurchaseSceneController implements Initializable {
             persons.add(ticketItemContainer.getPerson());
         }
 
-        persons.forEach(System.out::println);
-
         try {
             ArrayList<SingleJourneyTrainTicket> ticketList = factory.createSingleJourneyTicket(discounts, vouchers, details, seats, persons);
             FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/summary-scene.fxml"));

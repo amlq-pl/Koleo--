@@ -99,10 +99,15 @@ public class AccountSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        ActiveTickets.getChildren().removeAll();
-        NonActiveTickets.getChildren().removeAll();
-        ActiveLongTerm.getChildren().removeAll();
-        NonActiveLongTerm.getChildren().removeAll();
+        System.out.println(activeTickets);
+        System.out.println(activeLongTerm);
+        System.out.println(nonActiveTickets);
+        System.out.println(nonActiveLongTerm);
+
+        ActiveTickets.getChildren().clear();
+        NonActiveTickets.getChildren().clear();
+        ActiveLongTerm.getChildren().clear();
+        NonActiveLongTerm.getChildren().clear();
 
 
         System.out.println(activeLongTerm);
@@ -113,7 +118,7 @@ public class AccountSceneController implements Initializable {
         });
 
         activeLongTerm.forEach(c -> {
-            HistoryLongTicketPane pane = new HistoryLongTicketPane(c);
+            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this);
             ActiveLongTerm.getChildren().addAll(pane);
         });
 
@@ -123,7 +128,7 @@ public class AccountSceneController implements Initializable {
         });
 
         nonActiveLongTerm.forEach(c -> {
-            HistoryLongTicketPane pane = new HistoryLongTicketPane(c);
+            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this);
             NonActiveLongTerm.getChildren().addAll(pane);
         });
     }
