@@ -11,3 +11,4 @@ python3 zamowienia_gen.py
 python3 cennik_biletow_okresowych_gen.py
 python3 bilety_zamowienia_gen.py
 python3 bilety_okresowe_gen.py
+python3 bilety_jednorazowe_gen.py

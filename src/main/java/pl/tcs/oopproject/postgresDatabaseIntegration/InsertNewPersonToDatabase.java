@@ -12,7 +12,7 @@ public class InsertNewPersonToDatabase implements InsertNewPersonToDatabaseInter
     @Override
     public boolean insert(Person p, String login, String password) throws SQLException {
         PreparedStatement ps;
-        if(password==null){
+        if (password == null) {
             ps = DB.connection.prepareStatement("insert into uzytkownicy(imie, nazwisko, data_urodzenia, email, nr_telefonu, login, haslo) values(?, ?, ?, ?, ?, ?, null);");
             ps.setString(1, p.getName());
             ps.setString(2, p.getSurname());
@@ -20,7 +20,7 @@ public class InsertNewPersonToDatabase implements InsertNewPersonToDatabaseInter
             ps.setString(4, p.getEmailAddress());
             ps.setString(5, p.getTelephoneNumber());
             ps.setString(6, login);
-        }else{
+        } else {
             ps = DB.connection.prepareStatement("insert into uzytkownicy(imie, nazwisko, data_urodzenia, email, nr_telefonu, login, haslo) values(?, ?, ?, ?, ?, ?, ?);");
             ps.setString(1, p.getName());
             ps.setString(2, p.getSurname());
@@ -28,9 +28,8 @@ public class InsertNewPersonToDatabase implements InsertNewPersonToDatabaseInter
             ps.setString(4, p.getEmailAddress());
             ps.setString(5, p.getTelephoneNumber());
             ps.setString(6, login);
-            ps.setInt(7,password.hashCode());
+            ps.setInt(7, password.hashCode());
         }
-
         return ps.executeUpdate() == 1;
     }
 }
