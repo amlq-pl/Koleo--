@@ -103,6 +103,13 @@ public class TrainSearchSceneController implements Initializable {
     }
 
     public void ConfirmButtonClick() throws SQLException {
+        if (DepStation.valueProperty().isNull().get() || ArrStation.valueProperty().isNull().get() || ConnectionDate.valueProperty().isNull().get() || HourPicker.valueProperty().isNull().get()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("Pola nie mogą być puste");
+            a.showAndWait();
+            return;
+        }
+
         if (!ConnectionList.isEmpty()) ConnectionList.clear();
         // TODO: add validation using validator FX or something like this
 
@@ -124,6 +131,7 @@ public class TrainSearchSceneController implements Initializable {
     public void GoBackButtonClick() {
         if (ActiveUser.getActiveUser() != null) {
             ActiveUser.logOut();
+            basket.basketClear();
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("WYLOGOWANO Z KONTA");
             a.showAndWait();

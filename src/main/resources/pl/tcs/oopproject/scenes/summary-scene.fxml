@@ -8,14 +8,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.SummarySceneController">
    <children>
       <BorderPane layoutX="389.0" layoutY="235.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
-                <Button onAction="#ExitButtonClick" fx:id="CloseButton" mnemonicParsing="false">
+                <Button fx:id="CloseButton" mnemonicParsing="false" onAction="#ExitButtonClick">
                      <graphic>
                         <FontAwesomeIconView glyphName="REMOVE" />
                      </graphic>
@@ -26,7 +25,7 @@
          <bottom>
             <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
-                <Button onAction="#ConfirmButtonClick" fx:id="ConfirmButton" mnemonicParsing="false" text="Gotowe" />
+                <Button fx:id="ConfirmButton" mnemonicParsing="false" onAction="#ConfirmButtonClick" text="Gotowe" />
               </items>
             </ToolBar>
          </bottom>

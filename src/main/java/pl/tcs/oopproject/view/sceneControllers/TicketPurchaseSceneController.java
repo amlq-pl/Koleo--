@@ -10,10 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
 
+import pl.tcs.oopproject.model.assignedSeat.AssignedSeat;
 import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
@@ -87,6 +89,19 @@ public class TicketPurchaseSceneController implements Initializable {
             }
         }
 
+        for (TicketItemContainer ticketItemContainer : ticketContainers) {
+            for (AssignedSeat seat : ticketItemContainer.getAssignedSeats().seatList()) {
+                if (seat == null) {
+                    ticketItemContainer.setStyle("-fx-border-color: red");
+                    Alert a = new Alert(Alert.AlertType.ERROR);
+                    a.setContentText("Na ten przejazd nie ma dostępnych miejsc");
+                    a.showAndWait();
+                    ticketItemContainer.setStyle("-fx-border-color: black");
+                    return;
+                }
+            }
+        }
+
         ArrayList<Discount> discounts = new ArrayList<>();
         ArrayList<Voucher> vouchers = new ArrayList<>();
         ArrayList<Details> details = new ArrayList<>();
@@ -128,6 +143,7 @@ public class TicketPurchaseSceneController implements Initializable {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setContentText("BILETY ZAKUPIONO POMYŚLNIE");
         a.showAndWait();
+        App.basket.basketClear();
     }
 
     public void BackButtonClick() {

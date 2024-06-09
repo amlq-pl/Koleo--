@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.history.History;
 import pl.tcs.oopproject.model.history.HistoryLongTermTicket;
 import pl.tcs.oopproject.model.history.HistorySingleJourneyTicket;
@@ -149,6 +150,7 @@ public class AccountSceneController implements Initializable {
     public void LogOutButtonClick() {
         Stage thisStage = (Stage) Name.getScene().getWindow();
         thisStage.close();
+        App.basket.basketClear();
         ActiveUser.logOut();
         Stage newStage = new Stage();
         newStage.setScene(ViewController.getLandingScene());

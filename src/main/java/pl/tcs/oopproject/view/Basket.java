@@ -14,4 +14,10 @@ public class Basket {
 
     public Basket() {
     }
+
+    public void basketClear() {
+        connectionList.clear();
+        basketItems.clear();
+        size.setValue(0);
+    }
 }

@@ -133,7 +133,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                            <children>
-                              <Button onAction="#LogOutButtonClick" mnemonicParsing="false" text="WYLOGUJ SIĘ" />
+                              <Button mnemonicParsing="false" onAction="#LogOutButtonClick" text="WYLOGUJ SIĘ" />
                            </children>
                            <padding>
                               <Insets left="10.0" />
@@ -141,12 +141,12 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
                            <children>
-                              <Button onAction="#BackButtonClick" mnemonicParsing="false">
+                              <Button mnemonicParsing="false" onAction="#BackButtonClick">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="ARROW_LEFT" />
                                  </graphic>
                               </Button>
-                              <Button onAction="#CloseButtonClick" mnemonicParsing="false">
+                              <Button mnemonicParsing="false" onAction="#CloseButtonClick">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="REMOVE" />
                                  </graphic>

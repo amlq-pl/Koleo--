@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.LongTermTicketSceneController">
@@ -38,14 +39,30 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Czas biletu" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="TicketCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Początkowa data" GridPane.rowIndex="3" />
-                        <DatePicker fx:id="StartDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Ulga" />
-                        <Label text="Voucher" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="DiscountCombo" prefWidth="150.0" GridPane.columnIndex="1" />
-                        <ComboBox fx:id="VoucherCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Czas biletu" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="TicketCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label text="Początkowa data" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="StartDate" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <Label text="Ulga" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="Voucher" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="DiscountCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <ComboBox fx:id="VoucherCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
