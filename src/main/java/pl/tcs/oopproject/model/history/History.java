@@ -76,9 +76,13 @@ public class History {
 			if(t.id() == ticket.id()) {
 				ticket.refundTicket();
 				archivedLongTermTickets.add(t);
-				activeLongTermTickets.remove(t);
 			}
 		}
+		for(HistoryLongTermTicket t : archivedLongTermTickets) {
+			if(t.id() == ticket.id())
+				activeLongTermTickets.remove(t);
+		}
+		
 		return true;
 	}
 	
@@ -91,9 +95,14 @@ public class History {
 			if(t.id() == ticket.id()) {
 				ticket.refundTicket();
 				archivedSingleJourneyTickets.add(t);
-				activeSingleJourneyTickets.remove(t);
 			}
 		}
+		
+		for (HistorySingleJourneyTicket t : archivedSingleJourneyTickets) {
+			if(t.id() == ticket.id())
+				activeSingleJourneyTickets.remove(t);
+		}
+		
 		return true;
 	}
 	
