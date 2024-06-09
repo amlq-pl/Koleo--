@@ -35,8 +35,9 @@
                   <Label fx:id="DurationLabel" text="Label" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2">
                <children>
+                  <Label fx:id="CompanyLabel" text="Label" />
                   <Label fx:id="CostLabel" text="Label" />
                </children>
             </VBox>
