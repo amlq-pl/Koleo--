@@ -10,25 +10,25 @@ import pl.tcs.oopproject.model.station.Station;
 import java.time.format.DateTimeFormatter;
 
 public class BasicStationPane extends AnchorPane {
-	@FXML
-	private Label StationName;
-	@FXML
-	private Label ArrDate;
-	@FXML
-	private Label DepDate;
-	
-	public BasicStationPane(Station station) {
-		FXMLLoader loader = new FXMLLoader(App.class.getResource("components/basic-station-pane.fxml"));
-		loader.setRoot(this);
-		loader.setController(this);
-		
-		try {
-			loader.load();
-			StationName.textProperty().setValue(station.town());
-			ArrDate.textProperty().setValue(station.arrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-			DepDate.textProperty().setValue(station.departureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    @FXML
+    private Label StationName;
+    @FXML
+    private Label ArrDate;
+    @FXML
+    private Label DepDate;
+
+    public BasicStationPane(Station station) {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("components/basic-station-pane.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+
+        try {
+            loader.load();
+            StationName.textProperty().setValue(station.town());
+            ArrDate.textProperty().setValue(station.arrivalTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+            DepDate.textProperty().setValue(station.departureTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

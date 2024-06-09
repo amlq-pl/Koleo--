@@ -39,7 +39,7 @@ public class UserProfileUpdater implements UpdateUserProfile {
         PreparedStatement preparedStatement = DB.connection.prepareStatement("update klienci set email = ? where id_klienta = ?");
         preparedStatement.setString(1, email);
         preparedStatement.setInt(2, getIdKlienta(login));
-        return preparedStatement.executeUpdate()==1;
+        return preparedStatement.executeUpdate() == 1;
     }
 
     @Override

@@ -14,15 +14,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface CreateOrRefactorTicket {
-	// RETURN ID OF THE TICKET
-	ArrayList<LongTermTrainTicket> saveLongTermTicket(ArrayList<LocalDate> startDate, ArrayList<Discount> discount, ArrayList<Voucher> voucher, String login, ArrayList<LongTermTicketType> ticketType, ArrayList<Person> person) throws SQLException;
-	
-	/**
-	 * the method has to return ArrayList of SingleUseTickets (Person, voucher, discount, details, ArrayList<TrainsAssignedSeats>  (each seat has getTrain)
-	 */
-	ArrayList<SingleJourneyTrainTicket> saveSingleJourneyTicket(ArrayList<Person> person, ArrayList<Discount> discount, ArrayList<Voucher> voucher, ArrayList<Details> details, ArrayList<TrainsAssignedSeats> seats, String login) throws SQLException;
-	
-	boolean returnSingleJourneyTrainTicket(int id) throws SQLException;
-	
-	boolean returnLongTermTrainTicket(int id) throws SQLException;
+    // RETURN ID OF THE TICKET
+    ArrayList<LongTermTrainTicket> saveLongTermTicket(ArrayList<LocalDate> startDate, ArrayList<Discount> discount, ArrayList<Voucher> voucher, String login, ArrayList<LongTermTicketType> ticketType, ArrayList<Person> person) throws SQLException;
+
+    /**
+     * the method has to return ArrayList of SingleUseTickets (Person, voucher, discount, details, ArrayList<TrainsAssignedSeats>  (each seat has getTrain)
+     */
+    ArrayList<SingleJourneyTrainTicket> saveSingleJourneyTicket(ArrayList<Person> person, ArrayList<Discount> discount, ArrayList<Voucher> voucher, ArrayList<Details> details, ArrayList<TrainsAssignedSeats> seats, String login) throws SQLException;
+
+    boolean returnSingleJourneyTrainTicket(int id) throws SQLException;
+
+    boolean returnLongTermTrainTicket(int id) throws SQLException;
 }

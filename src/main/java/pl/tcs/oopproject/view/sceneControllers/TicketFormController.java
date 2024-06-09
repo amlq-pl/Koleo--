@@ -3,7 +3,6 @@ package pl.tcs.oopproject.view.sceneControllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -11,9 +10,7 @@ import net.synedra.validatorfx.Validator;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.exception.*;
 import pl.tcs.oopproject.model.users.Person;
-import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.view.componentControllers.TicketItemContainer;
-import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 import pl.tcs.oopproject.viewmodel.users.PersonFactory;
 
 import java.net.URL;
@@ -21,7 +18,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class TicketFormController extends AnchorPane implements Initializable {
-    private TicketItemContainer item;
+    private final TicketItemContainer item;
     private final Validator validator = new Validator();
     @FXML
     public TextField NameTextField;
@@ -141,6 +138,7 @@ public class TicketFormController extends AnchorPane implements Initializable {
             ErrorLabel.setText("Zaznaczone pola nie mogą być puste");
         }
     }
+
     @FXML
     public void BackButtonClick() {
 

@@ -6,7 +6,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -72,7 +71,7 @@ public class TrainSearchSceneController implements Initializable {
         return LocalDateTime.of(tempLocalDate.getYear(),
                 tempLocalDate.getMonth(),
                 tempLocalDate.getDayOfMonth(),
-                Integer.parseInt(HourPicker.getValue().substring(0,2)),
+                Integer.parseInt(HourPicker.getValue().substring(0, 2)),
                 Integer.parseInt(HourPicker.getValue().substring(3, 5)));
     }
 
@@ -124,10 +123,11 @@ public class TrainSearchSceneController implements Initializable {
             return;
         }
 
-        TrainConnectionFinder finder =  TrainConnectionFinder.getConnectionFinder(departure, arrival, tempLocalDateTime);
+        TrainConnectionFinder finder = TrainConnectionFinder.getConnectionFinder(departure, arrival, tempLocalDateTime);
 
         addAllPanes(finder);
     }
+
     public void GoBackButtonClick() {
         if (ActiveUser.getActiveUser() != null) {
             ActiveUser.logOut();

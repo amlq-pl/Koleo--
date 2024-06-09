@@ -19,8 +19,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class HistorySingleTicketPane extends AnchorPane implements Initializable {
-    private HistorySingleJourneyTicket ticket;
-    private AccountSceneController controller;
+    private final HistorySingleJourneyTicket ticket;
+    private final AccountSceneController controller;
     public BooleanProperty isRefundable = new SimpleBooleanProperty();
     @FXML
     private Label IdLabel;
@@ -44,6 +44,7 @@ public class HistorySingleTicketPane extends AnchorPane implements Initializable
     private Button RefundButton;
     @FXML
     private VBox ButtonContainer;
+
     public HistorySingleTicketPane(HistorySingleJourneyTicket ticket, AccountSceneController controller, boolean refundable) {
         this.ticket = ticket;
         this.controller = controller;

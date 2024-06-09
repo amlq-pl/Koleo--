@@ -3,23 +3,19 @@ package pl.tcs.oopproject.view.sceneControllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
-
 import pl.tcs.oopproject.model.assignedSeat.AssignedSeat;
 import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
-import pl.tcs.oopproject.model.exception.AllTrainsAlreadyDepartedException;
 import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket;
 import pl.tcs.oopproject.model.users.Person;
@@ -32,7 +28,6 @@ import pl.tcs.oopproject.viewmodel.tickets.TicketFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 

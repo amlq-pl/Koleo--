@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -24,10 +23,8 @@ import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.view.sceneControllers.TicketFormController;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
-import pl.tcs.oopproject.viewmodel.users.PersonFactory;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;

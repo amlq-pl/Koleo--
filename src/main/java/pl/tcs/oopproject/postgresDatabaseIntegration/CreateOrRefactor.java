@@ -62,14 +62,14 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
                 id_zamowienia = insertIntoZamowieniaByEmail(LocalDateTime.now(), person.get(i).getEmailAddress());
             }
             int idBiletyJednorazoweZamowienia = insertIntoBiletyJednorazoweZamowienia(id_zamowienia, extractIdUlgi(discount.get(i)), extractIdRabatu(voucher.get(i)));
-            ArrayList<String> changeStations=new ArrayList<>();
+            ArrayList<String> changeStations = new ArrayList<>();
             changeStations.add(seats.get(i).getConnection().originStation().town());
-            for(Station station:seats.get(i).getConnection().transferStations()){
+            for (Station station : seats.get(i).getConnection().transferStations()) {
                 changeStations.add(station.town());
             }
             changeStations.add(seats.get(i).getConnection().destinationStation().town());
             for (int j = 0; j < seats.get(i).getConnection().trains().size(); j++) {
-                insertSingleTicketIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia, seats.get(i).seatList().get(j), seats.get(i).getConnection().trains().get(j), getIdPodrozujacegoByEmail(person.get(i).getEmailAddress()), extractIdSzczegolow(details.get(i)),changeStations.get(j),changeStations.get(j+1));
+                insertSingleTicketIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia, seats.get(i).seatList().get(j), seats.get(i).getConnection().trains().get(j), getIdPodrozujacegoByEmail(person.get(i).getEmailAddress()), extractIdSzczegolow(details.get(i)), changeStations.get(j), changeStations.get(j + 1));
             }
             ticketsToReturn.add(new SingleJourneyTrainTicket(seats.get(i), discount.get(i), voucher.get(i), idBiletyJednorazoweZamowienia, details.get(i), seats.get(i).getConnection(), person.get(i)));
         }
@@ -100,18 +100,18 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
         return rs.getInt(1);
     }
 
-    private void insertSingleTicketIntoBiletyJednorazowe(int idBiletyJednorazoweZamowienia, AssignedSeat assignedSeat, ScheduledTrain scheduledTrain, int idPodroznika, int idDetails, String startStation,String endStation) throws SQLException {
+    private void insertSingleTicketIntoBiletyJednorazowe(int idBiletyJednorazoweZamowienia, AssignedSeat assignedSeat, ScheduledTrain scheduledTrain, int idPodroznika, int idDetails, String startStation, String endStation) throws SQLException {
         PreparedStatement ps = DB.connection.prepareStatement("select sp.numer_stacji from przejazdy prze join trasy_przewoznicy tp on prze.id_trasy_przewoznika = tp.id_trasy_przewoznika " +
                 "join trasy t on tp.id_trasy = t.id_trasy join stacje_posrednie sp on t.id_trasy = sp.id_trasy join stacje s on sp.id_stacji = s.id_stacji " +
                 "where prze.id_przejazdu=? and s.nazwa=?");
-        ps.setInt(1,scheduledTrain.getNumber());
+        ps.setInt(1, scheduledTrain.getNumber());
         ps.setString(2, scheduledTrain.getStation(0).town());
         ResultSet rs = ps.executeQuery();
         rs.next();
-        int offset=rs.getInt(1)-1;
+        int offset = rs.getInt(1) - 1;
 
-        insertIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia, scheduledTrain.getNumber(), idPodroznika, scheduledTrain.getIndexOfStation(startStation)+offset,
-                scheduledTrain.getIndexOfStation(endStation)+offset, assignedSeat.carriage().number(), assignedSeat.seat().number(), idDetails);
+        insertIntoBiletyJednorazowe(idBiletyJednorazoweZamowienia, scheduledTrain.getNumber(), idPodroznika, scheduledTrain.getIndexOfStation(startStation) + offset,
+                scheduledTrain.getIndexOfStation(endStation) + offset, assignedSeat.carriage().number(), assignedSeat.seat().number(), idDetails);
     }
 
 
@@ -223,8 +223,8 @@ public class CreateOrRefactor implements CreateOrRefactorTicket {
         ps.setInt(1, idBiletyJednorazoweZamowienia);
         ps.setInt(2, idPrzejazdu);
         ps.setInt(3, idPodrozujacego);
-        ps.setInt(4, startStation+1);
-        ps.setInt(5, endStation+1);
+        ps.setInt(4, startStation + 1);
+        ps.setInt(5, endStation + 1);
         ps.setInt(6, nrWagonu);
         ps.setInt(7, nrMiejsca);
         ps.setInt(8, idSzegolow);

@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.assignedSeat.AssignedSeat;
@@ -29,9 +28,10 @@ public class TicketItem extends AnchorPane implements Initializable {
     private Label TrainName;
     @FXML
     private Label Seat;
-    private ArrayList<Station> stations;
-    private ScheduledTrain train;
+    private final ArrayList<Station> stations;
+    private final ScheduledTrain train;
     AssignedSeat seat;
+
     public TicketItem(ArrayList<Station> stationList, AssignedSeat seat, ScheduledTrain train) {
         this.stations = stationList;
         this.seat = seat;
@@ -54,8 +54,8 @@ public class TicketItem extends AnchorPane implements Initializable {
         DepHour.textProperty().setValue(stations.get(0)
                 .departureTime()
                 .format(DateTimeFormatter.ofPattern("HH:mm")));
-        ArrStation.textProperty().setValue(stations.get(stations.size()-1).town());
-        ArrHour.textProperty().setValue(stations.get(stations.size()-1)
+        ArrStation.textProperty().setValue(stations.get(stations.size() - 1).town());
+        ArrHour.textProperty().setValue(stations.get(stations.size() - 1)
                 .arrivalTime()
                 .format(DateTimeFormatter.ofPattern("HH:mm")));
         TrainName.textProperty().setValue(train.getCompany() + " " + train.getNumber());

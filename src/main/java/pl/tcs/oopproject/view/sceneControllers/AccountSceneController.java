@@ -1,6 +1,5 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -83,6 +82,7 @@ public class AccountSceneController implements Initializable {
         CustomFormPassword form = new CustomFormPassword();
         showStage(form);
     }
+
     private void showStage(Parent node) {
         Stage stage = new Stage();
         Scene scene = new Scene(node);

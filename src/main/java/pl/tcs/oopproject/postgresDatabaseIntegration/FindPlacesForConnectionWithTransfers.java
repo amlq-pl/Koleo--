@@ -1,13 +1,13 @@
 package pl.tcs.oopproject.postgresDatabaseIntegration;
 
+import pl.tcs.oopproject.model.assignedSeat.AssignedSeat;
+import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
 import pl.tcs.oopproject.model.carriage.Carriage;
 import pl.tcs.oopproject.model.carriage.CarriageClass;
 import pl.tcs.oopproject.model.carriage.CarriageType;
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.model.connection.ScheduledTrain;
 import pl.tcs.oopproject.model.databaseIntegration.FindPlacesForConnectionWithTransfersInterface;
-import pl.tcs.oopproject.model.assignedSeat.TrainsAssignedSeats;
-import pl.tcs.oopproject.model.assignedSeat.AssignedSeat;
 import pl.tcs.oopproject.model.seat.Seat;
 import pl.tcs.oopproject.model.seat.SeatType;
 

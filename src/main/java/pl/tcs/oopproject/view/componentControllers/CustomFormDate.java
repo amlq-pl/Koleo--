@@ -1,27 +1,25 @@
 package pl.tcs.oopproject.view.componentControllers;
 
-import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.history.UserProfileEditor;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class CustomFormDate extends AnchorPane implements Initializable {
     private final StringProperty text;
-    private UserProfileEditor editor = new UserProfileEditor();
+    private final UserProfileEditor editor = new UserProfileEditor();
     @FXML
     private DatePicker NewDate;
+
     public CustomFormDate(StringProperty text) {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/custom-form-date.fxml"));
         loader.setRoot(this);

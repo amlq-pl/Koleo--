@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public interface GetDirectConnectionsInTimeframeInterface {
-	ArrayList<ScheduledTrain> getDirectConnectionsInTimeframe(LocalDateTime startDate, LocalDateTime endDate) throws SQLException;
+    ArrayList<ScheduledTrain> getDirectConnectionsInTimeframe(LocalDateTime startDate, LocalDateTime endDate) throws SQLException;
 }

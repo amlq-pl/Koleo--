@@ -17,13 +17,14 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CustomFormString extends AnchorPane implements Initializable {
-    private StringProperty property;
-    private String type;
-    private UserProfileEditor editor = new UserProfileEditor();
+    private final StringProperty property;
+    private final String type;
+    private final UserProfileEditor editor = new UserProfileEditor();
     @FXML
     private Label CustomText;
     @FXML
     private TextField NewInfo;
+
     public CustomFormString(String type, StringProperty property) {
         this.type = type;
         this.property = property;

@@ -17,11 +17,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasketItem extends AnchorPane{
+public class BasketItem extends AnchorPane {
     public MultiStopRoute connection;
     public IntegerProperty count = new SimpleIntegerProperty();
     public int update = 0;
-    private Basket basket = App.basket;
+    private final Basket basket = App.basket;
     @FXML
     private Spinner<Integer> Count;
     @FXML

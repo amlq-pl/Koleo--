@@ -1,6 +1,5 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;

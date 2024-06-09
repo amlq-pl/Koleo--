@@ -58,14 +58,14 @@ public class TicketGet implements TicketGetter {
                 discount = new Discount(rs.getString("u_nazwa"), rs.getDouble("u_znizka"));
             }
             refunded = rs.getString("timestamp_zwrotu") != null;
-            numOfStations.setInt(1,rs.getInt("id_przejazdu"));
+            numOfStations.setInt(1, rs.getInt("id_przejazdu"));
             ResultSet stations = numOfStations.executeQuery();
             stations.next();
-            int liczbaMiniPrzejazdow=stations.getInt(1)-1;
+            int liczbaMiniPrzejazdow = stations.getInt(1) - 1;
             tickets.add(new HistorySingleJourneyTicket(discount, voucher, finder.getSpecificSeat(rs.getInt("id_przejazdu"), rs.getInt("nr_wagonu"), rs.getInt("nr_miejsca")),
                     getDepartureTime(rs.getInt("id_przejazdu"), rs.getInt("od_stacji")).toLocalDateTime(), getArrivalTime(rs.getInt("id_przejazdu"), rs.getInt("do_stacji")).toLocalDateTime(),
                     getStationName(rs.getInt("id_przejazdu"), rs.getInt("do_stacji")), rs.getInt("id_bilety_jednorazowe_zamowienia"), getDetails(rs.getInt("id_szczegolow")),
-                    getStationName(rs.getInt("id_przejazdu"), rs.getInt("od_stacji")), person, rs.getDouble("koszt_bazowy")*((rs.getDouble("do_stacji")-rs.getDouble("od_stacji"))/(double)liczbaMiniPrzejazdow), refunded));
+                    getStationName(rs.getInt("id_przejazdu"), rs.getInt("od_stacji")), person, rs.getDouble("koszt_bazowy") * ((rs.getDouble("do_stacji") - rs.getDouble("od_stacji")) / (double) liczbaMiniPrzejazdow), refunded));
         }
         return tickets;
     }

@@ -1,4 +1,4 @@
 package pl.tcs.oopproject.model.exception;
 
-public class AllTrainsAlreadyDepartedException extends KoleoException{
+public class AllTrainsAlreadyDepartedException extends KoleoException {
 }

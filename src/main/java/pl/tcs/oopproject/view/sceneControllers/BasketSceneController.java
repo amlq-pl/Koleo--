@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class BasketSceneController implements Initializable {
-    private Basket basket = App.basket;
+    private final Basket basket = App.basket;
     public Button GoBackButton;
     public Button CloseButton;
     public Label CostLabel;

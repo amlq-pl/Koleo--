@@ -15,13 +15,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CustomFormPassword extends AnchorPane implements Initializable {
-    private UserProfileEditor editor = new UserProfileEditor();
+    private final UserProfileEditor editor = new UserProfileEditor();
     @FXML
     private Label CustomText;
     @FXML
     private PasswordField OldPassword;
     @FXML
     private PasswordField NewPassword;
+
     public CustomFormPassword() {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/custom-form-password.fxml"));
         loader.setRoot(this);

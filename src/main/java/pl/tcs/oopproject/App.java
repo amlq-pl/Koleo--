@@ -14,49 +14,50 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class App extends Application {
-	public static ArrayList<String> Stations;
-	public static ArrayList<Discount> Discounts;
-	public static ArrayList<Voucher> Vouchers;
-	public static ArrayList<Addition> Additions;
-	public static ArrayList<LongTermTicketType> LongTermTicketTypes;
-	public static Discount DEFAULT_DISCOUNT;
-	public static Voucher DEFAULT_VOUCHER;
-	private final Checkers checkers = new Checkers();
+    public static ArrayList<String> Stations;
+    public static ArrayList<Discount> Discounts;
+    public static ArrayList<Voucher> Vouchers;
+    public static ArrayList<Addition> Additions;
+    public static ArrayList<LongTermTicketType> LongTermTicketTypes;
+    public static Discount DEFAULT_DISCOUNT;
+    public static Voucher DEFAULT_VOUCHER;
+    private final Checkers checkers = new Checkers();
 
-	public static Basket basket = new Basket();
-	{
-		try {
-			Stations = checkers.getAllStations();
-			Discounts = checkers.getAllDiscounts();
-			Vouchers = checkers.getAllVouchers();
-			Additions = checkers.getAllAdditions();
-			LongTermTicketTypes = checkers.getAllLongTermTicketTypes();
+    public static Basket basket = new Basket();
 
-			for (Discount d : Discounts) {
-				if (d.discount().equals("Normalny")) {
-					DEFAULT_DISCOUNT = d;
-					break;
-				}
-			}
+    {
+        try {
+            Stations = checkers.getAllStations();
+            Discounts = checkers.getAllDiscounts();
+            Vouchers = checkers.getAllVouchers();
+            Additions = checkers.getAllAdditions();
+            LongTermTicketTypes = checkers.getAllLongTermTicketTypes();
 
-			for (Voucher v : Vouchers) {
-				if (v.discount().equals("Brak zniżki")) {
-					DEFAULT_VOUCHER = v;
-					break;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void main(String[] args) {
-		launch();
-	}
-	
-	@Override
-	public void start(Stage stage) {
-		stage.setScene(ViewController.getLandingScene());
-		stage.show();
-	}
+            for (Discount d : Discounts) {
+                if (d.discount().equals("Normalny")) {
+                    DEFAULT_DISCOUNT = d;
+                    break;
+                }
+            }
+
+            for (Voucher v : Vouchers) {
+                if (v.discount().equals("Brak zniżki")) {
+                    DEFAULT_VOUCHER = v;
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        stage.setScene(ViewController.getLandingScene());
+        stage.show();
+    }
 }

@@ -10,7 +10,6 @@ import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.ticket.LongTermTicketType;
-import pl.tcs.oopproject.model.ticket.LongTermTrainTicket;
 import pl.tcs.oopproject.viewmodel.tickets.TicketFactory;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 

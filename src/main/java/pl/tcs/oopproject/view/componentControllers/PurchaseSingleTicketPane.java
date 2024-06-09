@@ -41,6 +41,7 @@ public class PurchaseSingleTicketPane extends AnchorPane implements Initializabl
     private Label VoucherLabel;
     @FXML
     private Button DownloadButton;
+
     public PurchaseSingleTicketPane(SingleJourneyTrainTicket ticket) {
         this.ticket = ticket;
 

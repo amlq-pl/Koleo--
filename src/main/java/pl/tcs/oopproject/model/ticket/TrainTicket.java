@@ -8,13 +8,15 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public interface TrainTicket {
-	Price cost() throws SQLException;
-	boolean isActive();
-	Discount appliedDiscount();
-	
-	Voucher appliedVoucher();
-	
-	int id();
-	
-	LocalDateTime purchaseDate();
+    Price cost() throws SQLException;
+
+    boolean isActive();
+
+    Discount appliedDiscount();
+
+    Voucher appliedVoucher();
+
+    int id();
+
+    LocalDateTime purchaseDate();
 }
