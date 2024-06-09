@@ -14,6 +14,6 @@ public record LongTermTicketType(Period period, PricePLN cost, String company) {
 		int days = period.getDays();
 		
 		String readableString = years + " R, " + months + " M, " + days + " D";
-		return "okres " + readableString +  "\n koszt: " + cost.value();
+		return "okres " + readableString +  "\n koszt " + cost.value() + "\n przewoźnik " + company;
 	}
 }
