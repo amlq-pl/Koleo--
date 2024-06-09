@@ -33,6 +33,7 @@ public class TicketGet implements TicketGetter {
                 "left join ulgi u on bjz.id_ulgi = u.id_ulgi " +
                 "left join rabaty r on bjz.id_rabatu = r.id_rabatu " +
                 "where ko.login=?;");
+        PreparedStatement numOfStations = DB.connection.prepareStatement("select howmanystations(?)");
         PreparedStatement getPodroznik = DB.connection.prepareStatement("select * from klienci kl where id_klienta=?");
         ps.setString(1, login);
         ResultSet rs = ps.executeQuery();
@@ -57,10 +58,14 @@ public class TicketGet implements TicketGetter {
                 discount = new Discount(rs.getString("u_nazwa"), rs.getDouble("u_znizka"));
             }
             refunded = rs.getString("timestamp_zwrotu") != null;
+            numOfStations.setInt(1,rs.getInt("id_przejazdu"));
+            ResultSet stations = numOfStations.executeQuery();
+            stations.next();
+            int liczbaMiniPrzejazdow=stations.getInt(1)-1;
             tickets.add(new HistorySingleJourneyTicket(discount, voucher, finder.getSpecificSeat(rs.getInt("id_przejazdu"), rs.getInt("nr_wagonu"), rs.getInt("nr_miejsca")),
-                    getDepartureTime(rs.getInt("id_przejazdu"), rs.getInt("od_stacji")).toLocalDateTime(), getArrivalTime(rs.getInt("id_przejazdu"), rs.getInt("od_stacji")).toLocalDateTime(),
+                    getDepartureTime(rs.getInt("id_przejazdu"), rs.getInt("od_stacji")).toLocalDateTime(), getArrivalTime(rs.getInt("id_przejazdu"), rs.getInt("do_stacji")).toLocalDateTime(),
                     getStationName(rs.getInt("id_przejazdu"), rs.getInt("od_stacji")), rs.getInt("id_bilety_jednorazowe_zamowienia"), getDetails(rs.getInt("id_szczegolow")),
-                    getStationName(rs.getInt("id_przejazdu"), rs.getInt("do_stacji")), person, rs.getDouble("koszt_bazowy"), refunded));
+                    getStationName(rs.getInt("id_przejazdu"), rs.getInt("do_stacji")), person, rs.getDouble("koszt_bazowy")*((rs.getDouble("do_stacji")-rs.getDouble("od_stacji"))/(double)liczbaMiniPrzejazdow), refunded));
         }
         return tickets;
     }

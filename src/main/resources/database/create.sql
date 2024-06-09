@@ -215,6 +215,19 @@ begin
 end;
 $$ language plpgsql;
 
+create or replace function howManyStations(id_przejazduu int) returns int as
+$$
+begin
+    return (select count(sp.numer_stacji)
+            from stacje_posrednie sp
+                     join trasy t on sp.id_trasy = t.id_trasy
+                     join trasy_przewoznicy on t.id_trasy = trasy_przewoznicy.id_trasy
+                     join przejazdy p on trasy_przewoznicy.id_trasy_przewoznika = p.id_trasy_przewoznika
+            where p.id_przejazdu = id_przejazduu
+            group by sp.id_trasy);
+end;
+$$ language plpgsql;
+
 -- create or replace function correctNullsStacjePosrednie() returns trigger as
 -- $$
 -- declare
