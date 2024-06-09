@@ -33,6 +33,7 @@ public class History {
         activeSingleJourneyTickets = new ArrayList<>();
         for (HistorySingleJourneyTicket t : singleJourneyTickets) {
             if (t.isActive()) {
+                activeSingleJourneyTickets.add(t);
             }
         }
 
