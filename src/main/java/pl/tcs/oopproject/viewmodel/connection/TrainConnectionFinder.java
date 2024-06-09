@@ -3,13 +3,11 @@ package pl.tcs.oopproject.viewmodel.connection;
 import org.jetbrains.annotations.NotNull;
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.model.connection.ScheduledTrain;
-import pl.tcs.oopproject.model.exception.AllTrainsAlreadyDepartedException;
 import pl.tcs.oopproject.model.exception.NoRouteFoundException;
 import pl.tcs.oopproject.model.station.Station;
 import pl.tcs.oopproject.postgresDatabaseIntegration.GetDirectConnectionsInTimeframe;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;

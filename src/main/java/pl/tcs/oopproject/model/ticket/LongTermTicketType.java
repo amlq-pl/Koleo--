@@ -9,6 +9,11 @@ public record LongTermTicketType(Period period, PricePLN cost, String company) {
 	
 	@Override
 	public String toString() {
-		return "okres " + period + "\n koszt: " + cost.value();
+		int years = period.getYears();
+		int months = period.getMonths();
+		int days = period.getDays();
+		
+		String readableString = years + " R, " + months + " M, " + days + " D";
+		return "okres " + readableString +  "\n koszt: " + cost.value();
 	}
 }
