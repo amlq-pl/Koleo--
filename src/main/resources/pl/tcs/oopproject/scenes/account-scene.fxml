@@ -72,7 +72,7 @@
                            <children>
                               <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="194.0" layoutY="111.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
-                                    <VBox fx:id="ActiveTickets" prefHeight="200.0" prefWidth="100.0" />
+                                    <VBox fx:id="ActiveTickets" prefHeight="569.0" prefWidth="831.0" />
                                  </content>
                               </ScrollPane>
                            </children></AnchorPane>
