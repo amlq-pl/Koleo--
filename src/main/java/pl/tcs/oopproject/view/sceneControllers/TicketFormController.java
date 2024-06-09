@@ -10,7 +10,7 @@ import net.synedra.validatorfx.Validator;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.exception.*;
 import pl.tcs.oopproject.model.users.Person;
-import pl.tcs.oopproject.view.componentControllers.TicketItemContainer;
+import pl.tcs.oopproject.view.componentControllers.ticket.TicketItemContainer;
 import pl.tcs.oopproject.viewmodel.users.PersonFactory;
 
 import java.net.URL;

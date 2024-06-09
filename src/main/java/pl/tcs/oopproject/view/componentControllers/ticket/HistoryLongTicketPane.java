@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.view.componentControllers;
+package pl.tcs.oopproject.view.componentControllers.ticket;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
-import pl.tcs.oopproject.model.history.HistorySingleJourneyTicket;
+import pl.tcs.oopproject.model.history.HistoryLongTermTicket;
 import pl.tcs.oopproject.view.sceneControllers.AccountSceneController;
 
 import java.net.URL;
@@ -18,8 +18,8 @@ import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class HistorySingleTicketPane extends AnchorPane implements Initializable {
-    private final HistorySingleJourneyTicket ticket;
+public class HistoryLongTicketPane extends AnchorPane implements Initializable {
+    private final HistoryLongTermTicket ticket;
     private final AccountSceneController controller;
     public BooleanProperty isRefundable = new SimpleBooleanProperty();
     @FXML
@@ -29,27 +29,23 @@ public class HistorySingleTicketPane extends AnchorPane implements Initializable
     @FXML
     private Label SurnameLabel;
     @FXML
-    private Label DepStationLabel;
+    private Label BeginDateLabel;
     @FXML
-    private Label DepHourLabel;
+    private Label DurationLabel;
     @FXML
-    private Label ArrStationLabel;
-    @FXML
-    private Label ArrStationHour;
-    @FXML
-    private Label SeatLabel;
+    private Label CompanyLabel;
     @FXML
     private Label CostLabel;
     @FXML
     private Button RefundButton;
     @FXML
-    private VBox ButtonContainer;
+    private VBox RefundButtonContainer;
 
-    public HistorySingleTicketPane(HistorySingleJourneyTicket ticket, AccountSceneController controller, boolean refundable) {
+    public HistoryLongTicketPane(HistoryLongTermTicket ticket, AccountSceneController controller, boolean refundable) {
         this.ticket = ticket;
         this.controller = controller;
         isRefundable.setValue(refundable);
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("components/history-single-ticket-pane.fxml"));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("components/history-long-ticket-pane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 
@@ -65,24 +61,20 @@ public class HistorySingleTicketPane extends AnchorPane implements Initializable
         IdLabel.textProperty().setValue(String.valueOf(ticket.id()));
         NameLabel.textProperty().setValue(ticket.person().getName());
         SurnameLabel.textProperty().setValue(ticket.person().getSurname());
-        DepStationLabel.textProperty().setValue(ticket.departureStation());
-        DepHourLabel.textProperty().setValue(ticket.departureTime()
-                .format(DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm")));
-        ArrStationLabel.textProperty().setValue(ticket.arrivalStation());
-        ArrStationHour.textProperty().setValue(ticket.arrivalTime()
-                .format(DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm")));
-        SeatLabel.textProperty().setValue(ticket.places().toString());
+        BeginDateLabel.textProperty().setValue(ticket.startDate().format(DateTimeFormatter.ofPattern("dd:MM:yyyy")));
+        DurationLabel.textProperty().setValue(ticket.longTermTicketType().period().toString());
+        CompanyLabel.textProperty().setValue(ticket.longTermTicketType().company());
         CostLabel.textProperty().setValue(ticket.cost().toString());
         RefundButton.visibleProperty().bindBidirectional(isRefundable);
 
-        RefundButton.setOnAction(e -> {
+        RefundButton.setOnAction(c -> {
             try {
-                controller.history.refundSingleUSeTicket(ticket);
-
-                controller.reload();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+                controller.history.refundLongTermTicket(ticket);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
+
+            controller.reload();
         });
     }
 }

@@ -11,7 +11,11 @@ import pl.tcs.oopproject.model.history.History;
 import pl.tcs.oopproject.model.history.HistoryLongTermTicket;
 import pl.tcs.oopproject.model.history.HistorySingleJourneyTicket;
 import pl.tcs.oopproject.view.ViewController;
-import pl.tcs.oopproject.view.componentControllers.*;
+import pl.tcs.oopproject.view.componentControllers.form.CustomFormDate;
+import pl.tcs.oopproject.view.componentControllers.form.CustomFormPassword;
+import pl.tcs.oopproject.view.componentControllers.form.CustomFormString;
+import pl.tcs.oopproject.view.componentControllers.ticket.HistoryLongTicketPane;
+import pl.tcs.oopproject.view.componentControllers.ticket.HistorySingleTicketPane;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;

@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.view.componentControllers;
+package pl.tcs.oopproject.view.componentControllers.ticket;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;

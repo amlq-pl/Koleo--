@@ -7,7 +7,7 @@ import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.ticket.Addition;
 import pl.tcs.oopproject.model.ticket.LongTermTicketType;
 import pl.tcs.oopproject.postgresDatabaseIntegration.Checkers;
-import pl.tcs.oopproject.view.Basket;
+import pl.tcs.oopproject.viewmodel.basket.Basket;
 import pl.tcs.oopproject.view.ViewController;
 
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.view.componentControllers;
+package pl.tcs.oopproject.view.componentControllers.station;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -17,7 +17,10 @@ import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
 import pl.tcs.oopproject.model.connection.ScheduledTrain;
 import pl.tcs.oopproject.model.station.Station;
-import pl.tcs.oopproject.view.Basket;
+import pl.tcs.oopproject.view.componentControllers.basket.BasketItem;
+import pl.tcs.oopproject.view.componentControllers.station.StationPane;
+import pl.tcs.oopproject.view.componentControllers.train.TrainPane;
+import pl.tcs.oopproject.viewmodel.basket.Basket;
 import pl.tcs.oopproject.view.ViewController;
 
 import java.net.URL;

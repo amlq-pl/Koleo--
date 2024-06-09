@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket;
 import pl.tcs.oopproject.view.ViewController;
-import pl.tcs.oopproject.view.componentControllers.PurchaseSingleTicketPane;
+import pl.tcs.oopproject.view.componentControllers.ticket.PurchaseSingleTicketPane;
 
 import java.net.URL;
 import java.util.ArrayList;

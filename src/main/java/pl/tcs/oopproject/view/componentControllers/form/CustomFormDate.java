@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.view.componentControllers;
+package pl.tcs.oopproject.view.componentControllers.form;
 
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;

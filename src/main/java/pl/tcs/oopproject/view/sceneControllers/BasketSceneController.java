@@ -10,9 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import pl.tcs.oopproject.App;
-import pl.tcs.oopproject.view.Basket;
+import pl.tcs.oopproject.viewmodel.basket.Basket;
 import pl.tcs.oopproject.view.ViewController;
-import pl.tcs.oopproject.view.componentControllers.BasketItem;
+import pl.tcs.oopproject.view.componentControllers.basket.BasketItem;
 
 import java.net.URL;
 import java.util.ResourceBundle;

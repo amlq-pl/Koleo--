@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.view.componentControllers;
+package pl.tcs.oopproject.view.componentControllers.ticket;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +21,7 @@ import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.ticket.Addition;
 import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.users.Person;
+import pl.tcs.oopproject.view.componentControllers.ticket.TicketItem;
 import pl.tcs.oopproject.view.sceneControllers.TicketFormController;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 

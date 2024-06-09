@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.view;
+package pl.tcs.oopproject.viewmodel.property;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.Property;

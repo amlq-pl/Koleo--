@@ -19,10 +19,10 @@ import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket;
 import pl.tcs.oopproject.model.users.Person;
-import pl.tcs.oopproject.view.Basket;
+import pl.tcs.oopproject.viewmodel.basket.Basket;
 import pl.tcs.oopproject.view.ViewController;
-import pl.tcs.oopproject.view.componentControllers.BasketItem;
-import pl.tcs.oopproject.view.componentControllers.TicketItemContainer;
+import pl.tcs.oopproject.view.componentControllers.basket.BasketItem;
+import pl.tcs.oopproject.view.componentControllers.ticket.TicketItemContainer;
 import pl.tcs.oopproject.viewmodel.place.PlaceFactory;
 import pl.tcs.oopproject.viewmodel.tickets.TicketFactory;
 

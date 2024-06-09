@@ -1,4 +1,4 @@
-package pl.tcs.oopproject.view.componentControllers;
+package pl.tcs.oopproject.view.componentControllers.basket;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -11,7 +11,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.AnchorPane;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
-import pl.tcs.oopproject.view.Basket;
+import pl.tcs.oopproject.viewmodel.basket.Basket;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

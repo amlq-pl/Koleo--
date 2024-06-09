@@ -19,11 +19,11 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.connection.MultiStopRoute;
-import pl.tcs.oopproject.view.Basket;
-import pl.tcs.oopproject.view.SimpleDateProperty;
+import pl.tcs.oopproject.viewmodel.basket.Basket;
+import pl.tcs.oopproject.viewmodel.property.SimpleDateProperty;
 import pl.tcs.oopproject.view.ViewController;
-import pl.tcs.oopproject.view.componentControllers.TrainPane;
-import pl.tcs.oopproject.view.componentControllers.TrainPaneFactory;
+import pl.tcs.oopproject.view.componentControllers.train.TrainPane;
+import pl.tcs.oopproject.viewmodel.train.TrainPaneFactory;
 import pl.tcs.oopproject.viewmodel.connection.TrainConnectionFinder;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 

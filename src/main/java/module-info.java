@@ -13,7 +13,6 @@ module Koleo {
 	exports pl.tcs.oopproject.viewmodel.place;
 	exports pl.tcs.oopproject.model.discount;
     opens pl.tcs.oopproject.view.sceneControllers to javafx.fxml;
-	opens pl.tcs.oopproject.view.componentControllers to javafx.fxml;
 	exports pl.tcs.oopproject.model.station;
     exports pl.tcs.oopproject.postgresDatabaseIntegration;
     opens pl.tcs.oopproject.postgresDatabaseIntegration to javafx.fxml;
@@ -27,4 +26,10 @@ module Koleo {
 	exports pl.tcs.oopproject.model.ticket;
 	exports pl.tcs.oopproject.viewmodel.tickets;
 	exports pl.tcs.oopproject.model.history;
+    opens pl.tcs.oopproject.viewmodel.train to javafx.fxml;
+	opens pl.tcs.oopproject.view.componentControllers.train to javafx.fxml;
+	opens pl.tcs.oopproject.view.componentControllers.station to javafx.fxml;
+	opens pl.tcs.oopproject.view.componentControllers.ticket to javafx.fxml;
+	opens pl.tcs.oopproject.view.componentControllers.basket to javafx.fxml;
+	opens pl.tcs.oopproject.view.componentControllers.form to javafx.fxml;
 }
