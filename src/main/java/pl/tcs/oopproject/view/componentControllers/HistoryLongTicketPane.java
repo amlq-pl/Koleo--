@@ -9,13 +9,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.history.HistoryLongTermTicket;
+import pl.tcs.oopproject.view.sceneControllers.AccountSceneController;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class HistoryLongTicketPane extends AnchorPane implements Initializable {
-    HistoryLongTermTicket ticket;
+    private HistoryLongTermTicket ticket;
+    private AccountSceneController controller;
     @FXML
     private Label IdLabel;
     @FXML
@@ -32,9 +35,9 @@ public class HistoryLongTicketPane extends AnchorPane implements Initializable {
     private Button RefundButton;
     @FXML
     private VBox RefundButtonContainer;
-    public HistoryLongTicketPane(HistoryLongTermTicket ticket) {
+    public HistoryLongTicketPane(HistoryLongTermTicket ticket, AccountSceneController controller) {
         this.ticket = ticket;
-
+        this.controller = controller;
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/history-long-ticket-pane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -51,8 +54,18 @@ public class HistoryLongTicketPane extends AnchorPane implements Initializable {
         IdLabel.textProperty().setValue(String.valueOf(ticket.id()));
         NameLabel.textProperty().setValue(ticket.person().getName());
         SurnameLabel.textProperty().setValue(ticket.person().getSurname());
-        BeginDateLabel.textProperty().setValue(ticket.startDate().format(DateTimeFormatter.ofPattern("HH:mm")));
+        BeginDateLabel.textProperty().setValue(ticket.startDate().format(DateTimeFormatter.ofPattern("dd:MM:yyyy")));
         DurationLabel.textProperty().setValue(ticket.longTermTicketType().period().toString());
         CostLabel.textProperty().setValue(ticket.cost().toString());
+
+        RefundButton.setOnAction(c -> {
+            try {
+                controller.history.refundLongTermTicket(ticket);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            controller.reload();
+        });
     }
 }

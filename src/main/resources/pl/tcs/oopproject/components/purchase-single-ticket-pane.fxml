@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -39,6 +40,7 @@
                         <Label fx:id="CostLabel" text="Label" />
                         <Label fx:id="DiscountLabel" text="Label" />
                         <Label fx:id="VoucherLabel" text="Label" />
+                  <Button fx:id="DownloadButton" mnemonicParsing="false" text="Pobierz" />
                     </children>
                 </VBox>
             </children>
