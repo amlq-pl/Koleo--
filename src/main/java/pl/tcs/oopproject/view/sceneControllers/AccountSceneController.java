@@ -1,5 +1,6 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,10 +10,8 @@ import javafx.stage.Stage;
 import pl.tcs.oopproject.model.history.History;
 import pl.tcs.oopproject.model.history.HistoryLongTermTicket;
 import pl.tcs.oopproject.model.history.HistorySingleJourneyTicket;
-import pl.tcs.oopproject.view.componentControllers.CustomFormDate;
-import pl.tcs.oopproject.view.componentControllers.CustomFormPassword;
-import pl.tcs.oopproject.view.componentControllers.CustomFormString;
-import pl.tcs.oopproject.view.componentControllers.HistorySingleTicketPane;
+import pl.tcs.oopproject.view.ViewController;
+import pl.tcs.oopproject.view.componentControllers.*;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;
@@ -46,19 +45,7 @@ public class AccountSceneController implements Initializable {
         PhoneNumber.textProperty().setValue(ActiveUser.getPerson().getTelephoneNumber());
         EmailAdress.textProperty().setValue(ActiveUser.getPerson().getEmailAddress());
 
-        try {
-            activeTickets = history.activeSingleJourneyTickets();
-            nonActiveTickets = history.archivedSingleJourneyTickets();
-            activeLongTerm = history.activeLongTermTickets();
-            nonActiveLongTerm = history.archivedLongTermTickets();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        activeTickets.forEach(c -> {
-            HistorySingleTicketPane pane = new HistorySingleTicketPane(c);
-            ActiveTickets.getChildren().addAll(pane);
-        });
+        reload();
     }
 
     public void AccountChangeButtonClick() {
@@ -100,5 +87,66 @@ public class AccountSceneController implements Initializable {
         Scene scene = new Scene(node);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void reload() {
+        try {
+            activeTickets = history.activeSingleJourneyTickets();
+            nonActiveTickets = history.archivedSingleJourneyTickets();
+            activeLongTerm = history.activeLongTermTickets();
+            nonActiveLongTerm = history.archivedLongTermTickets();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ActiveTickets.getChildren().removeAll();
+        NonActiveTickets.getChildren().removeAll();
+        ActiveLongTerm.getChildren().removeAll();
+        NonActiveLongTerm.getChildren().removeAll();
+
+
+        System.out.println(activeLongTerm);
+
+        activeTickets.forEach(c -> {
+            HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this);
+            ActiveTickets.getChildren().addAll(pane);
+        });
+
+        activeLongTerm.forEach(c -> {
+            HistoryLongTicketPane pane = new HistoryLongTicketPane(c);
+            ActiveLongTerm.getChildren().addAll(pane);
+        });
+
+        nonActiveTickets.forEach(c -> {
+            HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this);
+            NonActiveTickets.getChildren().addAll(pane);
+        });
+
+        nonActiveLongTerm.forEach(c -> {
+            HistoryLongTicketPane pane = new HistoryLongTicketPane(c);
+            NonActiveLongTerm.getChildren().addAll(pane);
+        });
+    }
+
+    public void BackButtonClick() {
+        Stage thisStage = (Stage) Name.getScene().getWindow();
+        thisStage.close();
+        Stage newStage = new Stage();
+        newStage.setScene(ViewController.getTrainSearchScene());
+        newStage.show();
+    }
+
+    public void CloseButtonClick() {
+        Stage thisStage = (Stage) Name.getScene().getWindow();
+        thisStage.close();
+    }
+
+    public void LogOutButtonClick() {
+        Stage thisStage = (Stage) Name.getScene().getWindow();
+        thisStage.close();
+        ActiveUser.logOut();
+        Stage newStage = new Stage();
+        newStage.setScene(ViewController.getLandingScene());
+        newStage.show();
     }
 }

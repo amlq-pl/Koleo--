@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import pl.tcs.oopproject.App;
 import pl.tcs.oopproject.model.history.HistorySingleJourneyTicket;
+import pl.tcs.oopproject.view.sceneControllers.AccountSceneController;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -16,7 +17,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class HistorySingleTicketPane extends AnchorPane implements Initializable {
-    HistorySingleJourneyTicket ticket;
+    private HistorySingleJourneyTicket ticket;
+    private AccountSceneController controller;
     @FXML
     private Label IdLabel;
     @FXML
@@ -37,9 +39,9 @@ public class HistorySingleTicketPane extends AnchorPane implements Initializable
     private Button RefundButton;
     @FXML
     private VBox ButtonContainer;
-    public HistorySingleTicketPane(HistorySingleJourneyTicket ticket) {
+    public HistorySingleTicketPane(HistorySingleJourneyTicket ticket, AccountSceneController controller) {
         this.ticket = ticket;
-
+        this.controller = controller;
         FXMLLoader loader = new FXMLLoader(App.class.getResource("components/history-single-ticket-pane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -66,8 +68,8 @@ public class HistorySingleTicketPane extends AnchorPane implements Initializable
 
         RefundButton.setOnAction(e -> {
             try {
-                ButtonContainer.getChildren().removeAll(RefundButton);
                 ticket.refundTicket();
+                controller.reload();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
