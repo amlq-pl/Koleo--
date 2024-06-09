@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AccountSceneController implements Initializable {
-    private final History history = new History();
+    public final History history = new History();
     ArrayList<HistorySingleJourneyTicket> activeTickets = new ArrayList<>();
     ArrayList<HistorySingleJourneyTicket> nonActiveTickets = new ArrayList<>();
     ArrayList<HistoryLongTermTicket> activeLongTerm = new ArrayList<>();
