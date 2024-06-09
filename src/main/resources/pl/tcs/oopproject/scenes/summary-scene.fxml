@@ -15,7 +15,7 @@
          <top>
             <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
-                <Button fx:id="CloseButton" mnemonicParsing="false">
+                <Button onAction="#ExitButtonClick" fx:id="CloseButton" mnemonicParsing="false">
                      <graphic>
                         <FontAwesomeIconView glyphName="REMOVE" />
                      </graphic>
@@ -26,7 +26,7 @@
          <bottom>
             <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
-                <Button fx:id="ConfirmButton" mnemonicParsing="false" text="Gotowe" />
+                <Button onAction="#ConfirmButtonClick" fx:id="ConfirmButton" mnemonicParsing="false" text="Gotowe" />
               </items>
             </ToolBar>
          </bottom>

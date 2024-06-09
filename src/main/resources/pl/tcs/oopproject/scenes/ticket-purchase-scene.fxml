@@ -14,12 +14,12 @@
          <top>
             <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: pink;">
               <items>
-                <Button mnemonicParsing="false">
+                <Button onAction="#ExitButtonClick" mnemonicParsing="false">
                      <graphic>
                         <FontAwesomeIconView glyphName="REMOVE" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false">
+                  <Button onAction="#BackButtonClick" mnemonicParsing="false">
                      <graphic>
                         <FontAwesomeIconView glyphName="ARROW_LEFT" />
                      </graphic>

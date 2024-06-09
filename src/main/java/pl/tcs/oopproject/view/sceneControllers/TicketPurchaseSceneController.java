@@ -22,6 +22,7 @@ import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket;
 import pl.tcs.oopproject.model.users.Person;
 import pl.tcs.oopproject.view.Basket;
+import pl.tcs.oopproject.view.ViewController;
 import pl.tcs.oopproject.view.componentControllers.BasketItem;
 import pl.tcs.oopproject.view.componentControllers.TicketItemContainer;
 import pl.tcs.oopproject.viewmodel.place.PlaceFactory;
@@ -93,8 +94,6 @@ public class TicketPurchaseSceneController implements Initializable {
             persons.add(ticketItemContainer.getPerson());
         }
 
-        persons.forEach(System.out::println);
-
         try {
             ArrayList<SingleJourneyTrainTicket> ticketList = factory.createSingleJourneyTicket(discounts, vouchers, details, seats, persons);
             FXMLLoader loader = new FXMLLoader(App.class.getResource("scenes/summary-scene.fxml"));
@@ -122,5 +121,18 @@ public class TicketPurchaseSceneController implements Initializable {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setContentText("Ale eza byq dobrze iziziziziz");
         a.showAndWait();
+    }
+
+    public void BackButtonClick() {
+        Stage thisStage = (Stage) TicketContainersBox.getScene().getWindow();
+        thisStage.close();
+        Stage newStage = new Stage();
+        newStage.setScene(ViewController.getBasketScene());
+        newStage.show();
+    }
+
+    public void ExitButtonClick() {
+        Stage thisStage = (Stage) TicketContainersBox.getScene().getWindow();
+        thisStage.close();
     }
 }

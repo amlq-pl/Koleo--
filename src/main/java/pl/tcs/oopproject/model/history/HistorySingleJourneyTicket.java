@@ -71,9 +71,7 @@ public class HistorySingleJourneyTicket{
 	}
 	
 	public boolean refundTicket() throws SQLException {
-		CreateOrRefactor refactor = new CreateOrRefactor();
 		if (refunded()) return false;
-		refactor.returnSingleJourneyTrainTicket(id);
 		refunded = true;
 		return true;
 	}

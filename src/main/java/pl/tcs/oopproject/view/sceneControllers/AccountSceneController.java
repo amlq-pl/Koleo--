@@ -1,5 +1,6 @@
 package pl.tcs.oopproject.view.sceneControllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,10 +10,8 @@ import javafx.stage.Stage;
 import pl.tcs.oopproject.model.history.History;
 import pl.tcs.oopproject.model.history.HistoryLongTermTicket;
 import pl.tcs.oopproject.model.history.HistorySingleJourneyTicket;
-import pl.tcs.oopproject.view.componentControllers.CustomFormDate;
-import pl.tcs.oopproject.view.componentControllers.CustomFormPassword;
-import pl.tcs.oopproject.view.componentControllers.CustomFormString;
-import pl.tcs.oopproject.view.componentControllers.HistorySingleTicketPane;
+import pl.tcs.oopproject.view.ViewController;
+import pl.tcs.oopproject.view.componentControllers.*;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AccountSceneController implements Initializable {
-    private final History history = new History();
+    public final History history = new History();
     ArrayList<HistorySingleJourneyTicket> activeTickets = new ArrayList<>();
     ArrayList<HistorySingleJourneyTicket> nonActiveTickets = new ArrayList<>();
     ArrayList<HistoryLongTermTicket> activeLongTerm = new ArrayList<>();
@@ -46,19 +45,7 @@ public class AccountSceneController implements Initializable {
         PhoneNumber.textProperty().setValue(ActiveUser.getPerson().getTelephoneNumber());
         EmailAdress.textProperty().setValue(ActiveUser.getPerson().getEmailAddress());
 
-        try {
-            activeTickets = history.activeSingleJourneyTickets();
-            nonActiveTickets = history.archivedSingleJourneyTickets();
-            activeLongTerm = history.activeLongTermTickets();
-            nonActiveLongTerm = history.archivedLongTermTickets();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        activeTickets.forEach(c -> {
-            HistorySingleTicketPane pane = new HistorySingleTicketPane(c);
-            ActiveTickets.getChildren().addAll(pane);
-        });
+        reload();
     }
 
     public void AccountChangeButtonClick() {
@@ -101,4 +88,71 @@ public class AccountSceneController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void reload() {
+        try {
+            activeTickets = history.activeSingleJourneyTickets();
+            nonActiveTickets = history.archivedSingleJourneyTickets();
+            activeLongTerm = history.activeLongTermTickets();
+            nonActiveLongTerm = history.archivedLongTermTickets();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(activeTickets);
+        System.out.println(activeLongTerm);
+        System.out.println(nonActiveTickets);
+        System.out.println(nonActiveLongTerm);
+
+        ActiveTickets.getChildren().clear();
+        NonActiveTickets.getChildren().clear();
+        ActiveLongTerm.getChildren().clear();
+        NonActiveLongTerm.getChildren().clear();
+
+
+        System.out.println(activeLongTerm);
+
+        activeTickets.forEach(c -> {
+            HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this);
+            ActiveTickets.getChildren().addAll(pane);
+        });
+
+        activeLongTerm.forEach(c -> {
+            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this);
+            ActiveLongTerm.getChildren().addAll(pane);
+        });
+
+        nonActiveTickets.forEach(c -> {
+            HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this);
+            NonActiveTickets.getChildren().addAll(pane);
+        });
+
+        nonActiveLongTerm.forEach(c -> {
+            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this);
+            NonActiveLongTerm.getChildren().addAll(pane);
+        });
+    }
+
+    public void BackButtonClick() {
+        Stage thisStage = (Stage) Name.getScene().getWindow();
+        thisStage.close();
+        Stage newStage = new Stage();
+        newStage.setScene(ViewController.getTrainSearchScene());
+        newStage.show();
+    }
+
+    public void CloseButtonClick() {
+        Stage thisStage = (Stage) Name.getScene().getWindow();
+        thisStage.close();
+    }
+
+    public void LogOutButtonClick() {
+        Stage thisStage = (Stage) Name.getScene().getWindow();
+        thisStage.close();
+        ActiveUser.logOut();
+        Stage newStage = new Stage();
+        newStage.setScene(ViewController.getLandingScene());
+        newStage.show();
+    }
+
 }
