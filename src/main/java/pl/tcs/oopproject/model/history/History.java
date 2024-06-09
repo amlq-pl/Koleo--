@@ -5,14 +5,15 @@ import pl.tcs.oopproject.postgresDatabaseIntegration.TicketGet;
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class History {
 	private  ArrayList<HistoryLongTermTicket> activeLongTermTickets;
 	private ArrayList<HistoryLongTermTicket> archivedLongTermTickets;
 	private ArrayList<HistorySingleJourneyTicket> activeSingleJourneyTickets;
 	private ArrayList<HistorySingleJourneyTicket> archivedSingleJourneyTickets;
-	
 	private void setData() throws SQLException {
 		TicketGet ticketGet = new TicketGet();
 		ArrayList<HistorySingleJourneyTicket> singleJourneyTickets = ticketGet.getSingleUseTickets(ActiveUser.getActiveUser());
@@ -32,8 +33,8 @@ public class History {
 		
 		activeSingleJourneyTickets = new ArrayList<>();
 		for(HistorySingleJourneyTicket t : singleJourneyTickets) {
-			if(t.isActive())
-				activeSingleJourneyTickets.add(t);
+			if(t.isActive()) {
+			}
 		}
 		
 		archivedSingleJourneyTickets = new ArrayList<>();

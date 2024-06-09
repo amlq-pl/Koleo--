@@ -27,8 +27,13 @@ public class HistorySingleJourneyTicket{
 	private final int id;
 	private final Details details;
 	private boolean refunded;
+	
+	public void setCost(PricePLN cost) {
+		this.cost = cost;
+	}
+	
 	private final Person person;
-	private final PricePLN cost;
+	private  PricePLN cost;
 	
 	public HistorySingleJourneyTicket(Discount appliedDiscount,
 	                                  Voucher appliedVoucher,
@@ -53,6 +58,7 @@ public class HistorySingleJourneyTicket{
 		this.refunded = refunded;
 		this.cost = getPricePLN(new PricePLN(cost), appliedDiscount, appliedVoucher);
 	}
+	
 	
 	public Person person() {
 		return person;
