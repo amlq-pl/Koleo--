@@ -1,7 +1,9 @@
 package pl.tcs.oopproject.model.ticket;
 
+import org.jetbrains.annotations.NotNull;
 import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Price;
+import pl.tcs.oopproject.model.discount.PricePLN;
 import pl.tcs.oopproject.model.discount.Voucher;
 import pl.tcs.oopproject.model.users.Person;
 
@@ -12,6 +14,16 @@ import java.time.Period;
 import static pl.tcs.oopproject.model.ticket.SingleJourneyTrainTicket.getPricePLN;
 
 public class LongTermTrainTicket implements TrainTicket {
+
+    public static @NotNull PricePLN getPricePLN(Price cost2, Discount appliedDiscount, Voucher appliedVoucher) {
+        double cost = cost2.value();
+        if (appliedDiscount != null)
+            cost = cost * (100 - appliedDiscount.value()) / 100;
+        if (appliedVoucher != null)
+            cost = cost * (100 - appliedVoucher.value()) / 100;
+        return new PricePLN(cost);
+    }
+
     private final LocalDate startDate;
     private final LocalDateTime purchaseDate;
     private final LongTermTicketType longTermTicketType;

@@ -6,6 +6,7 @@ import pl.tcs.oopproject.model.discount.Discount;
 import pl.tcs.oopproject.model.discount.Price;
 import pl.tcs.oopproject.model.discount.PricePLN;
 import pl.tcs.oopproject.model.discount.Voucher;
+import pl.tcs.oopproject.model.ticket.Addition;
 import pl.tcs.oopproject.model.ticket.Details;
 import pl.tcs.oopproject.model.users.Person;
 
@@ -13,8 +14,17 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class HistorySingleJourneyTicket {
-    public static @NotNull PricePLN getPricePLN(Price cost2, Discount appliedDiscount, Voucher appliedVoucher) {
-        return HistoryLongTermTicket.getPricePLN(cost2, appliedDiscount, appliedVoucher);
+    public static @NotNull PricePLN getPricePLN(Price cost2, Discount appliedDiscount, Voucher appliedVoucher, Details details) {
+        double cost = cost2.value();
+        if (appliedDiscount != null)
+            cost = cost * (100 - appliedDiscount.value()) / 100;
+        if (appliedVoucher != null)
+            cost = cost * (100 - appliedVoucher.value()) / 100;
+
+        for(Addition a : details.additions())
+            if(a.active())
+                cost += a.cost();
+        return new PricePLN(cost);
     }
 
     private final static int ticketValidityWindow = 8; //how many hours after planned arrival is ticket active
@@ -55,7 +65,7 @@ public class HistorySingleJourneyTicket {
         this.departureStation = departureStation;
         this.person = person;
         this.refunded = refunded;
-        this.cost = getPricePLN(new PricePLN(cost), appliedDiscount, appliedVoucher);
+        this.cost = getPricePLN(new PricePLN(cost), appliedDiscount, appliedVoucher, details);
     }
 
 

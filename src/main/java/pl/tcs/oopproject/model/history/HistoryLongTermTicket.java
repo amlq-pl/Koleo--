@@ -32,10 +32,6 @@ public class HistoryLongTermTicket {
         return id;
     }
 
-    public boolean isReturned() {
-        return returned;
-    }
-
     public PricePLN getCost() {
         return cost;
     }

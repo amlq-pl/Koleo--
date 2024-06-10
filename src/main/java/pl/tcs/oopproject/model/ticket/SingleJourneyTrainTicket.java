@@ -14,13 +14,20 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class SingleJourneyTrainTicket implements TrainTicket {
-    public static @NotNull PricePLN getPricePLN(Price cost2, Discount appliedDiscount, Voucher appliedVoucher) {
+   public static @NotNull PricePLN getPricePLN(Price cost2, Discount appliedDiscount, Voucher appliedVoucher, Details details, MultiStopRoute m) {
         double cost = cost2.value();
         if (appliedDiscount != null)
             cost = cost * (100 - appliedDiscount.value()) / 100;
         if (appliedVoucher != null)
             cost = cost * (100 - appliedVoucher.value()) / 100;
-        return new PricePLN(cost);
+
+        double x = 0;
+        for(Addition a : details.additions())
+            if(a.active())
+                x += a.cost();
+
+        x *= (1 + m.numberOfTransfers());
+        return new PricePLN(x + cost);
     }
 
     private final static int ticketValidityWindow = 8; //how many hours after planned arrival is ticket active
@@ -50,7 +57,7 @@ public class SingleJourneyTrainTicket implements TrainTicket {
 
     @Override
     public PricePLN cost() throws SQLException {
-        return getPricePLN(train.cost(), appliedDiscount, appliedVoucher);
+        return getPricePLN(train.cost(), appliedDiscount, appliedVoucher, details, trainsAssignedSeats.getConnection());
     }
 
     @Override

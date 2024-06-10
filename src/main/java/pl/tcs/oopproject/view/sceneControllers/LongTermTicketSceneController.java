@@ -2,6 +2,7 @@ package pl.tcs.oopproject.view.sceneControllers;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -15,6 +16,7 @@ import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class LongTermTicketSceneController implements Initializable {
@@ -34,6 +36,13 @@ public class LongTermTicketSceneController implements Initializable {
         VoucherCombo.valueProperty().setValue(App.DEFAULT_VOUCHER);
 
         BuyButton.setOnAction(c -> {
+            if (StartDate.getValue().isBefore(LocalDate.now())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Nie można kupić biletu wstecz");
+                alert.showAndWait();
+                return;
+            }
+
             TicketFactory factory = new TicketFactory();
             try {
                 factory.createLongTermTicket(TicketCombo.getValue(), DiscountCombo.getValue(), VoucherCombo.getValue(), StartDate.getValue(), ActiveUser.getPerson());

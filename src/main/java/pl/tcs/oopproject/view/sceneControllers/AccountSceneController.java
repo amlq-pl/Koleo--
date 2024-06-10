@@ -19,6 +19,8 @@ import pl.tcs.oopproject.view.componentControllers.ticket.HistorySingleTicketPan
 import pl.tcs.oopproject.viewmodel.users.ActiveUser;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -110,12 +112,13 @@ public class AccountSceneController implements Initializable {
         NonActiveLongTerm.getChildren().clear();
 
         activeTickets.forEach(c -> {
-            HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this, true);
+            HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this, !c.refunded()
+                && LocalDateTime.now().isBefore(c.departureTime()));
             ActiveTickets.getChildren().addAll(pane);
         });
 
         activeLongTerm.forEach(c -> {
-            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this, true);
+            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this, false);
             ActiveLongTerm.getChildren().addAll(pane);
         });
 
@@ -125,7 +128,8 @@ public class AccountSceneController implements Initializable {
         });
 
         nonActiveLongTerm.forEach(c -> {
-            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this, false);
+            HistoryLongTicketPane pane = new HistoryLongTicketPane(c, this, !c.refunded()
+                    && LocalDate.now().isBefore(c.startDate()));
             NonActiveLongTerm.getChildren().addAll(pane);
         });
     }

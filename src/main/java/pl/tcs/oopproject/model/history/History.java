@@ -71,15 +71,10 @@ public class History {
         CreateOrRefactor refactor = new CreateOrRefactor();
         refactor.returnLongTermTrainTicket(ticket.id());
 
-        for (HistoryLongTermTicket t : activeLongTermTickets) {
+        for (HistoryLongTermTicket t : archivedLongTermTickets) {
             if (t.id() == ticket.id()) {
                 ticket.refundTicket();
-                archivedLongTermTickets.add(t);
             }
-        }
-        for (HistoryLongTermTicket t : archivedLongTermTickets) {
-            if (t.id() == ticket.id())
-                activeLongTermTickets.remove(t);
         }
 
         return true;
