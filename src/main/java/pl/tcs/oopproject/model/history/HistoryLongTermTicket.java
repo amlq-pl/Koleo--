@@ -47,12 +47,12 @@ public class HistoryLongTermTicket {
     private final Person person;
     private final PricePLN cost;
 
-    public HistoryLongTermTicket(LocalDate startDate, LongTermTicketType longTermTicketType, Discount appliedDiscount, Voucher appliedVoucher, int id, Person person) {
+    public HistoryLongTermTicket(LocalDate startDate, LongTermTicketType longTermTicketType, Discount appliedDiscount, Voucher appliedVoucher, int id, Person person, boolean returned) {
         this.startDate = startDate;
         this.person = person;
         this.longTermTicketType = longTermTicketType;
         this.id = id;
-        returned = false;
+        this.returned = returned;
         cost = getPricePLN(longTermTicketType.cost(), appliedDiscount, appliedVoucher);
     }
 

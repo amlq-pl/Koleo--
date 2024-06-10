@@ -142,6 +142,7 @@ public class TicketGet implements TicketGetter {
         ps.setString(1, login);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
+            boolean returned;
             Discount discount = null;
             Voucher voucher = null;
             Person person;
@@ -162,7 +163,8 @@ public class TicketGet implements TicketGetter {
             if (rs.getString("u_id_ulgi") != null) {
                 discount = new Discount(rs.getString("u_nazwa"), rs.getDouble("u_znizka"));
             }
-            tickets.add(new HistoryLongTermTicket(rs.getDate("timestamp_od").toLocalDate(), new LongTermTicketType(Period.ofDays(Integer.parseInt(okres_waznosci[0])), new PricePLN(rs.getDouble("cena_bazowa")), rs.getString("nazwa_skrocona")), discount, voucher, rs.getInt("id_bilety_okresowe_zamowienia"), person));
+            returned = rs.getString("timestamp_zwrotu") != null;
+            tickets.add(new HistoryLongTermTicket(rs.getDate("timestamp_od").toLocalDate(), new LongTermTicketType(Period.ofDays(Integer.parseInt(okres_waznosci[0])), new PricePLN(rs.getDouble("cena_bazowa")), rs.getString("nazwa_skrocona")), discount, voucher, rs.getInt("id_bilety_okresowe_zamowienia"), person,returned));
         }
         return tickets;
     }
