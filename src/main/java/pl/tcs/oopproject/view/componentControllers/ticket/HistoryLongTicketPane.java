@@ -61,7 +61,7 @@ public class HistoryLongTicketPane extends AnchorPane implements Initializable {
         IdLabel.textProperty().setValue(String.valueOf(ticket.id()));
         NameLabel.textProperty().setValue(ticket.person().getName());
         SurnameLabel.textProperty().setValue(ticket.person().getSurname());
-        BeginDateLabel.textProperty().setValue(ticket.startDate().format(DateTimeFormatter.ofPattern("dd:MM:yyyy")));
+        BeginDateLabel.textProperty().setValue(ticket.startDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         DurationLabel.textProperty().setValue(ticket.longTermTicketType().period().toString());
         CompanyLabel.textProperty().setValue(ticket.longTermTicketType().company());
         CostLabel.textProperty().setValue(ticket.cost().toString());

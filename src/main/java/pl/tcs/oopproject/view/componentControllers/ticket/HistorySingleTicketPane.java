@@ -67,10 +67,10 @@ public class HistorySingleTicketPane extends AnchorPane implements Initializable
         SurnameLabel.textProperty().setValue(ticket.person().getSurname());
         DepStationLabel.textProperty().setValue(ticket.departureStation());
         DepHourLabel.textProperty().setValue(ticket.departureTime()
-                .format(DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm")));
+                .format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")));
         ArrStationLabel.textProperty().setValue(ticket.arrivalStation());
         ArrStationHour.textProperty().setValue(ticket.arrivalTime()
-                .format(DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm")));
+                .format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")));
         SeatLabel.textProperty().setValue(ticket.places().toString());
         CostLabel.textProperty().setValue(ticket.cost().toString());
         RefundButton.visibleProperty().bindBidirectional(isRefundable);

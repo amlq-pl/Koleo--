@@ -45,7 +45,7 @@ public class AccountSceneController implements Initializable {
         AccountName.textProperty().setValue(ActiveUser.getActiveUser());
         Name.textProperty().setValue(ActiveUser.getPerson().getName());
         Surname.textProperty().setValue(ActiveUser.getPerson().getSurname());
-        DateOfBirth.textProperty().setValue(ActiveUser.getPerson().getDateOfBirth().format(DateTimeFormatter.ofPattern("dd:MM:yyyy")));
+        DateOfBirth.textProperty().setValue(ActiveUser.getPerson().getDateOfBirth().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         PhoneNumber.textProperty().setValue(ActiveUser.getPerson().getTelephoneNumber());
         EmailAdress.textProperty().setValue(ActiveUser.getPerson().getEmailAddress());
 
