@@ -39,3 +39,5 @@ Kalisz
 Legnica
 Grudziądz
 Jaworzno
+Szczecinek
+Nowy Sącz
