@@ -2,8 +2,21 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.AccountSceneController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -14,7 +27,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <GridPane layoutX="200.0" layoutY="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GridPane cache="true" focusTraversable="true" gridLinesVisible="true" layoutX="200.0" layoutY="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,27 +43,58 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="IMIĘ" GridPane.rowIndex="1" />
-                                    <Label text="NAZWISKO" GridPane.rowIndex="2" />
-                                    <Label text="DATA URODZENIA" GridPane.rowIndex="3" />
-                                    <Label text="NR TELEFONU" GridPane.rowIndex="4" />
-                                    <Label text="HASŁO" GridPane.rowIndex="6" />
-                                    <Label text="EMAIL" GridPane.rowIndex="5" />
-                                    <Label fx:id="Name" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label fx:id="Surname" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Label fx:id="DateOfBirth" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label fx:id="PhoneNumber" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="EmailAdress" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <Button mnemonicParsing="false" onAction="#NameChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                    <Button mnemonicParsing="false" onAction="#SurnameChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                                    <Button mnemonicParsing="false" onAction="#DateChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                                    <Button mnemonicParsing="false" onAction="#PhoneNumberChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                                    <Button mnemonicParsing="false" onAction="#EmailChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                                    <Button mnemonicParsing="false" onAction="#PasswordChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                                    <Label text="LOGIN" />
-                                    <Button mnemonicParsing="false" onAction="#AccountChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" />
-                                    <Label fx:id="AccountName" text="Label" GridPane.columnIndex="1" />
+                                    <Label text="IMIĘ" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <Label text="NAZWISKO" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                    <Label text="DATA URODZENIA" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                    <Label text="NR TELEFONU" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                                    <Label text="HASŁO" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                                    <Label text="EMAIL" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                                    <Label fx:id="Name" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <Label fx:id="Surname" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                    <Label fx:id="DateOfBirth" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                    <Label fx:id="PhoneNumber" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                                    <Label fx:id="EmailAdress" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                                    <Button mnemonicParsing="false" onAction="#NameChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect></Button>
+                                    <Button mnemonicParsing="false" onAction="#SurnameChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect></Button>
+                                    <Button mnemonicParsing="false" onAction="#DateChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect></Button>
+                                    <Button mnemonicParsing="false" onAction="#PhoneNumberChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect></Button>
+                                    <Button mnemonicParsing="false" onAction="#EmailChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect></Button>
+                                    <Button mnemonicParsing="false" onAction="#PasswordChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect></Button>
+                                    <Button mnemonicParsing="false" onAction="#AccountChangeButtonClick" text="ZMIEŃ" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect></Button>
+                                    <Label text="LOGIN" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                    <Label fx:id="AccountName" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                                  </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                                 <effect>
+                                    <DropShadow height="0.24" radius="0.36250000000000004" width="3.21">
+                                       <color>
+                                          <Color red="0.13748781383037567" green="0.159659281373024" blue="0.8026315569877625" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
                               </GridPane>
                            </children></AnchorPane>
                   </content>
