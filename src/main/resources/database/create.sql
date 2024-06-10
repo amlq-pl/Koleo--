@@ -189,6 +189,11 @@ create index on stacje_posrednie using btree (numer_stacji);
 
 create index on przejazdy using hash (id_przejazdu);
 
+create index on klienci using hash(id_klienta);
+
+create index on konto using hash(login);
+
+create index on klienci using hash(email);
 
 create or replace function getIDTrasy(id_przejazduu int) returns int as
 $$
@@ -227,35 +232,6 @@ begin
             group by sp.id_trasy);
 end;
 $$ language plpgsql;
-
--- create or replace function correctNullsStacjePosrednie() returns trigger as
--- $$
--- declare
---     lastStation int;
--- begin
---     select count(*) into lastStation from trasy t join stacje_posrednie sp on t.id_trasy = sp.id_trasy where t.id_trasy = new.id_trasy;
---     if new.numer_stacji = 1 then
---         if new.czas_postoju is not null or new.czas_przejazdu is not null then
---             raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
---         end if;
---     elsif new.numer_stacji = lastStation then
---         if new.czas_postoju is not null or new.czas_przejazdu is null then
---             raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
---         end if;
---     else
---         if new.czas_postoju is null or new.czas_przejazdu is null then
---             raise exception 'błędny czas przy imporcie danych do tabeli stacje_posrednie';
---         end if;
---     end if;
---     return new;
--- end;
--- $$ language plpgsql;
---
--- create trigger correctNullsInStacjePosrednie
---     before insert
---     on stacje_posrednie
---     for each row
--- execute procedure correctNullsStacjePosrednie();
 
 create or replace function discardNullAcc() returns trigger as
 $$
