@@ -90,7 +90,6 @@ public class TrainSearchSceneController implements Initializable {
             Stage stage = (Stage) ArrStation.getScene().getWindow();
             stage.close();
         } catch (NullPointerException e) {
-            System.out.println("Null pointer");
             return;
         }
 
@@ -236,7 +235,6 @@ public class TrainSearchSceneController implements Initializable {
     }
 
     public void BuyLongTermTicket() {
-        System.out.println(ActiveUser.getActiveUser());
         if (ActiveUser.getActiveUser() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Zaloguj się aby kupić");

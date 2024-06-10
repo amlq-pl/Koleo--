@@ -104,18 +104,10 @@ public class AccountSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        System.out.println(activeTickets);
-        System.out.println(activeLongTerm);
-        System.out.println(nonActiveTickets);
-        System.out.println(nonActiveLongTerm);
-
         ActiveTickets.getChildren().clear();
         NonActiveTickets.getChildren().clear();
         ActiveLongTerm.getChildren().clear();
         NonActiveLongTerm.getChildren().clear();
-
-
-        System.out.println(activeLongTerm);
 
         activeTickets.forEach(c -> {
             HistorySingleTicketPane pane = new HistorySingleTicketPane(c, this, true);
