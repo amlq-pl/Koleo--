@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<AnchorPane prefHeight="480.0" prefWidth="747.0" styleClass="main-anchor-pane" stylesheets="@../styles/landing-scene.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.LandingSceneController">
+<AnchorPane prefHeight="480.0" prefWidth="747.0" styleClass="main-anchor-pane" stylesheets="@../styles/landing-scene.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tcs.oopproject.view.sceneControllers.LandingSceneController">
       <VBox id="button-vbox" alignment="TOP_RIGHT" prefHeight="480.0" prefWidth="237.0" spacing="10.0" styleClass="button-vbox" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <AnchorPane prefHeight="95.0" prefWidth="283.0">
                   <Button fx:id="SignUpButton" layoutX="153.0" layoutY="14.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#SignUpClicked" prefHeight="28.0" prefWidth="144.0" text="ZAREJESTRUJ SIĘ" textFill="WHITE" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
