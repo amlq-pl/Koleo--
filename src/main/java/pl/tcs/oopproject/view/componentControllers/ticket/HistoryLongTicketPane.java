@@ -70,11 +70,12 @@ public class HistoryLongTicketPane extends AnchorPane implements Initializable {
         RefundButton.setOnAction(c -> {
             try {
                 controller.history.refundLongTermTicket(ticket);
+
+                controller.reload();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
 
-            controller.reload();
         });
     }
 }
