@@ -129,7 +129,7 @@ public class TicketGet implements TicketGetter {
     @Override
     public ArrayList<HistoryLongTermTicket> getLongTermTickets(String login) throws SQLException {
         ArrayList<HistoryLongTermTicket> tickets = new ArrayList<>();
-        PreparedStatement ps = DB.connection.prepareStatement("select bo.id_podrozujacego,kl.imie,kl.nazwisko,kl.data_urodzenia,kl.email,kl.nr_telefonu,cbo.okres_waznosci,r.id_rabatu as r_id_rabatu,r.nazwa as r_nazwa, r.znizka as r_znizka,u.id_ulgi as u_id_ulgi,u.znizka as u_znizka, u.nazwa as u_nazwa,bo.timestamp_od,cbo.cena_bazowa,p.nazwa_skrocona,boz.id_bilety_okresowe_zamowienia from konto ko join klienci kl on ko.id_klienta = kl.id_klienta " +
+        PreparedStatement ps = DB.connection.prepareStatement("select bo.id_podrozujacego,kl.imie,kl.nazwisko,kl.data_urodzenia,kl.email,kl.nr_telefonu,cbo.okres_waznosci,r.id_rabatu as r_id_rabatu,r.nazwa as r_nazwa, r.znizka as r_znizka,u.id_ulgi as u_id_ulgi,u.znizka as u_znizka, u.nazwa as u_nazwa,bo.timestamp_od,cbo.cena_bazowa,p.nazwa_skrocona,boz.id_bilety_okresowe_zamowienia,boz.timestamp_zwrotu from konto ko join klienci kl on ko.id_klienta = kl.id_klienta " +
                 "join zamowienia z on kl.id_klienta = z.id_klienta " +
                 "join bilety_okresowe_zamowienia boz on z.id_zamowienia = boz.id_zamowienia " +
                 "join bilety_okresowe bo on boz.id_bilety_okresowe_zamowienia = bo.id_bilety_okresowe_zamowienia " +
