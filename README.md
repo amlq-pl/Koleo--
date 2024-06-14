@@ -1,3 +1,9 @@
+# 0. Korzystanie z aplikacji
+
+Do korzystania z aplikacji wymagany jest system Linux z zainstalowanym PostgreSQL 16.3.
+Przed włączeniem aplikacji należy uruchomić skrypt `create.sh` z folderu `Koleo--/src/main/resources/database` przygotowywujący bazę danych.
+Aplikację można uruchomić poprzez `java -jar Koleo---1.0-SNAPSHOT.jar`.
+
 # 1. Tytuł projektu: Koleo − −
 
 # 2. Skład grupy projektowej:
